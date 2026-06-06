@@ -8,6 +8,7 @@ import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
 import 'self_paced_screen.dart';
 import 'battle_screen.dart';
+import 'church_groups_screen.dart';
 
 class ChallengesScreen extends StatefulWidget {
   const ChallengesScreen({super.key});
@@ -359,6 +360,10 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
 
                         // 4. Battle a Friend Card
                         _buildBattleCard(),
+                        const SizedBox(height: 20),
+
+                        // 5. Church Groups Card
+                        _buildChurchGroupsCard(),
                         const SizedBox(height: 80), // Padding for bottom nav
                       ],
                     ),
@@ -603,6 +608,108 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                   icon: const Icon(Icons.flash_on_rounded, size: 18),
                   label: const Text(
                     "CHALLENGE NOW",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: displayAccentColor,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildChurchGroupsCard() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    const accentColor = Color(0xFF6C4AB6);
+    final displayAccentColor = isDark ? accentColor : const Color(0xFF533483);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: isDark ? 15 : 0, sigmaY: isDark ? 15 : 0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: isDark ? Colors.white.withValues(alpha: 0.07) : Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: isDark
+                  ? accentColor.withValues(alpha: 0.5)
+                  : accentColor.withValues(alpha: 0.35),
+              width: 1.5,
+            ),
+            boxShadow: isDark
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    )
+                  ],
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: displayAccentColor.withValues(alpha: 0.15),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.groups_rounded, color: displayAccentColor, size: 28),
+                  ),
+                  const SizedBox(width: 16),
+                  Text(
+                    "👥 Church Groups",
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              Text(
+                "Join your church community, compete with other members on the leaderboard, and participate in challenges created by your pastor!",
+                style: TextStyle(
+                  color: subTextColor,
+                  fontSize: 14,
+                  fontFamily: 'Outfit',
+                ),
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const ChurchGroupsScreen()),
+                    );
+                  },
+                  icon: const Icon(Icons.arrow_forward_rounded, size: 18),
+                  label: const Text(
+                    "OPEN GROUPS",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,

@@ -470,6 +470,47 @@ class Achievement {
           requiredCount: 7,
           icon: Icons.local_florist_rounded,
         ),
+        // Church Groups Achievements
+        Achievement(
+          id: "fellowship",
+          title: "Fellowship",
+          description: "Join a church group",
+          type: "church_groups",
+          requiredCount: 1,
+          icon: Icons.group_add_rounded,
+        ),
+        Achievement(
+          id: "group_leader",
+          title: "Group Leader",
+          description: "Create a church group",
+          type: "church_groups",
+          requiredCount: 1,
+          icon: Icons.gavel_rounded,
+        ),
+        Achievement(
+          id: "community_builder",
+          title: "Community Builder",
+          description: "Have 10+ members in your group",
+          type: "church_groups",
+          requiredCount: 10,
+          icon: Icons.groups_rounded,
+        ),
+        Achievement(
+          id: "challenge_champion",
+          title: "Challenge Champion",
+          description: "Win 3 group challenges",
+          type: "church_groups",
+          requiredCount: 3,
+          icon: Icons.emoji_events_rounded,
+        ),
+        Achievement(
+          id: "shepherd",
+          title: "Shepherd",
+          description: "Create 5 group challenges",
+          type: "church_groups",
+          requiredCount: 5,
+          icon: Icons.assignment_turned_in_rounded,
+        ),
       ];
 }
 

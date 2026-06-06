@@ -102,6 +102,14 @@ class UserDataProvider extends ChangeNotifier {
   int _prayersOffered = 0;
   int _totalShares = 0;
 
+  // Group statistics fields
+  int _joinedGroupsCount = 0;
+  int _createdGroupsCount = 0;
+  int _maxGroupSize = 0;
+  int _challengesWon = 0;
+  int _challengesCreated = 0;
+  List<String> _wonChallengeIds = [];
+
   // Stream Subscription for Firestore syncing
   StreamSubscription<DocumentSnapshot>? _userDocSubscription;
 
@@ -219,6 +227,13 @@ class UserDataProvider extends ChangeNotifier {
   List<String> get unlockedTitles => _unlockedTitles;
   int get prayersOffered => _prayersOffered;
   int get totalQuestionsAnswered => _totalQuestionsAnswered;
+
+  int get joinedGroupsCount => _joinedGroupsCount;
+  int get createdGroupsCount => _createdGroupsCount;
+  int get maxGroupSize => _maxGroupSize;
+  int get challengesWon => _challengesWon;
+  int get challengesCreated => _challengesCreated;
+  List<String> get wonChallengeIds => _wonChallengeIds;
 
   // Reading plan getters
   int get completedReadingPlansCount => _completedReadingPlansCount;
@@ -462,6 +477,12 @@ class UserDataProvider extends ChangeNotifier {
       _unlockedTitles.add('novice');
     }
     _prayersOffered = data['prayersOffered'] ?? 0;
+    _joinedGroupsCount = data['joinedGroupsCount'] ?? 0;
+    _createdGroupsCount = data['createdGroupsCount'] ?? 0;
+    _maxGroupSize = data['maxGroupSize'] ?? 0;
+    _challengesWon = data['challengesWon'] ?? 0;
+    _challengesCreated = data['challengesCreated'] ?? 0;
+    _wonChallengeIds = List<String>.from(data['wonChallengeIds'] ?? []);
 
     if (data['lastPlayDate'] != null) {
       _lastPlayDate = DateTime.tryParse(data['lastPlayDate'].toString());
@@ -746,6 +767,24 @@ class UserDataProvider extends ChangeNotifier {
         case 'unlockedTitles':
           updates['unlockedTitles'] = _unlockedTitles;
           break;
+        case 'joinedGroupsCount':
+          updates['joinedGroupsCount'] = _joinedGroupsCount;
+          break;
+        case 'createdGroupsCount':
+          updates['createdGroupsCount'] = _createdGroupsCount;
+          break;
+        case 'maxGroupSize':
+          updates['maxGroupSize'] = _maxGroupSize;
+          break;
+        case 'challengesWon':
+          updates['challengesWon'] = _challengesWon;
+          break;
+        case 'challengesCreated':
+          updates['challengesCreated'] = _challengesCreated;
+          break;
+        case 'wonChallengeIds':
+          updates['wonChallengeIds'] = _wonChallengeIds;
+          break;
       }
     }
 
@@ -1028,6 +1067,62 @@ class UserDataProvider extends ChangeNotifier {
     return _bookmarkedQuestionIds.contains(questionId);
   }
 
+  void incrementJoinedGroups() {
+    _joinedGroupsCount++;
+    _markDirty('joinedGroupsCount');
+    checkAchievements();
+    notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
+  }
+
+  void decrementJoinedGroups() {
+    if (_joinedGroupsCount > 0) {
+      _joinedGroupsCount--;
+      _markDirty('joinedGroupsCount');
+      checkAchievements();
+      notifyListeners();
+      _enqueueWrite(() => _saveToFirestore());
+    }
+  }
+
+  void incrementCreatedGroups() {
+    _createdGroupsCount++;
+    _markDirty('createdGroupsCount');
+    checkAchievements();
+    notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
+  }
+
+  void updateMaxGroupSize(int size) {
+    if (size > _maxGroupSize) {
+      _maxGroupSize = size;
+      _markDirty('maxGroupSize');
+      checkAchievements();
+      notifyListeners();
+      _enqueueWrite(() => _saveToFirestore());
+    }
+  }
+
+  void recordChallengeWin(String challengeId) {
+    if (!_wonChallengeIds.contains(challengeId)) {
+      _wonChallengeIds.add(challengeId);
+      _challengesWon = _wonChallengeIds.length;
+      _markDirty('wonChallengeIds');
+      _markDirty('challengesWon');
+      checkAchievements();
+      notifyListeners();
+      _enqueueWrite(() => _saveToFirestore());
+    }
+  }
+
+  void incrementChallengesCreated() {
+    _challengesCreated++;
+    _markDirty('challengesCreated');
+    checkAchievements();
+    notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
+  }
+
   List<String> getBookmarkedQuestions() {
     return _bookmarkedQuestionIds.toList();
   }
@@ -1253,6 +1348,20 @@ class UserDataProvider extends ChangeNotifier {
             progress = bloomCount;
             meetsCondition = bloomCount >= 7;
           }
+          break;
+        case 'church_groups':
+          if (achievement.id == "fellowship") {
+            progress = _joinedGroupsCount;
+          } else if (achievement.id == "group_leader") {
+            progress = _createdGroupsCount;
+          } else if (achievement.id == "community_builder") {
+            progress = _maxGroupSize;
+          } else if (achievement.id == "challenge_champion") {
+            progress = _challengesWon;
+          } else if (achievement.id == "shepherd") {
+            progress = _challengesCreated;
+          }
+          meetsCondition = progress >= achievement.requiredCount;
           break;
       }
 

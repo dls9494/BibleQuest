@@ -7,6 +7,7 @@ import '../models/quiz.dart';
 import '../models/flashcard.dart';
 import '../models/prayer_request.dart';
 import '../models/referral.dart';
+import '../models/church_group.dart';
 import 'real_questions.dart';
 
 class FirebaseService {
@@ -1506,5 +1507,208 @@ class FirebaseService {
         .where((d) => d.id != currentUserId)
         .map((d) => d.data())
         .toList();
+  }
+
+  // ── Church Groups Service Methods ──
+
+  static Future<String> generateUniqueGroupJoinCode() async {
+    final random = Random();
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    while (true) {
+      String code = '';
+      for (int i = 0; i < 6; i++) {
+        code += chars[random.nextInt(chars.length)];
+      }
+      final query = await FirebaseFirestore.instance
+          .collection('church_groups')
+          .where('joinCode', isEqualTo: code)
+          .limit(1)
+          .get();
+      if (query.docs.isEmpty) {
+        return code;
+      }
+    }
+  }
+
+  static Future<ChurchGroup> createChurchGroup(
+      String userId, String pastorName, String name, String description) async {
+    final joinCode = await generateUniqueGroupJoinCode();
+    final docRef = FirebaseFirestore.instance.collection('church_groups').doc();
+    final group = ChurchGroup(
+      id: docRef.id,
+      name: name,
+      description: description,
+      pastorId: userId,
+      pastorName: pastorName,
+      joinCode: joinCode,
+      memberIds: [userId],
+      memberNames: [pastorName],
+      createdAt: DateTime.now(),
+      totalMembers: 1,
+    );
+    await docRef.set(group.toMap());
+    return group;
+  }
+
+  static Future<ChurchGroup> joinChurchGroup(
+      String userId, String userName, String joinCode) async {
+    final cleanCode = joinCode.trim().toUpperCase();
+    final query = await FirebaseFirestore.instance
+        .collection('church_groups')
+        .where('joinCode', isEqualTo: cleanCode)
+        .limit(1)
+        .get();
+    if (query.docs.isEmpty) {
+      throw Exception('Group not found. Please check the code.');
+    }
+    final doc = query.docs.first;
+    final data = doc.data();
+    final List<String> memberIds = List<String>.from(data['memberIds'] ?? []);
+    final List<String> memberNames = List<String>.from(data['memberNames'] ?? []);
+
+    if (!memberIds.contains(userId)) {
+      memberIds.add(userId);
+      memberNames.add(userName);
+      await doc.reference.update({
+        'memberIds': memberIds,
+        'memberNames': memberNames,
+        'totalMembers': memberIds.length,
+      });
+    }
+
+    final updatedData = Map<String, dynamic>.from(data);
+    updatedData['memberIds'] = memberIds;
+    updatedData['memberNames'] = memberNames;
+    updatedData['totalMembers'] = memberIds.length;
+    return ChurchGroup.fromFirestore(updatedData, doc.id);
+  }
+
+  static Future<void> leaveChurchGroup(String userId, String groupId) async {
+    final docRef = FirebaseFirestore.instance.collection('church_groups').doc(groupId);
+    final doc = await docRef.get();
+    if (!doc.exists) return;
+    final data = doc.data()!;
+    final List<String> memberIds = List<String>.from(data['memberIds'] ?? []);
+    final List<String> memberNames = List<String>.from(data['memberNames'] ?? []);
+
+    final idx = memberIds.indexOf(userId);
+    if (idx >= 0) {
+      memberIds.removeAt(idx);
+      if (idx < memberNames.length) {
+        memberNames.removeAt(idx);
+      }
+      await docRef.update({
+        'memberIds': memberIds,
+        'memberNames': memberNames,
+        'totalMembers': memberIds.length,
+      });
+    }
+  }
+
+  static Stream<List<ChurchGroup>> getUserGroups(String userId) {
+    return FirebaseFirestore.instance
+        .collection('church_groups')
+        .where('memberIds', arrayContains: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => ChurchGroup.fromFirestore(doc.data(), doc.id))
+            .toList());
+  }
+
+  static Stream<List<Map<String, dynamic>>> getGroupLeaderboard(String groupId) {
+    return FirebaseFirestore.instance
+        .collection('church_groups')
+        .doc(groupId)
+        .snapshots()
+        .asyncMap((groupDoc) async {
+      if (!groupDoc.exists || groupDoc.data() == null) return [];
+      final data = groupDoc.data()!;
+      final memberIds = List<String>.from(data['memberIds'] ?? []);
+      final memberNames = List<String>.from(data['memberNames'] ?? []);
+      if (memberIds.isEmpty) return [];
+
+      final futures = memberIds.map((uid) => FirebaseFirestore.instance.collection('users').doc(uid).get());
+      final docs = await Future.wait(futures);
+
+      final List<Map<String, dynamic>> members = [];
+      for (var i = 0; i < docs.length; i++) {
+        final doc = docs[i];
+        if (doc.exists && doc.data() != null) {
+          final userData = doc.data()!;
+          members.add({
+            'uid': doc.id,
+            'displayName': userData['displayName'] ?? (i < memberNames.length ? memberNames[i] : 'Member'),
+            'username': userData['username'] ?? '',
+            'totalXp': userData['totalXp'] ?? 0,
+            'activeTitle': userData['activeTitle'] ?? '',
+            'photoURL': userData['photoURL'],
+          });
+        } else {
+          members.add({
+            'uid': memberIds[i],
+            'displayName': i < memberNames.length ? memberNames[i] : 'Member',
+            'username': '',
+            'totalXp': 0,
+            'activeTitle': '',
+            'photoURL': null,
+          });
+        }
+      }
+
+      members.sort((a, b) => (b['totalXp'] as int).compareTo(a['totalXp'] as int));
+      return members;
+    });
+  }
+
+  static Future<GroupChallenge> createGroupChallenge(
+      String groupId, String title, String description, int quizLevel, DateTime endDate) async {
+    final docRef = FirebaseFirestore.instance.collection('group_challenges').doc();
+    final challenge = GroupChallenge(
+      id: docRef.id,
+      groupId: groupId,
+      title: title,
+      description: description,
+      quizLevel: quizLevel,
+      startDate: DateTime.now(),
+      endDate: endDate,
+      participantScores: {},
+    );
+    await docRef.set(challenge.toMap());
+    return challenge;
+  }
+
+  static Stream<List<GroupChallenge>> getGroupChallenges(String groupId) {
+    return FirebaseFirestore.instance
+        .collection('group_challenges')
+        .where('groupId', isEqualTo: groupId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => GroupChallenge.fromFirestore(doc.data(), doc.id))
+            .toList());
+  }
+
+  static Future<void> submitGroupChallengeScore(String challengeId, String userId, int score) async {
+    final docRef = FirebaseFirestore.instance.collection('group_challenges').doc(challengeId);
+    await docRef.update({
+      'participantScores.$userId': score,
+    });
+  }
+
+  static Future<ChurchGroup?> getGroupById(String groupId) async {
+    final doc = await FirebaseFirestore.instance.collection('church_groups').doc(groupId).get();
+    if (doc.exists && doc.data() != null) {
+      return ChurchGroup.fromFirestore(doc.data()!, doc.id);
+    }
+    return null;
+  }
+
+  static Stream<ChurchGroup?> getGroupStream(String groupId) {
+    return FirebaseFirestore.instance
+        .collection('church_groups')
+        .doc(groupId)
+        .snapshots()
+        .map((doc) => doc.exists && doc.data() != null
+            ? ChurchGroup.fromFirestore(doc.data()!, doc.id)
+            : null);
   }
 }

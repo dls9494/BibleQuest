@@ -19,12 +19,14 @@ class SelfPacedScreen extends StatefulWidget {
   final Quiz quiz;
   final List<Question>? questions;
   final bool isDailyChallenge;
+  final String? groupChallengeId;
 
   const SelfPacedScreen({
     super.key,
     required this.quiz,
     this.questions,
     this.isDailyChallenge = false,
+    this.groupChallengeId,
   });
 
   @override
@@ -194,6 +196,10 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
     } else {
       userProvider.addXp(xp);
       await FirebaseService.submitScore(uid, displayName, _score);
+    }
+
+    if (widget.groupChallengeId != null) {
+      await FirebaseService.submitGroupChallengeScore(widget.groupChallengeId!, uid, _score);
     }
 
     for (int i = 0; i < _questions.length; i++) {
