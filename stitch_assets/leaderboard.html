@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leaderboard - Luminous Wisdom</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#958e9d",
+                        "surface-container-highest": "#333535",
+                        "on-secondary-fixed": "#0f1a37",
+                        "tertiary": "#f7bc64",
+                        "on-tertiary-fixed": "#291800",
+                        "on-tertiary-container": "#ffd295",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#f7bc64",
+                        "primary-container": "#6c4ab6",
+                        "surface-container-high": "#282a2b",
+                        "on-primary-fixed-variant": "#532f9b",
+                        "error-container": "#93000a",
+                        "on-background": "#e2e2e2",
+                        "secondary-fixed-dim": "#bbc5eb",
+                        "on-tertiary": "#442b00",
+                        "on-primary-fixed": "#24005b",
+                        "primary-fixed": "#eaddff",
+                        "on-primary-container": "#e2d3ff",
+                        "inverse-surface": "#e2e2e2",
+                        "inverse-primary": "#6b49b5",
+                        "surface-container-lowest": "#0c0f0f",
+                        "surface-container-low": "#1a1c1c",
+                        "on-surface": "#e2e2e2",
+                        "on-secondary": "#252f4d",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#dae1ff",
+                        "surface-tint": "#d1bcff",
+                        "inverse-on-surface": "#2f3131",
+                        "primary": "#d1bcff",
+                        "tertiary-container": "#825600",
+                        "on-secondary-fixed-variant": "#3b4665",
+                        "on-surface-variant": "#cbc3d4",
+                        "on-error": "#690005",
+                        "surface-dim": "#121414",
+                        "primary-fixed-dim": "#d1bcff",
+                        "tertiary-fixed": "#ffddb2",
+                        "surface-bright": "#38393a",
+                        "secondary": "#bbc5eb",
+                        "surface": "#121414",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "background": "#121414",
+                        "surface-variant": "#333535",
+                        "outline-variant": "#494552",
+                        "on-secondary-container": "#aab4d9",
+                        "secondary-container": "#3b4665",
+                        "on-primary": "#3c1084"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "section-gap": "40px",
+                        "element-gap": "16px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "body-md": ["Outfit"],
+                        "headline-lg-mobile": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "telugu": ["Noto Serif Telugu", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-card-gold {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(247, 188, 100, 0.5); /* tertiary color */
+        }
+        .glass-card-user {
+             background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(108, 74, 182, 0.5); /* primary-container */
+            box-shadow: 0 0 15px rgba(108, 74, 182, 0.3);
+        }
+        body {
+            /* Fallback for bg gradient, though TW handles it */
+            background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%);
+            background-attachment: fixed;
+        }
+        .telugu-text {
+            font-family: 'Noto Serif Telugu', serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-background font-body-md min-h-screen bg-gradient-to-b from-[#1a1a2e] to-[#0f3460] pt-16 pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-padding h-16 bg-white/10 dark:bg-surface/10 backdrop-blur-xl border-b border-white/20 transition-all duration-300">
+<button class="text-primary hover:opacity-80 transition-all duration-300">
+<span class="material-symbols-outlined font-headline-md text-headline-md">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Luminous Wisdom</h1>
+<button class="text-primary hover:opacity-80 transition-all duration-300">
+<span class="material-symbols-outlined font-headline-md text-headline-md">notifications</span>
+</button>
+</header>
+<main class="px-container-padding pt-element-gap space-y-section-gap">
+<!-- My Stats Section -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-element-gap">My Stats</h2>
+<div class="glass-card-gold rounded-xl p-element-gap grid grid-cols-2 gap-element-gap">
+<div class="flex flex-col items-center justify-center">
+<span class="text-outline font-label-md text-label-md uppercase">Total Quizzes</span>
+<span class="text-tertiary font-headline-md text-headline-md">24</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-outline font-label-md text-label-md uppercase">Avg Score</span>
+<span class="text-tertiary font-headline-md text-headline-md">85%</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-outline font-label-md text-label-md uppercase">Best Score</span>
+<span class="text-tertiary font-headline-md text-headline-md">1150</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-outline font-label-md text-label-md uppercase">Total XP</span>
+<span class="text-tertiary font-headline-md text-headline-md">4500</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-outline font-label-md text-label-md uppercase">Level</span>
+<span class="text-tertiary font-headline-md text-headline-md">12</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="text-outline font-label-md text-label-md uppercase">Streak</span>
+<span class="text-tertiary font-headline-md text-headline-md">5 Days</span>
+</div>
+</div>
+</section>
+<!-- Leaderboard Section -->
+<section class="space-y-element-gap">
+<!-- Tabs -->
+<div class="flex justify-between glass-card rounded-lg p-1">
+<button class="flex-1 py-2 text-center rounded-md bg-white/10 text-on-surface font-label-md text-label-md transition-all duration-300">Weekly</button>
+<button class="flex-1 py-2 text-center rounded-md text-outline hover:text-on-surface font-label-md text-label-md transition-all duration-300">Monthly</button>
+<button class="flex-1 py-2 text-center rounded-md text-outline hover:text-on-surface font-label-md text-label-md transition-all duration-300">All Time</button>
+</div>
+<!-- List -->
+<div class="space-y-base">
+<!-- Rank 1 -->
+<div class="glass-card-gold rounded-lg p-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">Seeker_Alpha</p>
+</div>
+<div class="text-tertiary font-headline-md text-headline-md">
+                        1200
+                    </div>
+</div>
+<!-- Rank 2 -->
+<div class="glass-card rounded-lg p-3 flex items-center gap-3 border-outline">
+<div class="w-8 h-8 rounded-full bg-outline/20 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">Faith_Runner</p>
+</div>
+<div class="text-outline font-headline-md text-headline-md">
+                        1180
+                    </div>
+</div>
+<!-- Rank 3 -->
+<div class="glass-card rounded-lg p-3 flex items-center gap-3 border-[#cd7f32]">
+<div class="w-8 h-8 rounded-full bg-[#cd7f32]/20 flex items-center justify-center text-[#cd7f32]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">Grace_Finder</p>
+</div>
+<div class="text-[#cd7f32] font-headline-md text-headline-md">
+                        1150
+                    </div>
+</div>
+<!-- ... other ranks ... -->
+<div class="glass-card rounded-lg p-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full flex items-center justify-center text-outline font-label-md text-label-md">
+                        4
+                    </div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">Word_Walker</p>
+</div>
+<div class="text-outline font-body-md text-body-md">
+                        1100
+                    </div>
+</div>
+<!-- User Entry (Rank 12) -->
+<div class="glass-card-user rounded-lg p-3 flex items-center gap-3 mt-4 relative">
+<div class="w-8 h-8 rounded-full flex items-center justify-center text-primary font-label-md text-label-md bg-primary-container/20">
+                        12
+                    </div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-primary font-medium">Seeker of Truth</p>
+<p class="text-xs text-outline">You</p>
+</div>
+<div class="text-primary font-headline-md text-headline-md">
+                        850
+                    </div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-container-padding py-3 bg-white/10 dark:bg-surface/10 backdrop-blur-xl border-t border-white/20 rounded-t-xl md:hidden">
+<button class="flex flex-col items-center justify-center text-outline hover:bg-white/5 active:scale-95 transition-transform duration-200 p-2 rounded-lg w-16">
+<span class="material-symbols-outlined mb-1">quiz</span>
+<span class="font-label-md text-[10px]">Quiz</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-4 py-1 shadow-[0_0_15px_rgba(108,74,182,0.3)] hover:bg-white/5 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1">leaderboard</span>
+<span class="font-label-md text-[10px]">Leaderboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-outline hover:bg-white/5 active:scale-95 transition-transform duration-200 p-2 rounded-lg w-16">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-md text-[10px]">Profile</span>
+</button>
+</nav>
+</body></html>

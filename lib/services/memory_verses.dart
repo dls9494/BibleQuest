@@ -1,0 +1,223 @@
+import 'dart:math';
+import 'verse_of_the_day.dart';
+
+class MemoryVersesService {
+  static const List<DailyVerse> verses = [
+    DailyVerse(
+      referenceEn: "John 3:16",
+      referenceTe: "యోహాను 3:16",
+      verseEn: "For God so loved the world that He gave His only begotten Son, that whoever believes in Him should not perish but have everlasting life.",
+      verseTe: "దేవుడు లోకమును ఎంతో ప్రేమించెను, ఆయన తన అద్వితీయకుమారునిగా పుట్టిన వానియందు విశ్వాసముంచు ప్రతివాడును నశింపక నిత్యజీవము పొందునట్లు ఆయనను అనుగ్రహించెను.",
+      topic: "Love",
+    ),
+    DailyVerse(
+      referenceEn: "Romans 8:38-39",
+      referenceTe: "రోమీయులకు 8:38-39",
+      verseEn: "For I am persuaded that neither death nor life, nor angels nor principalities nor powers, nor things present nor things to come, nor height nor depth, nor any other created thing, shall be able to separate us from the love of God which is in Christ Jesus our Lord.",
+      verseTe: "మరణమైనను జీవమైనను దేవదూతలైనను ప్రధానులైనను ఉన్నవియైనను రాబోవునవియైనను अधिकारियोंలైనను ఎత్తయినను లోతైనను సృష్టింపబడిన మరి ఏదోకటైనను మన ప్రభువైన క్రీస్తుయేసునందలి దేవుని ప్రేమనుండి మనలను ఎడబాపనేరవని రూఢిగా నమ్ముచున్నాను.",
+      topic: "Grace",
+    ),
+    DailyVerse(
+      referenceEn: "1 Corinthians 13:4-7",
+      referenceTe: "1 కోరింథీయులకు 13:4-7",
+      verseEn: "Love suffers long and is kind; love does not envy; love does not parade itself, is not puffed up; does not behave rudely, does not seek its own, is not provoked, thinks no evil; does not rejoice in iniquity, but rejoices in the truth; bears all things, believes all things, hopes all things, endures all things.",
+      verseTe: "ప్రేమ దీర్ఘకాలము సహించును, అది దయ చూపించును. ప్రేమ మత్సరపడదు, ప్రేమ డంబముగా ప్రవర్తింపదు, అది ఉప్పొంగదు; అమర్యాదగా నడువదు, స్వప్రయోజనమును విచారించుకొనదు, త్వరగా కోపపడదు, అపకారమును మనస్సున ఉంచుకొనదు; దుర్నీతియందు సంతోషింపక సత్యమునందు సంతోషించును; అన్నిటికి తాళుకొనును, అన్నిటిని నమ్మును, అన్నిటిని నిరీక్షించును, అన్నిటిని ఓర్చును.",
+      topic: "Love",
+    ),
+    DailyVerse(
+      referenceEn: "Ephesians 2:8",
+      referenceTe: "ఎఫెసీయులకు 2:8",
+      verseEn: "For by grace you have been saved through faith, and that not of yourselves; it is the gift of God.",
+      verseTe: "ఏలయనగా మీరు విశ్వాసముద్వారా కృపచేతనే రక్షింపబడియున్నారు; ఇది మీవలన కలిగినది కాదు, దేవుని వరమే.",
+      topic: "Grace",
+    ),
+    DailyVerse(
+      referenceEn: "1 John 4:19",
+      referenceTe: "1 యోహాను 4:19",
+      verseEn: "We love Him because He first loved us.",
+      verseTe: "ఆయనే మొదట మనలను ప్రేమించెను గనుక మనము ప్రేమించుచుాము.",
+      topic: "Love",
+    ),
+    DailyVerse(
+      referenceEn: "Proverbs 3:5-6",
+      referenceTe: "సామెతలు 3:5-6",
+      verseEn: "Trust in the Lord with all your heart, and lean not on your own understanding; in all your ways acknowledge Him, and He shall direct your paths.",
+      verseTe: "నీ స్వబుద్ధిని ఆధారము చేసికొనక నీ పూర్ణహృదయముతో యెహోవాయందు నమ్మకముంచుము. నీ ప్రవర్తన అంతటియందు ఆయన అధికారమును ఒప్పుకొనుము అప్పుడు ఆయన నీ త్రోవలను సరళము చేయును.",
+      topic: "Trust",
+    ),
+    DailyVerse(
+      referenceEn: "Hebrews 11:1",
+      referenceTe: "హెబ్రీయులకు 11:1",
+      verseEn: "Now faith is the substance of things hoped for, the evidence of things not seen.",
+      verseTe: "విశ్వాసమనునది నిరీక్షింపబడువాటియొక్క నిజస్వరూపమును, అదృశ్యమైనవి యున్నవనుటకు రుజువునై యున్నది.",
+      topic: "Faith",
+    ),
+    DailyVerse(
+      referenceEn: "Matthew 17:20",
+      referenceTe: "మత్తయి 17:20",
+      verseEn: "If you have faith as a mustard seed, you will say to this mountain, 'Move from here to there,' and it will move; and nothing will be impossible for you.",
+      verseTe: "మీకు ఆవగింజంత విశ్వాసముండినయెడల ఈ కొండను చూచి—ఇక్కడనుండి అక్కడికి పొమ్మనగానే అది పోవును; మీకు అసాధ్యమైనది ఏదియు ఉండదని నిశ్చయముగా మీతో చెప్పుచున్నాను.",
+      topic: "Faith",
+    ),
+    DailyVerse(
+      referenceEn: "Romans 10:17",
+      referenceTe: "రోమీయులకు 10:17",
+      verseEn: "So then faith comes by hearing, and hearing by the word of God.",
+      verseTe: "కాగా వినుటవలన విశ్వాసము కలుగును, వినుట క్రీస్తునుగూర్చిన మాటవలన కలుగును.",
+      topic: "Faith",
+    ),
+    DailyVerse(
+      referenceEn: "James 1:6",
+      referenceTe: "యాకోబు 1:6",
+      verseEn: "But let him ask in faith, with no doubting, for he who doubts is like a wave of the sea driven and tossed by the wind.",
+      verseTe: "అయితే అతడు ఏమాత్రమును సందేహింపక విశ్వాసముతో అడుగవలెను; సందేహించువాడు గాలిచేత కొట్టుకొనిపోవుచు ఎగిరిపడు సముద్రపు తరంగమును పోలియుండును.",
+      topic: "Trust",
+    ),
+    DailyVerse(
+      referenceEn: "Jeremiah 29:11",
+      referenceTe: "యిర్మీయా 29:11",
+      verseEn: "For I know the thoughts that I think toward you, says the Lord, thoughts of peace and not of evil, to give you a future and a hope.",
+      verseTe: "నేను మిమ్మునుగూర్చి ఉద్దేశించిన సంగతులను నేనెరుగుదును, అవి సమాధానకరమైన ఉద్దేశములేగాని హానికరమైనవి కావు; మీకు నిరీక్షణతోకూడిన భావికాలము కలుగజేయుటకై యెహోవా వాక్కు.",
+      topic: "Hope",
+    ),
+    DailyVerse(
+      referenceEn: "Isaiah 40:31",
+      referenceTe: "యెషయా 40:31",
+      verseEn: "But those who wait on the Lord shall renew their strength; they shall mount up with wings like eagles, they shall run and not be weary, they shall walk and not faint.",
+      verseTe: "యెహోవాకొరకు ఎదురుచూచువారు నూతన బలము పొందుదురు, వారు పక్షిరాజులవలె రెక్కలు చాపి పైకి ఎగురుదురు, అలయక పరుగెత్తుదురు, సొమ్మసిల్లక నడిచిపోవుదురు.",
+      topic: "Hope",
+    ),
+    DailyVerse(
+      referenceEn: "Psalm 23:4",
+      referenceTe: "కీర్తనలు 23:4",
+      verseEn: "Yea, though I walk through the valley of the shadow of death, I will fear no evil; for You are with me; Your rod and Your staff, they comfort me.",
+      verseTe: "గాఢాంధకారపు లోయలో నేను సంచరించినను ఏ అపాయమునకు భయపడను, నీవు నాకు తోడైయుందువు; నీ దుడ్డుకఱ్ఱయు నీ ఊతకోలయు నన్ను ఆదరించును.",
+      topic: "Encouragement",
+    ),
+    DailyVerse(
+      referenceEn: "Romans 15:13",
+      referenceTe: "రోమీయులకు 15:13",
+      verseEn: "Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope by the power of the Holy Spirit.",
+      verseTe: "దేవునియందు మీరు విశ్వాసముంచుటవలన పరిశుద్ధాత్మ शक्तिచేత నిరీక్షణతో అభ్యుదయము పొందునట్లు నిరీక్షణకర్తయగు దేవుడు సమస్తానందముతోను సమాధానముతోను మిమ్మును నింపును గాక.",
+      topic: "Hope",
+    ),
+    DailyVerse(
+      referenceEn: "Psalm 42:11",
+      referenceTe: "కీర్తనలు 42:11",
+      verseEn: "Why are you cast down, O my soul? And why are you disquieted within me? Hope in God; for I shall yet praise Him, the help of my countenance and my God.",
+      verseTe: "నా ప్రాణమా, నీవు ఏల కృంగియున్నావు? నాలో నీవు ఏల తొందరపడుచున్నావు? దేవునియందు నిరీక్షణ యుంచుము, ఆయనే నా రక్షణకర్త, నా దేవుడు; నేనింకను ఆయనను స్తుతించెదను.",
+      topic: "Encouragement",
+    ),
+    DailyVerse(
+      referenceEn: "Joshua 1:9",
+      referenceTe: "యెహోషువ 1:9",
+      verseEn: "Have I not commanded you? Be strong and of good courage; do not be afraid, nor be dismayed, for the Lord your God is with you wherever you go.",
+      verseTe: "నేను నీకు ఆజ్ఞ ఇచ్చియున్నాను గదా, నిబ్బరము కలిగి ధైర్యముగా నుండుము, దిగులుపడకుము జడియకుము, నీవు నడుచు మార్గమంతటిలో నీ దేవుడైన యెహోవా నీకు తోడైయుండును.",
+      topic: "Courage",
+    ),
+    DailyVerse(
+      referenceEn: "Philippians 4:13",
+      referenceTe: "ఫిలిప్పీయులకు 4:13",
+      verseEn: "I can do all things through Christ who strengthens me.",
+      verseTe: "నన్ను బలపరచువానియందే నేను సమస్తమును చేయగలను.",
+      topic: "Strength",
+    ),
+    DailyVerse(
+      referenceEn: "Isaiah 41:10",
+      referenceTe: "యెషయా 41:10",
+      verseEn: "Fear not, for I am with you; be not dismayed, for I am your God. I will strengthen you, yes, I will help you, I will uphold you with My righteous right hand.",
+      verseTe: "నీవు భయపడకుము నేను నీకు తోడైయున్నాను, సంశయింపకుము నేను నీ దేవుడనై యున్నాను. నేను నిన్ను బలపరచుదును, నీకు సహాయము చేయుదును, నా నీతియను దక్షిణహస్తముతో నిన్ను ఆదుకొందును.",
+      topic: "Strength",
+    ),
+    DailyVerse(
+      referenceEn: "Psalm 121:1-2",
+      referenceTe: "కీర్తనలు 121:1-2",
+      verseEn: "I will lift up my eyes to the hills—from whence comes my help? My help comes from the Lord, who made heaven and earth.",
+      verseTe: "కొండలతట్టు నా కన్నులెత్తుచున్నాను; నాకు సహాయము ఎక్కడనుండి వచ్చును? భూమ్యాకాశములను సృజించిన యెహోవావలననే నాకు సహాయము కలుగును.",
+      topic: "Strength",
+    ),
+    DailyVerse(
+      referenceEn: "Ephesians 6:10",
+      referenceTe: "ఎఫెసీయులకు 6:10",
+      verseEn: "Finally, my brethren, be strong in the Lord and in the power of His might.",
+      verseTe: "తుదకు ప్రభువుయొక్క శక్తియు ఆయన ప్రభావముయొక్క బలమునుబట్టి బలవంతులై యుండుడి.",
+      topic: "Strength",
+    ),
+    DailyVerse(
+      referenceEn: "Psalm 119:105",
+      referenceTe: "కీర్తనలు 119:105",
+      verseEn: "Your word is a lamp to my feet and a light to my path.",
+      verseTe: "నీ వాక్యము నా పాదములకు దీపమును నా త్రోవకు వెలుగునై యున్నది.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "Proverbs 4:23",
+      referenceTe: "సామెతలు 4:23",
+      verseEn: "Keep your heart with all diligence, for out of it spring the issues of life.",
+      verseTe: "నీ హృదయములోనుండి జీవధారలు బయలుదేరును కాబట్టి అన్నిటికంటె ముఖ్యముగా నీ హృదయమును భద్రముగా కాపాడుకొనుము.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "James 1:5",
+      referenceTe: "యాకోబు 1:5",
+      verseEn: "If any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach, and it will be given to him.",
+      verseTe: "మీలో ఎవనికైనను జ్ఞానము కొరతగా ఉన్నయెడల అతడు దేవుని అడుగవలెను, అప్పుడది అతనికి అనుగ్రహింపబడును.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "Proverbs 1:7",
+      referenceTe: "సామెతలు 1:7",
+      verseEn: "The fear of the Lord is the beginning of knowledge, but fools despise wisdom and instruction.",
+      verseTe: "యెహోవాయందు భయభక్తులు కలిగియుండుట తెలివికి మూలము; మూర్ఖులు జ్ఞానమును ఉపదేశమును తిరస్కరింతురు.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "Colossians 3:23",
+      referenceTe: "కొలొస్సయులకు 3:23",
+      verseEn: "And whatever you do, do it heartily, as to the Lord and not to men.",
+      verseTe: "మీరు చేయునదంతయు మనుష్యులకొరకు కాక ప్రభువుకొరకని మనస్ఫూర్తిగా చేయుడి.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "Matthew 6:33",
+      referenceTe: "మత్తయి 6:33",
+      verseEn: "But seek first the kingdom of God and His righteousness, and all these things shall be added to you.",
+      verseTe: "కాబట్టి మీరు ఆయన రాజ్యమును నీతిని మొదట వెదకుడి; అప్పుడు అవన్నియు మీతోకూడ మీకు అనుగ్రహింపబడును.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "Galatians 5:22-23",
+      referenceTe: "గలతీయులకు 5:22-23",
+      verseEn: "But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodness, faithfulness, gentleness, self-control.",
+      verseTe: "ఆత్మ ఫలమేమనగా—ప్రేమ, సంతోషము, సమాధానము, దీర్ఘశాంతము, దయాళుత్వము, మంచితనము, విశ్వాసము, సాత్వికము, ఆశానిగ్రహము.",
+      topic: "Spirit",
+    ),
+    DailyVerse(
+      referenceEn: "Romans 12:2",
+      referenceTe: "రోమీయులకు 12:2",
+      verseEn: "And do not be conformed to this world, but be transformed by the renewing of your mind, that you may prove what is that good and acceptable and perfect will of God.",
+      verseTe: "మీరు ఈ లోక మర్యాదను అనుసరింపక, ఉత్తమమును అనుకూలమును సంపూర్ణమునై యున్న దేవుని చిత్తమేదో పరీక్షించి తెలిసికొనునట్లు మీ మనస్సు మారి నూతనమగుటవలన రూపాంతరము పొందుడి.",
+      topic: "Wisdom",
+    ),
+    DailyVerse(
+      referenceEn: "Romans 8:28",
+      referenceTe: "రోమీయులకు 8:28",
+      verseEn: "And we know that all things work together for good to those who love God, to those who are the called according to His purpose.",
+      verseTe: "దేవుని ప్రేమించువారికి, అనగా ఆయన సంకల్పముచొప్పున పిలువబడినవారికి, మేలుకలుగుటకై సమస్తమును సమకూడి జరుగుచున్నవని యెరుగుదుము.",
+      topic: "Faith",
+    ),
+    DailyVerse(
+      referenceEn: "Philippians 4:6-7",
+      referenceTe: "ఫిలిప్పీయులకు 4:6-7",
+      verseEn: "Be anxious for nothing, but in everything by prayer and supplication, with thanksgiving, let your requests be made known to God; and the peace of God, which surpasses all understanding, will guard your hearts and minds through Christ Jesus.",
+      verseTe: "దేనినిగూర్చియు చింతపడకుడి గాని ప్రతి విషయములోను ప్రార్థన విజ్ఞాపనములచేత కృతజ్ఞతాపూర్వకముగా మీ విన్నపములు దేవునికి తెలియజేయుడి. అప్పుడు సమస్త జ్ఞానమునకు మించిన దేవుని సమాధానము యేసుక్రీస్తువలన మీ హృదయములకును మీ తలంపులకును కావలియుండును.",
+      topic: "Encouragement",
+    ),
+  ];
+
+  static List<DailyVerse> getRandomVerses(int count) {
+    final random = Random();
+    final List<DailyVerse> shuffled = List<DailyVerse>.from(verses)..shuffle(random);
+    return shuffled.take(count).toList();
+  }
+}

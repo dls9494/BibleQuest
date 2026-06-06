@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bible Quiz - Journey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom scrollbar for horizontal scrolling */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#e2e2e2",
+                        "tertiary": "#f7bc64",
+                        "inverse-surface": "#e2e2e2",
+                        "outline": "#958e9d",
+                        "primary": "#d1bcff",
+                        "on-tertiary": "#442b00",
+                        "surface-container-low": "#1a1c1c",
+                        "surface": "#121414",
+                        "surface-container": "#1e2020",
+                        "secondary": "#bbc5eb",
+                        "on-secondary-fixed-variant": "#3b4665",
+                        "inverse-primary": "#6b49b5",
+                        "surface-container-lowest": "#0c0f0f",
+                        "secondary-fixed-dim": "#bbc5eb",
+                        "on-primary-container": "#e2d3ff",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#d1bcff",
+                        "on-primary-fixed-variant": "#532f9b",
+                        "surface-variant": "#333535",
+                        "surface-dim": "#121414",
+                        "on-background": "#e2e2e2",
+                        "background": "#121414",
+                        "tertiary-fixed-dim": "#f7bc64",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#2f3131",
+                        "primary-fixed": "#eaddff",
+                        "on-tertiary-fixed": "#291800",
+                        "on-surface-variant": "#cbc3d4",
+                        "on-primary": "#3c1084",
+                        "surface-tint": "#d1bcff",
+                        "primary-container": "#6c4ab6",
+                        "on-primary-fixed": "#24005b",
+                        "surface-container-high": "#282a2b",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "surface-bright": "#38393a",
+                        "surface-container-highest": "#333535",
+                        "on-secondary": "#252f4d",
+                        "tertiary-container": "#825600",
+                        "secondary-fixed": "#dae1ff",
+                        "on-secondary-container": "#aab4d9",
+                        "outline-variant": "#494552",
+                        "on-tertiary-container": "#ffd295",
+                        "on-secondary-fixed": "#0f1a37",
+                        "tertiary-fixed": "#ffddb2",
+                        "error-container": "#93000a",
+                        "secondary-container": "#3b4665"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "40px",
+                        "element-gap": "16px",
+                        "container-padding": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Outfit"],
+                        "body-md": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "headline-lg": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "telugu": ["Noto Serif Telugu", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-[#1a1a2e] to-[#0f3460] min-h-screen text-on-surface font-body-md overflow-x-hidden pb-24 pt-16">
+<!-- TopAppBar -->
+<header class="bg-white/10 dark:bg-surface/10 docked full-width top-0 backdrop-blur-xl border-b border-white/20 flat no shadows fixed top-0 w-full z-50 flex justify-between items-center px-container-padding h-16">
+<button class="text-primary dark:text-primary transition-all duration-300 hover:opacity-80">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Luminous Wisdom</h1>
+<button class="text-primary dark:text-primary transition-all duration-300 hover:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="px-container-padding pt-element-gap space-y-section-gap">
+<!-- Top Section: Progress Path -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-element-gap">Your Journey</h2>
+<div class="relative w-full overflow-x-auto hide-scrollbar py-4">
+<div class="flex items-center min-w-max relative px-4">
+<!-- Connecting Line -->
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline -z-10 translate-y-[-50%]"></div>
+<div class="absolute top-1/2 left-0 w-[25%] h-[2px] bg-tertiary -z-10 translate-y-[-50%] shadow-[0_0_10px_rgba(247,188,100,0.5)]"></div>
+<!-- Milestones -->
+<div class="flex gap-12">
+<!-- Level 1 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-tertiary text-tertiary shadow-[0_0_15px_rgba(247,188,100,0.3)]">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+</div>
+<span class="font-label-md text-label-md text-tertiary">Lvl 1</span>
+</div>
+<!-- Level 20 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-tertiary text-tertiary shadow-[0_0_15px_rgba(247,188,100,0.3)]">
+<span class="material-symbols-outlined" data-icon="waves">waves</span>
+</div>
+<span class="font-label-md text-label-md text-tertiary">Lvl 20</span>
+</div>
+<!-- Level 40 -->
+<div class="flex flex-col items-center gap-2 relative">
+<!-- Current Indicator Glow -->
+<div class="absolute -inset-2 bg-tertiary/20 rounded-full blur-md animate-pulse"></div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-outline text-outline relative z-10 bg-white/10 backdrop-blur-md">
+<span class="material-symbols-outlined" data-icon="landscape">landscape</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Lvl 40</span>
+</div>
+<!-- Level 60 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-outline text-outline bg-white/5 backdrop-blur-sm">
+<span class="material-symbols-outlined" data-icon="forest">forest</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Lvl 60</span>
+</div>
+<!-- Level 80 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-outline text-outline bg-white/5 backdrop-blur-sm">
+<span class="material-symbols-outlined" data-icon="water">water</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Lvl 80</span>
+</div>
+<!-- Level 100 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-outline text-outline bg-white/5 backdrop-blur-sm">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Lvl 100</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Middle Section: Level Cards Grid -->
+<section>
+<div class="flex justify-between items-end mb-element-gap">
+<h2 class="font-headline-md text-headline-md text-on-surface">Select Level</h2>
+</div>
+<div class="grid grid-cols-2 gap-element-gap">
+<!-- Completed Card -->
+<div class="bg-white/[0.08] backdrop-blur-[20px] border border-tertiary rounded-xl p-4 flex flex-col gap-2 shadow-[0_4px_24px_rgba(0,0,0,0.2)]">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-tertiary">Level 14</span>
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="check_circle">check_circle</span>
+</div>
+<span class="font-label-md text-label-md text-outline bg-surface-container-high px-2 py-1 rounded w-max text-[12px]">Medium</span>
+<span class="font-body-md text-body-md text-on-surface mt-2">5 Quizzes</span>
+</div>
+<!-- Current Card -->
+<div class="bg-white/[0.12] backdrop-blur-[20px] border border-primary rounded-xl p-4 flex flex-col gap-2 shadow-[0_0_15px_rgba(108,74,182,0.2)] relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5"></div>
+<div class="flex justify-between items-start relative z-10">
+<span class="font-label-md text-label-md text-primary">Level 15</span>
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="play_circle">play_circle</span>
+</div>
+<span class="font-label-md text-label-md text-primary-container bg-primary-container/20 px-2 py-1 rounded w-max text-[12px] relative z-10">Hard</span>
+<span class="font-body-md text-body-md text-on-surface mt-2 relative z-10">8 Quizzes</span>
+</div>
+<!-- Locked Cards -->
+<div class="bg-white/[0.04] backdrop-blur-[10px] border border-white/10 rounded-xl p-4 flex flex-col gap-2 opacity-60">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-outline">Level 16</span>
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="lock">lock</span>
+</div>
+<span class="font-label-md text-label-md text-outline bg-surface-container px-2 py-1 rounded w-max text-[12px]">Medium</span>
+<span class="font-body-md text-body-md text-outline mt-2">6 Quizzes</span>
+</div>
+<div class="bg-white/[0.04] backdrop-blur-[10px] border border-white/10 rounded-xl p-4 flex flex-col gap-2 opacity-60">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-outline">Level 17</span>
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="lock">lock</span>
+</div>
+<span class="font-label-md text-label-md text-outline bg-surface-container px-2 py-1 rounded w-max text-[12px]">Easy</span>
+<span class="font-body-md text-body-md text-outline mt-2">4 Quizzes</span>
+</div>
+</div>
+</section>
+<!-- Bottom Section: Quiz List -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-element-gap">Level 15 Quizzes</h2>
+<div class="flex flex-col gap-base">
+<!-- Quiz Card 1 -->
+<div class="bg-white/[0.08] backdrop-blur-[15px] border border-white/20 rounded-lg p-4 flex items-center justify-between transition-all hover:bg-white/[0.12]">
+<div class="flex flex-col">
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold">The Plagues of Egypt</h3>
+<span class="font-label-md text-label-md text-secondary">10 Questions</span>
+</div>
+<button class="bg-primary-container text-white font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 shadow-[0_0_10px_rgba(108,74,182,0.4)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_arrow">play_arrow</span>
+                        Play
+                    </button>
+</div>
+<!-- Quiz Card 2 -->
+<div class="bg-white/[0.08] backdrop-blur-[15px] border border-white/20 rounded-lg p-4 flex items-center justify-between transition-all hover:bg-white/[0.12]">
+<div class="flex flex-col">
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold">Crossing the Red Sea</h3>
+<span class="font-label-md text-label-md text-secondary">15 Questions</span>
+</div>
+<button class="bg-primary-container text-white font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 shadow-[0_0_10px_rgba(108,74,182,0.4)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_arrow">play_arrow</span>
+                        Play
+                    </button>
+</div>
+<!-- Quiz Card 3 -->
+<div class="bg-white/[0.08] backdrop-blur-[15px] border border-white/20 rounded-lg p-4 flex items-center justify-between transition-all hover:bg-white/[0.12] opacity-70">
+<div class="flex flex-col">
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold">Manna from Heaven</h3>
+<span class="font-label-md text-label-md text-secondary">12 Questions</span>
+</div>
+<button class="border border-outline text-outline font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 bg-transparent" disabled="">
+<span class="material-symbols-outlined text-[18px]" data-icon="lock">lock</span>
+                        Locked
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white/10 dark:bg-surface/10 docked full-width bottom-0 rounded-t-xl backdrop-blur-xl border-t border-white/20 flat no shadows fixed bottom-0 w-full z-50 flex justify-around items-center px-container-padding py-3 md:hidden">
+<!-- Active Tab: Quiz -->
+<button class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-4 py-1 shadow-[0_0_15px_rgba(108,74,182,0.3)] active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-label-md text-label-md mt-1">Quiz</span>
+</button>
+<!-- Inactive Tab: Leaderboard -->
+<button class="flex flex-col items-center justify-center text-outline hover:bg-white/5 active:scale-95 transition-transform duration-200 px-4 py-1 rounded-xl">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-md text-label-md mt-1">Leaderboard</span>
+</button>
+<!-- Inactive Tab: Profile -->
+<button class="flex flex-col items-center justify-center text-outline hover:bg-white/5 active:scale-95 transition-transform duration-200 px-4 py-1 rounded-xl">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

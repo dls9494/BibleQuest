@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Feedback - Correct</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;700&amp;family=Noto+Serif+Telugu:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#825600",
+                        "on-primary-fixed-variant": "#532f9b",
+                        "tertiary-fixed": "#ffddb2",
+                        "on-secondary-container": "#aab4d9",
+                        "on-surface-variant": "#cbc3d4",
+                        "secondary": "#bbc5eb",
+                        "primary": "#d1bcff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e2e2e2",
+                        "tertiary": "#f7bc64",
+                        "outline-variant": "#494552",
+                        "on-secondary": "#252f4d",
+                        "on-primary-fixed": "#24005b",
+                        "primary-container": "#6c4ab6",
+                        "inverse-primary": "#6b49b5",
+                        "background": "#121414",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-container-high": "#282a2b",
+                        "on-tertiary": "#442b00",
+                        "tertiary-fixed-dim": "#f7bc64",
+                        "on-secondary-fixed-variant": "#3b4665",
+                        "surface-variant": "#333535",
+                        "surface-dim": "#121414",
+                        "on-primary-container": "#e2d3ff",
+                        "surface-tint": "#d1bcff",
+                        "secondary-container": "#3b4665",
+                        "primary-fixed": "#eaddff",
+                        "on-primary": "#3c1084",
+                        "secondary-fixed-dim": "#bbc5eb",
+                        "on-secondary-fixed": "#0f1a37",
+                        "outline": "#958e9d",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "surface-bright": "#38393a",
+                        "secondary-fixed": "#dae1ff",
+                        "primary-fixed-dim": "#d1bcff",
+                        "on-error": "#690005",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-container": "#ffd295",
+                        "surface": "#121414",
+                        "on-background": "#e2e2e2",
+                        "surface-container-highest": "#333535",
+                        "on-surface": "#e2e2e2",
+                        "surface-container-low": "#1a1c1c",
+                        "error-container": "#93000a",
+                        // Adding custom colors requested but mapping them to theme intent where possible
+                        "success": "#4ade80",
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem"
+                    },
+                    spacing: {
+                        "section-gap": "40px",
+                        "element-gap": "16px",
+                        "container-padding": "24px",
+                        "base": "8px"
+                    },
+                    fontFamily: {
+                        "headline-lg-mobile": ["Outfit"],
+                        "headline-lg": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "body-md": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "scripture": ["'Noto Serif'", "serif"],
+                        "telugu": ["'Noto Serif Telugu'", "serif"]
+                    },
+                    fontSize: {
+                        "headline-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    },
+                    animation: {
+                        'bounce-in': 'bounce-in 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'fade-in-up': 'fade-in-up 0.6s ease-out 0.3s forwards',
+                    },
+                    keyframes: {
+                        'bounce-in': {
+                            '0%': { transform: 'scale(0)', opacity: '0' },
+                            '50%': { transform: 'scale(1.2)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Requested specific background gradient instead of theme background for this screen */
+        .bg-custom-gradient {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(247, 188, 100, 0.4); /* tertiary/gold tint */
+        }
+        
+        .glow-button {
+            box-shadow: 0 0 20px rgba(108, 74, 182, 0.4);
+        }
+        
+        .glow-text-success {
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-custom-gradient min-h-screen text-on-surface flex flex-col items-center justify-center p-container-padding relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-1/4 left-1/4 w-64 h-64 bg-success/10 rounded-full blur-3xl mix-blend-screen"></div>
+<div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl mix-blend-screen"></div>
+</div>
+<!-- Main Content Canvas (No Nav Shell per Transactional Rule) -->
+<main class="w-full max-w-md flex flex-col items-center z-10 w-full relative">
+<!-- Success Indicator -->
+<div class="flex flex-col items-center mb-section-gap opacity-0 scale-0 animate-bounce-in">
+<div class="w-24 h-24 rounded-full bg-success/20 flex items-center justify-center mb-4 border border-success/30 shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+<span class="material-symbols-outlined text-[64px] text-success">check_circle</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-success glow-text-success">Correct!</h1>
+</div>
+<!-- Scripture Reference Card -->
+<div class="w-full glass-card rounded-2xl p-6 mb-section-gap opacity-0 animate-fade-in-up">
+<div class="flex items-start gap-4 mb-6">
+<div class="mt-1 flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary text-2xl">menu_book</span>
+</div>
+<div>
+<p class="font-scripture text-lg font-bold text-tertiary-fixed leading-tight mb-1">Genesis 1:3</p>
+<p class="font-telugu text-md text-tertiary-fixed-dim leading-snug">(ఆదికాండము 1:3)</p>
+</div>
+</div>
+<div class="w-full h-[1px] bg-white/10 mb-6"></div>
+<div class="flex items-start gap-4">
+<div class="mt-1 flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl">lightbulb</span>
+</div>
+<div class="space-y-3">
+<p class="font-scripture text-body-md text-on-surface leading-relaxed">
+                        And God said, 'Let there be light,' and there was light.
+                    </p>
+<p class="font-telugu text-[15px] text-on-surface-variant leading-relaxed">
+                        (మరియు దేవుడు వెలుగు కలుగును గాక అని పలికెను; అప్పుడు వెలుగు కలిగెను.)
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full p-container-padding pb-8 z-20 flex justify-center bg-gradient-to-t from-background/80 to-transparent">
+<div class="w-full max-w-md">
+<button class="w-full bg-primary-container text-white font-label-md text-label-md font-bold py-4 rounded-xl glow-button active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+<span>Next Question</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

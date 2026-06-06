@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luminous Wisdom - Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;700&amp;family=Noto+Serif+Telugu:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#6b49b5",
+                      "secondary-fixed-dim": "#bbc5eb",
+                      "on-primary-container": "#e2d3ff",
+                      "on-error": "#690005",
+                      "on-background": "#e2e2e2",
+                      "on-secondary-container": "#aab4d9",
+                      "tertiary-fixed": "#ffddb2",
+                      "secondary-fixed": "#dae1ff",
+                      "outline": "#958e9d",
+                      "on-surface-variant": "#cbc3d4",
+                      "tertiary": "#f7bc64",
+                      "surface-dim": "#121414",
+                      "error": "#ffb4ab",
+                      "secondary": "#bbc5eb",
+                      "inverse-on-surface": "#2f3131",
+                      "surface-container-lowest": "#0c0f0f",
+                      "on-tertiary-fixed": "#291800",
+                      "inverse-surface": "#e2e2e2",
+                      "error-container": "#93000a",
+                      "surface-container": "#1e2020",
+                      "on-secondary-fixed": "#0f1a37",
+                      "primary-container": "#6c4ab6",
+                      "background": "#121414",
+                      "on-tertiary": "#442b00",
+                      "on-secondary-fixed-variant": "#3b4665",
+                      "primary-fixed": "#eaddff",
+                      "on-primary-fixed": "#24005b",
+                      "surface-container-highest": "#333535",
+                      "tertiary-fixed-dim": "#f7bc64",
+                      "tertiary-container": "#825600",
+                      "surface": "#121414",
+                      "on-tertiary-fixed-variant": "#624000",
+                      "on-tertiary-container": "#ffd295",
+                      "surface-container-low": "#1a1c1c",
+                      "on-primary-fixed-variant": "#532f9b",
+                      "primary-fixed-dim": "#d1bcff",
+                      "on-primary": "#3c1084",
+                      "surface-container-high": "#282a2b",
+                      "outline-variant": "#494552",
+                      "on-surface": "#e2e2e2",
+                      "surface-bright": "#38393a",
+                      "on-error-container": "#ffdad6",
+                      "surface-variant": "#333535",
+                      "surface-tint": "#d1bcff",
+                      "secondary-container": "#3b4665",
+                      "primary": "#d1bcff",
+                      "on-secondary": "#252f4d",
+                      "kahoot-red": "#E21B3C",
+                      "kahoot-blue": "#1368CE",
+                      "kahoot-yellow": "#D89E00",
+                      "kahoot-green": "#26890C"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "40px",
+                      "base": "8px",
+                      "element-gap": "16px",
+                      "container-padding": "24px"
+              },
+              "fontFamily": {
+                      "body-md": ["Outfit", "sans-serif"],
+                      "body-lg": ["Outfit", "sans-serif"],
+                      "headline-lg": ["Outfit", "sans-serif"],
+                      "headline-md": ["Outfit", "sans-serif"],
+                      "label-md": ["Outfit", "sans-serif"],
+                      "headline-lg-mobile": ["Outfit", "sans-serif"],
+                      "serif": ["Noto Serif", "serif"],
+                      "telugu": ["Noto Serif Telugu", "serif"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glow-button {
+            box-shadow: 0 0 15px rgba(108, 74, 182, 0.4);
+        }
+        @keyframes pulse-danger {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(226, 27, 60, 0); }
+            50% { transform: scale(1.02); box-shadow: 0 0 15px rgba(226, 27, 60, 0.6); }
+        }
+        .pulse-danger {
+            animation: pulse-danger 1s infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-background font-body-md antialiased overflow-hidden flex flex-col h-screen">
+<!-- Top Navigation (Shell suppressed due to Task-Focused flow, but adding custom app bar for Quiz) -->
+<header class="w-full flex justify-between items-center px-container-padding h-16 pt-4 shrink-0">
+<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface">close</span>
+</button>
+<div class="font-headline-md text-headline-md text-primary font-bold tracking-tight">
+            Question 3 of 12
+        </div>
+<div class="w-10 h-10"></div> <!-- Spacer -->
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col px-container-padding py-element-gap overflow-y-auto">
+<!-- Timer Capsule -->
+<div class="w-full h-3 bg-surface-container-highest rounded-full mb-8 overflow-hidden transition-transform duration-200" id="timer-container">
+<div class="h-full rounded-full transition-all duration-[50ms] ease-linear" id="timer-bar" style="width: 100%; background-color: rgb(38, 137, 12);"></div>
+</div>
+<!-- Question Container -->
+<div class="glass-panel rounded-2xl p-6 mb-8 flex flex-col items-center justify-center text-center min-h-[200px]">
+<h2 class="font-serif text-[28px] leading-tight font-bold text-white mb-4">
+                Who was the first man?
+            </h2>
+<p class="font-telugu text-[22px] text-on-surface-variant opacity-90">
+                (మొదటి మనిషి ఎవరు?)
+            </p>
+</div>
+<!-- Answers Grid -->
+<div class="grid grid-cols-2 gap-4 flex-grow mb-8">
+<!-- Option 1: Red -->
+<button class="bg-kahoot-red rounded-xl p-4 flex flex-col items-center justify-center text-white active:scale-95 transition-transform shadow-lg relative overflow-hidden group">
+<div class="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity"></div>
+<span class="font-headline-md text-headline-md text-center">Adam</span>
+<span class="font-telugu text-sm mt-1 opacity-90">(ఆదాము)</span>
+</button>
+<!-- Option 2: Blue -->
+<button class="bg-kahoot-blue rounded-xl p-4 flex flex-col items-center justify-center text-white active:scale-95 transition-transform shadow-lg relative overflow-hidden group">
+<div class="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity"></div>
+<span class="font-headline-md text-headline-md text-center">Noah</span>
+<span class="font-telugu text-sm mt-1 opacity-90">(నోవహు)</span>
+</button>
+<!-- Option 3: Yellow -->
+<button class="bg-kahoot-yellow rounded-xl p-4 flex flex-col items-center justify-center text-white active:scale-95 transition-transform shadow-lg relative overflow-hidden group">
+<div class="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity"></div>
+<span class="font-headline-md text-headline-md text-center">Abraham</span>
+<span class="font-telugu text-sm mt-1 opacity-90">(అబ్రాహాము)</span>
+</button>
+<!-- Option 4: Green -->
+<button class="bg-kahoot-green rounded-xl p-4 flex flex-col items-center justify-center text-white active:scale-95 transition-transform shadow-lg relative overflow-hidden group">
+<div class="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity"></div>
+<span class="font-headline-md text-headline-md text-center">Moses</span>
+<span class="font-telugu text-sm mt-1 opacity-90">(మోషే)</span>
+</button>
+</div>
+</main>
+<!-- Footer Action -->
+<div class="px-container-padding pb-container-padding pt-4 shrink-0 glass-panel rounded-t-3xl border-b-0 border-x-0">
+<button class="w-full bg-primary-container text-white font-headline-md text-headline-md py-4 rounded-xl glow-button active:scale-95 transition-all duration-200">
+            Submit
+        </button>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const duration = 15000;
+        const intervalTime = 50;
+        let elapsed = 0;
+        const timerBar = document.getElementById('timer-bar');
+        const timerContainer = document.getElementById('timer-container');
+
+        const updateTimer = setInterval(() => {
+            elapsed += intervalTime;
+            const progress = Math.max(0, 1 - (elapsed / duration));
+            const percentage = progress * 100;
+            
+            timerBar.style.width = percentage + '%';
+            
+            // Color transition logic
+            if (percentage > 50) {
+                // 100% to 50%: Green to Yellow
+                const p = (percentage - 50) / 50; // 1 to 0
+                // Green: #26890C (38, 137, 12)
+                // Yellow: #D89E00 (216, 158, 0)
+                const r = Math.round(216 + (38 - 216) * p);
+                const g = Math.round(158 + (137 - 158) * p);
+                const b = Math.round(0 + (12 - 0) * p);
+                timerBar.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            } else {
+                // 50% to 0%: Yellow to Red
+                const p = percentage / 50; // 1 to 0
+                // Yellow: #D89E00 (216, 158, 0)
+                // Red: #E21B3C (226, 27, 60)
+                const r = Math.round(226 + (216 - 226) * p);
+                const g = Math.round(27 + (158 - 27) * p);
+                const b = Math.round(60 + (0 - 60) * p);
+                timerBar.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            }
+
+            // Pulse effect when under 30%
+            if (percentage <= 30) {
+                if (!timerContainer.classList.contains('pulse-danger')) {
+                    timerContainer.classList.add('pulse-danger');
+                }
+            }
+            
+            // Stop timer when done
+            if (elapsed >= duration) {
+                clearInterval(updateTimer);
+                timerBar.style.width = '0%';
+            }
+        }, intervalTime);
+    });
+</script>
+</body></html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incorrect Answer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Noto+Serif+Telugu:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#825600",
+                        "on-primary-fixed-variant": "#532f9b",
+                        "tertiary-fixed": "#ffddb2",
+                        "on-secondary-container": "#aab4d9",
+                        "on-surface-variant": "#cbc3d4",
+                        "secondary": "#bbc5eb",
+                        "primary": "#d1bcff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e2e2e2",
+                        "tertiary": "#f7bc64",
+                        "outline-variant": "#494552",
+                        "on-secondary": "#252f4d",
+                        "on-primary-fixed": "#24005b",
+                        "primary-container": "#6c4ab6",
+                        "inverse-primary": "#6b49b5",
+                        "background": "#121414",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-container-high": "#282a2b",
+                        "on-tertiary": "#442b00",
+                        "tertiary-fixed-dim": "#f7bc64",
+                        "on-secondary-fixed-variant": "#3b4665",
+                        "surface-variant": "#333535",
+                        "surface-dim": "#121414",
+                        "on-primary-container": "#e2d3ff",
+                        "surface-tint": "#d1bcff",
+                        "secondary-container": "#3b4665",
+                        "primary-fixed": "#eaddff",
+                        "on-primary": "#3c1084",
+                        "secondary-fixed-dim": "#bbc5eb",
+                        "on-secondary-fixed": "#0f1a37",
+                        "outline": "#958e9d",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "surface-bright": "#38393a",
+                        "secondary-fixed": "#dae1ff",
+                        "primary-fixed-dim": "#d1bcff",
+                        "on-error": "#690005",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-container": "#ffd295",
+                        "surface": "#121414",
+                        "on-background": "#e2e2e2",
+                        "surface-container-highest": "#333535",
+                        "on-surface": "#e2e2e2",
+                        "surface-container-low": "#1a1c1c",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "40px",
+                        "element-gap": "16px",
+                        "container-padding": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Outfit"],
+                        "headline-lg": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "body-md": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "telugu": ["Noto Serif Telugu", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    },
+                    "animation": {
+                        "bounce-custom": "bounceCustom 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite",
+                        "fade-in-up": "fadeInUp 0.6s ease-out forwards"
+                    },
+                    "keyframes": {
+                        bounceCustom: {
+                            "0%, 100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-15px)" }
+                        },
+                        fadeInUp: {
+                            "0%": { opacity: "0", transform: "translateY(20px)" },
+                            "100%": { opacity: "1", transform: "translateY(0)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .glow-text-error {
+            text-shadow: 0 0 15px rgba(255, 180, 171, 0.6);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(247, 188, 100, 0.5); /* Gold border from tertiary color */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(108, 74, 182, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center px-container-padding font-body-md overflow-hidden antialiased">
+<!-- Top Navigation Anchor (Suppressed globally, but TopAppBar structure shown if needed, keeping mostly clear canvas) -->
+<header class="fixed top-0 w-full z-50 flex justify-center items-center px-container-padding h-16 backdrop-blur-sm border-b border-white/5">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Luminous Wisdom</h1>
+</header>
+<main class="flex-1 w-full max-w-md flex flex-col items-center justify-center pt-16 pb-24 gap-section-gap">
+<!-- Feedback Icon and Header -->
+<div class="flex flex-col items-center gap-element-gap">
+<div class="w-24 h-24 rounded-full bg-error/20 flex items-center justify-center animate-bounce-custom shadow-[0_0_30px_rgba(255,180,171,0.3)] border border-error/30">
+<span class="material-symbols-outlined text-6xl text-error" style="font-variation-settings: 'FILL' 1;">close</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-error glow-text-error text-center mt-4">
+                Incorrect!
+            </h2>
+</div>
+<!-- Explanation Card -->
+<div class="glass-card rounded-xl p-6 w-full flex flex-col gap-element-gap animate-fade-in-up opacity-0" style="animation-delay: 0.2s;">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary mt-1" style="font-variation-settings: 'FILL' 0;">menu_book</span>
+<p class="text-on-surface leading-relaxed text-lg">
+                    Genesis 1:3 <br/>
+<span class="font-telugu text-on-surface-variant text-base">(ఆదికాండము 1:3)</span>
+</p>
+</div>
+<div class="w-full h-px bg-white/10 my-1"></div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary mt-1" style="font-variation-settings: 'FILL' 0;">tips_and_updates</span>
+<p class="text-on-surface leading-relaxed">
+                    The correct answer was <strong class="text-tertiary">Adam</strong>. Genesis 1:3 describes the creation of light.<br/>
+<span class="font-telugu text-on-surface-variant text-sm mt-2 block leading-relaxed">
+                        (సరైన సమాధానం ఆదాము. ఆదికాండము 1:3 వెలుగు సృష్టిని వివరిస్తుంది.)
+                    </span>
+</p>
+</div>
+</div>
+<!-- Spacer -->
+<div class="flex-grow"></div>
+<!-- Primary Action -->
+<div class="w-full mt-8 animate-fade-in-up opacity-0" style="animation-delay: 0.4s;">
+<button class="w-full bg-primary-container text-white font-label-md text-label-md font-bold py-4 rounded-xl glow-button hover:opacity-90 active:scale-95 transition-all duration-200 uppercase tracking-wider">
+                Next Question
+            </button>
+</div>
+</main>
+<!-- Navigation Shell suppressed due to specific transactional state (Incorrect screen) -->
+</body></html>

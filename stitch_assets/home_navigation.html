@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luminous Wisdom - Home</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#aab4d9",
+                        "outline": "#958e9d",
+                        "on-tertiary-fixed": "#291800",
+                        "surface-container": "#1e2020",
+                        "secondary": "#bbc5eb",
+                        "surface-bright": "#38393a",
+                        "secondary-fixed": "#dae1ff",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#24005b",
+                        "primary-container": "#6c4ab6",
+                        "on-secondary-fixed-variant": "#3b4665",
+                        "on-secondary": "#252f4d",
+                        "on-tertiary-container": "#ffd295",
+                        "primary-fixed": "#eaddff",
+                        "outline-variant": "#494552",
+                        "tertiary-container": "#825600",
+                        "surface": "#121414",
+                        "primary-fixed-dim": "#d1bcff",
+                        "on-surface-variant": "#cbc3d4",
+                        "on-surface": "#e2e2e2",
+                        "surface-dim": "#121414",
+                        "inverse-on-surface": "#2f3131",
+                        "tertiary-fixed": "#ffddb2",
+                        "surface-container-highest": "#333535",
+                        "primary": "#d1bcff",
+                        "surface-tint": "#d1bcff",
+                        "secondary-container": "#3b4665",
+                        "tertiary": "#f7bc64",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#bbc5eb",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "on-primary-container": "#e2d3ff",
+                        "background": "#121414",
+                        "surface-container-low": "#1a1c1c",
+                        "on-background": "#e2e2e2",
+                        "inverse-primary": "#6b49b5",
+                        "on-tertiary": "#442b00",
+                        "surface-variant": "#333535",
+                        "on-primary": "#3c1084",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#532f9b",
+                        "tertiary-fixed-dim": "#f7bc64",
+                        "on-secondary-fixed": "#0f1a37",
+                        "surface-container-high": "#282a2b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "16px",
+                        "section-gap": "40px",
+                        "base": "8px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Outfit"],
+                        "headline-lg": ["Outfit"],
+                        "headline-lg-mobile": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "body-md": ["Outfit"],
+                        "telugu": ["Noto Serif Telugu", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            padding-bottom: 90px; /* Space for bottom nav */
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.5rem;
+        }
+
+        .primary-glow {
+            box-shadow: 0 0 20px rgba(108, 74, 182, 0.4);
+        }
+        
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .telugu-text {
+            font-family: 'Noto Serif Telugu', serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-padding h-16 bg-white/10 dark:bg-surface/10 backdrop-blur-xl border-b border-white/20 transition-all duration-300">
+<button class="text-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Luminous Wisdom</h1>
+<button class="text-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="px-container-padding pt-24 space-y-section-gap max-w-2xl mx-auto">
+<!-- Welcome Section -->
+<section class="space-y-base">
+<p class="font-body-md text-body-md text-on-surface-variant">Good morning, seeker.</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Continue your journey in faith.</h2>
+</section>
+<!-- Daily Challenge Card (Bento Grid Style) -->
+<section>
+<div class="glass-card p-6 relative overflow-hidden group">
+<!-- Decorative blurred circle -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container rounded-full mix-blend-screen filter blur-3xl opacity-50"></div>
+<div class="relative z-10 flex flex-col h-full justify-between space-y-6">
+<div class="flex justify-between items-start">
+<div>
+<span class="inline-block px-3 py-1 rounded-full bg-primary-container/30 text-primary font-label-md text-label-md mb-3 border border-primary/20">Daily Challenge</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">The Proverbs of Solomon</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Test your knowledge of wisdom literature.</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/20">
+<span class="material-symbols-outlined text-primary" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+</div>
+<button class="w-full py-4 bg-primary-container rounded-xl font-label-md text-label-md text-white primary-glow hover:bg-inverse-primary transition-colors duration-300 flex items-center justify-center space-x-2">
+<span>Begin Quiz</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Recent Activity List -->
+<section class="space-y-4">
+<h3 class="font-label-md text-label-md text-outline tracking-wider uppercase">Recent Activity</h3>
+<div class="space-y-3">
+<!-- Activity Item 1 -->
+<div class="glass-card p-4 flex items-center justify-between hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md text-on-surface font-medium">Genesis: Creation</h4>
+<p class="font-label-md text-label-md text-on-surface-variant text-xs">Score: 95% • Yesterday</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Activity Item 2 -->
+<div class="glass-card p-4 flex items-center justify-between hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" data-icon="schedule">schedule</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md text-on-surface font-medium">Exodus: The Journey</h4>
+<p class="font-label-md text-label-md text-on-surface-variant text-xs">In Progress • 2 days ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-container-padding py-3 bg-white/10 dark:bg-surface/10 backdrop-blur-xl border-t border-white/20 rounded-t-xl md:hidden">
+<!-- Active Tab: Quiz -->
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-4 py-1 shadow-[0_0_15px_rgba(108,74,182,0.3)] active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="quiz" data-weight="fill" style="font-variation-settings: 'FILL' 1;">quiz</span>
+<span class="font-label-md text-[10px] leading-tight">Quiz</span>
+</a>
+<!-- Inactive Tab: Leaderboard -->
+<a class="flex flex-col items-center justify-center text-outline hover:bg-white/5 rounded-xl px-4 py-1 active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-md text-[10px] leading-tight">Leaderboard</span>
+</a>
+<!-- Inactive Tab: Profile -->
+<a class="flex flex-col items-center justify-center text-outline hover:bg-white/5 rounded-xl px-4 py-1 active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-md text-[10px] leading-tight">Profile</span>
+</a>
+</nav>
+<!-- Desktop Navigation (Hidden on mobile, shown on md and up as a side nav alternative if needed, but per prompt focusing on mobile home screen) -->
+<div class="hidden md:flex fixed top-0 left-0 h-full w-64 glass-card border-l-0 border-t-0 border-b-0 rounded-none flex-col p-6 z-40">
+<!-- Placeholder for desktop sidebar, keeping logic clean for mobile first -->
+<div class="mt-20 space-y-4">
+<p class="text-on-surface-variant font-body-md text-body-md">Desktop navigation hidden per layout rules.</p>
+</div>
+</div>
+</body></html>

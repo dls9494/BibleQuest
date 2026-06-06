@@ -1,0 +1,1 @@
+function e(){let e=window.location.hostname;return!!(e===`staging-dot-app-companion-430619.wl.r.appspot.com`||/^commit-[a-f0-9]+-dot-app-companion-430619\.wl\.r\.appspot\.com$/.test(e))}function t(...t){e()&&console.log(...t)}function n(...t){e()&&console.warn(...t)}function r(...t){e()&&console.error(...t)}export{n as i,e as n,t as r,r as t};

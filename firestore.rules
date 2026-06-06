@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User profile rules
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /reading_plan {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      match /reading_plan/{planId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Referral rules
+    match /referrals/{userId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null;
+    }
+    
+    // Quiz collection rules
+    match /quizzes/{quizId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && resource.data.creatorId == request.auth.uid;
+    }
+    
+    // Real questions caching rules
+    match /real_questions/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Daily challenges rules
+    match /daily_challenges/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Weekly challenges rules
+    match /weekly_challenges/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Monthly challenges rules
+    match /monthly_challenges/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Leaderboard rules - only allow user to update their own document
+    match /weekly_leaderboard/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /monthly_leaderboard/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /leaderboard_all_time/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Real-time game sessions rules
+    match /game_sessions/{sessionId} {
+      allow read, write: if true;
+      
+      match /players/{playerId} {
+        allow read, write: if true;
+        
+        match /answers/{answerId} {
+          allow read, write: if true;
+        }
+      }
+    }
+
+    // Prayer requests collection rules
+    match /prayer_requests/{requestId} {
+      // Anyone authenticated can read
+      allow read: if request.auth != null;
+      // Authenticated users can create
+      allow create: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.request is string
+        && request.resource.data.request.size() <= 500;
+      // Only the creator can delete their own request
+      allow delete: if request.auth != null 
+        && resource.data.userId == request.auth.uid;
+      // Anyone authenticated can update prayer count OR the creator can update their document OR update reactions
+      allow update: if request.auth != null && (
+        // Option A: Anyone authenticated can update prayer count
+        (request.resource.data.prayerCount is number
+         && request.resource.data.prayerCount == resource.data.prayerCount + 1)
+        ||
+        // Option B: Owner updates their own document
+        (resource.data.userId == request.auth.uid)
+        ||
+        // Option C: Update reactions and userReactions maps
+        (request.resource.data.reactions is map || request.resource.data.userReactions is map)
+      );
+    }
+  }
+}

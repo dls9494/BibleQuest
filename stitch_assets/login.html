@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bible Quiz - Luminous Wisdom</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#291800",
+                        "secondary": "#bbc5eb",
+                        "surface-container": "#1e2020",
+                        "secondary-fixed": "#dae1ff",
+                        "surface-bright": "#38393a",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#24005b",
+                        "on-secondary-container": "#aab4d9",
+                        "outline": "#958e9d",
+                        "on-tertiary-container": "#ffd295",
+                        "outline-variant": "#494552",
+                        "primary-fixed": "#eaddff",
+                        "tertiary-container": "#825600",
+                        "primary-fixed-dim": "#d1bcff",
+                        "surface": "#121414",
+                        "on-surface-variant": "#cbc3d4",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#6c4ab6",
+                        "on-secondary-fixed-variant": "#3b4665",
+                        "on-secondary": "#252f4d",
+                        "on-error-container": "#ffdad6",
+                        "tertiary": "#f7bc64",
+                        "secondary-fixed-dim": "#bbc5eb",
+                        "on-primary-container": "#e2d3ff",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "background": "#121414",
+                        "surface-container-low": "#1a1c1c",
+                        "inverse-primary": "#6b49b5",
+                        "on-background": "#e2e2e2",
+                        "surface-dim": "#121414",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-container-highest": "#333535",
+                        "tertiary-fixed": "#ffddb2",
+                        "primary": "#d1bcff",
+                        "surface-tint": "#d1bcff",
+                        "secondary-container": "#3b4665",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#532f9b",
+                        "on-secondary-fixed": "#0f1a37",
+                        "tertiary-fixed-dim": "#f7bc64",
+                        "surface-container-high": "#282a2b",
+                        "on-tertiary": "#442b00",
+                        "surface-variant": "#333535",
+                        "on-primary": "#3c1084",
+                        "inverse-surface": "#e2e2e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "section-gap": "40px",
+                        "base": "8px",
+                        "element-gap": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "headline-lg-mobile": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "headline-lg": ["Outfit"],
+                        "telugu": ["'Noto Serif Telugu'", "serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(108, 74, 182, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(108, 74, 182, 0.6);
+            transform: translateY(-2px);
+        }
+        .glow-button:active {
+            transform: translateY(0);
+        }
+        .font-telugu {
+            font-family: 'Noto Serif Telugu', serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);">
+<!-- Ambient background light -->
+<div class="absolute inset-0 z-0 pointer-events-none flex justify-center items-center opacity-30">
+<div class="w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] bg-primary rounded-full blur-[120px] mix-blend-screen"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="z-10 w-full max-w-md px-container-padding flex flex-col items-center">
+<!-- Header -->
+<div class="text-center mb-section-gap flex flex-col items-center">
+<div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 glass-panel">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-white">Luminous Wisdom</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Enter the sanctuary of knowledge</p>
+</div>
+<!-- Auth Form Container -->
+<div class="w-full glass-panel rounded-xl p-6 md:p-8 flex flex-col gap-element-gap relative overflow-hidden">
+<!-- Progress Indicator -->
+<div class="absolute top-0 left-0 w-full h-1 bg-white/10">
+<div class="h-full bg-primary-container w-1/2 rounded-r-full shadow-[0_0_10px_rgba(108,74,182,0.8)]"></div>
+</div>
+<form class="flex flex-col gap-element-gap mt-2" onsubmit="event.preventDefault();">
+<!-- Email Input -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
+</div>
+<input class="w-full bg-white/[0.08] border border-white/20 rounded-lg py-3 pl-12 pr-4 font-body-md text-body-md text-white placeholder:text-on-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container focus:outline-none transition-all" placeholder="Email" required="" type="email"/>
+</div>
+<!-- Password Input -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
+</div>
+<input class="w-full bg-white/[0.08] border border-white/20 rounded-lg py-3 pl-12 pr-4 font-body-md text-body-md text-white placeholder:text-on-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container focus:outline-none transition-all" placeholder="Password" required="" type="password"/>
+</div>
+<div class="flex justify-end mt-[-8px]">
+<a class="font-label-md text-label-md text-primary hover:text-primary-fixed transition-colors" href="#">Forgot Password?</a>
+</div>
+<!-- Primary Login Button -->
+<button class="w-full bg-primary-container text-white font-label-md text-label-md py-4 rounded-lg mt-2 glow-button flex items-center justify-center gap-2" type="submit">
+<span>Login</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="flex items-center gap-4 my-2">
+<div class="flex-1 h-px bg-white/10"></div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">or</span>
+<div class="flex-1 h-px bg-white/10"></div>
+</div>
+<!-- Secondary Actions -->
+<button class="w-full bg-transparent border border-white/20 text-white font-label-md text-label-md py-3 rounded-lg glass-panel hover:bg-white/5 transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-lg">person</span>
+<span>Continue as Guest</span>
+</button>
+</div>
+<!-- Footer Link -->
+<div class="mt-section-gap font-body-md text-body-md text-on-surface-variant">
+            Don't have an account? <a class="text-primary font-medium hover:text-primary-fixed transition-colors ml-1" href="#">Sign Up</a>
+</div>
+</main>
+</body></html>
