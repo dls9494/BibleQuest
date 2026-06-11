@@ -361,7 +361,7 @@ class _CustomQuizCreatorScreenState extends State<CustomQuizCreatorScreen> {
                             const SizedBox(width: 8),
                             Expanded(
                               child: DropdownButtonFormField<int>(
-                                value: bookRange.fromChapter,
+                                initialValue: bookRange.fromChapter,
                                 isDense: true,
                                 decoration: InputDecoration(
                                   labelText: 'From',
@@ -387,7 +387,7 @@ class _CustomQuizCreatorScreenState extends State<CustomQuizCreatorScreen> {
                             const SizedBox(width: 8),
                             Expanded(
                               child: DropdownButtonFormField<int>(
-                                value: bookRange.toChapter,
+                                initialValue: bookRange.toChapter,
                                 isDense: true,
                                 decoration: InputDecoration(
                                   labelText: 'To',

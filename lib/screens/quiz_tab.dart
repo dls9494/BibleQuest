@@ -22,7 +22,10 @@ import '../widgets/sharpen_weakness_card.dart';
 import '../widgets/live_event_card.dart';
 import '../services/verse_of_the_day.dart';
 import 'flashcard_quiz_screen.dart';
-
+import '../services/category_mapping.dart';
+import '../services/activity_service.dart';
+import 'main_screen.dart';
+import 'profile_screen.dart';
 enum QuizTabView { levelPicker, quizPlay }
 enum QuizPlayState { intro, question, feedback, summary }
 
@@ -92,6 +95,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
   QuizTabView _view = QuizTabView.levelPicker;
   int _selectedLevel = 1;
   final ScrollController _scrollController = ScrollController();
+  String _selectedCategory = 'All';
 
   // Quiz play state
   Quiz? _activeQuiz;
@@ -387,6 +391,19 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
         _activeQuiz!.topics,
       );
 
+      ActivityService.logActivity(
+        uid,
+        displayName,
+        'quiz_completed',
+        {
+          'quizId': _activeQuiz!.id,
+          'quizName': _activeQuiz!.titleEn,
+          'score': _accumulatedScore,
+          'correctAnswers': _correctAnswersCount,
+          'totalQuestions': _questions.length,
+        },
+      );
+
       // Level Unlock check (requires 70% score)
       if (percentage >= 70) {
         userProvider.unlockNextLevel(_selectedLevel);
@@ -426,6 +443,41 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
     final accentColor = isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          "Bible Quiz",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Outfit',
+          ),
+        ),
+        leading: Navigator.canPop(context)
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.pop(context),
+              )
+            : IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () {
+                  MainScreen.scaffoldKey.currentState?.openDrawer();
+                },
+              ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           // Background Gradient
@@ -581,6 +633,9 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                         // 5. Custom Chapter Quiz
                         _buildCustomQuizCard(),
                         const SizedBox(height: 20),
+
+                        _buildCategoryFilters(),
+                        const SizedBox(height: 16),
 
                         // Section 2: 2-Column Grid of Level Cards
                         const Text(
@@ -800,7 +855,96 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildCategoryFilters() {
+    final categories = [
+      'All',
+      'Old Testament',
+      'New Testament',
+      'Prophets',
+      'Gospels',
+      'Epistles',
+      'Wisdom',
+      'History',
+      'Law'
+    ];
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      height: 44,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          final isSelected = _selectedCategory == category;
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ChoiceChip(
+              label: Text(
+                category,
+                style: TextStyle(
+                  color: isSelected
+                      ? (category == 'All' || category == 'Old Testament' || category == 'New Testament' ? Colors.white : Colors.black)
+                      : (isDark ? Colors.white70 : const Color(0xFF3E2723)),
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontFamily: 'Outfit',
+                  fontSize: 13,
+                ),
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                if (selected) {
+                  setState(() {
+                    _selectedCategory = category;
+                  });
+                }
+              },
+              selectedColor: (category == 'All' || category == 'Old Testament' || category == 'New Testament')
+                  ? const Color(0xFF6C4AB6) // Purple for broad categories
+                  : const Color(0xFFFFD700), // Gold for specific subcategories
+              backgroundColor: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white12,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  color: isSelected
+                      ? ((category == 'All' || category == 'Old Testament' || category == 'New Testament')
+                          ? const Color(0xFF6C4AB6)
+                          : const Color(0xFFFFD700))
+                      : (isDark ? Colors.white24 : const Color(0xFF6C4AB6).withValues(alpha: 0.2)),
+                  width: 1.5,
+                ),
+              ),
+              showCheckmark: false,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _buildLevelGrid(Set<int> unlocked, int highestUnlocked) {
+    final filteredLevels = <int>[];
+    for (int l = 1; l <= 100; l++) {
+      final quizCat = CategoryMapping.getCategoryFromLevel(l);
+      if (CategoryMapping.matchesCategory(quizCat, _selectedCategory)) {
+        filteredLevels.add(l);
+      }
+    }
+
+    if (filteredLevels.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 32.0),
+        child: Center(
+          child: Text(
+            "No quizzes found in this category.",
+            style: TextStyle(color: Colors.white70, fontSize: 16, fontFamily: 'Outfit'),
+          ),
+        ),
+      );
+    }
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -810,9 +954,9 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
         mainAxisSpacing: 12,
         childAspectRatio: 1.3,
       ),
-      itemCount: 100,
+      itemCount: filteredLevels.length,
       itemBuilder: (context, index) {
-        final level = index + 1;
+        final level = filteredLevels[index];
         final isCompleted = unlocked.contains(level) && level < highestUnlocked;
         final isCurrent = level == highestUnlocked;
         final isLocked = !unlocked.contains(level);

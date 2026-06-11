@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
 import '../models/profile_title.dart';
+import 'profile_screen.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({super.key});
@@ -19,12 +21,36 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
   int _weeklyRank = -1;
   int _monthlyRank = -1;
   int _allTimeRank = -1;
+  String _selectedCategory = 'All';
+
+  StreamSubscription<List<String>>? _followingSubscription;
+  Set<String> _followingSet = {};
+  String _currentUserId = '';
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _loadUserInfo();
+    _loadFollowing();
+  }
+
+  void _loadFollowing() async {
+    final uid = await FirebaseService.getCurrentUserUid();
+    if (uid != null) {
+      if (mounted) {
+        setState(() {
+          _currentUserId = uid;
+        });
+      }
+      _followingSubscription = FirebaseService.getFollowing(uid).listen((followingList) {
+        if (mounted) {
+          setState(() {
+            _followingSet = followingList.toSet();
+          });
+        }
+      });
+    }
   }
 
   void _loadUserInfo() async {
@@ -48,6 +74,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
 
   @override
   void dispose() {
+    _followingSubscription?.cancel();
     _tabController.dispose();
     super.dispose();
   }
@@ -205,7 +232,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                             ),
                           ),
                         ),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: 24),
+
+                        _buildCategoryFilters(),
+                        const SizedBox(height: 24),
 
                         // Tab Bar Container
                         Container(
@@ -267,6 +297,75 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryFilters() {
+    final categories = [
+      'All Topics',
+      'Old Testament',
+      'New Testament',
+      'Prophets',
+      'Gospels',
+      'Epistles',
+      'Wisdom',
+      'History',
+      'Law'
+    ];
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      height: 44,
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          final isSelected = _selectedCategory == category;
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ChoiceChip(
+              label: Text(
+                category,
+                style: TextStyle(
+                  color: isSelected
+                      ? (category == 'All Topics' || category == 'Old Testament' || category == 'New Testament' ? Colors.white : Colors.black)
+                      : (isDark ? Colors.white70 : const Color(0xFF3E2723)),
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontFamily: 'Outfit',
+                  fontSize: 13,
+                ),
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                if (selected) {
+                  setState(() {
+                    _selectedCategory = category;
+                  });
+                }
+              },
+              selectedColor: (category == 'All Topics' || category == 'Old Testament' || category == 'New Testament')
+                  ? const Color(0xFF6C4AB6)
+                  : const Color(0xFFFFD700),
+              backgroundColor: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white12,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  color: isSelected
+                      ? ((category == 'All Topics' || category == 'Old Testament' || category == 'New Testament')
+                          ? const Color(0xFF6C4AB6)
+                          : const Color(0xFFFFD700))
+                      : (isDark ? Colors.white24 : const Color(0xFF6C4AB6).withValues(alpha: 0.2)),
+                  width: 1.5,
+                ),
+              ),
+              showCheckmark: false,
+            ),
+          );
+        },
       ),
     );
   }
@@ -339,6 +438,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                   final score = entry['score'] ?? 0;
                   final photoURL = entry['photoURL'] as String?;
                   final activeTitleId = entry['activeTitle'] ?? '';
+                  final targetUserId = entry['userId'] as String? ?? '';
 
                   final isCurrentUser = username == _displayName;
 
@@ -383,6 +483,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                       isTopThree: isTopThree,
                       isCurrentUser: isCurrentUser,
                       activeTitle: activeTitle,
+                      targetUserId: targetUserId,
                     ),
                   );
                 },
@@ -404,6 +505,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
     required bool isTopThree,
     required bool isCurrentUser,
     required String activeTitle,
+    required String targetUserId,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
@@ -486,9 +588,21 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
       );
     }
 
-    return ClipRRect(
+    return InkWell(
+      onTap: () {
+        if (targetUserId.isNotEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(userId: targetUserId),
+            ),
+          );
+        }
+      },
       borderRadius: BorderRadius.circular(12),
-      child: BackdropFilter(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: isDark ? 15 : 0, sigmaY: isDark ? 15 : 0),
         child: Container(
           padding: const EdgeInsets.all(12),
@@ -560,6 +674,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                 ),
               ),
 
+              // Follow/Unfollow button (if not current user and target user ID exists)
+              if (!isCurrentUser && targetUserId.isNotEmpty && _currentUserId.isNotEmpty)
+                _buildFollowButton(targetUserId),
+
               // Score points
               Text(
                 "$score",
@@ -581,6 +699,71 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
               ),
             ],
           ),
+        ),
+      ),
+    ),
+  );
+}
+
+  Widget _buildFollowButton(String targetUserId) {
+    final isFollowing = _followingSet.contains(targetUserId);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      height: 28,
+      child: TextButton(
+        onPressed: () async {
+          final scaffoldMessenger = ScaffoldMessenger.of(context);
+          try {
+            if (isFollowing) {
+              await FirebaseService.unfollowUser(_currentUserId, targetUserId);
+            } else {
+              await FirebaseService.followUser(_currentUserId, targetUserId);
+            }
+          } catch (e) {
+            scaffoldMessenger.showSnackBar(
+              SnackBar(content: Text("Failed to update follow: $e")),
+            );
+          }
+        },
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          backgroundColor: isFollowing
+              ? Colors.transparent
+              : (isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: BorderSide(
+              color: isFollowing
+                  ? (isDark ? Colors.white24 : Colors.black26)
+                  : Colors.transparent,
+            ),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              isFollowing ? Icons.check : Icons.add,
+              size: 12,
+              color: isFollowing
+                  ? (isDark ? Colors.white70 : Colors.black87)
+                  : (isDark ? const Color(0xFF1A1A2E) : Colors.white),
+            ),
+            const SizedBox(width: 4),
+            Text(
+              isFollowing ? "Following" : "Follow",
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Outfit',
+                color: isFollowing
+                    ? (isDark ? Colors.white70 : Colors.black87)
+                    : (isDark ? const Color(0xFF1A1A2E) : Colors.white),
+              ),
+            ),
+          ],
         ),
       ),
     );

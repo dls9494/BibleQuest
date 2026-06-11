@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/church_group.dart';
 import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
+import '../services/activity_service.dart';
 import 'group_detail_screen.dart';
 
 class ChurchGroupsScreen extends StatefulWidget {
@@ -635,6 +636,17 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
                                 // Update stats
                                 userProvider.incrementJoinedGroups();
                                 userProvider.updateMaxGroupSize(group.totalMembers);
+
+                                // Log activity
+                                await ActivityService.logActivity(
+                                  uid,
+                                  name,
+                                  'group_joined',
+                                  {
+                                    'groupId': group.id,
+                                    'groupName': group.name,
+                                  },
+                                );
 
                                 scaffoldMessenger.showSnackBar(
                                   SnackBar(content: Text("Successfully joined ${group.name}!")),

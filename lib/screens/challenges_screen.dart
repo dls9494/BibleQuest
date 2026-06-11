@@ -9,7 +9,9 @@ import '../services/firebase_service.dart';
 import 'self_paced_screen.dart';
 import 'battle_screen.dart';
 import 'church_groups_screen.dart';
-
+import 'main_screen.dart';
+import 'profile_screen.dart';
+import 'leaderboard_screen.dart';
 class ChallengesScreen extends StatefulWidget {
   const ChallengesScreen({super.key});
 
@@ -204,6 +206,36 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          "Challenges",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Outfit',
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {
+            MainScreen.scaffoldKey.currentState?.openDrawer();
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           // Background Gradient
@@ -325,7 +357,10 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                               : () => _playQuiz(_weeklyQuiz!),
                           isLoading: _loadingWeekly,
                           showLeaderboardButton: true,
-                          onLeaderboardPressed: () => userProvider.setTabIndex(2),
+                          onLeaderboardPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LeaderboardScreen()),
+                          ),
                         ),
                         const SizedBox(height: 20),
 
@@ -354,7 +389,10 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                               : () => _playQuiz(_monthlyQuiz!),
                           isLoading: _loadingMonthly,
                           showLeaderboardButton: true,
-                          onLeaderboardPressed: () => userProvider.setTabIndex(2),
+                          onLeaderboardPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LeaderboardScreen()),
+                          ),
                         ),
                         const SizedBox(height: 20),
 

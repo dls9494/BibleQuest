@@ -4,10 +4,20 @@ import '../models/bible.dart';
 
 class BibleService {
   // ─── In-memory cache ─────────────────────────────────────────────────────
-  static Map<String, dynamic>? _kjvCache;
-  static Map<String, dynamic>? _teluguCache;
-  static Map<String, dynamic>? _nhvCache;
+  static final Map<String, Map<String, dynamic>> _versionCaches = {};
+  static final Map<String, Map<int, String>> _chapterCache = {};
   static List<SearchVerse>? _searchIndex;
+
+  static const Map<String, String> versionToAssetPath = {
+    'te': 'assets/bible/telugu_ov.json',
+    'kjv': 'assets/bible/kjv_bible.json',
+    'nhv': 'assets/bible/nhv_bible.json',
+    'english_kjv': 'assets/bible/english_kjv.json',
+    'english_asv': 'assets/bible/english_asv.json',
+    'english_web': 'assets/bible/english_web.json',
+    'english_darby': 'assets/bible/english_darby.json',
+    'telugu_ov': 'assets/bible/telugu_ov.json',
+  };
 
   // ─── Book metadata ───────────────────────────────────────────────────────
   static const List<BibleBook> _books = [
@@ -151,6 +161,7 @@ class BibleService {
     'revelation': 'Revelation',
   };
 
+  static List<BibleBook> getBooks() => _books;
   static List<BibleBook> getAllBooks() => _books;
   static List<BibleBook> getOTBooks() => _books.where((b) => b.testament == 'OT').toList();
   static List<BibleBook> getNTBooks() => _books.where((b) => b.testament == 'NT').toList();
@@ -175,7 +186,7 @@ class BibleService {
       if (match != null) {
         final bookName = match.group(1)!.trim();
         final chapter = int.tryParse(match.group(2)!) ?? 1;
-        final book = _findBookByName(bookName);
+        final book = findBookByName(bookName);
         if (book != null) {
           return BibleChapterRef(
             bookId: book.id,
@@ -188,7 +199,7 @@ class BibleService {
     return null;
   }
 
-  static BibleBook? _findBookByName(String name) {
+  static BibleBook? findBookByName(String name) {
     final lname = name.toLowerCase().replaceAll(' ', '');
     for (final book in _books) {
       if (book.nameEn.toLowerCase().replaceAll(' ', '') == lname) return book;
@@ -200,53 +211,40 @@ class BibleService {
 
   // ─── Asset loading ───────────────────────────────────────────────────────
 
-  static Future<Map<String, dynamic>> _loadKjv() async {
-    if (_kjvCache != null) return _kjvCache!;
-    try {
-      final jsonStr = await rootBundle.loadString('assets/bible/kjv_bible.json');
-      _kjvCache = json.decode(jsonStr) as Map<String, dynamic>;
-    } catch (e) {
-      _kjvCache = {};
+  static Future<Map<String, dynamic>> _loadVersion(String version) async {
+    if (_versionCaches.containsKey(version)) {
+      return _versionCaches[version]!;
     }
-    return _kjvCache!;
+    final assetPath = versionToAssetPath[version];
+    if (assetPath == null) return {};
+    try {
+      final jsonStr = await rootBundle.loadString(assetPath);
+      final decoded = json.decode(jsonStr) as Map<String, dynamic>;
+      _versionCaches[version] = decoded;
+      return decoded;
+    } catch (e) {
+      // ignore: avoid_print
+      print("Error loading version $version: $e");
+      return {};
+    }
   }
 
-  static Future<Map<String, dynamic>> _loadTelugu() async {
-    if (_teluguCache != null) return _teluguCache!;
-    try {
-      final jsonStr = await rootBundle.loadString('assets/bible/telugu_bible.json');
-      _teluguCache = json.decode(jsonStr) as Map<String, dynamic>;
-    } catch (e) {
-      _teluguCache = {};
-    }
-    return _teluguCache!;
-  }
-
-  static Future<Map<String, dynamic>> _loadNhv() async {
-    if (_nhvCache != null) return _nhvCache!;
-    try {
-      final jsonStr = await rootBundle.loadString('assets/bible/nhv_bible.json');
-      _nhvCache = json.decode(jsonStr) as Map<String, dynamic>;
-    } catch (e) {
-      _nhvCache = {};
-    }
-    return _nhvCache!;
-  }
+  static Future<Map<String, dynamic>> _loadKjv() => _loadVersion('kjv');
+  static Future<Map<String, dynamic>> _loadTelugu() => _loadVersion('te');
+  static Future<Map<String, dynamic>> _loadNhv() => _loadVersion('nhv');
 
   /// Returns {verseNumber: text} for a given book/chapter/version.
-  /// version: 'te' | 'kjv' | 'nhv'
+  /// version: 'te' | 'kjv' | 'nhv' | 'english_kjv' | 'english_asv' | ...
   static Future<Map<int, String>> getChapter(String bookId, int chapter, String version) async {
+    final cacheKey = "$version:$bookId:$chapter";
+    if (_chapterCache.containsKey(cacheKey)) {
+      return _chapterCache[cacheKey]!;
+    }
+
     final jsonName = _idToJsonName[bookId] ?? '';
     if (jsonName.isEmpty) return {};
 
-    Map<String, dynamic> data;
-    if (version == 'te') {
-      data = await _loadTelugu();
-    } else if (version == 'nhv') {
-      data = await _loadNhv();
-    } else {
-      data = await _loadKjv();
-    }
+    final data = await _loadVersion(version);
 
     final bookData = data[jsonName] as Map<String, dynamic>?;
     if (bookData == null) return {};
@@ -261,6 +259,8 @@ class BibleService {
         result[verseNum] = text.toString();
       }
     });
+
+    _chapterCache[cacheKey] = result;
     return result;
   }
 

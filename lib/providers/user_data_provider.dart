@@ -9,6 +9,12 @@ import '../models/quiz.dart';
 import '../services/firebase_service.dart';
 import '../services/bible_service.dart';
 import '../models/bible.dart';
+import '../services/notification_service.dart';
+import '../services/activity_service.dart';
+import '../services/local_storage_service.dart';
+import '../services/connectivity_service.dart';
+import '../main.dart';
+import '../widgets/achievement_celebration.dart';
 
 class UserDataProvider extends ChangeNotifier {
   String? _userId;
@@ -42,7 +48,6 @@ class UserDataProvider extends ChangeNotifier {
   int _monthlyRank = -1;
   int? _dailyQuizLevel;
   String _dailyQuizDate = "";
-  int _tabIndex = 0;
   
   final Map<int, Set<String>> _seenSets = {};
 
@@ -86,6 +91,7 @@ class UserDataProvider extends ChangeNotifier {
   int? _bibleChapter;
   int? _bibleVerse;
   final Set<String> _bookmarkedVerseRefs = {};
+  final Set<String> _bookmarkedChapters = {};
 
 
   // Exposing Profile fields reactively
@@ -95,6 +101,25 @@ class UserDataProvider extends ChangeNotifier {
   String? _photoURL;
   String? _phoneNumber;
   String _authMethod = "anonymous";
+
+  // New Profile Fields
+  String? _bannerUrl;
+  String? _bioEn;
+  String? _bioTe;
+  String? _favoriteVerseRef;
+  List<String> _showcaseBadges = [];
+  String _activityVisibility = 'public';
+  String _profileVisibility = 'public';
+  bool _showPrayersOnProfile = true;
+  bool _showTestimonyOnProfile = true;
+  String _accentColor = 'gold';
+  String? _ministryRole;
+  String? _testimonyEn;
+  String? _testimonyTe;
+  Map<String, String>? _socialLinks;
+  int _profileViews = 0;
+  String _avatarType = 'custom';
+  String? _defaultAvatarId;
 
   // Title fields
   String _activeTitle = "";
@@ -117,6 +142,7 @@ class UserDataProvider extends ChangeNotifier {
   final List<Future<void> Function()> _writeQueue = [];
   bool _isWriting = false;
   final Set<String> _dirtyFields = {};
+  bool _connectivityListenerAdded = false;
 
   void _markDirty(String field) {
     _dirtyFields.add(field);
@@ -124,20 +150,117 @@ class UserDataProvider extends ChangeNotifier {
 
   void _enqueueWrite(Future<void> Function() writeOperation) {
     _writeQueue.add(writeOperation);
+
+    if (_dirtyFields.isNotEmpty) {
+      for (final field in _dirtyFields) {
+        LocalStorageService.userStateBox.put(field, _getFieldValue(field));
+      }
+      LocalStorageService.pendingWritesBox.add({
+        'fields': _dirtyFields.toList(),
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+    }
+
     if (!_isWriting) {
       _processQueue();
     }
   }
 
+  dynamic _getFieldValue(String field) {
+    switch (field) {
+      case 'totalXp': return _totalXp;
+      case 'unlockedLevels': return _unlockedLevels.toList();
+      case 'streak': return _streakDays;
+      case 'lastPlayDate': return _lastPlayDate?.toIso8601String();
+      case 'dailyChallengeCompleted': return _dailyChallengeCompleted;
+      case 'weeklyChallengeCompleted': return _weeklyChallengeCompleted;
+      case 'monthlyChallengeCompleted': return _monthlyChallengeCompleted;
+      case 'lastDailyChallengeDate': return _lastDailyChallengeDate;
+      case 'lastWeeklyChallengeReset': return _lastWeeklyChallengeReset;
+      case 'lastMonthlyChallengeReset': return _lastMonthlyChallengeReset;
+      case 'totalDailyChallengesCompleted': return _totalDailyChallengesCompleted;
+      case 'quizHighScores': return Map<String, dynamic>.from(_quizHighScores);
+      case 'quizPercentages': return Map<String, dynamic>.from(_quizPercentages);
+      case 'masteredFlashcards': return _masteredFlashcards.toList();
+      case 'completedQuizTopics': return _completedQuizTopics.toList();
+      case 'seenSets': return _seenSets.map((k, v) => MapEntry(k.toString(), v.toList()));
+      case 'completedReadingPlansCount': return _completedReadingPlansCount;
+      case 'highestReadingStreak': return _highestReadingStreak;
+      case 'highestReadingProgress': return _highestReadingProgress;
+      case 'readingDaysCompleted': return _readingDaysCompleted;
+      case 'completedReadingPlanTypes': return _completedReadingPlanTypes.toList();
+      case 'streakBoxesOpened': return _streakBoxesOpened.toList();
+      case 'totalMiracleBoxesOpened': return _totalMiracleBoxesOpened;
+      case 'pendingMiracleBox': return _pendingMiracleBox;
+      case 'bookmarkedQuestions': return _bookmarkedQuestionIds.toList();
+      case 'bookmarkedVerses': return _bookmarkedVerseRefs.toList();
+      case 'bookmarkedChapters': return _bookmarkedChapters.toList();
+      case 'thisDayQuizCompleted': return _thisDayQuizCompleted;
+      case 'memoryGamesCompleted': return _memoryGamesCompleted;
+      case 'liveEventsWon': return _liveEventsWon;
+      case 'liveEventsParticipated': return _liveEventsParticipated;
+      case 'battlesWon': return _battlesWon;
+      case 'battlesLost': return _battlesLost;
+      case 'battlesPlayed': return _battlesPlayed;
+      case 'topicPerformance': return _topicPerformance;
+      case 'topicPerformanceCounts': return _topicPerformanceCounts;
+      case 'weaknessQuizCompleted': return _weaknessQuizCompleted;
+      case 'achievements': return _achievementsList.map((a) => a.toMap()).toList();
+      case 'averageAnswerTime': return _averageAnswerTime;
+      case 'totalAnswerTimeSpent': return _totalAnswerTimeSpent;
+      case 'totalQuestionsAnswered': return _totalQuestionsAnswered;
+      case 'totalShares': return _totalShares;
+      case 'phoneNumber': return _phoneNumber;
+      case 'authMethod': return _authMethod;
+      case 'activeTitle': return _activeTitle;
+      case 'unlockedTitles': return _unlockedTitles.toList();
+      case 'joinedGroupsCount': return _joinedGroupsCount;
+      case 'createdGroupsCount': return _createdGroupsCount;
+      case 'maxGroupSize': return _maxGroupSize;
+      case 'challengesWon': return _challengesWon;
+      case 'challengesCreated': return _challengesCreated;
+      case 'wonChallengeIds': return _wonChallengeIds.toList();
+      case 'displayName': return _displayName;
+      case 'username': return _username;
+      case 'photoURL': return _photoURL;
+      case 'bannerUrl': return _bannerUrl;
+      case 'bioEn': return _bioEn;
+      case 'bioTe': return _bioTe;
+      case 'favoriteVerseRef': return _favoriteVerseRef;
+      case 'showcaseBadges': return _showcaseBadges.toList();
+      case 'activityVisibility': return _activityVisibility;
+      case 'profileVisibility': return _profileVisibility;
+      case 'showPrayersOnProfile': return _showPrayersOnProfile;
+      case 'showTestimonyOnProfile': return _showTestimonyOnProfile;
+      case 'accentColor': return _accentColor;
+      case 'accentColorValue': return _accentColor;
+      case 'ministryRole': return _ministryRole;
+      case 'testimonyEn': return _testimonyEn;
+      case 'testimonyTe': return _testimonyTe;
+      case 'socialLinks': return _socialLinks;
+      case 'profileViews': return _profileViews;
+      case 'avatarType': return _avatarType;
+      case 'defaultAvatarId': return _defaultAvatarId;
+    }
+    return null;
+  }
+
   Future<void> _processQueue() async {
     _isWriting = true;
     while (_writeQueue.isNotEmpty) {
+      if (!ConnectivityService.isOnline.value) break;
+
       final nextWrite = _writeQueue.removeAt(0);
       try {
         await nextWrite();
+        if (LocalStorageService.pendingWritesBox.isNotEmpty) {
+          await LocalStorageService.pendingWritesBox.deleteAt(0);
+        }
+        _persistFullStateSnapshot();
       } catch (e) {
         // ignore: avoid_print
         print("Error in write queue operation: $e");
+        break;
       }
     }
     _isWriting = false;
@@ -148,11 +271,72 @@ class UserDataProvider extends ChangeNotifier {
   Map<int, Set<String>> get seenSets => _seenSets;
 
   String get displayName => _displayName;
+  set displayName(String val) { _displayName = val; _markDirty('displayName'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
   String get username => _username;
+  set username(String val) { _username = val; _markDirty('username'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
   String get email => _email;
+  set email(String val) { _email = val; _markDirty('email'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
   String? get photoURL => _photoURL;
+  set photoURL(String? val) { _photoURL = val; _markDirty('photoURL'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
   String? get phoneNumber => _phoneNumber;
+  set phoneNumber(String? val) { _phoneNumber = val; _markDirty('phoneNumber'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
   String get authMethod => _authMethod;
+  set authMethod(String val) { _authMethod = val; _markDirty('authMethod'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get bannerUrl => _bannerUrl;
+  set bannerUrl(String? val) { _bannerUrl = val; _markDirty('bannerUrl'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get bioEn => _bioEn;
+  set bioEn(String? val) { _bioEn = val; _markDirty('bioEn'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get bioTe => _bioTe;
+  set bioTe(String? val) { _bioTe = val; _markDirty('bioTe'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get favoriteVerseRef => _favoriteVerseRef;
+  set favoriteVerseRef(String? val) { _favoriteVerseRef = val; _markDirty('favoriteVerseRef'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  List<String> get showcaseBadges => _showcaseBadges;
+  set showcaseBadges(List<String> val) { _showcaseBadges = val; _markDirty('showcaseBadges'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String get activityVisibility => _activityVisibility;
+  set activityVisibility(String val) { _activityVisibility = val; _markDirty('activityVisibility'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String get profileVisibility => _profileVisibility;
+  set profileVisibility(String val) { _profileVisibility = val; _markDirty('profileVisibility'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  bool get showPrayersOnProfile => _showPrayersOnProfile;
+  set showPrayersOnProfile(bool val) { _showPrayersOnProfile = val; _markDirty('showPrayersOnProfile'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  bool get showTestimonyOnProfile => _showTestimonyOnProfile;
+  set showTestimonyOnProfile(bool val) { _showTestimonyOnProfile = val; _markDirty('showTestimonyOnProfile'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String get accentColor => _accentColor;
+  set accentColor(String val) { _accentColor = val; _markDirty('accentColor'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get ministryRole => _ministryRole;
+  set ministryRole(String? val) { _ministryRole = val; _markDirty('ministryRole'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get testimonyEn => _testimonyEn;
+  set testimonyEn(String? val) { _testimonyEn = val; _markDirty('testimonyEn'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get testimonyTe => _testimonyTe;
+  set testimonyTe(String? val) { _testimonyTe = val; _markDirty('testimonyTe'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  Map<String, String>? get socialLinks => _socialLinks;
+  set socialLinks(Map<String, String>? val) { _socialLinks = val; _markDirty('socialLinks'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  int get profileViews => _profileViews;
+
+  String get avatarType => _avatarType;
+  set avatarType(String val) { _avatarType = val; _markDirty('avatarType'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
+
+  String? get defaultAvatarId => _defaultAvatarId;
+  set defaultAvatarId(String? val) { _defaultAvatarId = val; _markDirty('defaultAvatarId'); notifyListeners(); _enqueueWrite(() => _saveToFirestore()); }
 
   String getOrPickUnseenSetForLevel(int level) {
     _seenSets.putIfAbsent(level, () => {});
@@ -221,7 +405,6 @@ class UserDataProvider extends ChangeNotifier {
   int get weeklyRank => _weeklyRank;
   int get monthlyRank => _monthlyRank;
   int? get dailyQuizLevel => _dailyQuizLevel;
-  int get tabIndex => _tabIndex;
 
   String get activeTitle => _activeTitle;
   List<String> get unlockedTitles => _unlockedTitles;
@@ -298,11 +481,29 @@ class UserDataProvider extends ChangeNotifier {
     return _bookmarkedVerseRefs.contains(ref);
   }
 
+  Set<String> get bookmarkedChapters => _bookmarkedChapters;
 
-  void setTabIndex(int index) {
-    _tabIndex = index;
+  void addBookmarkedChapter(String bookId, int chapter) {
+    final ref = '${bookId}_$chapter';
+    _bookmarkedChapters.add(ref);
+    _markDirty('bookmarkedChapters');
     notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
   }
+
+  void removeBookmarkedChapter(String bookId, int chapter) {
+    final ref = '${bookId}_$chapter';
+    _bookmarkedChapters.remove(ref);
+    _markDirty('bookmarkedChapters');
+    notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
+  }
+
+  bool isChapterBookmarked(String bookId, int chapter) {
+    final ref = '${bookId}_$chapter';
+    return _bookmarkedChapters.contains(ref);
+  }
+
 
   void setBibleTarget(String bookId, int chapter, [int? verse]) {
     _bibleBookId = bookId;
@@ -324,6 +525,11 @@ class UserDataProvider extends ChangeNotifier {
     _userDocSubscription = null;
 
     if (uid == null) {
+      LocalStorageService.clearUserData();
+      if (_connectivityListenerAdded) {
+        ConnectivityService.isOnline.removeListener(_onConnectivityRestored);
+        _connectivityListenerAdded = false;
+      }
       // Clear data on sign out
       _unlockedLevels.clear();
       _unlockedLevels.add(1);
@@ -349,7 +555,6 @@ class UserDataProvider extends ChangeNotifier {
       _monthlyRank = -1;
       _dailyQuizLevel = null;
       _dailyQuizDate = "";
-      _tabIndex = 0;
       _seenSets.clear();
       _completedReadingPlansCount = 0;
       _highestReadingStreak = 0;
@@ -362,6 +567,23 @@ class UserDataProvider extends ChangeNotifier {
       _photoURL = null;
       _phoneNumber = null;
       _authMethod = "anonymous";
+      _bannerUrl = null;
+      _bioEn = null;
+      _bioTe = null;
+      _favoriteVerseRef = null;
+      _showcaseBadges.clear();
+      _activityVisibility = 'public';
+      _profileVisibility = 'public';
+      _showPrayersOnProfile = true;
+      _showTestimonyOnProfile = true;
+      _accentColor = 'gold';
+      _ministryRole = null;
+      _testimonyEn = null;
+      _testimonyTe = null;
+      _socialLinks = null;
+      _profileViews = 0;
+      _avatarType = 'custom';
+      _defaultAvatarId = null;
       _activeTitle = "";
       _unlockedTitles.clear();
       _unlockedTitles.add("novice");
@@ -371,6 +593,8 @@ class UserDataProvider extends ChangeNotifier {
       _totalMiracleBoxesOpened = 0;
       _pendingMiracleBox = false;
       _bookmarkedQuestionIds.clear();
+      _bookmarkedVerseRefs.clear();
+      _bookmarkedChapters.clear();
       _thisDayQuizCompleted = false;
       _memoryGamesCompleted = 0;
       _liveEventsWon = 0;
@@ -406,43 +630,71 @@ class UserDataProvider extends ChangeNotifier {
   }
 
   Future<void> restoreSession(User user) async {
-    if (_userId == user.uid) return; // Already restored
-    
+    if (_userId == user.uid) return;
+
     _userId = user.uid;
     _displayName = user.displayName ?? '';
     _email = user.email ?? '';
-    
+
     _userDocSubscription?.cancel();
     _userDocSubscription = null;
-    
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_userId)
-        .get();
-    
-    if (doc.exists) {
-      _loadFromMap(doc.data()!);
-    } else {
-      await FirebaseService.createUserProfile(
-        _userId!,
-        displayName: user.displayName,
-        email: user.email,
-      );
-    }
-    
-    _userDocSubscription = FirebaseFirestore.instance
-        .collection('users')
-        .doc(_userId)
-        .snapshots()
-        .listen((snapshot) {
-      if (snapshot.exists && snapshot.data() != null) {
-        _loadFromMap(snapshot.data()!);
+
+    // Step 1: Load from Hive cache instantly (works offline)
+    _loadFromHive();
+
+    // Step 2: Recover pending dirty fields from persisted write queue
+    _recoverDirtyFields();
+
+    // Step 3: Try Firestore — merge with Hive winning for dirty fields
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_userId)
+          .get()
+          .timeout(const Duration(seconds: 5));
+
+      if (doc.exists) {
+        final firestoreData = doc.data()!;
+        final hiveData = LocalStorageService.userStateBox.get('fullState')
+            as Map<String, dynamic>?;
+
+        if (hiveData != null && _dirtyFields.isNotEmpty) {
+          final merged = Map<String, dynamic>.from(hiveData);
+          for (final key in firestoreData.keys) {
+            if (!_dirtyFields.contains(key)) {
+              merged[key] = firestoreData[key];
+            }
+          }
+          for (final key in firestoreData.keys) {
+            if (!merged.containsKey(key)) {
+              merged[key] = firestoreData[key];
+            }
+          }
+          _loadFromMap(merged);
+        } else {
+          _loadFromMap(firestoreData);
+        }
+        _persistFullStateSnapshot();
+      } else {
+        await FirebaseService.createUserProfile(
+          _userId!,
+          displayName: user.displayName,
+          email: user.email,
+        );
       }
-    }, onError: (e) {
-      // ignore: avoid_print
-      print("Error listening to user document: $e");
-    });
-    
+    } catch (_) {
+      // Offline or timeout — Hive state is already loaded
+    }
+
+    // Step 4: Subscribe to Firestore snapshot listener
+    _ensureFirestoreSubscription();
+
+    // Step 5: Listen for connectivity restored to flush pending writes
+    if (!_connectivityListenerAdded) {
+      ConnectivityService.isOnline.addListener(_onConnectivityRestored);
+      _connectivityListenerAdded = true;
+    }
+
     notifyListeners();
   }
 
@@ -466,6 +718,28 @@ class UserDataProvider extends ChangeNotifier {
     _photoURL = data['photoURL'];
     _phoneNumber = data['phoneNumber'];
     _authMethod = data['authMethod'] ?? 'anonymous';
+    
+    _bannerUrl = data['bannerUrl'];
+    _bioEn = data['bioEn'];
+    _bioTe = data['bioTe'];
+    _favoriteVerseRef = data['favoriteVerseRef'];
+    _showcaseBadges = List<String>.from(data['showcaseBadges'] ?? []);
+    _activityVisibility = data['activityVisibility'] ?? 'public';
+    _profileVisibility = data['profileVisibility'] ?? 'public';
+    _showPrayersOnProfile = data['showPrayersOnProfile'] ?? true;
+    _showTestimonyOnProfile = data['showTestimonyOnProfile'] ?? true;
+    _accentColor = data['accentColor'] ?? 'gold';
+    _ministryRole = data['ministryRole'];
+    _testimonyEn = data['testimonyEn'];
+    _testimonyTe = data['testimonyTe'];
+    if (data['socialLinks'] != null) {
+      _socialLinks = Map<String, String>.from(data['socialLinks']);
+    } else {
+      _socialLinks = null;
+    }
+    _profileViews = data['profileViews'] ?? 0;
+    _avatarType = data['avatarType'] ?? 'custom';
+    _defaultAvatarId = data['defaultAvatarId'];
     
     _activeTitle = data['activeTitle'] ?? '';
     final titlesList = data['unlockedTitles'] as List?;
@@ -566,6 +840,12 @@ class UserDataProvider extends ChangeNotifier {
     if (bkmarkVerses != null) {
       _bookmarkedVerseRefs.addAll(List<String>.from(bkmarkVerses));
     }
+
+    final bkmarkChapters = data['bookmarkedChapters'] as List?;
+    _bookmarkedChapters.clear();
+    if (bkmarkChapters != null) {
+      _bookmarkedChapters.addAll(List<String>.from(bkmarkChapters));
+    }
     _thisDayQuizCompleted = data['thisDayQuizCompleted'] ?? false;
     _memoryGamesCompleted = data['memoryGamesCompleted'] ?? 0;
     _liveEventsWon = data['liveEventsWon'] ?? 0;
@@ -620,10 +900,13 @@ class UserDataProvider extends ChangeNotifier {
     }
 
     checkAndResetChallenges();
+    NotificationService.scheduleNotifications(_streakDays);
     notifyListeners();
   }
 
   Future<void> _saveToFirestore() async {
+    if (!ConnectivityService.isOnline.value) return;
+
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
     if (_dirtyFields.isEmpty) return;
@@ -695,7 +978,7 @@ class UserDataProvider extends ChangeNotifier {
           updates['completedReadingPlanTypes'] = _completedReadingPlanTypes.toList();
           break;
         case 'streakBoxesOpened':
-          updates['streakBoxesOpened'] = _streakBoxesOpened;
+          updates['streakBoxesOpened'] = _streakBoxesOpened.toList();
           break;
         case 'totalMiracleBoxesOpened':
           updates['totalMiracleBoxesOpened'] = _totalMiracleBoxesOpened;
@@ -708,6 +991,9 @@ class UserDataProvider extends ChangeNotifier {
           break;
         case 'bookmarkedVerses':
           updates['bookmarkedVerses'] = _bookmarkedVerseRefs.toList();
+          break;
+        case 'bookmarkedChapters':
+          updates['bookmarkedChapters'] = _bookmarkedChapters.toList();
           break;
         case 'thisDayQuizCompleted':
           updates['thisDayQuizCompleted'] = _thisDayQuizCompleted;
@@ -785,10 +1071,71 @@ class UserDataProvider extends ChangeNotifier {
         case 'wonChallengeIds':
           updates['wonChallengeIds'] = _wonChallengeIds;
           break;
+        case 'displayName':
+          updates['displayName'] = _displayName;
+          break;
+        case 'username':
+          updates['username'] = _username;
+          break;
+        case 'photoURL':
+          updates['photoURL'] = _photoURL;
+          break;
+        case 'bannerUrl':
+          updates['bannerUrl'] = _bannerUrl;
+          break;
+        case 'bioEn':
+          updates['bioEn'] = _bioEn;
+          break;
+        case 'bioTe':
+          updates['bioTe'] = _bioTe;
+          break;
+        case 'favoriteVerseRef':
+          updates['favoriteVerseRef'] = _favoriteVerseRef;
+          break;
+        case 'showcaseBadges':
+          updates['showcaseBadges'] = _showcaseBadges;
+          break;
+        case 'activityVisibility':
+          updates['activityVisibility'] = _activityVisibility;
+          break;
+        case 'profileVisibility':
+          updates['profileVisibility'] = _profileVisibility;
+          break;
+        case 'showPrayersOnProfile':
+          updates['showPrayersOnProfile'] = _showPrayersOnProfile;
+          break;
+        case 'showTestimonyOnProfile':
+          updates['showTestimonyOnProfile'] = _showTestimonyOnProfile;
+          break;
+        case 'accentColor':
+          updates['accentColor'] = _accentColor;
+          break;
+        case 'accentColorValue':
+          updates['accentColorValue'] = _accentColor;
+          break;
+        case 'ministryRole':
+          updates['ministryRole'] = _ministryRole;
+          break;
+        case 'testimonyEn':
+          updates['testimonyEn'] = _testimonyEn;
+          break;
+        case 'testimonyTe':
+          updates['testimonyTe'] = _testimonyTe;
+          break;
+        case 'socialLinks':
+          updates['socialLinks'] = _socialLinks;
+          break;
+        case 'profileViews':
+          updates['profileViews'] = _profileViews;
+          break;
+        case 'avatarType':
+          updates['avatarType'] = _avatarType;
+          break;
+        case 'defaultAvatarId':
+          updates['defaultAvatarId'] = _defaultAvatarId;
+          break;
       }
     }
-
-    _dirtyFields.clear();
 
     if (updates.isEmpty) return;
 
@@ -797,15 +1144,31 @@ class UserDataProvider extends ChangeNotifier {
       final docRef = FirebaseFirestore.instance.collection('users').doc(uid);
       batch.set(docRef, updates, SetOptions(merge: true));
       await batch.commit();
+      _dirtyFields.clear();
     } catch (e) {
       // ignore: avoid_print
       print("Error saving user state to Firestore: $e");
+      rethrow;
+    }
+  }
+
+  void _addXpInternal(int xp) {
+    final oldLevel = playerLevel;
+    _totalXp += xp;
+    _markDirty('totalXp');
+    final newLevel = playerLevel;
+    if (newLevel > oldLevel) {
+      ActivityService.logActivity(
+        _userId ?? '',
+        _displayName,
+        'level_up',
+        {'oldLevel': oldLevel, 'newLevel': newLevel},
+      );
     }
   }
 
   void addXp(int xp) {
-    _totalXp += xp;
-    _markDirty('totalXp');
+    _addXpInternal(xp);
     checkAchievements();
     notifyListeners();
     _enqueueWrite(() => _saveToFirestore());
@@ -888,10 +1251,9 @@ class UserDataProvider extends ChangeNotifier {
   void completeDailyChallenge(int bonusXp) {
     _dailyChallengeCompleted = true;
     _totalDailyChallengesCompleted += 1;
-    _totalXp += bonusXp;
+    _addXpInternal(bonusXp);
     _markDirty('dailyChallengeCompleted');
     _markDirty('totalDailyChallengesCompleted');
-    _markDirty('totalXp');
     updateStreak();
     checkAchievements();
     notifyListeners();
@@ -900,9 +1262,8 @@ class UserDataProvider extends ChangeNotifier {
 
   void completeWeeklyChallenge(int bonusXp) {
     _weeklyChallengeCompleted = true;
-    _totalXp += bonusXp;
+    _addXpInternal(bonusXp);
     _markDirty('weeklyChallengeCompleted');
-    _markDirty('totalXp');
     updateStreak();
     checkAchievements();
     notifyListeners();
@@ -911,9 +1272,8 @@ class UserDataProvider extends ChangeNotifier {
 
   void completeMonthlyChallenge(int bonusXp) {
     _monthlyChallengeCompleted = true;
-    _totalXp += bonusXp;
+    _addXpInternal(bonusXp);
     _markDirty('monthlyChallengeCompleted');
-    _markDirty('totalXp');
     updateStreak();
     checkAchievements();
     notifyListeners();
@@ -1024,6 +1384,12 @@ class UserDataProvider extends ChangeNotifier {
     if (_streakDays % 7 == 0 && _streakDays > 0 && !_streakBoxesOpened.contains(_streakDays)) {
       _pendingMiracleBox = true;
       _markDirty('pendingMiracleBox');
+      ActivityService.logActivity(
+        _userId ?? '',
+        _displayName,
+        'streak_milestone',
+        {'streakDays': _streakDays},
+      );
     }
 
     checkAchievements();
@@ -1375,6 +1741,16 @@ class UserDataProvider extends ChangeNotifier {
         _newlyUnlocked = achievement;
         anyNewUnlock = true;
         _markDirty('achievements');
+        ActivityService.logActivity(
+          _userId ?? '',
+          _displayName,
+          'achievement_unlocked',
+          {
+            'achievementId': achievement.id,
+            'achievementName': achievement.title,
+            'description': achievement.description,
+          },
+        );
       }
     }
 
@@ -1386,6 +1762,32 @@ class UserDataProvider extends ChangeNotifier {
 
     // Check titles after achievements check
     checkTitleUnlocks();
+
+    // Trigger celebration dialog globally if any unlock occurred
+    _triggerNewlyUnlockedCelebration();
+  }
+
+  void _triggerNewlyUnlockedCelebration() {
+    final achievement = _newlyUnlocked;
+    if (achievement == null) return;
+    final context = navigatorKey.currentState?.context;
+    if (context == null) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AchievementCelebrationDialog(
+            achievement: achievement,
+            onContinue: () {
+              clearNewlyUnlocked();
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      );
+    });
   }
 
   bool isTitleUnlocked(String titleId) {
@@ -1484,6 +1886,12 @@ class UserDataProvider extends ChangeNotifier {
     _battlesPlayed++;
     if (won) {
       _battlesWon++;
+      ActivityService.logActivity(
+        _userId ?? '',
+        _displayName,
+        'battle_won',
+        {'battlesWon': _battlesWon},
+      );
     } else {
       _battlesLost++;
     }
@@ -1716,9 +2124,246 @@ class UserDataProvider extends ChangeNotifier {
     _enqueueWrite(() => _saveToFirestore());
   }
 
+  void incrementProfileViews() {
+    _profileViews++;
+    _markDirty('profileViews');
+    notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
+  }
+
+  void updateProfile(Map<String, dynamic> updates) {
+    updates.forEach((key, value) {
+      switch (key) {
+        case 'displayName':
+          _displayName = value as String;
+          _markDirty('displayName');
+          break;
+        case 'username':
+          _username = value as String;
+          _markDirty('username');
+          break;
+        case 'bannerUrl':
+          _bannerUrl = value as String?;
+          _markDirty('bannerUrl');
+          break;
+        case 'bioEn':
+          _bioEn = value as String?;
+          _markDirty('bioEn');
+          break;
+        case 'bioTe':
+          _bioTe = value as String?;
+          _markDirty('bioTe');
+          break;
+        case 'favoriteVerseRef':
+          _favoriteVerseRef = value as String?;
+          _markDirty('favoriteVerseRef');
+          break;
+        case 'showcaseBadges':
+          _showcaseBadges = List<String>.from(value as Iterable);
+          _markDirty('showcaseBadges');
+          break;
+        case 'activityVisibility':
+          _activityVisibility = value as String;
+          _markDirty('activityVisibility');
+          break;
+        case 'profileVisibility':
+          _profileVisibility = value as String;
+          _markDirty('profileVisibility');
+          break;
+        case 'showPrayersOnProfile':
+          _showPrayersOnProfile = value as bool;
+          _markDirty('showPrayersOnProfile');
+          break;
+        case 'showTestimonyOnProfile':
+          _showTestimonyOnProfile = value as bool;
+          _markDirty('showTestimonyOnProfile');
+          break;
+        case 'accentColor':
+          _accentColor = value as String;
+          _markDirty('accentColor');
+          break;
+        case 'ministryRole':
+          _ministryRole = value as String?;
+          _markDirty('ministryRole');
+          break;
+        case 'testimonyEn':
+          _testimonyEn = value as String?;
+          _markDirty('testimonyEn');
+          break;
+        case 'testimonyTe':
+          _testimonyTe = value as String?;
+          _markDirty('testimonyTe');
+          break;
+        case 'socialLinks':
+          _socialLinks = value != null ? Map<String, String>.from(value as Map) : null;
+          _markDirty('socialLinks');
+          break;
+        case 'avatarType':
+          _avatarType = value as String;
+          _markDirty('avatarType');
+          break;
+        case 'defaultAvatarId':
+          _defaultAvatarId = value as String?;
+          _markDirty('defaultAvatarId');
+          break;
+        case 'photoURL':
+          _photoURL = value as String?;
+          _markDirty('photoURL');
+          break;
+      }
+    });
+    notifyListeners();
+    _enqueueWrite(() => _saveToFirestore());
+  }
+
+  void _loadFromHive() {
+    final data = LocalStorageService.userStateBox.get('fullState')
+        as Map<String, dynamic>?;
+    if (data != null) {
+      _loadFromMap(data);
+    }
+  }
+
+  void _recoverDirtyFields() {
+    _dirtyFields.clear();
+    for (int i = 0; i < LocalStorageService.pendingWritesBox.length; i++) {
+      final entry = LocalStorageService.pendingWritesBox.getAt(i);
+      if (entry is Map) {
+        final fields = List<String>.from(entry['fields'] ?? []);
+        _dirtyFields.addAll(fields);
+      }
+    }
+  }
+
+  Map<String, dynamic> _buildFullStateMap() {
+    return {
+      'totalXp': _totalXp,
+      'unlockedLevels': _unlockedLevels.toList(),
+      'streak': _streakDays,
+      'lastPlayDate': _lastPlayDate?.toIso8601String(),
+      'dailyChallengeCompleted': _dailyChallengeCompleted,
+      'weeklyChallengeCompleted': _weeklyChallengeCompleted,
+      'monthlyChallengeCompleted': _monthlyChallengeCompleted,
+      'lastDailyChallengeDate': _lastDailyChallengeDate,
+      'lastWeeklyChallengeReset': _lastWeeklyChallengeReset,
+      'lastMonthlyChallengeReset': _lastMonthlyChallengeReset,
+      'totalDailyChallengesCompleted': _totalDailyChallengesCompleted,
+      'quizHighScores': Map<String, dynamic>.from(_quizHighScores),
+      'quizPercentages': Map<String, dynamic>.from(_quizPercentages),
+      'masteredFlashcards': _masteredFlashcards.toList(),
+      'completedQuizTopics': _completedQuizTopics.toList(),
+      'seenSets': _seenSets.map((k, v) => MapEntry(k.toString(), v.toList())),
+      'completedReadingPlansCount': _completedReadingPlansCount,
+      'highestReadingStreak': _highestReadingStreak,
+      'highestReadingProgress': _highestReadingProgress,
+      'readingDaysCompleted': _readingDaysCompleted,
+      'completedReadingPlanTypes': _completedReadingPlanTypes.toList(),
+      'streakBoxesOpened': _streakBoxesOpened.toList(),
+      'totalMiracleBoxesOpened': _totalMiracleBoxesOpened,
+      'pendingMiracleBox': _pendingMiracleBox,
+      'bookmarkedQuestions': _bookmarkedQuestionIds.toList(),
+      'bookmarkedVerses': _bookmarkedVerseRefs.toList(),
+      'bookmarkedChapters': _bookmarkedChapters.toList(),
+      'thisDayQuizCompleted': _thisDayQuizCompleted,
+      'memoryGamesCompleted': _memoryGamesCompleted,
+      'liveEventsWon': _liveEventsWon,
+      'liveEventsParticipated': _liveEventsParticipated,
+      'battlesWon': _battlesWon,
+      'battlesLost': _battlesLost,
+      'battlesPlayed': _battlesPlayed,
+      'topicPerformance': _topicPerformance,
+      'topicPerformanceCounts': _topicPerformanceCounts,
+      'weaknessQuizCompleted': _weaknessQuizCompleted,
+      'achievements': _achievementsList.map((a) => a.toMap()).toList(),
+      'averageAnswerTime': _averageAnswerTime,
+      'totalAnswerTimeSpent': _totalAnswerTimeSpent,
+      'totalQuestionsAnswered': _totalQuestionsAnswered,
+      'totalShares': _totalShares,
+      'phoneNumber': _phoneNumber,
+      'authMethod': _authMethod,
+      'activeTitle': _activeTitle,
+      'unlockedTitles': _unlockedTitles,
+      'joinedGroupsCount': _joinedGroupsCount,
+      'createdGroupsCount': _createdGroupsCount,
+      'maxGroupSize': _maxGroupSize,
+      'challengesWon': _challengesWon,
+      'challengesCreated': _challengesCreated,
+      'wonChallengeIds': _wonChallengeIds,
+      'displayName': _displayName,
+      'username': _username,
+      'photoURL': _photoURL,
+      'bannerUrl': _bannerUrl,
+      'bioEn': _bioEn,
+      'bioTe': _bioTe,
+      'favoriteVerseRef': _favoriteVerseRef,
+      'showcaseBadges': _showcaseBadges,
+      'activityVisibility': _activityVisibility,
+      'profileVisibility': _profileVisibility,
+      'showPrayersOnProfile': _showPrayersOnProfile,
+      'showTestimonyOnProfile': _showTestimonyOnProfile,
+      'accentColor': _accentColor,
+      'ministryRole': _ministryRole,
+      'testimonyEn': _testimonyEn,
+      'testimonyTe': _testimonyTe,
+      'socialLinks': _socialLinks,
+      'profileViews': _profileViews,
+      'avatarType': _avatarType,
+      'defaultAvatarId': _defaultAvatarId,
+    };
+  }
+
+  void _persistFullStateSnapshot() {
+    LocalStorageService.userStateBox.put('fullState', _buildFullStateMap());
+  }
+
+  void _ensureFirestoreSubscription() {
+    if (_userId == null || _userDocSubscription != null) return;
+
+    _userDocSubscription = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_userId)
+        .snapshots()
+        .listen((snapshot) {
+      if (snapshot.exists && snapshot.data() != null) {
+        _loadFromMap(snapshot.data()!);
+        _persistFullStateSnapshot();
+      }
+    }, onError: (e) {
+      // ignore: avoid_print
+      print("Error listening to user document: $e");
+    });
+  }
+
+  void _onConnectivityRestored() {
+    if (!ConnectivityService.isOnline.value) return;
+
+    _replayPendingWrites();
+    _ensureFirestoreSubscription();
+  }
+
+  Future<void> _replayPendingWrites() async {
+    for (int i = 0; i < LocalStorageService.pendingWritesBox.length; i++) {
+      final entry = LocalStorageService.pendingWritesBox.getAt(i);
+      if (entry is Map) {
+        final fields = List<String>.from(entry['fields'] ?? []);
+        _dirtyFields.addAll(fields);
+      }
+      try {
+        await _saveToFirestore();
+        await LocalStorageService.pendingWritesBox.deleteAt(i);
+        _persistFullStateSnapshot();
+      } catch (e) {
+        break;
+      }
+    }
+  }
+
   @override
   void dispose() {
     _userDocSubscription?.cancel();
+    if (_connectivityListenerAdded) {
+      ConnectivityService.isOnline.removeListener(_onConnectivityRestored);
+    }
     super.dispose();
   }
 }

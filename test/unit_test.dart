@@ -11,9 +11,11 @@ import 'package:bible_quiz/providers/user_data_provider.dart';
 import 'package:bible_quiz/models/prayer_request.dart';
 import 'package:bible_quiz/services/bible_service.dart';
 import 'package:bible_quiz/services/custom_quiz_generator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
   setupFirebaseCoreMocks();
 
   setUpAll(() async {

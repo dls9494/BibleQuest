@@ -1,3 +1,5 @@
+import '../services/category_mapping.dart';
+
 class Quiz {
   final String id;
   final String creatorId;
@@ -15,6 +17,30 @@ class Quiz {
   final int level; // 1-50
   final String difficulty; // 'easy', 'medium', 'hard'
   final String setId; // 'A', 'B', or 'C'
+
+  String get category {
+    if (topics.isEmpty) {
+      if (level >= 1 && level <= 100) {
+        return CategoryMapping.getCategoryFromLevel(level);
+      }
+      return 'Old Testament';
+    }
+    
+    final firstTopic = topics.first;
+    final cat = CategoryMapping.getCategoryFromTopic(firstTopic);
+    if (cat != null) return cat;
+
+    for (final topic in topics) {
+      final c = CategoryMapping.getCategoryFromTopic(topic);
+      if (c != null) return c;
+    }
+
+    if (level >= 1 && level <= 100) {
+      return CategoryMapping.getCategoryFromLevel(level);
+    }
+
+    return 'Old Testament';
+  }
 
   Quiz({
     required this.id,

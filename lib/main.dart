@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart' hide FirebaseService;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'l10n/app_localizations.dart';
 import 'providers/locale_provider.dart';
@@ -16,15 +16,45 @@ import 'screens/quiz_creator_screen.dart';
 import 'screens/study_tools_screen.dart';
 import 'screens/reading_plan_screen.dart';
 import 'screens/custom_quiz_creator.dart';
+import 'screens/settings_screen.dart';
+import 'screens/profile_screen.dart';
 import 'services/firebase_service.dart';
 import 'services/real_questions.dart';
 import 'services/audio_service.dart';
+import 'services/notification_service.dart';
+import 'services/local_storage_service.dart';
+import 'services/connectivity_service.dart';
+import 'package:audio_session/audio_session.dart';
+import 'package:audio_service/audio_service.dart' as as_pkg;
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   String? initError;
   try {
-    await AudioService.init();
+    await NotificationService.init();
+    await NotificationService.requestPermissions();
+    
+    // Configure audio session
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.speech());
+
+    // Initialize local storage and connectivity monitoring
+    await LocalStorageService.init();
+    ConnectivityService.init();
+
+    // Initialize background audio handler
+    final handler = await as_pkg.AudioService.init(
+      builder: () => AudioService(),
+      config: const as_pkg.AudioServiceConfig(
+        androidNotificationChannelId: 'com.biblequest.audio',
+        androidNotificationChannelName: 'Bible Audio Playback',
+        androidNotificationOngoing: true,
+        androidNotificationIcon: 'drawable/ic_stat_bible',
+      ),
+    );
+    AudioService.instance = handler;
     await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: 'AIzaSyByEA5roslXE3tIX3H0ll3hh9gpWD3ilrw',
@@ -200,6 +230,7 @@ class BibleQuizApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (initializationError != null) {
       return MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Telugu Bible Quiz',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
@@ -216,6 +247,7 @@ class BibleQuizApp extends StatelessWidget {
       child: Consumer2<LocaleProvider, ThemeProvider>(
         builder: (context, localeProvider, themeProvider, _) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             title: 'Telugu Bible Quiz',
             debugShowCheckedModeBanner: false,
             locale: const Locale('en'),
@@ -237,6 +269,8 @@ class BibleQuizApp extends StatelessWidget {
               '/study-tools': (_) => const StudyToolsScreen(),
               '/reading-plan': (_) => const ReadingPlanScreen(),
               '/custom-quiz-creator': (_) => const CustomQuizCreatorScreen(),
+              '/settings': (_) => const SettingsScreen(),
+              '/profile': (_) => const ProfileScreen(),
             },
           );
         },

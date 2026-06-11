@@ -63,13 +63,13 @@ class _VerseOfTheDayCardState extends State<VerseOfTheDayCard> {
 
   @override
   void dispose() {
-    AudioService.stop();
+    AudioService.instance.stop();
     super.dispose();
   }
 
   void _toggleAudio() async {
     if (_isPlaying) {
-      await AudioService.stop();
+      await AudioService.instance.stop();
       if (mounted) {
         setState(() {
           _isPlaying = false;
@@ -88,7 +88,7 @@ class _VerseOfTheDayCardState extends State<VerseOfTheDayCard> {
       final textToSpeak = isTelugu && widget.verse.verseTe.isNotEmpty ? widget.verse.verseTe : widget.verse.verseEn;
       final localeToSpeak = isTelugu && widget.verse.verseTe.isNotEmpty ? 'te-IN' : 'en-US';
 
-      await AudioService.stop();
+      await AudioService.instance.stop();
       await AudioService.speak(textToSpeak, language: localeToSpeak);
       
       if (mounted) {

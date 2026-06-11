@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -352,7 +353,11 @@ class FirebaseService {
         .orderBy('score', descending: true)
         .limit(50)
         .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
+        .map((snapshot) => snapshot.docs.map((doc) {
+              final data = doc.data();
+              data['userId'] = doc.id;
+              return data;
+            }).toList());
   }
 
   static Stream<Map<String, dynamic>> getLeaderboardWithCount(String period) {
@@ -366,7 +371,11 @@ class FirebaseService {
         .limit(100)
         .snapshots()
         .asyncMap((snapshot) async {
-          final scores = snapshot.docs.map((doc) => doc.data()).toList();
+          final scores = snapshot.docs.map((doc) {
+            final data = doc.data();
+            data['userId'] = doc.id;
+            return data;
+          }).toList();
           int totalCount = 0;
           try {
             final countSnapshot = await FirebaseFirestore.instance
@@ -1710,5 +1719,283 @@ class FirebaseService {
         .map((doc) => doc.exists && doc.data() != null
             ? ChurchGroup.fromFirestore(doc.data()!, doc.id)
             : null);
+  }
+
+  // --- Follow System ---
+  static Future<void> followUser(String followerId, String followingId) async {
+    final docId = "${followerId}_$followingId";
+    await FirebaseFirestore.instance.collection('follows').doc(docId).set({
+      'followerId': followerId,
+      'followingId': followingId,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  static Future<void> unfollowUser(String followerId, String followingId) async {
+    final docId = "${followerId}_$followingId";
+    await FirebaseFirestore.instance.collection('follows').doc(docId).delete();
+  }
+
+  static Future<bool> isFollowing(String followerId, String followingId) async {
+    final docId = "${followerId}_$followingId";
+    final doc = await FirebaseFirestore.instance.collection('follows').doc(docId).get();
+    return doc.exists;
+  }
+
+  static Stream<List<String>> getFollowers(String userId) {
+    return FirebaseFirestore.instance
+        .collection('follows')
+        .where('followingId', isEqualTo: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => doc.data()['followerId'] as String)
+            .toList());
+  }
+
+  static Stream<List<String>> getFollowing(String userId) {
+    return FirebaseFirestore.instance
+        .collection('follows')
+        .where('followerId', isEqualTo: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => doc.data()['followingId'] as String)
+            .toList());
+  }
+
+  static Future<Map<String, dynamic>?> getUserById(String userId) async {
+    final doc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    return doc.data();
+  }
+
+  static Future<String> uploadProfileBanner(File imageFile, String userId) async {
+    final ref = FirebaseStorage.instance.ref().child('banners').child('$userId.jpg');
+    await ref.putFile(imageFile);
+    return await ref.getDownloadURL();
+  }
+
+  static Future<String> uploadProfileAvatar(File imageFile, String userId) async {
+    final ref = FirebaseStorage.instance.ref().child('avatars').child('$userId.jpg');
+    await ref.putFile(imageFile);
+    return await ref.getDownloadURL();
+  }
+
+  static Future<String> addNote(
+    String userId,
+    String bookId,
+    int chapter,
+    int? verseNumber,
+    String verseReference,
+    String text,
+  ) async {
+    final docRef = await FirebaseFirestore.instance
+        .collection('notes')
+        .doc(userId)
+        .collection('chapter_notes')
+        .add({
+      'bookId': bookId,
+      'chapter': chapter,
+      'verseNumber': verseNumber,
+      'verseReference': verseReference,
+      'text': text,
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+    return docRef.id;
+  }
+
+  static Future<void> deleteNote(String userId, String noteId) async {
+    await FirebaseFirestore.instance
+        .collection('notes')
+        .doc(userId)
+        .collection('chapter_notes')
+        .doc(noteId)
+        .delete();
+  }
+
+  static Stream<List<Map<String, dynamic>>> getChapterNotes(
+    String userId,
+    String bookId,
+    int chapter,
+  ) {
+    return FirebaseFirestore.instance
+        .collection('notes')
+        .doc(userId)
+        .collection('chapter_notes')
+        .where('bookId', isEqualTo: bookId)
+        .where('chapter', isEqualTo: chapter)
+        .snapshots()
+        .map((snapshot) {
+          final list = snapshot.docs.map((doc) {
+            final data = doc.data();
+            data['id'] = doc.id;
+            return data;
+          }).toList();
+          list.sort((a, b) {
+            final aTime = a['createdAt'] as Timestamp?;
+            final bTime = b['createdAt'] as Timestamp?;
+            if (aTime == null && bTime == null) return 0;
+            if (aTime == null) return 1;
+            if (bTime == null) return -1;
+            return bTime.compareTo(aTime); // descending (newest first)
+          });
+          return list;
+        });
+  }
+
+  static Future<void> addLabelledVerse(
+    String userId,
+    String bookId,
+    int chapter,
+    int verse,
+    String colour,
+  ) async {
+    final docId = '${bookId}_${chapter}_$verse';
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('labelled_verses')
+        .doc(docId)
+        .set({
+      'bookId': bookId,
+      'chapter': chapter,
+      'verse': verse,
+      'colour': colour,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  static Future<void> removeLabelledVerse(
+    String userId,
+    String bookId,
+    int chapter,
+    int verse,
+  ) async {
+    final docId = '${bookId}_${chapter}_$verse';
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('labelled_verses')
+        .doc(docId)
+        .delete();
+  }
+
+  static Future<Map<int, String>> getChapterLabelledVerses(
+    String userId,
+    String bookId,
+    int chapter,
+  ) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('labelled_verses')
+        .where('bookId', isEqualTo: bookId)
+        .where('chapter', isEqualTo: chapter)
+        .get();
+    
+    final Map<int, String> result = {};
+    for (final doc in snapshot.docs) {
+      final data = doc.data();
+      final verseNum = data['verse'] as int?;
+      final colourHex = data['colour'] as String?;
+      if (verseNum != null && colourHex != null) {
+        result[verseNum] = colourHex;
+      }
+    }
+    return result;
+  }
+
+  static Future<Map<String, String>> getAllLabelledVerses(String userId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('labelled_verses')
+        .get();
+    
+    final Map<String, String> result = {};
+    for (final doc in snapshot.docs) {
+      final data = doc.data();
+      final colourHex = data['colour'] as String?;
+      if (colourHex != null) {
+        result[doc.id] = colourHex;
+      }
+    }
+    return result;
+  }
+
+  static Future<void> toggleFavoriteVerse(
+    String userId,
+    String bookId,
+    int chapter,
+    int verse,
+    String verseText,
+  ) async {
+    final docId = '${bookId}_${chapter}_$verse';
+    final docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorited_verses')
+        .doc(docId);
+    
+    final doc = await docRef.get();
+    if (doc.exists) {
+      await docRef.delete();
+    } else {
+      await docRef.set({
+        'bookId': bookId,
+        'chapter': chapter,
+        'verse': verse,
+        'verseText': verseText.length > 100 ? '${verseText.substring(0, 100)}...' : verseText,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
+  static Future<bool> isVerseFavorited(
+    String userId,
+    String bookId,
+    int chapter,
+    int verse,
+  ) async {
+    final docId = '${bookId}_${chapter}_$verse';
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorited_verses')
+        .doc(docId)
+        .get();
+    return doc.exists;
+  }
+
+  static Future<List<int>> getChapterFavoritedVerses(
+    String userId,
+    String bookId,
+    int chapter,
+  ) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorited_verses')
+        .where('bookId', isEqualTo: bookId)
+        .where('chapter', isEqualTo: chapter)
+        .get();
+    
+    return snapshot.docs
+        .map((doc) => doc.data()['verse'] as int?)
+        .whereType<int>()
+        .toList();
+  }
+
+  static Stream<List<Map<String, dynamic>>> getFavoritedVerses(String userId) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorited_verses')
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              final data = doc.data();
+              data['id'] = doc.id;
+              return data;
+            }).toList());
   }
 }

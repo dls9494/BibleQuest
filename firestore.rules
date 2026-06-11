@@ -4,7 +4,13 @@ service cloud.firestore {
     
     // User profile rules
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && (
+        request.auth.uid == userId ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['profileViews'])
+      );
+      allow delete: if request.auth != null && request.auth.uid == userId;
 
       match /reading_plan {
         allow read, write: if request.auth != null && request.auth.uid == userId;
@@ -122,6 +128,37 @@ service cloud.firestore {
       allow update: if request.auth != null;
       allow delete: if request.auth != null && 
         get(/databases/$(database)/documents/church_groups/$(resource.data.groupId)).data.pastorId == request.auth.uid;
+    }
+
+    // Follows rules
+    match /follows/{followId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.followerId;
+      allow delete: if request.auth != null && request.auth.uid == resource.data.followerId;
+    }
+
+    // Activities rules
+    match /activities/{activityId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      allow update, delete: if false;
+    }
+
+    // Notes rules - only allow authenticated user to read/write their own notes
+    match /notes/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      match /chapter_notes/{noteId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Labelled and Favorited verses rules
+    match /users/{userId}/labelled_verses/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /users/{userId}/favorited_verses/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
   }
 }

@@ -91,7 +91,6 @@ class BookmarkedVersesScreen extends StatelessWidget {
                             final verse = int.tryParse(parts[2]) ?? 1;
                             
                             userProvider.setBibleTarget(bookId, chapter, verse);
-                            userProvider.setTabIndex(0); // Bible tab is 0
                             Navigator.popUntil(context, (route) => route.isFirst);
                           }
                         },

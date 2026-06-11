@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'bible_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/reading_plan.dart';
 import '../providers/reading_plan_provider.dart';
@@ -739,9 +740,15 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
     final firstPart = reference.split(RegExp(r'[,;]'))[0].trim();
     final ref = BibleService.parseReadingRef(firstPart);
     if (ref != null) {
-      userProvider.bibleBookId = ref.bookId;
-      userProvider.bibleChapter = ref.chapter;
-      userProvider.setTabIndex(0);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => BibleScreen(
+            initialBook: ref.bookId,
+            initialChapter: ref.chapter,
+          ),
+        ),
+      );
     }
   }
 

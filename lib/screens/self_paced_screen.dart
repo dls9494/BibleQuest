@@ -14,6 +14,7 @@ import '../widgets/gradient_background.dart';
 import '../widgets/timer_capsule.dart';
 import '../widgets/bilingual_text.dart';
 import '../widgets/quiz_result_share.dart';
+import '../services/activity_service.dart';
 
 class SelfPacedScreen extends StatefulWidget {
   final Quiz quiz;
@@ -219,6 +220,19 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
       _stopwatch.elapsed.inSeconds,
       _questions.length,
       widget.quiz.topics,
+    );
+
+    ActivityService.logActivity(
+      uid,
+      displayName,
+      'quiz_completed',
+      {
+        'quizId': widget.quiz.id,
+        'quizName': widget.quiz.titleEn,
+        'score': _score,
+        'correctAnswers': _correctCount,
+        'totalQuestions': _questions.length,
+      },
     );
 
     if (widget.quiz.id.startsWith('weakness_quiz_')) {

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/prayer_request.dart';
 import '../models/profile_title.dart';
 import '../services/firebase_service.dart';
+import '../services/activity_service.dart';
 import '../providers/user_data_provider.dart';
 import '../widgets/floating_emoji.dart';
 
@@ -308,6 +309,16 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
       final userName = _isAnonymous ? 'Anonymous' : userProvider.displayName;
 
       await FirebaseService.submitPrayerRequest(userId, userName, requestText);
+
+      // Log activity
+      await ActivityService.logActivity(
+        userId,
+        userName,
+        'prayer_request',
+        {
+          'requestText': requestText,
+        },
+      );
 
       _requestController.clear();
       if (mounted) {
