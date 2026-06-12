@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#FF8F00" />
+    </linearGradient>
+    
+    <!-- Light Gold Gradient -->
+    <linearGradient id="light_gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9C4" />
+      <stop offset="100%" stop-color="#FFE082" />
+    </linearGradient>
+
+    <!-- Blue Gradient -->
+    <linearGradient id="blue_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80D8FF" />
+      <stop offset="100%" stop-color="#2979FF" />
+    </linearGradient>
+    
+    <!-- Dark Blue Gradient -->
+    <linearGradient id="dark_blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E" />
+      <stop offset="100%" stop-color="#0D47A1" />
+    </linearGradient>
+
+    <!-- Green Gradient -->
+    <linearGradient id="green_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7" />
+      <stop offset="100%" stop-color="#2E7D32" />
+    </linearGradient>
+
+    <!-- Purple Gradient -->
+    <linearGradient id="purple_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1BEE7" />
+      <stop offset="100%" stop-color="#7B1FA2" />
+    </linearGradient>
+
+    <!-- Teal Gradient -->
+    <linearGradient id="teal_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2DFDB" />
+      <stop offset="100%" stop-color="#00796B" />
+    </linearGradient>
+
+    <!-- Orange Gradient -->
+    <linearGradient id="orange_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCC80" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+
+    <!-- Crimson Gradient -->
+    <linearGradient id="crimson_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A80" />
+      <stop offset="100%" stop-color="#C62828" />
+    </linearGradient>
+    
+    <!-- Background Glows -->
+    <radialGradient id="gold_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD54F" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFD54F" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="blue_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2979FF" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#2979FF" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="green_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#81C784" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#81C784" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="purple_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BA68C8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#BA68C8" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="teal_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="orange_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB74D" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFB74D" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="crimson_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8A80" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FF8A80" stop-opacity="0.0" />
+    </radialGradient>
+  </defs>
+  <!-- Glow Background -->
+  <circle cx="128" cy="128" r="110" fill="url(#gold_glow)" />
+
+  <g transform="translate(0, 0)">
+    <!-- Tree Leaves (Outer Glowing Circles) -->
+    <circle cx="128" cy="85" r="36" fill="url(#gold_grad)" opacity="0.15" />
+    <circle cx="98" cy="105" r="28" fill="url(#gold_grad)" opacity="0.15" />
+    <circle cx="158" cy="105" r="28" fill="url(#gold_grad)" opacity="0.15" />
+
+    <!-- Tree Trunk & Main Branches -->
+    <path d="M 120 205 L 124 165 C 124 165, 100 135, 95 110 C 90 85, 120 90, 120 90 C 120 90, 115 115, 128 135 C 141 115, 136 90, 136 90 C 136 90, 166 85, 161 110 C 156 135, 132 165, 132 165 L 136 205 Z" 
+          fill="url(#orange_grad)" stroke="#FFE082" stroke-width="1.5" />
+
+    <!-- Tree Root/Soil Base line -->
+    <path d="M 85 205 Q 128 198, 171 205" fill="none" stroke="#FFE082" stroke-width="3.5" stroke-linecap="round" />
+    
+    <!-- Leaves (Small Gold Circles) -->
+    <circle cx="128" cy="65" r="7" fill="#FFFFFF" />
+    <circle cx="108" cy="78" r="6" fill="#FFF9C4" />
+    <circle cx="148" cy="78" r="6" fill="#FFF9C4" />
+    <circle cx="90" cy="98" r="7" fill="#FFD54F" />
+    <circle cx="166" cy="98" r="7" fill="#FFD54F" />
+    <circle cx="108" cy="115" r="5" fill="#FFE082" />
+    <circle cx="148" cy="115" r="5" fill="#FFE082" />
+    <circle cx="128" cy="98" r="8" fill="url(#gold_grad)" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+</svg>

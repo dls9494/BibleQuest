@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#FF8F00" />
+    </linearGradient>
+    
+    <!-- Light Gold Gradient -->
+    <linearGradient id="light_gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9C4" />
+      <stop offset="100%" stop-color="#FFE082" />
+    </linearGradient>
+
+    <!-- Blue Gradient -->
+    <linearGradient id="blue_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80D8FF" />
+      <stop offset="100%" stop-color="#2979FF" />
+    </linearGradient>
+    
+    <!-- Dark Blue Gradient -->
+    <linearGradient id="dark_blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E" />
+      <stop offset="100%" stop-color="#0D47A1" />
+    </linearGradient>
+
+    <!-- Green Gradient -->
+    <linearGradient id="green_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7" />
+      <stop offset="100%" stop-color="#2E7D32" />
+    </linearGradient>
+
+    <!-- Purple Gradient -->
+    <linearGradient id="purple_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1BEE7" />
+      <stop offset="100%" stop-color="#7B1FA2" />
+    </linearGradient>
+
+    <!-- Teal Gradient -->
+    <linearGradient id="teal_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2DFDB" />
+      <stop offset="100%" stop-color="#00796B" />
+    </linearGradient>
+
+    <!-- Orange Gradient -->
+    <linearGradient id="orange_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCC80" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+
+    <!-- Crimson Gradient -->
+    <linearGradient id="crimson_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A80" />
+      <stop offset="100%" stop-color="#C62828" />
+    </linearGradient>
+    
+    <!-- Background Glows -->
+    <radialGradient id="gold_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD54F" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFD54F" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="blue_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2979FF" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#2979FF" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="green_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#81C784" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#81C784" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="purple_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BA68C8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#BA68C8" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="teal_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="orange_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB74D" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFB74D" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="crimson_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8A80" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FF8A80" stop-opacity="0.0" />
+    </radialGradient>
+  </defs>
+  <!-- Glow Background -->
+  <circle cx="128" cy="128" r="110" fill="url(#teal_glow)" />
+
+  <g transform="translate(0, 0)">
+    <!-- Light Radiating between palms -->
+    <circle cx="128" cy="115" r="25" fill="url(#gold_glow)" />
+    
+    <!-- Praying Hands (Symmetric elegant silhouettes) -->
+    <!-- Left Hand -->
+    <path d="M 80 195 
+             C 80 195, 88 140, 108 115 
+             C 118 102, 124 95, 126 80
+             C 126 80, 128 85, 126 95
+             C 123 105, 118 120, 120 135
+             C 122 150, 110 175, 110 175 Z" 
+          fill="url(#teal_grad)" stroke="#E0F2F1" stroke-width="2" stroke-linejoin="round" />
+
+    <!-- Right Hand -->
+    <path d="M 176 195 
+             C 176 195, 168 140, 148 115 
+             C 138 102, 132 95, 130 80
+             C 130 80, 128 85, 130 95
+             C 133 105, 138 120, 136 135
+             C 134 150, 146 175, 146 175 Z" 
+          fill="url(#teal_grad)" stroke="#E0F2F1" stroke-width="2" stroke-linejoin="round" />
+
+    <!-- Soft Sparkles -->
+    <path d="M 128 65 L 130 70 L 135 71 L 130 72 L 128 77 L 126 72 L 121 71 L 126 70 Z" fill="#FFE082" />
+  </g>
+</svg>

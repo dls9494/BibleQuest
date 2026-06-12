@@ -29,6 +29,8 @@ dependencies:
   audio_service: ^0.18.15
   audio_session: ^0.1.21
   connectivity_plus: ^6.1.4
+  flutter_svg: ^2.0.10
+
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +51,7 @@ flutter:
     - assets/banners/
     - assets/avatars/
     - assets/icons/3d/
+    - assets/icons/luxury/
   fonts:
     - family: NotoSansTelugu
       fonts:

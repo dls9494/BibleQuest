@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#FF8F00" />
+    </linearGradient>
+    
+    <!-- Light Gold Gradient -->
+    <linearGradient id="light_gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9C4" />
+      <stop offset="100%" stop-color="#FFE082" />
+    </linearGradient>
+
+    <!-- Blue Gradient -->
+    <linearGradient id="blue_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80D8FF" />
+      <stop offset="100%" stop-color="#2979FF" />
+    </linearGradient>
+    
+    <!-- Dark Blue Gradient -->
+    <linearGradient id="dark_blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E" />
+      <stop offset="100%" stop-color="#0D47A1" />
+    </linearGradient>
+
+    <!-- Green Gradient -->
+    <linearGradient id="green_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7" />
+      <stop offset="100%" stop-color="#2E7D32" />
+    </linearGradient>
+
+    <!-- Purple Gradient -->
+    <linearGradient id="purple_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1BEE7" />
+      <stop offset="100%" stop-color="#7B1FA2" />
+    </linearGradient>
+
+    <!-- Teal Gradient -->
+    <linearGradient id="teal_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2DFDB" />
+      <stop offset="100%" stop-color="#00796B" />
+    </linearGradient>
+
+    <!-- Orange Gradient -->
+    <linearGradient id="orange_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCC80" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+
+    <!-- Crimson Gradient -->
+    <linearGradient id="crimson_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A80" />
+      <stop offset="100%" stop-color="#C62828" />
+    </linearGradient>
+    
+    <!-- Background Glows -->
+    <radialGradient id="gold_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD54F" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFD54F" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="blue_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2979FF" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#2979FF" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="green_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#81C784" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#81C784" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="purple_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BA68C8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#BA68C8" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="teal_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="orange_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB74D" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFB74D" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="crimson_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8A80" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FF8A80" stop-opacity="0.0" />
+    </radialGradient>
+  </defs>
+  <!-- Glow Background -->
+  <circle cx="128" cy="128" r="110" fill="url(#green_glow)" />
+
+  <g transform="translate(0, 0)">
+    <!-- Bible Base / Cover (Gold/Bronze) -->
+    <path d="M 50 178 C 90 178, 128 188, 128 188 C 128 188, 166 178, 206 178 V 78 C 166 78, 128 88, 128 88 C 128 88, 90 78, 50 78 Z" 
+          fill="#4E342E" stroke="url(#gold_grad)" stroke-width="3.5" />
+
+    <!-- Bible Left Page (Light Green/Gold Gradient) -->
+    <path d="M 55 173 C 90 173, 128 183, 128 183 V 83 C 128 83, 90 73, 55 73 Z" 
+          fill="url(#green_grad)" stroke="#E8F5E9" stroke-width="1.5" />
+
+    <!-- Bible Right Page (Light Green/Gold Gradient) -->
+    <path d="M 201 173 C 166 173, 128 183, 128 183 V 83 C 128 83, 166 73, 201 73 Z" 
+          fill="url(#green_grad)" stroke="#E8F5E9" stroke-width="1.5" />
+
+    <!-- Page Text Lines (Left Page) -->
+    <line x1="68" y1="95" x2="112" y2="95" stroke="#E8F5E9" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+    <line x1="68" y1="110" x2="112" y2="110" stroke="#E8F5E9" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+    <line x1="68" y1="125" x2="105" y2="125" stroke="#E8F5E9" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+    <line x1="68" y1="140" x2="112" y2="140" stroke="#E8F5E9" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+    <line x1="68" y1="155" x2="98" y2="155" stroke="#E8F5E9" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+
+    <!-- Calendar Page Overlay (Overlaps Bottom Right) -->
+    <g transform="translate(130, 95)">
+      <!-- Calendar Card Background -->
+      <rect x="0" y="0" width="65" height="65" rx="8" fill="#FFFFFF" stroke="url(#gold_grad)" stroke-width="2" />
+      <!-- Calendar Top bar (Gold) -->
+      <rect x="0" y="0" width="65" height="16" rx="2" fill="url(#gold_grad)" />
+      <!-- Rings -->
+      <circle cx="15" cy="0" r="3" fill="#3E2723" />
+      <circle cx="32" cy="0" r="3" fill="#3E2723" />
+      <circle cx="50" cy="0" r="3" fill="#3E2723" />
+      
+      <!-- Calendar Grid Mockup (Dots) -->
+      <circle cx="15" cy="28" r="2.5" fill="#2E7D32" />
+      <circle cx="32" cy="28" r="2.5" fill="#2E7D32" />
+      <circle cx="50" cy="28" r="2.5" fill="#2E7D32" />
+      <circle cx="15" cy="42" r="2.5" fill="#2E7D32" />
+      <circle cx="32" cy="42" r="2.5" fill="#FF8F00" /> <!-- Highlights current reading day in gold -->
+      <circle cx="50" cy="42" r="2.5" fill="#CCCCCC" />
+      <circle cx="15" cy="54" r="2.5" fill="#CCCCCC" />
+      <circle cx="32" cy="54" r="2.5" fill="#CCCCCC" />
+      <circle cx="50" cy="54" r="2.5" fill="#CCCCCC" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#FF8F00" />
+    </linearGradient>
+    
+    <!-- Light Gold Gradient -->
+    <linearGradient id="light_gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9C4" />
+      <stop offset="100%" stop-color="#FFE082" />
+    </linearGradient>
+
+    <!-- Blue Gradient -->
+    <linearGradient id="blue_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80D8FF" />
+      <stop offset="100%" stop-color="#2979FF" />
+    </linearGradient>
+    
+    <!-- Dark Blue Gradient -->
+    <linearGradient id="dark_blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E" />
+      <stop offset="100%" stop-color="#0D47A1" />
+    </linearGradient>
+
+    <!-- Green Gradient -->
+    <linearGradient id="green_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7" />
+      <stop offset="100%" stop-color="#2E7D32" />
+    </linearGradient>
+
+    <!-- Purple Gradient -->
+    <linearGradient id="purple_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1BEE7" />
+      <stop offset="100%" stop-color="#7B1FA2" />
+    </linearGradient>
+
+    <!-- Teal Gradient -->
+    <linearGradient id="teal_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2DFDB" />
+      <stop offset="100%" stop-color="#00796B" />
+    </linearGradient>
+
+    <!-- Orange Gradient -->
+    <linearGradient id="orange_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCC80" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+
+    <!-- Crimson Gradient -->
+    <linearGradient id="crimson_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A80" />
+      <stop offset="100%" stop-color="#C62828" />
+    </linearGradient>
+    
+    <!-- Background Glows -->
+    <radialGradient id="gold_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD54F" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFD54F" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="blue_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2979FF" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#2979FF" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="green_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#81C784" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#81C784" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="purple_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BA68C8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#BA68C8" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="teal_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="orange_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB74D" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFB74D" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="crimson_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8A80" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FF8A80" stop-opacity="0.0" />
+    </radialGradient>
+  </defs>
+  <!-- Glow Background -->
+  <circle cx="128" cy="128" r="110" fill="url(#purple_glow)" />
+
+  <g transform="translate(0, 0)">
+    <!-- Puzzle Piece (Purple) -->
+    <!-- Simplified geometric path for puzzle piece: center square with circular tabs/blanks -->
+    <path d="M 80 80 
+             H 105 C 105 92, 123 92, 123 80 
+             H 148 V 105 C 160 105, 160 123, 148 123 
+             V 148 H 123 C 123 136, 105 136, 105 148 
+             H 80 V 123 C 68 123, 68 105, 80 105 Z" 
+          fill="url(#purple_grad)" stroke="#E1BEE7" stroke-width="2.5" stroke-linejoin="round" />
+
+    <!-- Elegant Quill Pen (Crossed diagonally) -->
+    <g transform="rotate(45, 128, 128)">
+      <!-- Feathers -->
+      <path d="M 124 50 C 120 70, 105 110, 124 160 V 175 L 128 185 L 132 175 V 160 C 151 110, 136 70, 132 50 Z" 
+            fill="url(#gold_grad)" stroke="#FFF9C4" stroke-width="1.5" />
+      <!-- Quill center line -->
+      <line x1="128" y1="45" x2="128" y2="185" stroke="#FFFFFF" stroke-width="2" />
+      <!-- Feather notches -->
+      <path d="M 124 75 L 115 78 M 124 95 L 110 100 M 124 115 L 112 122" stroke="#FFF9C4" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M 132 75 L 141 78 M 132 95 L 146 100 M 132 115 L 144 122" stroke="#FFF9C4" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>

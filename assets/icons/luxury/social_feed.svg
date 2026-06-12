@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#FF8F00" />
+    </linearGradient>
+    
+    <!-- Light Gold Gradient -->
+    <linearGradient id="light_gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9C4" />
+      <stop offset="100%" stop-color="#FFE082" />
+    </linearGradient>
+
+    <!-- Blue Gradient -->
+    <linearGradient id="blue_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80D8FF" />
+      <stop offset="100%" stop-color="#2979FF" />
+    </linearGradient>
+    
+    <!-- Dark Blue Gradient -->
+    <linearGradient id="dark_blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E" />
+      <stop offset="100%" stop-color="#0D47A1" />
+    </linearGradient>
+
+    <!-- Green Gradient -->
+    <linearGradient id="green_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7" />
+      <stop offset="100%" stop-color="#2E7D32" />
+    </linearGradient>
+
+    <!-- Purple Gradient -->
+    <linearGradient id="purple_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1BEE7" />
+      <stop offset="100%" stop-color="#7B1FA2" />
+    </linearGradient>
+
+    <!-- Teal Gradient -->
+    <linearGradient id="teal_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2DFDB" />
+      <stop offset="100%" stop-color="#00796B" />
+    </linearGradient>
+
+    <!-- Orange Gradient -->
+    <linearGradient id="orange_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCC80" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+
+    <!-- Crimson Gradient -->
+    <linearGradient id="crimson_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A80" />
+      <stop offset="100%" stop-color="#C62828" />
+    </linearGradient>
+    
+    <!-- Background Glows -->
+    <radialGradient id="gold_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD54F" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFD54F" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="blue_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2979FF" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#2979FF" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="green_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#81C784" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#81C784" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="purple_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BA68C8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#BA68C8" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="teal_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="orange_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB74D" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FFB74D" stop-opacity="0.0" />
+    </radialGradient>
+    <radialGradient id="crimson_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8A80" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FF8A80" stop-opacity="0.0" />
+    </radialGradient>
+  </defs>
+  <!-- Glow Background -->
+  <circle cx="128" cy="128" r="110" fill="url(#orange_glow)" />
+
+  <g transform="translate(0, 0)">
+    <!-- Connection Circle Paths -->
+    <circle cx="128" cy="128" r="62" fill="none" stroke="url(#gold_grad)" stroke-width="2" stroke-dasharray="6,6" />
+
+    <!-- Connected Figures (Nodes) -->
+    <!-- Top Node -->
+    <g transform="translate(128, 66)">
+      <circle cx="0" cy="0" r="14" fill="url(#orange_grad)" stroke="#FFFFFF" stroke-width="2" />
+      <circle cx="0" cy="-6" r="4.5" fill="#FFFFFF" />
+      <path d="M -8 8 C -8 4, 8 4, 8 8 Z" fill="#FFFFFF" />
+    </g>
+
+    <!-- Bottom Node -->
+    <g transform="translate(128, 190)">
+      <circle cx="0" cy="0" r="14" fill="url(#orange_grad)" stroke="#FFFFFF" stroke-width="2" />
+      <circle cx="0" cy="-6" r="4.5" fill="#FFFFFF" />
+      <path d="M -8 8 C -8 4, 8 4, 8 8 Z" fill="#FFFFFF" />
+    </g>
+
+    <!-- Left Node -->
+    <g transform="translate(66, 128)">
+      <circle cx="0" cy="0" r="14" fill="url(#orange_grad)" stroke="#FFFFFF" stroke-width="2" />
+      <circle cx="0" cy="-6" r="4.5" fill="#FFFFFF" />
+      <path d="M -8 8 C -8 4, 8 4, 8 8 Z" fill="#FFFFFF" />
+    </g>
+
+    <!-- Right Node -->
+    <g transform="translate(190, 128)">
+      <circle cx="0" cy="0" r="14" fill="url(#orange_grad)" stroke="#FFFFFF" stroke-width="2" />
+      <circle cx="0" cy="-6" r="4.5" fill="#FFFFFF" />
+      <path d="M -8 8 C -8 4, 8 4, 8 8 Z" fill="#FFFFFF" />
+    </g>
+
+    <!-- Top-Right Node -->
+    <g transform="translate(172, 84)">
+      <circle cx="0" cy="0" r="10" fill="url(#gold_grad)" stroke="#FFFFFF" stroke-width="1.5" />
+    </g>
+    <!-- Bottom-Left Node -->
+    <g transform="translate(84, 172)">
+      <circle cx="0" cy="0" r="10" fill="url(#gold_grad)" stroke="#FFFFFF" stroke-width="1.5" />
+    </g>
+  </g>
+</svg>
