@@ -44,10 +44,10 @@ void main() {
     // Allow translations/resources to load and settle.
     await tester.pumpAndSettle();
 
-    // Verify that the onboarding screen is displayed and shows the app title.
-    expect(find.text('Telugu Bible Quiz'), findsWidgets);
+    // Verify that the onboarding screen is displayed and shows the welcome title.
+    expect(find.text('Welcome Back'), findsWidgets);
 
-    // Verify that the "PLAY SOLO" button is found.
-    expect(find.text('PLAY SOLO'), findsOneWidget);
+    // Verify that the "Continue as Guest" button is found.
+    expect(find.text('Continue as Guest'), findsOneWidget);
   });
 }
