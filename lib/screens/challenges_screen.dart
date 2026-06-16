@@ -34,7 +34,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     _startTimer();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+        final userProvider = context.read<UserDataProvider>();
         setState(() {
           _dailyQuizLevel = userProvider.getDailyQuizLevel();
         });
@@ -200,7 +200,10 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
+    final dailyChallengeCompleted = context.select<UserDataProvider, bool>((p) => p.dailyChallengeCompleted);
+    final weeklyChallengeCompleted = context.select<UserDataProvider, bool>((p) => p.weeklyChallengeCompleted);
+    final monthlyChallengeCompleted = context.select<UserDataProvider, bool>((p) => p.monthlyChallengeCompleted);
+    final dailyQuizLevelVal = context.select<UserDataProvider, int>((p) => p.dailyQuizLevel ?? p.getDailyQuizLevel());
     final localeProvider = context.watch<LocaleProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
@@ -310,24 +313,24 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                           title: "Daily Challenge",
                           icon: Icons.calendar_today,
                           accentColor: const Color(0xFFF7BC64), // Gold
-                          subtitle: userProvider.dailyChallengeCompleted
+                          subtitle: dailyChallengeCompleted
                               ? localeProvider.getContentText(
                                   "Success! Today's challenge is completed. Return tomorrow!",
                                   "విజయం! నేటి సవాలు పూర్తయింది. రేపు తిరిగి రండి!",
                                 )
                               : localeProvider.getContentText(
-                                  "Test your knowledge with today's featured Level ${_dailyQuizLevel ?? userProvider.dailyQuizLevel ?? 1} verses.",
-                                  "నేటి ప్రత్యేక స్థాయి ${_dailyQuizLevel ?? userProvider.dailyQuizLevel ?? 1} లేఖనాలతో మీ జ్ఞానాన్ని పరీక్షించుకోండి.",
+                                  "Test your knowledge with today's featured Level ${_dailyQuizLevel ?? dailyQuizLevelVal} verses.",
+                                  "నేటి ప్రత్యేక స్థాయి ${_dailyQuizLevel ?? dailyQuizLevelVal} లేఖనాలతో మీ జ్ఞానాన్ని పరీక్షించుకోండి.",
                                 ),
-                          countdownText: userProvider.dailyChallengeCompleted
+                          countdownText: dailyChallengeCompleted
                               ? "Next reset in ${_formatDailyTime(_getDailyTimeRemaining())}"
                               : "Time left: ${_formatDailyTime(_getDailyTimeRemaining())}",
-                          buttonText: userProvider.dailyChallengeCompleted ? "COMPLETED" : "PLAY NOW",
+                          buttonText: dailyChallengeCompleted ? "COMPLETED" : "PLAY NOW",
                           buttonColor: const Color(0xFF6B46C1), // Deep Purple
                           buttonTextColor: Colors.white,
-                          onPlay: userProvider.dailyChallengeCompleted
+                          onPlay: dailyChallengeCompleted
                               ? null
-                              : () => _startDailyChallenge(userProvider),
+                              : () => _startDailyChallenge(context.read<UserDataProvider>()),
                           isLoading: false,
                         ),
                         const SizedBox(height: 20),
@@ -337,7 +340,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                           title: "Weekly Challenge",
                           icon: Icons.emoji_events,
                           accentColor: const Color(0xFF38BDF8), // Cyan/Blue
-                          subtitle: userProvider.weeklyChallengeCompleted
+                          subtitle: weeklyChallengeCompleted
                               ? localeProvider.getContentText(
                                   "Success! This week's challenge is completed. Return next week!",
                                   "విజయం! ఈ వారం సవాలు పూర్తయింది. వచ్చే వారం తిరిగి రండి!",
@@ -349,10 +352,10 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                                       "వారపు లీడర్‌బోర్డ్‌లో స్థానం పొందడానికి ఈ వారం ప్రత్యేక స్థాయి ${_weeklyQuiz!.level} క్విజ్‌లో పోటీపడండి!",
                                     )),
                           countdownText: _getWeeklyRemaining(),
-                          buttonText: userProvider.weeklyChallengeCompleted ? "COMPLETED" : "PLAY NOW",
+                          buttonText: weeklyChallengeCompleted ? "COMPLETED" : "PLAY NOW",
                           buttonColor: const Color(0xFF0284C7),
                           buttonTextColor: Colors.white,
-                          onPlay: (userProvider.weeklyChallengeCompleted || _weeklyQuiz == null)
+                          onPlay: (weeklyChallengeCompleted || _weeklyQuiz == null)
                               ? null
                               : () => _playQuiz(_weeklyQuiz!),
                           isLoading: _loadingWeekly,
@@ -369,7 +372,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                           title: "Monthly Challenge",
                           icon: Icons.workspace_premium,
                           accentColor: const Color(0xFFF59E0B), // Dark Gold/Orange Crown
-                          subtitle: userProvider.monthlyChallengeCompleted
+                          subtitle: monthlyChallengeCompleted
                               ? localeProvider.getContentText(
                                   "Success! This month's challenge is completed. Return next month!",
                                   "విజయం! ఈ నెల సవాలు పూర్తయింది. వచ్చే నెల తిరిగి రండి!",
@@ -381,10 +384,10 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                                       "🔥 100 ప్రశ్నలు • 20,000 గరిష్ట పాయింట్లు • 70% చాలా కఠినం!\nమీ బైబిల్ నైపుణ్యాన్ని నిరూపించడానికి ఈ నెల అంతిమ సవాలులో నైపుణ్యం సాధించండి!",
                                     )),
                           countdownText: _getMonthlyRemaining(),
-                          buttonText: userProvider.monthlyChallengeCompleted ? "COMPLETED" : "PLAY NOW",
+                          buttonText: monthlyChallengeCompleted ? "COMPLETED" : "PLAY NOW",
                           buttonColor: const Color(0xFFF59E0B),
                           buttonTextColor: Colors.white,
-                          onPlay: (userProvider.monthlyChallengeCompleted || _monthlyQuiz == null)
+                          onPlay: (monthlyChallengeCompleted || _monthlyQuiz == null)
                               ? null
                               : () => _playQuiz(_monthlyQuiz!),
                           isLoading: _loadingMonthly,

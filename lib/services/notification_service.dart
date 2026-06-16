@@ -28,7 +28,7 @@ class NotificationService {
     );
 
     await _notificationsPlugin.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) async {
         // Handle tapping notification if needed
       },
@@ -76,14 +76,12 @@ class NotificationService {
         scheduledDate = scheduledDate.add(const Duration(days: 1));
       }
       await _notificationsPlugin.zonedSchedule(
-        1,
-        'Daily Challenge',
-        '📖 Don\'t forget your Daily Challenge! Earn bonus XP today.',
-        scheduledDate,
-        platformDetails,
+        id: 1,
+        title: 'Daily Challenge',
+        body: '📖 Don\'t forget your Daily Challenge! Earn bonus XP today.',
+        scheduledDate: scheduledDate,
+        notificationDetails: platformDetails,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
     }
@@ -95,14 +93,12 @@ class NotificationService {
         scheduledDate = scheduledDate.add(const Duration(days: 1));
       }
       await _notificationsPlugin.zonedSchedule(
-        2,
-        'Streak Alert',
-        '⚠️ You\'re about to lose your $streakDays-day streak! Play now.',
-        scheduledDate,
-        platformDetails,
+        id: 2,
+        title: 'Streak Alert',
+        body: '⚠️ You\'re about to lose your $streakDays-day streak! Play now.',
+        scheduledDate: scheduledDate,
+        notificationDetails: platformDetails,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
     }
@@ -114,14 +110,12 @@ class NotificationService {
         scheduledDate = scheduledDate.add(const Duration(days: 1));
       }
       await _notificationsPlugin.zonedSchedule(
-        3,
-        'Weekly Challenge',
-        '🏆 Weekly Challenge is now live! Can you top the leaderboard?',
-        scheduledDate,
-        platformDetails,
+        id: 3,
+        title: 'Weekly Challenge',
+        body: '🏆 Weekly Challenge is now live! Can you top the leaderboard?',
+        scheduledDate: scheduledDate,
+        notificationDetails: platformDetails,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       );
     }
@@ -135,14 +129,12 @@ class NotificationService {
         scheduledDate = tz.TZDateTime(tz.local, nextYear, nextMonth, 1, 9, 0);
       }
       await _notificationsPlugin.zonedSchedule(
-        4,
-        'Monthly Challenge',
-        '🎯 Monthly Challenge with 100 questions is ready! Earn 500 XP.',
-        scheduledDate,
-        platformDetails,
+        id: 4,
+        title: 'Monthly Challenge',
+        body: '🎯 Monthly Challenge with 100 questions is ready! Earn 500 XP.',
+        scheduledDate: scheduledDate,
+        notificationDetails: platformDetails,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
       );
     }

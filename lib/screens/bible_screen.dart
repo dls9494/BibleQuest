@@ -10,6 +10,8 @@ import '../providers/user_data_provider.dart';
 import '../widgets/verse_share_card.dart';
 import '../widgets/gradient_background.dart';
 import 'package:audio_service/audio_service.dart' as as_pkg;
+import "../providers/theme_provider.dart";
+import "../constants/theme.dart";
 import '../services/audio_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -538,7 +540,7 @@ class _BibleScreenState extends State<BibleScreen> {
                               itemCount: _verses.length,
                               itemBuilder: (context, index) {
                                 final v = _verses[index];
-                                return _buildVerseRow(v, userProvider, playingVerse);
+                                return _buildVerseRow(context, v, userProvider, playingVerse);
                               },
                             ),
                 ),
@@ -1848,232 +1850,6 @@ class _BibleScreenState extends State<BibleScreen> {
     );
   }
 
-  Widget _buildVerseRow(BibleVerse v, UserDataProvider userProvider, int? playingVerse) {
-    final book = BibleService.getBookById(_selectedBookId);
-    final bookNameEn = book?.nameEn ?? '';
-    final bookNameTe = book?.nameTe ?? '';
-
-    final showTelugu = _isBilingual || _selectedLanguage == 'telugu';
-    final showEnglish = _isBilingual || _selectedLanguage == 'english';
-
-    final isCurrentlyPlaying = playingVerse == v.verse;
-    final isSelected = _selectedVerse == v.verse || isCurrentlyPlaying;
-    final verseRef = '${_selectedBookId}_${_selectedChapter}_${v.verse}';
-    final isBookmarked = userProvider.isVerseBookmarked(verseRef);
-    final hasNotes = _chapterNotes.any((note) => note['verseNumber'] == v.verse);
-    final label = _showLabels ? VerseLabels.getLabel(_selectedBookId, _selectedChapter, v.verse) : null;
-
-    final labelColourHex = _labelledVerses[v.verse];
-    Color? tintColour;
-    if (labelColourHex != null) {
-      final normalizedHex = labelColourHex.replaceAll('#', '').toUpperCase();
-      if (normalizedHex == 'FFD54F' || normalizedHex == 'FFC107') {
-        tintColour = const Color(0xFFFFD54F);
-      } else if (normalizedHex == '90CAF9' || normalizedHex == '2196F3') {
-        tintColour = const Color(0xFF90CAF9);
-      } else if (normalizedHex == 'A5D6A7' || normalizedHex == '4CAF50') {
-        tintColour = const Color(0xFFA5D6A7);
-      } else if (normalizedHex == 'F48FB1' || normalizedHex == 'E91E63') {
-        tintColour = const Color(0xFFF48FB1);
-      } else {
-        try {
-          tintColour = Color(int.parse(labelColourHex.replaceAll('#', '0xFF')));
-        } catch (_) {}
-      }
-    }
-
-    final TextStyle englishStyle;
-    switch (_fontStyle) {
-      case 'bold':
-        englishStyle = TextStyle(
-          color: Colors.white70,
-          fontSize: (_fontSize - 1).clamp(_fontSizeMin, _fontSizeMax),
-          height: 1.5,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.normal,
-          fontFamily: 'Outfit',
-        );
-        break;
-      case 'italic':
-        englishStyle = TextStyle(
-          color: Colors.white70,
-          fontSize: (_fontSize - 1).clamp(_fontSizeMin, _fontSizeMax),
-          height: 1.5,
-          fontWeight: FontWeight.normal,
-          fontStyle: FontStyle.italic,
-          fontFamily: 'Outfit',
-        );
-        break;
-      case 'normal':
-      default:
-        englishStyle = TextStyle(
-          color: Colors.white70,
-          fontSize: (_fontSize - 1).clamp(_fontSizeMin, _fontSizeMax),
-          height: 1.5,
-          fontWeight: FontWeight.normal,
-          fontStyle: FontStyle.normal,
-          fontFamily: 'Outfit',
-        );
-        break;
-    }
-
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _selectedVerse = _selectedVerse == v.verse ? null : v.verse;
-        });
-      },
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFFFFD700).withValues(alpha: 0.15)
-              : (tintColour != null
-                  ? tintColour.withValues(alpha: 0.15)
-                  : Colors.white.withValues(alpha: 0.03)),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected
-                ? const Color(0xFFFFD700).withValues(alpha: 0.5)
-                : (tintColour != null
-                    ? tintColour.withValues(alpha: 0.4)
-                    : Colors.white.withValues(alpha: 0.06)),
-            width: isSelected ? 1.5 : 1.0,
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Telugu text (always shown in Telugu or Bilingual)
-                  if (showTelugu)
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (_activeLabelingVerse == v.verse) {
-                                    _activeLabelingVerse = null;
-                                  } else {
-                                    _activeLabelingVerse = v.verse;
-                                  }
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 6.0),
-                                child: Text(
-                                  _toSuperscript(v.verse),
-                                  style: TextStyle(
-                                    fontSize: _fontSize * 0.85,
-                                    color: const Color(0xFFFFD700),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const TextSpan(text: '  '),
-                          if (label != null) ...[
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 4),
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: VerseLabels.getLabelColor(label),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  label,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Outfit',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const TextSpan(text: '  '),
-                          ],
-                          TextSpan(text: v.textTe),
-                        ],
-                      ),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: _fontSize,
-                        height: 1.6,
-                        fontFamily: 'NotoSansTelugu',
-                      ),
-                    ),
-                  if (_isBilingual) const SizedBox(height: 8),
-                  // English text (bilingual sub-version)
-                  if (showEnglish)
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (_activeLabelingVerse == v.verse) {
-                                    _activeLabelingVerse = null;
-                                  } else {
-                                    _activeLabelingVerse = v.verse;
-                                  }
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 6.0),
-                                child: Text(
-                                  _toSuperscript(v.verse),
-                                  style: TextStyle(
-                                    fontSize: (_fontSize - 1).clamp(_fontSizeMin, _fontSizeMax) * 0.85,
-                                    color: const Color(0xFFFFD700),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const TextSpan(text: '  '),
-                          if (label != null && !showTelugu) ...[
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 4),
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: VerseLabels.getLabelColor(label),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  label,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Outfit',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const TextSpan(text: '  '),
-                          ],
-                          TextSpan(text: v.textKjv),
-                        ],
-                      ),
-                      style: englishStyle,
-                    ),
                   if (_activeLabelingVerse == v.verse) ...[
                     const SizedBox(height: 10),
                     _buildInlineColorPalette(v),
@@ -2186,8 +1962,192 @@ class _BibleScreenState extends State<BibleScreen> {
       ),
     );
   }
+  Widget _buildVerseRow(BuildContext context, BibleVerse v, UserDataProvider userProvider, int? playingVerse) {
+    final showTelugu = _isBilingual || _selectedLanguage == 'telugu';
+    final showEnglish = _isBilingual || _selectedLanguage == 'english';
 
-  Widget _buildInlineColorPalette(BibleVerse v) {
+    final isCurrentlyPlaying = playingVerse == v.verse;
+    final isSelected = _selectedVerse == v.verse || isCurrentlyPlaying;
+    final verseRef = '${_selectedBookId}_${_selectedChapter}_${v.verse}';
+    final isBookmarked = userProvider.isVerseBookmarked(verseRef);
+    final hasNotes = _chapterNotes.any((note) => note['verseNumber'] == v.verse);
+    final label = _showLabels ? VerseLabels.getLabel(_selectedBookId, _selectedChapter, v.verse) : null;
+
+    final labelColourHex = _labelledVerses[v.verse];
+    Color? tintColour;
+    if (labelColourHex != null) {
+      final normalizedHex = labelColourHex.replaceAll('#', '').toUpperCase();
+      if (normalizedHex == 'FFD54F' || normalizedHex == 'FFC107') {
+        tintColour = const Color(0xFFFFD54F);
+      } else if (normalizedHex == '90CAF9' || normalizedHex == '2196F3') {
+        tintColour = const Color(0xFF90CAF9);
+      } else if (normalizedHex == 'A5D6A7' || normalizedHex == '4CAF50') {
+        tintColour = const Color(0xFFA5D6A7);
+      } else if (normalizedHex == 'F48FB1' || normalizedHex == 'E91E63') {
+        tintColour = const Color(0xFFF48FB1);
+      } else {
+        try {
+          tintColour = Color(int.parse(labelColourHex.replaceAll('#', '0xFF')));
+        } catch (_) {}
+      }
+    }
+
+    final TextStyle englishStyle;
+    switch (_fontStyle) {
+      case 'bold':
+        englishStyle = TextStyle(
+          color: Colors.white.withValues(alpha: 0.9), // +10% contrast for English
+          fontSize: ((_fontSize * 16 / 18).clamp(_fontSizeMin, _fontSizeMax)),
+          height: 1.7,
+          fontWeight: FontWeight.w700,
+          fontStyle: FontStyle.normal,
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
+        );
+        break;
+      case 'italic':
+        englishStyle = TextStyle(
+          color: Colors.white.withValues(alpha: 0.88), // improved readability
+          fontSize: ((_fontSize * 16 / 18).clamp(_fontSizeMin, _fontSizeMax)),
+          height: 1.7,
+          fontWeight: FontWeight.w600, // slightly heavier
+          fontStyle: FontStyle.italic,
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
+        );
+        break;
+      case 'normal':
+      default:
+        englishStyle = TextStyle(
+          color: Colors.white.withValues(alpha: 0.88), // +10% contrast for secondary text
+          fontSize: ((_fontSize * 16 / 18).clamp(_fontSizeMin, _fontSizeMax)),
+          height: 1.7,
+          fontWeight: FontWeight.w600, // slightly heavier for better legibility
+          fontStyle: FontStyle.normal,
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
+        );
+        break;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Telugu text (always shown in Telugu or Bilingual)
+        if (showTelugu)
+          Text.rich(
+            TextSpan(
+              children: [
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Text(
+                      _toSuperscript(v.verse),
+                      style: TextStyle(
+                        fontSize: 12.0,  // Small verse number
+                        color: AppTheme.gold,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                const TextSpan(text: ' '),
+                if (label != null) ...[
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: VerseLabels.getLabelColor(label),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        label,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Outfit',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                const TextSpan(text: ' '),
+                TextSpan(
+                  text: v.textTe,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: _fontSize,  // User-controlled base size (default 18px)
+                    height: 1.8,        // Telugu line height 1.8
+                    fontWeight: FontWeight.w400,  // Normal weight for verse body
+                    fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'NotoSansTelugu',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 4.0),  // Small space between Telugu and English
+        // English text (bilingual sub-version)
+        if (showEnglish)
+          Text.rich(
+            TextSpan(
+              children: [
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Text(
+                      _toSuperscript(v.verse),
+                      style: TextStyle(
+                        fontSize: 12.0,  // Small verse number
+                        color: AppTheme.gold,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                const TextSpan(text: ' '),
+                if (label != null && !showTelugu) ...[
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: VerseLabels.getLabelColor(label),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        label,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Outfit',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                const TextSpan(text: ' '),
+                TextSpan(
+                  text: v.textKjv,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.6),  // 60% opacity for secondary text
+                    fontSize: 14.0,    // Fixed 14px for English
+                    height: 1.6,       // English line height 1.6
+                    fontWeight: FontWeight.w400,  // Light weight for verse body
+                    fontStyle: FontStyle.italic,  // Italic for English
+                    fontFamily: 'Outfit',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 20.0),  // Space between verse pairs (20px as requested)
+      ],
+    );
+  }
     final currentLabel = _labelledVerses[v.verse];
     return Row(
       mainAxisSize: MainAxisSize.min,

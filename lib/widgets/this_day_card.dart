@@ -9,13 +9,12 @@ class ThisDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserDataProvider>(context);
+    final isCompleted = context.select<UserDataProvider, bool>((p) => p.thisDayQuizCompleted);
     final event = ThisDayDataService.getTodayEvent();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
     final subTextColor = isDark ? Colors.white.withValues(alpha: 0.7) : const Color(0xFF5D4037);
-    final isCompleted = userProvider.thisDayQuizCompleted;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16.0),
@@ -91,6 +90,7 @@ class ThisDayCard extends StatelessWidget {
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'NotoSerifTelugu',
+                      height: 1.6,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -111,7 +111,7 @@ class ThisDayCard extends StatelessWidget {
                     style: TextStyle(
                       color: subTextColor,
                       fontSize: 14,
-                      height: 1.5,
+                      height: 1.6,
                       fontFamily: 'NotoSerifTelugu',
                     ),
                   ),
@@ -151,7 +151,7 @@ class ThisDayCard extends StatelessWidget {
                                 builder: (context) => ThisDayQuizView(
                                   event: event,
                                   onComplete: () {
-                                    userProvider.completeThisDayQuiz();
+                                    context.read<UserDataProvider>().completeThisDayQuiz();
                                   },
                                 ),
                               ),
@@ -379,7 +379,7 @@ class _ThisDayQuizViewState extends State<ThisDayQuizView> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: isDark ? Colors.white : const Color(0xFF3E2723),
-                                height: 1.4,
+                                height: 1.6,
                                 fontFamily: 'NotoSerifTelugu',
                               ),
                               textAlign: TextAlign.center,
@@ -460,6 +460,7 @@ class _ThisDayQuizViewState extends State<ThisDayQuizView> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'NotoSerifTelugu',
+                                      height: 1.6,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),

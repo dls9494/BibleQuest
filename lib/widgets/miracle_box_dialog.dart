@@ -54,7 +54,7 @@ class _MiracleBoxDialogState extends State<MiracleBoxDialog> with SingleTickerPr
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
 
     return Dialog(
       backgroundColor: Colors.transparent,

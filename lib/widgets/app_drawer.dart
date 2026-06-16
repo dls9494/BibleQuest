@@ -44,7 +44,11 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserDataProvider>(context);
+    final photoURL = context.select<UserDataProvider, String?>((p) => p.photoURL);
+    final displayName = context.select<UserDataProvider, String>((p) => p.displayName);
+    final username = context.select<UserDataProvider, String>((p) => p.username);
+    final playerLevel = context.select<UserDataProvider, int>((p) => p.playerLevel);
+    final streakDays = context.select<UserDataProvider, int>((p) => p.streakDays);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
     final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
@@ -67,7 +71,7 @@ class _AppDrawerState extends State<AppDrawer> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Drawer Header
-              _buildHeader(userProvider, isDark, textColor, subTextColor),
+              _buildHeader(photoURL, displayName, username, playerLevel, isDark, textColor, subTextColor),
 
               // Drawer Menu Items
               Expanded(
@@ -84,7 +88,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
 
                     // 2. Notifications (Expandable)
-                    _buildNotificationsSection(textColor, subTextColor, userProvider),
+                    _buildNotificationsSection(textColor, subTextColor, streakDays),
 
                     // 3. Theme (Disabled Tile)
                     ListTile(
@@ -137,7 +141,7 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  Widget _buildNotificationsSection(Color textColor, Color subTextColor, UserDataProvider userProvider) {
+  Widget _buildNotificationsSection(Color textColor, Color subTextColor, int streakDays) {
     if (_prefs == null) {
       return ListTile(
         leading: Icon(Icons.notifications_rounded, color: textColor.withValues(alpha: 0.8), size: 22),
@@ -179,7 +183,7 @@ class _AppDrawerState extends State<AppDrawer> {
               setState(() {
                 _daily = val;
               });
-              await NotificationService.scheduleNotifications(userProvider.streakDays);
+              await NotificationService.scheduleNotifications(streakDays);
             },
             textColor,
             subTextColor,
@@ -194,7 +198,7 @@ class _AppDrawerState extends State<AppDrawer> {
               setState(() {
                 _streak = val;
               });
-              await NotificationService.scheduleNotifications(userProvider.streakDays);
+              await NotificationService.scheduleNotifications(streakDays);
             },
             textColor,
             subTextColor,
@@ -209,7 +213,7 @@ class _AppDrawerState extends State<AppDrawer> {
               setState(() {
                 _weekly = val;
               });
-              await NotificationService.scheduleNotifications(userProvider.streakDays);
+              await NotificationService.scheduleNotifications(streakDays);
             },
             textColor,
             subTextColor,
@@ -224,7 +228,7 @@ class _AppDrawerState extends State<AppDrawer> {
               setState(() {
                 _monthly = val;
               });
-              await NotificationService.scheduleNotifications(userProvider.streakDays);
+              await NotificationService.scheduleNotifications(streakDays);
             },
             textColor,
             subTextColor,
@@ -273,12 +277,7 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  Widget _buildHeader(UserDataProvider userProvider, bool isDark, Color textColor, Color subTextColor) {
-    final photoURL = userProvider.photoURL;
-    final displayName = userProvider.displayName;
-    final username = userProvider.username;
-    final level = userProvider.playerLevel;
-
+  Widget _buildHeader(String? photoURL, String displayName, String username, int level, bool isDark, Color textColor, Color subTextColor) {
     return DrawerHeader(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(16.0),

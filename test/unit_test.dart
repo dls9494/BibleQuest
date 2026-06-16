@@ -12,8 +12,12 @@ import 'package:bible_quiz/models/prayer_request.dart';
 import 'package:bible_quiz/services/bible_service.dart';
 import 'package:bible_quiz/services/custom_quiz_generator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
   TestWidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.setMockInitialValues({});
   setupFirebaseCoreMocks();

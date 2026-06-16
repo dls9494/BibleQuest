@@ -6,6 +6,7 @@ import '../models/church_group.dart';
 import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
 import '../services/activity_service.dart';
+import '../services/analytics_service.dart';
 import 'group_detail_screen.dart';
 
 class ChurchGroupsScreen extends StatefulWidget {
@@ -149,7 +150,7 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
 
                                         setDialogState(() => isCreating = true);
                                         try {
-                                          final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+                                          final userProvider = context.read<UserDataProvider>();
                                           final uid = userProvider.userId ?? '';
                                           final nameStr = userProvider.displayName;
 
@@ -320,7 +321,7 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
             ),
             TextButton(
               onPressed: () async {
-                final userProvider = Provider.of<UserDataProvider>(this.context, listen: false);
+                final userProvider = context.read<UserDataProvider>();
                 final uid = userProvider.userId ?? '';
                 final navigator = Navigator.of(context);
                 final scaffoldMessenger = ScaffoldMessenger.of(this.context);
@@ -347,8 +348,7 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
-    final uid = userProvider.userId ?? '';
+    final uid = context.select<UserDataProvider, String>((p) => p.userId ?? '');
 
     return Scaffold(
       appBar: AppBar(
@@ -628,7 +628,7 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
 
                               setState(() => _isJoining = true);
                               try {
-                                final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+                                final userProvider = context.read<UserDataProvider>();
                                 final name = userProvider.displayName;
 
                                 final group = await FirebaseService.joinChurchGroup(uid, name, code);
@@ -647,6 +647,8 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
                                     'groupName': group.name,
                                   },
                                 );
+                                // Analytics: group joined
+                                AnalyticsService.logGroupJoined();
 
                                 scaffoldMessenger.showSnackBar(
                                   SnackBar(content: Text("Successfully joined ${group.name}!")),

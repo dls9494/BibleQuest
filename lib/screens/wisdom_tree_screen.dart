@@ -247,9 +247,11 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
         final file = await File('${tempDir.path}/wisdom_tree.png').create();
         await file.writeAsBytes(pngBytes);
 
-        await Share.shareXFiles(
-          [XFile(file.path)],
-          text: 'Take a look at my Wisdom Tree! 🌳 It grows as I study the Scriptures on the Bible Quiz App. My current growth stage is "$name". Join me!',
+        await SharePlus.instance.share(
+          ShareParams(
+            text: 'Take a look at my Wisdom Tree! 🌳 It grows as I study the Scriptures on the Bible Quiz App. My current growth stage is "$name". Join me!',
+            files: [XFile(file.path)],
+          ),
         );
       }
     } catch (e) {
@@ -269,7 +271,12 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
+    // Select only the fields this widget needs to avoid rebuilding on unrelated changes
+    final totalXp = context.select<UserDataProvider, int>((p) => p.totalXp);
+    final playerLevel = context.select<UserDataProvider, int>((p) => p.playerLevel);
+    final topicPerformance = context.select<UserDataProvider, Map<String, double>>((p) => p.topicPerformance);
+    // Read provider for computed methods (these depend on the selected fields above)
+    final userProvider = context.read<UserDataProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final progressMap = userProvider.getTreeGrowthProgress();
@@ -283,7 +290,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
     final branches = ['Torah', 'History', 'Wisdom', 'Gospels', 'Acts & Epistles', 'Prophets', 'Revelation'];
     final branchScores = <String, double>{};
     for (final b in branches) {
-      branchScores[b] = userProvider.topicPerformance[b] ?? 0.0;
+      branchScores[b] = topicPerformance[b] ?? 0.0;
     }
 
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
@@ -357,7 +364,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
                         child: Column(
                           children: [
                             Text(
-                              '🌳 Level ${userProvider.playerLevel} Tree',
+                              '🌳 Level $playerLevel Tree',
                               style: TextStyle(
                                 color: textColor,
                                 fontSize: 20,
@@ -578,7 +585,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Text(
-                                    '${userProvider.totalXp} XP',
+                                    '$totalXp XP',
                                     style: const TextStyle(
                                       color: Color(0xFFFFD700),
                                       fontWeight: FontWeight.bold,

@@ -1,10 +1,13 @@
 import 'dart:ui';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as rp;
+import 'package:provider/provider.dart' as provider_pkg;
+import 'package:go_router/go_router.dart';
 import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
 import '../services/bible_service.dart';
-import '../models/bible.dart';
+import '../services/icon_assets.dart';
 import 'quiz_tab.dart';
 import 'bible_screen.dart';
 import 'challenges_screen.dart';
@@ -15,35 +18,29 @@ import 'leaderboard_screen.dart';
 import 'prayer_wall_screen.dart';
 import 'social_feed_screen.dart';
 import 'wisdom_tree_screen.dart';
-import 'bookmarks_screen.dart';
-import 'favorites_screen.dart';
+
 import '../widgets/miracle_box_dialog.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/gradient_background.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../services/luxury_icon_assets.dart';
+import '../features/user_data/providers/user_data_providers.dart';
+import '../widgets/daily_verse_card.dart';
+import '../theme/text_styles.dart';
+import '../constants/theme.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends rp.ConsumerStatefulWidget {
   static final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  rp.ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  final ScrollController _scrollController = ScrollController();
-
+class _MainScreenState extends rp.ConsumerState<MainScreen> {
   @override
   void initState() {
     super.initState();
     _checkAuth();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+    BibleService.getBooks();
   }
 
   void _checkAuth() async {
@@ -67,23 +64,84 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  Widget _buildAvatarImage(String url, double size) {
+    if (url.startsWith('data:image') && url.contains('base64,')) {
+      try {
+        final base64Str = url.split('base64,')[1];
+        final bytes = base64Decode(base64Str);
+        return ClipOval(
+          child: Image.memory(
+            bytes,
+            fit: BoxFit.cover,
+            width: size,
+            height: size,
+            errorBuilder: (_, __, ___) => Icon(Icons.person, color: Colors.white, size: size * 0.6),
+          ),
+        );
+      } catch (_) {}
+    }
+    if (url.startsWith('assets/')) {
+      return ClipOval(
+        child: Image.asset(
+          url,
+          fit: BoxFit.cover,
+          width: size,
+          height: size,
+        ),
+      );
+    }
+    return ClipOval(
+      child: Image.network(
+        url,
+        fit: BoxFit.cover,
+        width: size,
+        height: size,
+        errorBuilder: (_, __, ___) => Icon(Icons.person, color: Colors.white, size: size * 0.6),
+      ),
+    );
+  }
+
+  Widget _buildFlatIcon(String assetPath, IconData fallbackIcon, Color fallbackColor, {double size = 22}) {
+    if (assetPath.isEmpty) {
+      return Icon(fallbackIcon, size: size, color: fallbackColor);
+    }
+    return Image.asset(
+      assetPath,
+      width: size,
+      height: size,
+      fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) {
+        return Icon(
+          fallbackIcon,
+          size: size,
+          color: fallbackColor,
+        );
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
-    if (userProvider.pendingMiracleBox) {
+    final pendingMiracleBox = provider_pkg.Provider.of<UserDataProvider>(context).pendingMiracleBox;
+    final bibleBookId = provider_pkg.Provider.of<UserDataProvider>(context).bibleBookId;
+    final bibleChapter = provider_pkg.Provider.of<UserDataProvider>(context).bibleChapter;
+    final bibleVerse = provider_pkg.Provider.of<UserDataProvider>(context).bibleVerse;
+
+    if (pendingMiracleBox) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showMiracleBoxDialog();
       });
     }
 
     // Deep-linking to Bible Screen if target book is set
-    if (userProvider.bibleBookId != null && userProvider.bibleChapter != null) {
-      final bookId = userProvider.bibleBookId!;
-      final chapter = userProvider.bibleChapter!;
-      final verse = userProvider.bibleVerse;
+    if (bibleBookId != null && bibleChapter != null) {
+      final bookId = bibleBookId;
+      final chapter = bibleChapter;
+      final verse = bibleVerse;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && userProvider.bibleBookId != null) {
-          userProvider.clearBibleTarget();
+        if (mounted) {
+          provider_pkg.Provider.of<UserDataProvider>(context, listen: false).clearBibleTarget();
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -100,6 +158,7 @@ class _MainScreenState extends State<MainScreen> {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final photoURL = provider_pkg.Provider.of<UserDataProvider>(context).photoURL;
 
     return Scaffold(
       key: MainScreen.scaffoldKey,
@@ -125,11 +184,30 @@ class _MainScreenState extends State<MainScreen> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(Icons.account_circle_outlined, color: textColor, size: 26),
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               Navigator.pushNamed(context, '/profile');
             },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Center(
+                child: photoURL != null && photoURL.isNotEmpty
+                    ? Container(
+                        width: 32,
+                        height: 32,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white24,
+                        ),
+                        child: _buildAvatarImage(photoURL, 32),
+                      )
+                    : const CircleAvatar(
+                        radius: 16,
+                        backgroundColor: Colors.white24,
+                        child: Icon(Icons.person, color: Colors.white, size: 20),
+                      ),
+              ),
+            ),
           ),
         ],
       ),
@@ -139,7 +217,40 @@ class _MainScreenState extends State<MainScreen> {
             child: GradientBackground(child: SizedBox.shrink()),
           ),
           SafeArea(
-            child: _buildMainMenu(),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: _buildMainMenu(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 24, bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: AppTheme.gold,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              letterSpacing: 2.0,
+              fontFamily: 'Outfit',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Container(
+            height: 1.5,
+            width: 24,
+            decoration: BoxDecoration(
+              color: AppTheme.gold.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(1),
+            ),
           ),
         ],
       ),
@@ -147,378 +258,388 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildMainMenu() {
-    return CustomScrollView(
-      controller: _scrollController,
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-          _buildSectionHeader("📖 BIBLE"),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            sliver: SliverToBoxAdapter(
-              child: _buildBibleCards(),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+
+    // Icons Setup
+    final otIcon = _buildFlatIcon(IconAssets.oldTestament, Icons.auto_stories, Colors.amber, size: 20);
+    final ntIcon = _buildFlatIcon(IconAssets.newTestament, Icons.auto_stories, Colors.blue, size: 20);
+    final quizIcon = _buildFlatIcon(IconAssets.quiz, Icons.quiz, Colors.green, size: 20);
+    final challengeIcon = _buildFlatIcon(IconAssets.challenges, Icons.emoji_events, Colors.amber, size: 20);
+    final planIcon = _buildFlatIcon(IconAssets.readingPlans, Icons.calendar_month, Colors.green, size: 20);
+    final memoryIcon = _buildFlatIcon(IconAssets.scriptureMemory, Icons.psychology, Colors.orange, size: 20);
+    final creatorIcon = _buildFlatIcon(IconAssets.quizCreator, Icons.create, Colors.purple, size: 20);
+    final leaderboardIcon = _buildFlatIcon(IconAssets.leaderboard, Icons.leaderboard, Colors.blue, size: 16);
+    final prayerWallIcon = _buildFlatIcon(IconAssets.prayerWall, Icons.volunteer_activism, Colors.teal, size: 16);
+    final socialIcon = _buildFlatIcon(IconAssets.socialFeed, Icons.forum, Colors.deepOrange, size: 16);
+    final wisdomIcon = _buildFlatIcon(IconAssets.wisdomTree, Icons.forest, Colors.amber, size: 16);
+    final bookmarkIcon = _buildFlatIcon(IconAssets.bookmarks, Icons.bookmark, Colors.red, size: 16);
+    final favoriteIcon = _buildFlatIcon(IconAssets.favorites, Icons.favorite, Colors.amber, size: 16);
+    final notesIcon = _buildFlatIcon('', Icons.note_alt_rounded, Colors.orange, size: 16);
+    final searchIcon = _buildFlatIcon('', Icons.search_rounded, Colors.cyan, size: 16);
+
+    final readingProgress = ref.watch(readingProgressProvider);
+    final lastRead = readingProgress.isNotEmpty ? readingProgress.first : null;
+    Widget? continueReadingCard;
+
+    if (lastRead != null) {
+      final lastBookName = lastRead['book_name'] as String;
+      final lastChapter = lastRead['chapter'] as int;
+      final lastVersion = lastRead['version'] as String;
+      final lastVerse = lastRead['verse'] as int? ?? 1;
+      
+      final bookMeta = BibleService.findBookByName(lastBookName);
+      final displayBookNameEn = bookMeta?.nameEn ?? lastBookName;
+      final displayName = '$displayBookNameEn $lastChapter:$lastVerse';
+
+      DateTime? readAtDate;
+      try {
+        if (lastRead['read_at'] != null) {
+          readAtDate = DateTime.parse(lastRead['read_at'] as String);
+        }
+      } catch (_) {}
+
+      String relativeTime = '';
+      if (readAtDate != null) {
+        final diff = DateTime.now().difference(readAtDate);
+        if (diff.inSeconds < 60) {
+          relativeTime = 'Just now';
+        } else if (diff.inMinutes < 60) {
+          relativeTime = '${diff.inMinutes} minutes ago';
+        } else if (diff.inHours < 24) {
+          relativeTime = '${diff.inHours} hours ago';
+        } else {
+          relativeTime = '${diff.inDays} days ago';
+        }
+      }
+
+      final cardColor = isDark ? Colors.white.withValues(alpha: 0.06) : Colors.black.withValues(alpha: 0.05);
+      const accentColor = Color(0xFFFFD700);
+
+      continueReadingCard = Padding(
+        padding: const EdgeInsets.only(bottom: 14.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08), width: 1.0),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    context.push('/bible/$lastVersion/$lastBookName/$lastChapter?verse=$lastVerse');
+                  },
+                  borderRadius: BorderRadius.circular(18),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Continue Reading',
+                                style: AppTextStyles.bodyText.copyWith(
+                                  color: accentColor,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 12,
+                                  letterSpacing: 0.4,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                displayName.toUpperCase(),
+                                style: AppTextStyles.screenTitle.copyWith(
+                                  color: textColor,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 22,
+                                  height: 1.1,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                relativeTime.isNotEmpty
+                                    ? 'Last opened $relativeTime'
+                                    : 'Last opened recently',
+                                style: AppTextStyles.bodyText.copyWith(
+                                  color: isDark ? Colors.white54 : Colors.black54,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(999),
+                            border: Border.all(color: accentColor.withValues(alpha: 0.18), width: 1),
+                            color: accentColor.withValues(alpha: 0.08),
+                          ),
+                          child: Text(
+                            'Resume →',
+                            style: AppTextStyles.bodyText.copyWith(
+                              color: accentColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
-          _buildSectionHeader("🎯 QUIZ & CHALLENGES"),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            sliver: SliverToBoxAdapter(
-              child: _buildQuizAndChallengesCards(),
-            ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── READ SECTION ────────────────────────────────────────────────────
+          _buildSectionHeader("📖 READ"),
+          if (continueReadingCard != null) continueReadingCard,
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Old Testament",
+                  subtitle: "39 Books",
+                  iconWidget: otIcon,
+                  gradientColors: const [Color(0xFFFFC107), Color(0xFFFF8F00)],
+                  glowColor: const Color(0xFFFFC107),
+                  onTap: () => context.push('/bible'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "New Testament",
+                  subtitle: "27 Books",
+                  iconWidget: ntIcon,
+                  gradientColors: const [Color(0xFF448AFF), Color(0xFF2962FF)],
+                  glowColor: const Color(0xFF448AFF),
+                  onTap: () => context.push('/bible'),
+                ),
+              ),
+            ],
           ),
-          _buildSectionHeader("📚 LEARNING"),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            sliver: SliverToBoxAdapter(
-              child: _buildLearningCards(),
-            ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Search Scripture",
+                  subtitle: "Keyword search",
+                  iconWidget: searchIcon,
+                  gradientColors: const [Color(0xFF00E5FF), Color(0xFF00838F)],
+                  glowColor: const Color(0xFF00E5FF),
+                  isRowLayout: true,
+                  onTap: () => context.push('/search'),
+                ),
+              ),
+            ],
           ),
+          const SizedBox(height: 12),
+          const DailyVerseCard(),
+
+          // ── LEARN SECTION ───────────────────────────────────────────────────
+          _buildSectionHeader("📚 LEARN"),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Reading Plans",
+                  subtitle: "Daily tracks",
+                  iconWidget: planIcon,
+                  gradientColors: const [Color(0xFF66BB6A), Color(0xFF43A047)],
+                  glowColor: const Color(0xFF66BB6A),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadingPlanScreen())),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Scripture Memory",
+                  subtitle: "Memorization games",
+                  iconWidget: memoryIcon,
+                  gradientColors: const [Color(0xFFFF9800), Color(0xFFF57C00)],
+                  glowColor: const Color(0xFFFF9800),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryGameScreen())),
+                ),
+              ),
+            ],
+          ),
+
+          // ── PLAY SECTION ────────────────────────────────────────────────────
+          _buildSectionHeader("🎮 PLAY"),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Quiz Mode",
+                  subtitle: "Levels 1–100",
+                  iconWidget: quizIcon,
+                  gradientColors: const [Color(0xFF00E676), Color(0xFF00C853)],
+                  glowColor: const Color(0xFF00E676),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizTab())),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Challenges",
+                  subtitle: "Daily & Weekly",
+                  iconWidget: challengeIcon,
+                  gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
+                  glowColor: const Color(0xFFFFD700),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen())),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Quiz Creator",
+                  subtitle: "Make your own quiz",
+                  iconWidget: creatorIcon,
+                  gradientColors: const [Color(0xFFAB47BC), Color(0xFF7B1FA2)],
+                  glowColor: const Color(0xFFAB47BC),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CustomQuizCreatorScreen())),
+                ),
+              ),
+            ],
+          ),
+
+          // ── GROW SECTION ────────────────────────────────────────────────────
+          _buildSectionHeader("🌱 GROW"),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Bookmarks",
+                  subtitle: "Saved verses",
+                  iconWidget: bookmarkIcon,
+                  gradientColors: const [Color(0xFFEF5350), Color(0xFFC62828)],
+                  glowColor: const Color(0xFFEF5350),
+                  isRowLayout: true,
+                  onTap: () => context.push('/bookmarks'),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Highlights",
+                  subtitle: "Color marked",
+                  iconWidget: favoriteIcon,
+                  gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
+                  glowColor: const Color(0xFFFFD700),
+                  isRowLayout: true,
+                  onTap: () => context.push('/highlights'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Study Notes",
+                  subtitle: "Personal reflections",
+                  iconWidget: notesIcon,
+                  gradientColors: const [Color(0xFFFF8A65), Color(0xFFD84315)],
+                  glowColor: const Color(0xFFFF8A65),
+                  isRowLayout: true,
+                  onTap: () => context.push('/notes'),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Wisdom Tree",
+                  subtitle: "Growth & badges",
+                  iconWidget: wisdomIcon,
+                  gradientColors: const [Color(0xFFFFCA28), Color(0xFFFF8F00)],
+                  glowColor: const Color(0xFFFFCA28),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WisdomTreeScreen())),
+                ),
+              ),
+            ],
+          ),
+
+          // ── COMMUNITY SECTION ───────────────────────────────────────────────
           _buildSectionHeader("👥 COMMUNITY"),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            sliver: SliverToBoxAdapter(
-              child: _buildCommunityCards(),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Leaderboard",
+                  subtitle: "See global ranks",
+                  iconWidget: leaderboardIcon,
+                  gradientColors: const [Color(0xFF42A5F5), Color(0xFF1E88E5)],
+                  glowColor: const Color(0xFF42A5F5),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeaderboardScreen())),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Prayer Wall",
+                  subtitle: "Intercede together",
+                  iconWidget: prayerWallIcon,
+                  gradientColors: const [Color(0xFF26A69A), Color(0xFF00897B)],
+                  glowColor: const Color(0xFF26A69A),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerWallScreen())),
+                ),
+              ),
+            ],
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "Social Feed",
+                  subtitle: "Feed & achievements",
+                  iconWidget: socialIcon,
+                  gradientColors: const [Color(0xFFFF7043), Color(0xFFE64A19)],
+                  glowColor: const Color(0xFFFF7043),
+                  isRowLayout: true,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SocialFeedScreen())),
+                ),
+              ),
+            ],
           ),
+          const SizedBox(height: 32),
         ],
-      );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return SliverPadding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 4),
-      sliver: SliverToBoxAdapter(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                letterSpacing: 1.2,
-                fontFamily: 'Outfit',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Container(
-              height: 2,
-              width: 32,
-              decoration: BoxDecoration(
-                color: const Color(0xFFD4A574),
-                borderRadius: BorderRadius.circular(1),
-              ),
-            ),
-          ],
-        ),
       ),
-    );
-  }
-
-  Widget _buildBibleCards() {
-    final width = MediaQuery.of(context).size.width;
-    final isNarrow = width < 360;
-
-    Widget buildTestamentCardWidget(String title, String subtitle, Widget iconWidget, List<Color> gradientColors, Color glowColor, String testamentType) {
-      return GamifiedMenuCard(
-        title: title,
-        subtitle: subtitle,
-        iconWidget: iconWidget,
-        gradientColors: gradientColors,
-        glowColor: glowColor,
-        onTap: () => _showTestamentBookIndex(testamentType, title),
-      );
-    }
-
-    final otIcon = SvgPicture.asset(LuxuryIconAssets.oldTestament, width: 44, height: 44);
-    final ntIcon = SvgPicture.asset(LuxuryIconAssets.newTestament, width: 44, height: 44);
-
-    if (isNarrow) {
-      return Column(
-        children: [
-          buildTestamentCardWidget(
-            "Old Testament",
-            "39 Books • The Beginning",
-            otIcon,
-            const [Color(0xFFFFC107), Color(0xFFFF8F00)],
-            const Color(0xFFFFC107),
-            'OT',
-          ),
-          const SizedBox(height: 12),
-          buildTestamentCardWidget(
-            "New Testament",
-            "27 Books • The Fulfillment",
-            ntIcon,
-            const [Color(0xFF448AFF), Color(0xFF2962FF)],
-            const Color(0xFF448AFF),
-            'NT',
-          ),
-        ],
-      );
-    } else {
-      return Row(
-        children: [
-          Expanded(
-            child: buildTestamentCardWidget(
-              "Old Testament",
-              "39 Books • The Beginning",
-              otIcon,
-              const [Color(0xFFFFC107), Color(0xFFFF8F00)],
-              const Color(0xFFFFC107),
-              'OT',
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: buildTestamentCardWidget(
-              "New Testament",
-              "27 Books • The Fulfillment",
-              ntIcon,
-              const [Color(0xFF448AFF), Color(0xFF2962FF)],
-              const Color(0xFF448AFF),
-              'NT',
-            ),
-          ),
-        ],
-      );
-    }
-  }
-
-  void _showTestamentBookIndex(String testamentType, String title) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => TestamentBooksScreen(
-          testamentType: testamentType,
-          title: title,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildQuizAndChallengesCards() {
-    final width = MediaQuery.of(context).size.width;
-    final isNarrow = width < 360;
-
-    Widget buildQuizChallengesCardWidget({
-      required String title,
-      required String subtitle,
-      required Widget iconWidget,
-      required List<Color> gradientColors,
-      required Color glowColor,
-      required VoidCallback onTap,
-      Widget? backgroundDecoration,
-    }) {
-      return GamifiedMenuCard(
-        title: title,
-        subtitle: subtitle,
-        iconWidget: iconWidget,
-        gradientColors: gradientColors,
-        glowColor: glowColor,
-        onTap: onTap,
-        backgroundDecoration: backgroundDecoration,
-      );
-    }
-
-    final quizIcon = SvgPicture.asset(LuxuryIconAssets.quiz, width: 44, height: 44);
-    final challengeIcon = SvgPicture.asset(LuxuryIconAssets.challenges, width: 44, height: 44);
-
-    if (isNarrow) {
-      return Column(
-        children: [
-          buildQuizChallengesCardWidget(
-            title: "Quiz",
-            subtitle: "Levels 1–100 • Test Your Knowledge",
-            iconWidget: quizIcon,
-            gradientColors: const [Color(0xFF00E676), Color(0xFF00C853)],
-            glowColor: const Color(0xFF00E676),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizTab())),
-          ),
-          const SizedBox(height: 12),
-          buildQuizChallengesCardWidget(
-            title: "Challenges",
-            subtitle: "Daily • Weekly • Monthly • Compete",
-            iconWidget: challengeIcon,
-            gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
-            glowColor: const Color(0xFFFFD700),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen())),
-          ),
-        ],
-      );
-    } else {
-      return Row(
-        children: [
-          Expanded(
-            child: buildQuizChallengesCardWidget(
-              title: "Quiz",
-              subtitle: "Levels 1–100 • Test Your Knowledge",
-              iconWidget: quizIcon,
-              gradientColors: const [Color(0xFF00E676), Color(0xFF00C853)],
-              glowColor: const Color(0xFF00E676),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizTab())),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: buildQuizChallengesCardWidget(
-              title: "Challenges",
-              subtitle: "Daily • Weekly • Monthly • Compete",
-              iconWidget: challengeIcon,
-              gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
-              glowColor: const Color(0xFFFFD700),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen())),
-            ),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildLearningCards() {
-    final planIcon = SvgPicture.asset(LuxuryIconAssets.readingPlans, width: 44, height: 44);
-    final memoryIcon = SvgPicture.asset(LuxuryIconAssets.scriptureMemory, width: 44, height: 44);
-    final creatorIcon = SvgPicture.asset(LuxuryIconAssets.quizCreator, width: 44, height: 44);
-
-    return Row(
-      children: [
-        Expanded(
-          child: GamifiedMenuCard(
-            title: "Reading Plans",
-            subtitle: "30 • 90 • 365 Day Plans",
-            iconWidget: planIcon,
-            gradientColors: const [Color(0xFF66BB6A), Color(0xFF43A047)],
-            glowColor: const Color(0xFF66BB6A),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadingPlanScreen())),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: GamifiedMenuCard(
-            title: "Scripture Memory",
-            subtitle: "Memorize • Retain • Grow",
-            iconWidget: memoryIcon,
-            gradientColors: const [Color(0xFFFF9800), Color(0xFFF57C00)],
-            glowColor: const Color(0xFFFF9800),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryGameScreen())),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: GamifiedMenuCard(
-            title: "Quiz Creator",
-            subtitle: "Create • Customize • Challenge",
-            iconWidget: creatorIcon,
-            gradientColors: const [Color(0xFFAB47BC), Color(0xFF7B1FA2)],
-            glowColor: const Color(0xFFAB47BC),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CustomQuizCreatorScreen())),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCommunityCards() {
-    final leaderboardIcon = SvgPicture.asset(LuxuryIconAssets.leaderboard, width: 44, height: 44);
-    final prayerWallIcon = SvgPicture.asset(LuxuryIconAssets.prayerWall, width: 44, height: 44);
-    final socialIcon = SvgPicture.asset(LuxuryIconAssets.socialFeed, width: 44, height: 44);
-    final wisdomIcon = SvgPicture.asset(LuxuryIconAssets.wisdomTree, width: 44, height: 44);
-    final bookmarkIcon = SvgPicture.asset(LuxuryIconAssets.bookmarks, width: 44, height: 44);
-    final favoriteIcon = SvgPicture.asset(LuxuryIconAssets.favorites, width: 44, height: 44);
-
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: GamifiedMenuCard(
-                title: "Leaderboard",
-                subtitle: "Weekly • Monthly • All-Time • Climb",
-                iconWidget: leaderboardIcon,
-                gradientColors: const [Color(0xFF42A5F5), Color(0xFF1E88E5)],
-                glowColor: const Color(0xFF42A5F5),
-                isRowLayout: true,
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeaderboardScreen())),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: GamifiedMenuCard(
-                title: "Prayer Wall",
-                subtitle: "Share • Pray • Connect",
-                iconWidget: prayerWallIcon,
-                gradientColors: const [Color(0xFF26A69A), Color(0xFF00897B)],
-                glowColor: const Color(0xFF26A69A),
-                isRowLayout: true,
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerWallScreen())),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: GamifiedMenuCard(
-                title: "Social Feed",
-                subtitle: "Feed of Faith • Stay Connected",
-                iconWidget: socialIcon,
-                gradientColors: const [Color(0xFFFF7043), Color(0xFFE64A19)],
-                glowColor: const Color(0xFFFF7043),
-                isRowLayout: true,
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SocialFeedScreen())),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: GamifiedMenuCard(
-                title: "Wisdom Tree",
-                subtitle: "Growth & Achievements • Flourish",
-                iconWidget: wisdomIcon,
-                gradientColors: const [Color(0xFFFFCA28), Color(0xFFFF8F00)],
-                glowColor: const Color(0xFFFFCA28),
-                isRowLayout: true,
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WisdomTreeScreen())),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: GamifiedMenuCard(
-                title: "Bookmarks",
-                subtitle: "Secured Notes • Your Archive",
-                iconWidget: bookmarkIcon,
-                gradientColors: const [Color(0xFFEF5350), Color(0xFFC62828)],
-                glowColor: const Color(0xFFEF5350),
-                isRowLayout: true,
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BookmarksScreen())),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: GamifiedMenuCard(
-                title: "Favorites",
-                subtitle: "Treasured Verses • Collect & Reflect",
-                iconWidget: favoriteIcon,
-                gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
-                glowColor: const Color(0xFFFFD700),
-                isRowLayout: true,
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FavoritesScreen())),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
 
-class GamifiedMenuCard extends StatefulWidget {
+class GamifiedMenuCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final Widget iconWidget;
@@ -540,60 +661,30 @@ class GamifiedMenuCard extends StatefulWidget {
     this.backgroundDecoration,
   });
 
-  @override
-  State<GamifiedMenuCard> createState() => _GamifiedMenuCardState();
-}
-
-class _GamifiedMenuCardState extends State<GamifiedMenuCard> with SingleTickerProviderStateMixin {
-  late AnimationController _pressController;
-  late Animation<double> _scaleAnimation;
-  late Animation<double> _glowAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _pressController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.03).animate(
-      CurvedAnimation(parent: _pressController, curve: Curves.easeOut),
-    );
-    _glowAnimation = Tween<double>(begin: 0.15, end: 0.35).animate(
-      CurvedAnimation(parent: _pressController, curve: Curves.easeOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _pressController.dispose();
-    super.dispose();
-  }
-
-  Widget _buildGlassCard({required Widget child, Color? borderColor}) {
+  Widget _buildGlassCard(BuildContext context, {required Widget child, Color? borderColor}) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.12),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
           child: Container(
             decoration: BoxDecoration(
-              color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.03),
-              borderRadius: BorderRadius.circular(16),
+              color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.black.withValues(alpha: 0.02),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: borderColor ?? (isDark ? Colors.white10 : Colors.black12),
-                width: 1.2,
+                color: borderColor?.withValues(alpha: 0.1) ?? (isDark ? Colors.white10 : Colors.black12),
+                width: 1.0,
               ),
             ),
             child: child,
@@ -609,106 +700,95 @@ class _GamifiedMenuCardState extends State<GamifiedMenuCard> with SingleTickerPr
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
     final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
 
-    final Widget animatedIcon = AnimatedBuilder(
-      animation: _pressController,
-      builder: (context, child) {
-        final glowVal = _glowAnimation.value;
-        return Transform.scale(
-          scale: _scaleAnimation.value,
-          child: Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white.withValues(alpha: 0.12),
-                  Colors.white.withValues(alpha: 0.04),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+    final double iconSize = isRowLayout ? 30.0 : 34.0;
+
+    // Static circular glassmorphism container for flat PNG/fallback icons
+    Widget iconContainer = Container(
+      width: iconSize,
+      height: iconSize,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          colors: [
+            Colors.white.withValues(alpha: 0.16),
+            Colors.white.withValues(alpha: 0.06),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.18),
+          width: 1.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            offset: const Offset(0, 1.5),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: glowColor.withValues(alpha: 0.06),
+            blurRadius: 8,
+            spreadRadius: 0.4,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Glint Highlight (top-left)
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.white.withValues(alpha: 0.25),
+                    Colors.white.withValues(alpha: 0.0),
+                  ],
+                  stops: const [0.0, 0.5],
+                ),
               ),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.2),
-                width: 1.2,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.15),
-                  offset: const Offset(0, 4),
-                  blurRadius: 8,
-                ),
-                BoxShadow(
-                  color: widget.glowColor.withValues(alpha: glowVal),
-                  blurRadius: 10 + (glowVal * 20),
-                  spreadRadius: glowVal * 6,
-                ),
-              ],
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.white.withValues(alpha: 0.25),
-                          Colors.white.withValues(alpha: 0.0),
-                        ],
-                        stops: const [0.0, 0.5],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.black.withValues(alpha: 0.0),
-                          Colors.black.withValues(alpha: 0.1),
-                        ],
-                        stops: const [0.5, 1.0],
-                      ),
-                    ),
-                  ),
-                ),
-                widget.iconWidget,
-              ],
             ),
           ),
-        );
-      },
+          // Darkening Shadow (bottom-right)
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.0),
+                    Colors.black.withValues(alpha: 0.1),
+                  ],
+                  stops: const [0.5, 1.0],
+                ),
+              ),
+            ),
+          ),
+          iconWidget,
+        ],
+      ),
     );
 
     return GestureDetector(
-      onTapDown: (_) {
-        _pressController.forward();
-      },
-      onTapUp: (_) {
-        _pressController.reverse();
-        widget.onTap();
-      },
-      onTapCancel: () {
-        _pressController.reverse();
-      },
+      onTap: onTap,
       child: _buildGlassCard(
-        borderColor: widget.glowColor.withValues(alpha: 0.3),
+        context,
+        borderColor: glowColor,
         child: Padding(
-          padding: widget.isRowLayout
-              ? const EdgeInsets.all(14.0)
-              : const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-          child: widget.isRowLayout
+          padding: isRowLayout
+              ? const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)
+              : const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+          child: isRowLayout
               ? Row(
                   children: [
-                    animatedIcon,
+                    iconContainer,
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
@@ -716,25 +796,22 @@ class _GamifiedMenuCardState extends State<GamifiedMenuCard> with SingleTickerPr
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            widget.title,
-                            style: TextStyle(
+                            title,
+                            style: AppTextStyles.cardTitle.copyWith(
                               color: textColor,
-                              fontWeight: FontWeight.bold,
                               fontSize: 14,
-                              fontFamily: 'Outfit',
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 4),
                           Text(
-                            widget.subtitle,
-                            style: TextStyle(
+                            subtitle,
+                            style: AppTextStyles.bodyText.copyWith(
                               color: subTextColor,
-                              fontSize: 10,
-                              fontFamily: 'Outfit',
+                              fontSize: 11,
                             ),
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ],
@@ -746,32 +823,31 @@ class _GamifiedMenuCardState extends State<GamifiedMenuCard> with SingleTickerPr
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    animatedIcon,
-                    const SizedBox(height: 12),
+                    iconContainer,
+                    const SizedBox(height: 8),
                     Text(
-                      widget.title,
+                      title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: AppTextStyles.cardTitle.copyWith(
                         color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        fontFamily: 'Outfit',
+                        fontSize: 14,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      widget.subtitle,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: subTextColor,
-                        fontSize: 10,
-                        fontFamily: 'Outfit',
+                    if (subtitle.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.bodyText.copyWith(
+                          color: subTextColor,
+                          fontSize: 11,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    ],
                   ],
                 ),
         ),
@@ -781,17 +857,17 @@ class _GamifiedMenuCardState extends State<GamifiedMenuCard> with SingleTickerPr
 }
 
 class TestamentBooksScreen extends StatelessWidget {
-  final String testamentType; // 'OT' or 'NT'
-  final String title;
+  final String testament; // 'old' or 'new'
 
   const TestamentBooksScreen({
     super.key,
-    required this.testamentType,
-    required this.title,
+    required this.testament,
   });
 
   @override
   Widget build(BuildContext context) {
+    final testamentType = testament == 'old' ? 'OT' : 'NT';
+    final title = testament == 'old' ? 'Old Testament' : 'New Testament';
     final books = BibleService.getBooks().where((b) => b.testament == testamentType).toList();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
@@ -821,84 +897,104 @@ class TestamentBooksScreen extends StatelessWidget {
             child: GradientBackground(child: SizedBox.shrink()),
           ),
           SafeArea(
-            child: ListView.separated(
-              padding: const EdgeInsets.all(16),
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               itemCount: books.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 8),
+              itemExtent: 56,
               itemBuilder: (context, index) {
                 final book = books[index];
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.03),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: isDark ? Colors.white10 : Colors.black12,
-                          width: 1,
-                        ),
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.03),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: isDark ? Colors.white10 : Colors.black12,
+                        width: 1,
                       ),
-                      child: Material(
-                        color: Colors.transparent,
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(12),
+                      child: InkWell(
                         borderRadius: BorderRadius.circular(12),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          title: Text(
-                            book.nameEn,
-                            style: TextStyle(
-                              color: textColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              fontFamily: 'Outfit',
+                        onTap: () async {
+                          final result = await Navigator.push<Map<String, dynamic>>(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChapterGridScreen(book: book),
                             ),
-                          ),
-                          subtitle: Text(
-                            book.nameTe,
-                            style: const TextStyle(
-                              color: Color(0xFFD4A574),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
-                              fontFamily: 'NotoSansTelugu',
-                            ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "${book.chapters} Chapters",
-                                style: TextStyle(
-                                  color: isDark ? Colors.white70 : Colors.black54,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Outfit',
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Icon(Icons.chevron_right_rounded, color: isDark ? Colors.white54 : Colors.black38),
-                            ],
-                          ),
-                          onTap: () async {
-                            final chapter = await Navigator.push<int>(
+                          );
+                          if (result != null && context.mounted) {
+                            final int chapter = result['chapter'] as int;
+                            final int verse = result['verse'] as int;
+
+                            Navigator.pop(context);
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => ChapterGridScreen(book: book),
+                                builder: (_) => BibleScreen(
+                                  initialBook: book.id,
+                                  initialChapter: chapter,
+                                  initialVerse: verse,
+                                ),
                               ),
                             );
-                            if (chapter != null && context.mounted) {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => BibleScreen(
-                                    initialBook: book.id,
-                                    initialChapter: chapter,
-                                  ),
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      book.nameEn,
+                                      style: TextStyle(
+                                        color: textColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        fontFamily: 'Outfit',
+                                      ),
+                                    ),
+                                    Text(
+                                      book.nameTe,
+                                      style: const TextStyle(
+                                        color: Color(0xFFD4A574),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 11,
+                                        fontFamily: 'NotoSansTelugu',
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            }
-                          },
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "${book.chapters} Chapters",
+                                    style: TextStyle(
+                                      color: isDark ? Colors.white70 : Colors.black54,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Outfit',
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: isDark ? Colors.white54 : Colors.black38,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -966,15 +1062,13 @@ class ChapterGridScreen extends StatelessWidget {
             child: GradientBackground(child: SizedBox.shrink()),
           ),
           SafeArea(
-            child: GridView.builder(
+            child: GridView.count(
+              crossAxisCount: 5,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
               padding: const EdgeInsets.all(24),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-              ),
-              itemCount: book.chapters,
-              itemBuilder: (context, index) {
+              childAspectRatio: 1.0,
+              children: List.generate(book.chapters, (index) {
                 final chapterNumber = index + 1;
                 return Container(
                   decoration: BoxDecoration(
@@ -1004,7 +1098,25 @@ class ChapterGridScreen extends StatelessWidget {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
                           child: InkWell(
-                            onTap: () => Navigator.pop(context, chapterNumber),
+                            onTap: () async {
+                              final verseCount = BibleService.getVerseCount(book.id, chapterNumber);
+                              final verse = await Navigator.push<int>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => VerseGridScreen(
+                                    bookId: book.id,
+                                    chapter: chapterNumber,
+                                    verseCount: verseCount,
+                                  ),
+                                ),
+                              );
+                              if (verse != null && context.mounted) {
+                                Navigator.pop(context, {
+                                  'chapter': chapterNumber,
+                                  'verse': verse,
+                                });
+                              }
+                            },
                             child: Center(
                               child: Text(
                                 "$chapterNumber",
@@ -1022,7 +1134,128 @@ class ChapterGridScreen extends StatelessWidget {
                     ),
                   ),
                 );
-              },
+              }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class VerseGridScreen extends StatelessWidget {
+  final String bookId;
+  final int chapter;
+  final int verseCount;
+
+  const VerseGridScreen({
+    super.key,
+    required this.bookId,
+    required this.chapter,
+    required this.verseCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final book = BibleService.getBookById(bookId);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              book?.nameEn ?? '',
+              style: TextStyle(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Outfit',
+                fontSize: 18,
+              ),
+            ),
+            Text(
+              "${book?.nameTe ?? ''} $chapter",
+              style: const TextStyle(
+                color: Color(0xFFD4A574),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'NotoSansTelugu',
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: textColor),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Stack(
+        children: [
+          const Positioned.fill(
+            child: GradientBackground(child: SizedBox.shrink()),
+          ),
+          SafeArea(
+            child: GridView.count(
+              crossAxisCount: 6,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              padding: const EdgeInsets.all(24),
+              childAspectRatio: 1.0,
+              children: List.generate(verseCount, (index) {
+                final verseNumber = index + 1;
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.04),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isDark ? Colors.white10 : Colors.black12,
+                            width: 1,
+                          ),
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context, verseNumber),
+                            child: Center(
+                              child: Text(
+                                "$verseNumber",
+                                style: TextStyle(
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  fontFamily: 'Outfit',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ),
           ),
         ],

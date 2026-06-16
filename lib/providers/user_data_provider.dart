@@ -8,13 +8,13 @@ import '../models/profile_title.dart';
 import '../models/quiz.dart';
 import '../services/firebase_service.dart';
 import '../services/bible_service.dart';
-import '../models/bible.dart';
 import '../services/notification_service.dart';
 import '../services/activity_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/connectivity_service.dart';
 import '../main.dart';
 import '../widgets/achievement_celebration.dart';
+import '../services/analytics_service.dart';
 
 class UserDataProvider extends ChangeNotifier {
   String? _userId;
@@ -714,9 +714,7 @@ class UserDataProvider extends ChangeNotifier {
     _totalShares = data['totalShares'] ?? 0;
     _displayName = data['displayName'] ?? "Guest Player";
     _username = data['username'] ?? "guest_username";
-    _email = data['email'] ?? "guest@example.com";
     _photoURL = data['photoURL'];
-    _phoneNumber = data['phoneNumber'];
     _authMethod = data['authMethod'] ?? 'anonymous';
     
     _bannerUrl = data['bannerUrl'];
@@ -901,6 +899,11 @@ class UserDataProvider extends ChangeNotifier {
 
     checkAndResetChallenges();
     NotificationService.scheduleNotifications(_streakDays);
+    AnalyticsService.setUserProperties(
+      userLevel: playerLevel,
+      streakDays: _streakDays,
+      accountType: _authMethod,
+    );
     notifyListeners();
   }
 
@@ -1041,9 +1044,7 @@ class UserDataProvider extends ChangeNotifier {
         case 'totalShares':
           updates['totalShares'] = _totalShares;
           break;
-        case 'phoneNumber':
-          updates['phoneNumber'] = _phoneNumber;
-          break;
+
         case 'authMethod':
           updates['authMethod'] = _authMethod;
           break;
@@ -1158,6 +1159,7 @@ class UserDataProvider extends ChangeNotifier {
     _markDirty('totalXp');
     final newLevel = playerLevel;
     if (newLevel > oldLevel) {
+      AnalyticsService.setUserProperties(userLevel: newLevel);
       ActivityService.logActivity(
         _userId ?? '',
         _displayName,
@@ -1380,6 +1382,7 @@ class UserDataProvider extends ChangeNotifier {
     _lastPlayDate = now;
     _markDirty('streak');
     _markDirty('lastPlayDate');
+    AnalyticsService.setUserProperties(streakDays: _streakDays);
 
     if (_streakDays % 7 == 0 && _streakDays > 0 && !_streakBoxesOpened.contains(_streakDays)) {
       _pendingMiracleBox = true;
@@ -1741,6 +1744,7 @@ class UserDataProvider extends ChangeNotifier {
         _newlyUnlocked = achievement;
         anyNewUnlock = true;
         _markDirty('achievements');
+        AnalyticsService.logAchievementUnlocked(achievementId: achievement.id);
         ActivityService.logActivity(
           _userId ?? '',
           _displayName,
@@ -2279,7 +2283,6 @@ class UserDataProvider extends ChangeNotifier {
       'totalAnswerTimeSpent': _totalAnswerTimeSpent,
       'totalQuestionsAnswered': _totalQuestionsAnswered,
       'totalShares': _totalShares,
-      'phoneNumber': _phoneNumber,
       'authMethod': _authMethod,
       'activeTitle': _activeTitle,
       'unlockedTitles': _unlockedTitles,

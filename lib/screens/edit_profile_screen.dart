@@ -8,6 +8,7 @@ import '../providers/locale_provider.dart';
 import '../services/profile_assets.dart';
 import '../services/bible_service.dart';
 import '../services/firebase_service.dart';
+import '../models/achievement.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -413,8 +414,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
-    final unlockedAchievements = userProvider.achievements.where((a) => a.isUnlocked).toList();
+    final unlockedAchievements = context.select<UserDataProvider, List<Achievement>>((p) => p.achievements.where((a) => a.isUnlocked).toList());
 
     return Scaffold(
       appBar: AppBar(

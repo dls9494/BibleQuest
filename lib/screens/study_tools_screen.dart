@@ -53,7 +53,7 @@ class _StudyToolsScreenState extends State<StudyToolsScreen> with SingleTickerPr
 
   void _toggleMastered() {
     final card = _cards[_currentIndex];
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     final wasMastered = userProvider.masteredFlashcards.contains(card.id);
     userProvider.markFlashcardMastered(card.id, !wasMastered);
   }
@@ -88,10 +88,10 @@ class _StudyToolsScreenState extends State<StudyToolsScreen> with SingleTickerPr
       );
     }
 
-    final userProvider = context.watch<UserDataProvider>();
+    final masteredFlashcards = context.select<UserDataProvider, Set<String>>((p) => p.masteredFlashcards);
     final card = _cards[_currentIndex];
-    final isMastered = userProvider.masteredFlashcards.contains(card.id);
-    final double progress = _cards.isEmpty ? 0.0 : (userProvider.masteredFlashcards.length / _cards.length).clamp(0.0, 1.0);
+    final isMastered = masteredFlashcards.contains(card.id);
+    final double progress = _cards.isEmpty ? 0.0 : (masteredFlashcards.length / _cards.length).clamp(0.0, 1.0);
 
     return Scaffold(
       body: Stack(
@@ -184,7 +184,7 @@ class _StudyToolsScreenState extends State<StudyToolsScreen> with SingleTickerPr
                               ),
                             ),
                             Text(
-                              "${userProvider.masteredFlashcards.length} / ${_cards.length}",
+                              "${masteredFlashcards.length} / ${_cards.length}",
                               style: const TextStyle(
                                 color: Color(0xFF38BDF8),
                                 fontSize: 18,
@@ -415,7 +415,7 @@ class _StudyToolsScreenState extends State<StudyToolsScreen> with SingleTickerPr
               style: const TextStyle(
                 color: Color(0xFFFFD295),
                 fontSize: 18,
-                height: 1.5,
+                height: 1.6,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'NotoSerifTelugu',
               ),

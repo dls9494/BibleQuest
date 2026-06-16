@@ -57,9 +57,11 @@ class QuizResultShare extends StatelessWidget {
                 }
 
                 // Share
-                await Share.shareXFiles(
-                  [XFile(file.path)],
-                  text: 'I scored $score/$totalQuestions on "$title" in the Telugu Bible Quiz! Can you beat my score? 🏆',
+                await SharePlus.instance.share(
+                  ShareParams(
+                    text: 'I scored $score/$totalQuestions on "$title" in the Telugu Bible Quiz! Can you beat my score? 🏆',
+                    files: [XFile(file.path)],
+                  ),
                 );
 
                 onShareSuccess();

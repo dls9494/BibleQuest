@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../theme/text_styles.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../models/church_group.dart';
@@ -287,7 +288,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                                             return;
                                           }
 
-                                          final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+                                          final userProvider = context.read<UserDataProvider>();
                                           final scaffoldMessenger = ScaffoldMessenger.of(context);
                                           final navigator = Navigator.of(dialogContext);
                                           setDialogState(() => isCreating = true);
@@ -374,8 +375,8 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
-    final uid = userProvider.userId ?? '';
+    final uid = context.select<UserDataProvider, String>((p) => p.userId ?? '');
+    final wonChallengeIds = context.select<UserDataProvider, List<String>>((p) => p.wonChallengeIds);
 
     return StreamBuilder<ChurchGroup?>(
       stream: FirebaseService.getGroupStream(widget.groupId),
@@ -431,7 +432,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                         delegate: SliverChildListDelegate([
                           _buildHeaderCard(group),
                           const SizedBox(height: 20),
-                          _buildChallengesSection(group, isPastor, uid, userProvider),
+                          _buildChallengesSection(group, isPastor, uid, wonChallengeIds),
                           const SizedBox(height: 20),
                           _buildLeaderboardSection(group, uid),
                           const SizedBox(height: 20),
@@ -499,7 +500,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                       const SizedBox(height: 4),
                       Text(
                         group.pastorName,
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Outfit'),
+                        style: AppTextStyles.cardTitle.copyWith(color: Colors.white, fontFamily: 'Outfit'),
                       ),
                     ],
                   ),
@@ -513,7 +514,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                       const SizedBox(height: 4),
                       Text(
                         "${group.totalMembers}",
-                        style: const TextStyle(color: Color(0xFF38BDF8), fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+                        style: AppTextStyles.sectionHeader.copyWith(color: Color(0xFF38BDF8), fontFamily: 'Outfit'),
                       ),
                     ],
                   ),
@@ -561,16 +562,16 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
   }
 
   Widget _buildChallengesSection(
-      ChurchGroup group, bool isPastor, String uid, UserDataProvider userProvider) {
+      ChurchGroup group, bool isPastor, String uid, List<String> wonChallengeIds) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               "Group Challenges",
-              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+              style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
             ),
             if (isPastor)
               ElevatedButton.icon(
@@ -626,7 +627,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                       child: Text("ACTIVE", style: TextStyle(color: Color(0xFF38BDF8), fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1, fontFamily: 'Outfit')),
                     ),
                   ),
-                  ...activeChallenges.map((challenge) => _buildChallengeCard(challenge, false, uid, group, userProvider)),
+                  ...activeChallenges.map((challenge) => _buildChallengeCard(challenge, false, uid, group, wonChallengeIds)),
                 ],
                 if (completedChallenges.isNotEmpty) ...[
                   const SizedBox(height: 12),
@@ -637,7 +638,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                       child: Text("COMPLETED", style: TextStyle(color: Colors.white38, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1, fontFamily: 'Outfit')),
                     ),
                   ),
-                  ...completedChallenges.map((challenge) => _buildChallengeCard(challenge, true, uid, group, userProvider)),
+                  ...completedChallenges.map((challenge) => _buildChallengeCard(challenge, true, uid, group, wonChallengeIds)),
                 ],
               ],
             );
@@ -648,7 +649,7 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
   }
 
   Widget _buildChallengeCard(GroupChallenge challenge, bool isCompleted, String uid,
-      ChurchGroup group, UserDataProvider userProvider) {
+      ChurchGroup group, List<String> wonChallengeIds) {
     final hasPlayed = challenge.participantScores.containsKey(uid);
     final userScore = challenge.participantScores[uid];
 
@@ -673,9 +674,9 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
       }
 
       // Proactively credit challenge wins for the current user
-      if (isCompleted && winnerId == uid && !userProvider.wonChallengeIds.contains(challenge.id)) {
+      if (isCompleted && winnerId == uid && !wonChallengeIds.contains(challenge.id)) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          userProvider.recordChallengeWin(challenge.id);
+          context.read<UserDataProvider>().recordChallengeWin(challenge.id);
         });
       }
     }
@@ -868,9 +869,9 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
+        Text(
           "Group Leaderboard",
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+          style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
         ),
         const SizedBox(height: 10),
         StreamBuilder<List<Map<String, dynamic>>>(
@@ -980,9 +981,9 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
+        Text(
           "Member List",
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+          style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
         ),
         const SizedBox(height: 10),
         ClipRRect(

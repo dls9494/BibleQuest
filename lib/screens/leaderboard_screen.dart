@@ -66,7 +66,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
         _monthlyRank = mRank;
         _allTimeRank = aRank;
       });
-      final provider = Provider.of<UserDataProvider>(context, listen: false);
+      final provider = context.read<UserDataProvider>();
       provider.updateWeeklyRank(rank);
       provider.updateMonthlyRank(mRank);
     }
@@ -92,9 +92,13 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
-    final quizHighScores = userProvider.quizHighScores;
-    final quizPercentages = userProvider.quizPercentages;
+    final quizHighScores = context.select<UserDataProvider, Map<String, int>>((p) => p.quizHighScores);
+    final quizPercentages = context.select<UserDataProvider, Map<String, int>>((p) => p.quizPercentages);
+    final totalXp = context.select<UserDataProvider, int>((p) => p.totalXp);
+    final streakDays = context.select<UserDataProvider, int>((p) => p.streakDays);
+    final unlocked = context.select<UserDataProvider, Set<int>>((p) => p.unlockedLevels);
+    final flashcardsMastered = context.select<UserDataProvider, int>((p) => p.flashcardsMastered);
+    final totalDailyChallengesCompleted = context.select<UserDataProvider, int>((p) => p.totalDailyChallengesCompleted);
 
     final totalQuizzesCompleted = quizHighScores.length;
     final averageScore = quizPercentages.isEmpty
@@ -103,10 +107,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
     final bestScore = quizHighScores.isEmpty
         ? 0
         : quizHighScores.values.reduce((a, b) => a > b ? a : b);
-    final totalXp = userProvider.totalXp;
-    final streakDays = userProvider.streakDays;
     
-    final unlocked = userProvider.unlockedLevels;
     final currentLevel = unlocked.isEmpty ? 1 : unlocked.reduce((a, b) => a > b ? a : b);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -226,8 +227,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                                 _buildStatItem("Streak", "$streakDays Days"),
                                 _buildStatItem("Weekly Rank", _weeklyRank > 0 ? "#$_weeklyRank" : "N/A"),
                                 _buildStatItem("Monthly Rank", _monthlyRank > 0 ? "#$_monthlyRank" : "N/A"),
-                                _buildStatItem("Flashcards", "${userProvider.flashcardsMastered}"),
-                                _buildStatItem("Daily Quizzes", "${userProvider.totalDailyChallengesCompleted}"),
+                                _buildStatItem("Flashcards", "$flashcardsMastered"),
+                                _buildStatItem("Daily Quizzes", "$totalDailyChallengesCompleted"),
                               ],
                             ),
                           ),

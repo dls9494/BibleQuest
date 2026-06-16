@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../theme/text_styles.dart';
 import '../models/flashcard.dart';
 import '../providers/locale_provider.dart';
 import '../providers/user_data_provider.dart';
@@ -104,7 +105,7 @@ class _FlashcardQuizScreenState extends State<FlashcardQuizScreen> {
       _generateOptions();
     } else {
       // Complete quiz and award XP
-      final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+      final userProvider = context.read<UserDataProvider>();
       
       // Flashcard quiz awards flat 50 Completion XP + score/10
       int earnedXp = 50 + (_score ~/ 10);
@@ -264,6 +265,7 @@ class _FlashcardQuizScreenState extends State<FlashcardQuizScreen> {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: lp.fontFamily == 'NotoSansTelugu' ? 'NotoSerifTelugu' : 'NotoSerif',
+                                  height: lp.fontFamily == 'NotoSansTelugu' ? 1.6 : 1.4,
                                 ),
                                 textAlign: TextAlign.left,
                               ),
@@ -302,7 +304,7 @@ class _FlashcardQuizScreenState extends State<FlashcardQuizScreen> {
 
   Widget _buildSummaryScreen() {
     final percentage = ((_correctCount / _cards.length) * 100).round();
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     int earnedXp = 50 + (_score ~/ 10);
     
     if (userProvider.streakDays > 0) {
@@ -381,7 +383,7 @@ class _FlashcardQuizScreenState extends State<FlashcardQuizScreen> {
           Text(label, style: const TextStyle(color: Colors.white70, fontSize: 16)),
           Text(
             value,
-            style: TextStyle(color: valueColor, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+            style: AppTextStyles.sectionHeader.copyWith(color: valueColor, fontFamily: 'Outfit'),
           ),
         ],
       ),

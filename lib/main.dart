@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' hide Provider;
+import 'core/database/app_database.dart';
+import 'core/navigation/app_router.dart';
 import 'package:firebase_core/firebase_core.dart' hide FirebaseService;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'l10n/app_localizations.dart';
@@ -12,18 +15,13 @@ import 'providers/theme_provider.dart';
 import 'providers/reading_plan_provider.dart';
 import 'screens/auth_screen.dart';
 import 'screens/main_screen.dart';
-import 'screens/quiz_creator_screen.dart';
-import 'screens/study_tools_screen.dart';
-import 'screens/reading_plan_screen.dart';
-import 'screens/custom_quiz_creator.dart';
-import 'screens/settings_screen.dart';
-import 'screens/profile_screen.dart';
 import 'services/firebase_service.dart';
 import 'services/real_questions.dart';
 import 'services/audio_service.dart';
 import 'services/notification_service.dart';
 import 'services/local_storage_service.dart';
 import 'services/connectivity_service.dart';
+import 'services/crashlytics_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:audio_service/audio_service.dart' as as_pkg;
 
@@ -31,6 +29,17 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // ── Register error handlers IMMEDIATELY, before Firebase or anything else ──
+  // CrashlyticsService queues errors internally until init() is called below.
+  FlutterError.onError = (FlutterErrorDetails details) {
+    CrashlyticsService.recordFlutterError(details);
+  };
+  PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
+    CrashlyticsService.recordNonFatal(error, stack, fatal: true);
+    return true;
+  };
+
   String? initError;
   try {
     await NotificationService.init();
@@ -55,22 +64,39 @@ void main() async {
       ),
     );
     AudioService.instance = handler;
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: 'AIzaSyByEA5roslXE3tIX3H0ll3hh9gpWD3ilrw',
-        authDomain: 'biblequiz-english-telugu.firebaseapp.com',
-        projectId: 'biblequiz-english-telugu',
-        storageBucket: 'biblequiz-english-telugu.firebasestorage.app',
-        messagingSenderId: '906009091818',
-        appId: '1:906009091818:web:6d3671bf7b81b911d9c193',
-      ),
-    );
+    try {
+      if (Firebase.apps.isEmpty) {
+        await Firebase.initializeApp(
+          options: const FirebaseOptions(
+            apiKey: 'AIzaSyByEA5roslXE3tIX3H0ll3hh9gpWD3ilrw',
+            authDomain: 'biblequiz-english-telugu.firebaseapp.com',
+            projectId: 'biblequiz-english-telugu',
+            storageBucket: 'biblequiz-english-telugu.firebasestorage.app',
+            messagingSenderId: '906009091818',
+            appId: '1:906009091818:web:6d3671bf7b81b911d9c193',
+          ),
+        );
+      }
+    } on FirebaseException catch (e) {
+      if (e.code != 'duplicate-app') {
+        rethrow;
+      }
+    } catch (e) {
+      if (!e.toString().contains('duplicate-app') && !e.toString().contains('already exists')) {
+        rethrow;
+      }
+    }
+    // Initialise Crashlytics (disabled in debug builds)
+    await CrashlyticsService.init();
     await FirebaseService.initialize();
     await RealQuestionsService.initializeRealQuestions();
+    // Copy all SQLite assets locally
+    await AppDatabase.instance.copyAllDatabasesOnFirstLaunch();
   } catch (e) {
     initError = e.toString();
   }
-  runApp(BibleQuizApp(initializationError: initError));
+
+  runApp(ProviderScope(child: BibleQuizApp(initializationError: initError)));
 }
 
 class InitializationErrorScreen extends StatelessWidget {
@@ -203,6 +229,12 @@ class _AuthWatcherState extends State<AuthWatcher> with WidgetsBindingObserver {
         }
         if (snapshot.hasData && snapshot.data != null) {
           final user = snapshot.data!;
+          if (user.providerData.any((p) => p.providerId == 'password') && !user.emailVerified) {
+            WidgetsBinding.instance.addPostFrameCallback((_) async {
+              await FirebaseAuth.instance.signOut();
+            });
+            return const AuthScreen();
+          }
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) {
               context.read<UserDataProvider>().restoreSession(user);
@@ -246,8 +278,8 @@ class BibleQuizApp extends StatelessWidget {
       ],
       child: Consumer2<LocaleProvider, ThemeProvider>(
         builder: (context, localeProvider, themeProvider, _) {
-          return MaterialApp(
-            navigatorKey: navigatorKey,
+          return MaterialApp.router(
+            routerConfig: appRouter,
             title: 'Telugu Bible Quiz',
             debugShowCheckedModeBanner: false,
             locale: const Locale('en'),
@@ -261,17 +293,6 @@ class BibleQuizApp extends StatelessWidget {
             themeMode: themeProvider.themeMode,
             theme: _buildLightTheme(context),
             darkTheme: _buildDarkTheme(context),
-            home: const AuthWatcher(),
-            routes: {
-              '/auth': (_) => const AuthScreen(),
-              '/home': (_) => const MainScreen(),
-              '/create-quiz': (_) => const QuizCreatorScreen(),
-              '/study-tools': (_) => const StudyToolsScreen(),
-              '/reading-plan': (_) => const ReadingPlanScreen(),
-              '/custom-quiz-creator': (_) => const CustomQuizCreatorScreen(),
-              '/settings': (_) => const SettingsScreen(),
-              '/profile': (_) => const ProfileScreen(),
-            },
           );
         },
       ),
@@ -279,6 +300,9 @@ class BibleQuizApp extends StatelessWidget {
   }
 
   ThemeData _buildLightTheme(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: const Color(0xFF6C4AB6), // Deep purple
@@ -292,7 +316,7 @@ class BibleQuizApp extends StatelessWidget {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Color(0xFFFDF6EC), // Parchment background
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFF3E2723)), // Dark brown
@@ -316,15 +340,28 @@ class BibleQuizApp extends StatelessWidget {
           ),
         ),
       ),
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
         bodyLarge: TextStyle(color: Color(0xFF3E2723), fontFamily: 'Outfit'),
-        bodyMedium: TextStyle(color: Color(0xFF5D4037), fontFamily: 'Outfit'),
-        titleLarge: TextStyle(color: Color(0xFF3E2723), fontFamily: 'Outfit', fontWeight: FontWeight.bold),
+        bodyMedium: TextStyle(
+          color: Color(0xFF5D4037),
+          fontSize: 14,
+          height: 1.5,
+          fontFamily: 'Outfit',
+        ),
+        titleLarge: TextStyle(
+          color: Color(0xFF3E2723),
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Outfit',
+        ),
       ),
     );
   }
 
   ThemeData _buildDarkTheme(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: const Color(0xFFE21B3C),
@@ -338,28 +375,49 @@ class BibleQuizApp extends StatelessWidget {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: themeProvider.scaledFontSize(20),
           fontWeight: FontWeight.bold,
           fontFamily: 'Outfit',
         ),
       ),
       actionIconTheme: ActionIconThemeData(
-        backButtonIconBuilder: (BuildContext context) => const Padding(
+        backButtonIconBuilder: (BuildContext context) => Padding(
           padding: EdgeInsets.only(left: 8.0),
           child: Text(
             '✝',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 24,
+              fontSize: themeProvider.scaledFontSize(24),
               fontWeight: FontWeight.bold,
+              fontFamily: 'Outfit',
             ),
           ),
+        ),
+      ),
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          height: 1.7, // English line height 1.7 as per requirement
+          fontFamily: 'Outfit',
+        ),
+        bodyMedium: TextStyle(
+          color: Color(0xFF5D4037),
+          fontSize: 14,
+          height: 1.5,
+          fontFamily: 'Outfit',
+        ),
+        titleLarge: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Outfit',
         ),
       ),
     );

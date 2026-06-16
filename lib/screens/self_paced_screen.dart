@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../theme/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../models/quiz.dart';
@@ -15,6 +16,7 @@ import '../widgets/timer_capsule.dart';
 import '../widgets/bilingual_text.dart';
 import '../widgets/quiz_result_share.dart';
 import '../services/activity_service.dart';
+import '../services/analytics_service.dart';
 
 class SelfPacedScreen extends StatefulWidget {
   final Quiz quiz;
@@ -65,6 +67,19 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
     super.initState();
     _stopwatch = Stopwatch()..start();
     _loadQuestions();
+
+    // Analytics: quiz started
+    String quizType = 'level';
+    if (widget.isDailyChallenge) {
+      quizType = 'daily';
+    } else if (widget.quiz.id.startsWith('weekly_')) {
+      quizType = 'weekly';
+    } else if (widget.quiz.id.startsWith('monthly_')) {
+      quizType = 'monthly';
+    } else if (widget.quiz.id.startsWith('battle_')) {
+      quizType = 'battle';
+    }
+    AnalyticsService.logQuizStarted(quizType: quizType);
     _feedbackAnimController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -175,7 +190,7 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
 
   void _finishQuiz() async {
     _stopwatch.stop();
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     
     int xp = 100 + (_score ~/ 10);
     if (userProvider.streakDays > 0) {
@@ -234,6 +249,19 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
         'totalQuestions': _questions.length,
       },
     );
+
+    // Analytics: quiz completed
+    String quizType = 'level';
+    if (widget.isDailyChallenge) {
+      quizType = 'daily';
+    } else if (widget.quiz.id.startsWith('weekly_')) {
+      quizType = 'weekly';
+    } else if (widget.quiz.id.startsWith('monthly_')) {
+      quizType = 'monthly';
+    } else if (widget.quiz.id.startsWith('battle_')) {
+      quizType = 'battle';
+    }
+    AnalyticsService.logQuizCompleted(quizType: quizType, score: _score);
 
     if (widget.quiz.id.startsWith('weakness_quiz_')) {
       userProvider.markWeaknessQuizCompleted();
@@ -341,7 +369,7 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
                                   fontWeight: FontWeight.bold,
                                   fontFamily: lp.fontFamily,
                                   color: Colors.white,
-                                  height: 1.4,
+                                  height: lp.fontFamily == 'NotoSansTelugu' ? 1.6 : 1.4,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -427,7 +455,13 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
                                 padding: const EdgeInsets.all(8),
                                 child: Text(
                                   text,
-                                  style: TextStyle(fontSize: 16, color: Colors.white, fontFamily: lp.fontFamily, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontFamily: lp.fontFamily,
+                                    fontWeight: FontWeight.bold,
+                                    height: lp.fontFamily == 'NotoSansTelugu' ? 1.6 : 1.4,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -708,7 +742,7 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
     final percentage = ((_correctCount / _questions.length) * 100).round();
     
     // Earned XP calculation
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     int earnedXp = 100 + (_score ~/ 10);
     if (userProvider.streakDays > 0) {
       earnedXp = (earnedXp * (1.0 + userProvider.streakDays * 0.05)).round();
@@ -781,7 +815,7 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
                           xpEarned: earnedXp,
                           percentage: percentage,
                           onShareSuccess: () {
-                            Provider.of<UserDataProvider>(context, listen: false).recordShare();
+                            context.read<UserDataProvider>().recordShare();
                           },
                         );
                       },
@@ -852,7 +886,7 @@ class _SelfPacedScreenState extends State<SelfPacedScreen> with TickerProviderSt
           Text(label, style: const TextStyle(color: Colors.white70, fontSize: 16)),
           Text(
             value,
-            style: TextStyle(color: valueColor, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+            style: AppTextStyles.sectionHeader.copyWith(color: valueColor, fontFamily: 'Outfit'),
           ),
         ],
       ),

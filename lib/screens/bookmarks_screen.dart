@@ -1,45 +1,28 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as rp;
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
 import '../providers/user_data_provider.dart';
 import '../services/real_questions.dart';
+import '../features/user_data/providers/user_data_providers.dart';
 import '../services/bible_service.dart';
-import 'bible_screen.dart';
 
-class BookmarksScreen extends StatefulWidget {
+class BookmarksScreen extends rp.ConsumerStatefulWidget {
   const BookmarksScreen({super.key});
 
   @override
-  State<BookmarksScreen> createState() => _BookmarksScreenState();
+  rp.ConsumerState<BookmarksScreen> createState() => _BookmarksScreenState();
 }
 
-class BookmarkedVerse {
-  final String ref;
-  final String bookId;
-  final int chapter;
-  final int verse;
-  final String textTe;
-  final String textEn;
-
-  BookmarkedVerse({
-    required this.ref,
-    required this.bookId,
-    required this.chapter,
-    required this.verse,
-    required this.textTe,
-    required this.textEn,
-  });
-}
-
-class _BookmarksScreenState extends State<BookmarksScreen> {
+class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
   int _selectedTabIndex = 0; // 0: Quiz, 1: Bible
 
   List<Question> _loadBookmarkedQuestions(List<String> bookmarkedIds) {
     List<Question> list = [];
     if (bookmarkedIds.isEmpty) return list;
 
-    // Search cached questions in RealQuestionsService
     for (int level = 1; level <= 50; level++) {
       for (String setId in ['A', 'B', 'C']) {
         final rawQuestions = RealQuestionsService.getQuestionsForLevel(level, setId);
@@ -51,40 +34,6 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         }
       }
     }
-    return list;
-  }
-
-  Future<List<BookmarkedVerse>> _loadBookmarkedVerses(Set<String> verseRefs) async {
-    List<BookmarkedVerse> list = [];
-    for (final ref in verseRefs) {
-      final parts = ref.split('_');
-      if (parts.length < 3) continue;
-      final bookId = parts[0];
-      final chapter = int.tryParse(parts[1]) ?? 1;
-      final verse = int.tryParse(parts[2]) ?? 1;
-      
-      try {
-        final teMap = await BibleService.getChapter(bookId, chapter, 'te');
-        final enMap = await BibleService.getChapter(bookId, chapter, 'kjv');
-        list.add(BookmarkedVerse(
-          ref: ref,
-          bookId: bookId,
-          chapter: chapter,
-          verse: verse,
-          textTe: teMap[verse] ?? 'ఈ వచనం అందుబాటులో లేదు.',
-          textEn: enMap[verse] ?? 'This verse is not available.',
-        ));
-      } catch (_) {}
-    }
-    // Sort logically by bible canon order
-    final allBooks = BibleService.getBooks();
-    list.sort((a, b) {
-      final indexA = allBooks.indexWhere((book) => book.id == a.bookId);
-      final indexB = allBooks.indexWhere((book) => book.id == b.bookId);
-      if (indexA != indexB) return indexA.compareTo(indexB);
-      if (a.chapter != b.chapter) return a.chapter.compareTo(b.chapter);
-      return a.verse.compareTo(b.verse);
-    });
     return list;
   }
 
@@ -135,13 +84,13 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserDataProvider>(context);
+    final bookmarkedQuestionIds = context.select<UserDataProvider, Set<String>>((p) => p.bookmarkedQuestionIds);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
     final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
 
-    final bookmarkedIds = userProvider.getBookmarkedQuestions();
-    final questions = _loadBookmarkedQuestions(bookmarkedIds);
+    final questions = _loadBookmarkedQuestions(bookmarkedQuestionIds.toList());
+    final bibleBookmarks = ref.watch(bookmarksProvider);
 
     return Scaffold(
       body: Stack(
@@ -169,7 +118,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => context.go('/home'),
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -275,14 +224,14 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                                   key: Key(question.id),
                                   question: question,
                                   onDismissed: () {
-                                    userProvider.toggleBookmark(question.id);
+                                    context.read<UserDataProvider>().toggleBookmark(question.id);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: const Text("Bookmark removed"),
                                         action: SnackBarAction(
                                           label: "Undo",
                                           onPressed: () {
-                                            userProvider.toggleBookmark(question.id);
+                                            context.read<UserDataProvider>().toggleBookmark(question.id);
                                           },
                                         ),
                                       ),
@@ -294,60 +243,50 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                                 );
                               },
                             ))
-                      : FutureBuilder<List<BookmarkedVerse>>(
-                          future: _loadBookmarkedVerses(userProvider.bookmarkedVerseRefs),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD700)),
-                                ),
-                              );
-                            }
-                            if (snapshot.hasError) {
-                              return Center(
-                                child: Text(
-                                  "Error: ${snapshot.error}",
-                                  style: TextStyle(color: textColor, fontFamily: 'Outfit'),
-                                ),
-                              );
-                            }
-                            final verses = snapshot.data ?? [];
-                            if (verses.isEmpty) {
-                              return _buildEmptyState(
-                                icon: Icons.menu_book_rounded,
-                                title: "No Bible Bookmarks",
-                                description: "Tap the bookmark icon next to a verse in the Bible reader to save it here.",
-                                textColor: textColor,
-                                subTextColor: subTextColor,
-                              );
-                            }
-
-                            return ListView.builder(
+                      : (bibleBookmarks.isEmpty
+                          ? _buildEmptyState(
+                              icon: Icons.menu_book_rounded,
+                              title: "No Bible Bookmarks",
+                              description: "Tap the bookmark icon next to a verse in the Bible reader to save it here.",
+                              textColor: textColor,
+                              subTextColor: subTextColor,
+                            )
+                          : ListView.builder(
                               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                              itemCount: verses.length,
+                              itemCount: bibleBookmarks.length,
                               itemBuilder: (context, index) {
-                                final v = verses[index];
-                                final book = BibleService.getBookById(v.bookId);
-                                final bookName = book?.nameEn ?? v.bookId;
-                                final reference = '$bookName ${v.chapter}:${v.verse}';
+                                final b = bibleBookmarks[index];
+                                final id = b['id'] as String;
+                                final version = b['version'] as String;
+                                final bookName = b['book_name'] as String;
+                                final chapter = b['chapter'] as int;
+                                final verse = b['verse'] as int;
+                                final text = b['text'] as String;
+
+                                final metadataBook = BibleService.getBooks().firstWhere(
+                                  (book) => book.id == bookName.toLowerCase().replaceAll(' ', ''),
+                                  orElse: () => BibleBook(
+                                    id: bookName.toLowerCase().replaceAll(' ', ''),
+                                    nameEn: bookName,
+                                    nameTe: '',
+                                    chapters: 1,
+                                    testament: 'OT',
+                                  ),
+                                );
+
+                                final reference = '${metadataBook.nameEn} $chapter:$verse';
+                                final displayVersion = version.toUpperCase().replaceAll('_', ' ');
 
                                 return Container(
                                   margin: const EdgeInsets.only(bottom: 12.0),
                                   child: Dismissible(
-                                    key: Key(v.ref),
+                                    key: Key(id),
                                     direction: DismissDirection.endToStart,
                                     onDismissed: (direction) {
-                                      userProvider.toggleVerseBookmark(v.ref);
+                                      ref.read(bookmarksProvider.notifier).deleteBookmark(id);
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
-                                          content: Text("Removed $reference bookmark"),
-                                          action: SnackBarAction(
-                                            label: "Undo",
-                                            onPressed: () {
-                                              userProvider.toggleVerseBookmark(v.ref);
-                                            },
-                                          ),
+                                          content: Text("Removed bookmark for $reference"),
                                         ),
                                       );
                                     },
@@ -378,16 +317,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                                             borderRadius: BorderRadius.circular(16),
                                             child: InkWell(
                                               onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (_) => BibleScreen(
-                                                      initialBook: v.bookId,
-                                                      initialChapter: v.chapter,
-                                                      initialVerse: v.verse,
-                                                    ),
-                                                  ),
-                                                );
+                                                context.push('/bible/$version/$bookName/$chapter?verse=$verse');
                                               },
                                               borderRadius: BorderRadius.circular(16),
                                               child: Padding(
@@ -409,6 +339,22 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                                                           ),
                                                         ),
                                                         const Spacer(),
+                                                        Container(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white10,
+                                                            borderRadius: BorderRadius.circular(4),
+                                                          ),
+                                                          child: Text(
+                                                            displayVersion,
+                                                            style: TextStyle(
+                                                              color: subTextColor.withValues(alpha: 0.7),
+                                                              fontSize: 10,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 8),
                                                         Icon(
                                                           Icons.chevron_right_rounded,
                                                           color: subTextColor.withValues(alpha: 0.5),
@@ -418,27 +364,14 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                                                     ),
                                                     const SizedBox(height: 8),
                                                     Text(
-                                                      v.textTe,
-                                                      maxLines: 3,
+                                                      text,
+                                                      maxLines: 4,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                         color: textColor.withValues(alpha: 0.9),
                                                         fontSize: 14,
-                                                        fontFamily: 'NotoSansTelugu',
-                                                        height: 1.4,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 4),
-                                                    Text(
-                                                      v.textEn,
-                                                      maxLines: 3,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                        color: textColor.withValues(alpha: 0.7),
-                                                        fontSize: 13,
-                                                        fontFamily: 'Outfit',
-                                                        fontStyle: FontStyle.italic,
-                                                        height: 1.4,
+                                                        fontFamily: version.contains('telugu') ? 'NotoSansTelugu' : 'Outfit',
+                                                        height: 1.5,
                                                       ),
                                                     ),
                                                   ],
@@ -452,9 +385,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                                   ),
                                 );
                               },
-                            );
-                          },
-                        ),
+                            )),
                 ),
               ],
             ),

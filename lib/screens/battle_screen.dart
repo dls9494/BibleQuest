@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../theme/text_styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
+import '../services/analytics_service.dart';
 import '../models/quiz.dart';
 import 'self_paced_screen.dart';
 
@@ -37,7 +39,7 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
   }
 
   void _loadSuggestions() async {
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     setState(() {
       _loadingSuggestions = true;
     });
@@ -107,6 +109,8 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
 
   void _playBattle(UserDataProvider userProvider, Map<String, dynamic> battleData) async {
     final battleId = battleData['id'];
+    // Analytics: battle started
+    AnalyticsService.logBattleStarted();
     final questionsData = battleData['questions'] as List;
     final questions = questionsData.map((q) => Question.fromMap(Map<String, dynamic>.from(q))).toList();
 
@@ -145,7 +149,10 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserDataProvider>(context);
+    // Rebuild only when userId changes (e.g. login/logout), not on every provider update
+    context.select<UserDataProvider, String?>((p) => p.userId);
+    // Use read for passing provider to action methods (no reactive dependency)
+    final userProvider = context.read<UserDataProvider>();
     
     return Scaffold(
       appBar: AppBar(
@@ -201,9 +208,9 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
+          Text(
             "Find an Opponent",
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+            style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
           ),
           const SizedBox(height: 12),
           
@@ -472,6 +479,8 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
             WidgetsBinding.instance.addPostFrameCallback((_) {
               // We check battleId reward tracking in local provider
               userProvider.recordBattleResult(won);
+              // Analytics: battle completed
+              AnalyticsService.logBattleCompleted(won: won);
             });
 
             return Card(

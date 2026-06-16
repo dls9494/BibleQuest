@@ -191,9 +191,11 @@ Play Telugu Bible Quiz and learn more! 📱
       final file = File('${directory.path}/verse_of_the_day.png');
       await file.writeAsBytes(pngBytes);
 
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        text: 'Verse of the Day / నేటి దైవ వాక్యం 📖\nPlay Telugu Bible Quiz and learn more! 📱',
+      await SharePlus.instance.share(
+        ShareParams(
+          text: 'Verse of the Day / నేటి దైవ వాక్యం 📖\nPlay Telugu Bible Quiz and learn more! 📱',
+          files: [XFile(file.path)],
+        ),
       );
     } catch (e) {
       messenger.showSnackBar(

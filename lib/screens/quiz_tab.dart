@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../theme/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../models/quiz.dart';
@@ -24,6 +25,7 @@ import '../services/verse_of_the_day.dart';
 import 'flashcard_quiz_screen.dart';
 import '../services/category_mapping.dart';
 import '../services/activity_service.dart';
+import '../services/analytics_service.dart';
 import 'main_screen.dart';
 import 'profile_screen.dart';
 enum QuizTabView { levelPicker, quizPlay }
@@ -144,9 +146,9 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
       curve: Curves.elasticOut,
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+      final userProvider = context.read<UserDataProvider>();
       if (userProvider.userId != null) {
-        Provider.of<ReadingPlanProvider>(context, listen: false)
+        context.read<ReadingPlanProvider>()
             .loadCurrentPlan(userProvider.userId!);
       }
     });
@@ -195,7 +197,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
 
 
   void _startQuizForLevel(int level) async {
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     final unlocked = userProvider.unlockedLevels;
     
     if (!unlocked.contains(level)) {
@@ -223,8 +225,9 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
       barrierColor: Colors.black.withValues(alpha: 0.85),
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, anim1, anim2) {
-        final highestUnlocked = Provider.of<UserDataProvider>(context, listen: false).unlockedLevels.isNotEmpty
-            ? Provider.of<UserDataProvider>(context, listen: false).unlockedLevels.reduce((a, b) => a > b ? a : b)
+        final up = context.read<UserDataProvider>();
+        final highestUnlocked = up.unlockedLevels.isNotEmpty
+            ? up.unlockedLevels.reduce((a, b) => a > b ? a : b)
             : 1;
         return FullJourneyMap(
           currentLevel: highestUnlocked,
@@ -238,6 +241,19 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
   }
 
   void _startQuiz(Quiz quiz) async {
+    // Analytics: quiz started
+    String quizType = 'level';
+    if (quiz.id == 'daily') {
+      quizType = 'daily';
+    } else if (quiz.id.startsWith('weekly_')) {
+      quizType = 'weekly';
+    } else if (quiz.id.startsWith('monthly_')) {
+      quizType = 'monthly';
+    } else if (quiz.id.startsWith('battle_')) {
+      quizType = 'battle';
+    }
+    AnalyticsService.logQuizStarted(quizType: quizType);
+
     setState(() {
       _selectedLevel = quiz.level;
       _activeQuiz = quiz;
@@ -343,7 +359,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
     } else {
       // Quiz Finished! Submit results and calculate progression
       final percentage = ((_correctAnswersCount / _questions.length) * 100).round();
-      final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+      final userProvider = context.read<UserDataProvider>();
 
       for (int i = 0; i < _questions.length; i++) {
         final q = _questions[i];
@@ -404,6 +420,19 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
         },
       );
 
+      // Analytics: quiz completed
+      String quizType = 'level';
+      if (_activeQuiz!.id == 'daily') {
+        quizType = 'daily';
+      } else if (_activeQuiz!.id.startsWith('weekly_')) {
+        quizType = 'weekly';
+      } else if (_activeQuiz!.id.startsWith('monthly_')) {
+        quizType = 'monthly';
+      } else if (_activeQuiz!.id.startsWith('battle_')) {
+        quizType = 'battle';
+      }
+      AnalyticsService.logQuizCompleted(quizType: quizType, score: _accumulatedScore);
+
       // Level Unlock check (requires 70% score)
       if (percentage >= 70) {
         userProvider.unlockNextLevel(_selectedLevel);
@@ -434,8 +463,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
 
   // ── 1. Level Picker / Progress Journey view ──
   Widget _buildLevelPicker(AppLocalizations loc) {
-    final userProvider = context.watch<UserDataProvider>();
-    final unlocked = userProvider.unlockedLevels;
+    final unlocked = context.select<UserDataProvider, Set<int>>((p) => p.unlockedLevels);
     final highestUnlocked = unlocked.isEmpty ? 1 : unlocked.reduce((a, b) => a > b ? a : b);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -1217,10 +1245,10 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                             )
                           ],
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             'START QUIZ',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'Outfit'),
+                            style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
                           ),
                         ),
                       ),
@@ -1361,7 +1389,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'NotoSerifTelugu',
-                                            height: 1.4,
+                                            height: 1.6,
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
@@ -1464,6 +1492,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'NotoSerifTelugu',
+                                              height: 1.6,
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
@@ -1759,7 +1788,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                                               style: const TextStyle(
                                                 color: Color(0xFFCBC3D4),
                                                 fontSize: 15,
-                                                height: 1.4,
+                                                height: 1.6,
                                                 fontFamily: 'NotoSerifTelugu',
                                               ),
                                             ),
@@ -1991,7 +2020,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                                               style: const TextStyle(
                                                 color: Color(0xFFCBC3D4),
                                                 fontSize: 15,
-                                                height: 1.4,
+                                                height: 1.6,
                                                 fontFamily: 'NotoSerifTelugu',
                                               ),
                                             ),
@@ -2245,7 +2274,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                           xpEarned: _earnedXp,
                           percentage: percentage,
                           onShareSuccess: () {
-                            Provider.of<UserDataProvider>(context, listen: false).recordShare();
+                            context.read<UserDataProvider>().recordShare();
                           },
                         );
                       },

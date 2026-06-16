@@ -7,6 +7,7 @@ import '../providers/user_data_provider.dart';
 import '../services/reading_plan_data.dart';
 import '../services/bible_service.dart';
 import '../services/reading_quiz_questions.dart';
+import '../services/analytics_service.dart';
 import '../widgets/bilingual_text.dart';
 
 class ReadingPlanScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+      final userProvider = context.read<UserDataProvider>();
       if (userProvider.userId != null) {
         Provider.of<ReadingPlanProvider>(context, listen: false)
             .loadCurrentPlan(userProvider.userId!);
@@ -33,7 +34,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final planProvider = Provider.of<ReadingPlanProvider>(context);
-    final userProvider = Provider.of<UserDataProvider>(context);
+    final userProvider = context.read<UserDataProvider>();
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF1A1A2E) : const Color(0xFFFDF6EC),
@@ -284,6 +285,13 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                 Navigator.of(context).pop();
                 if (userProvider.userId != null) {
                   await planProvider.startPlan(userProvider.userId!, planType, userProvider);
+                  // Analytics: reading plan started
+                  String planName = planType == '30_day'
+                      ? '30-Day Bible Overview'
+                      : planType == '90_day'
+                          ? '90-Day New Testament'
+                          : '365-Day Whole Bible';
+                  AnalyticsService.logReadingPlanStarted(planName: planName);
                 }
               },
               child: Text("Start"),
@@ -655,7 +663,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
     List<ReadingDay> planDays,
   ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
     
     return GridView.builder(
       shrinkWrap: true,

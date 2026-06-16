@@ -182,7 +182,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
-                                      height: 1.5,
+                                      height: 1.6,
                                       fontFamily: 'NotoSansTelugu',
                                     ),
                                   ),

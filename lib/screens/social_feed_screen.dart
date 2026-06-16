@@ -369,7 +369,7 @@ class _SocialFeedScreenState extends State<SocialFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    final userProvider = context.read<UserDataProvider>();
 
     return Scaffold(
       body: Stack(

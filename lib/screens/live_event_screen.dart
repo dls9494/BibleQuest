@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../theme/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/user_data_provider.dart';
@@ -141,10 +142,11 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserDataProvider>(context);
+    final userProvider = context.read<UserDataProvider>();
+    final quizHighScores = context.select<UserDataProvider, Map<String, int>>((p) => p.quizHighScores);
     
     // Check if user has already played today's live quiz
-    if (userProvider.quizHighScores.containsKey('live_quiz_$_dateStr')) {
+    if (quizHighScores.containsKey('live_quiz_$_dateStr')) {
       _hasParticipated = true;
     }
 
@@ -254,9 +256,9 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                         children: [
                           const Icon(Icons.radio_button_checked_rounded, color: Colors.red, size: 48),
                           const SizedBox(height: 16),
-                          const Text(
+                          Text(
                             "LIVE NOW",
-                            style: TextStyle(color: Colors.red, fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Outfit', letterSpacing: 2),
+                            style: AppTextStyles.screenTitle.copyWith(color: Colors.red, fontFamily: 'Outfit', letterSpacing: 2),
                           ),
                           const SizedBox(height: 8),
                           const Text(

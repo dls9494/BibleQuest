@@ -9,6 +9,7 @@ import '../models/flashcard.dart';
 import '../models/prayer_request.dart';
 import '../models/referral.dart';
 import '../models/church_group.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'real_questions.dart';
 
 class FirebaseService {
@@ -529,6 +530,30 @@ class FirebaseService {
       }
     } catch (_) {}
     return user.photoURL;
+  }
+
+  static Future<User?> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      serverClientId: '906009091818-ft8oah1f317ts3am28oucb8u4p40918o.apps.googleusercontent.com',
+    );
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (googleUser == null) return null;
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    final user = userCredential.user;
+    if (user != null) {
+      await createUserProfile(
+        user.uid,
+        displayName: user.displayName,
+        email: user.email,
+        authMethod: 'google',
+      );
+    }
+    return user;
   }
 
   static Future<void> signInWithEmailAndPassword(String email, String password) async {

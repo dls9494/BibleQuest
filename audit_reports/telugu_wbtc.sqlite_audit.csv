@@ -1,0 +1,820 @@
+Issue Type,Book,Chapter,Verse,Details
+EMPTY_VERSE,Psalm,3,1,
+EMPTY_VERSE,Psalm,3,2,
+EMPTY_VERSE,Psalm,3,3,
+EMPTY_VERSE,Psalm,3,4,
+EMPTY_VERSE,Psalm,3,5,
+EMPTY_VERSE,Psalm,3,6,
+EMPTY_VERSE,Psalm,3,7,
+EMPTY_VERSE,Psalm,3,8,
+UNICODE_SUSPICIOUS,Genesis,4,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,4,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,6,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,6,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,6,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,6,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,6,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,7,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,8,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,8,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,20,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,20,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,23,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,23,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,24,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,24,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,25,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,25,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,30,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,30,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,31,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,31,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,35,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,35,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,40,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,42,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,36,43,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,43,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Genesis,43,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,1,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,1,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,5,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,7,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,19,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,19,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,22,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,22,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,28,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,28,37,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,29,40,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Exodus,29,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,11,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,12,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,12,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,13,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,13,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,13,51,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,13,52,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,18,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,18,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,18,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,18,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,18,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,22,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Leviticus,22,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,1,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,1,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,3,33,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,3,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,3,51,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,31,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,32,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,33,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,37,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,38,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,39,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,40,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,42,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,43,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,44,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,45,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,46,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,47,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,48,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,49,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,50,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,51,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,52,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,53,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,54,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,55,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,56,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,57,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,58,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,59,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,60,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,61,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,62,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,63,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,64,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,65,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,66,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,67,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,68,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,69,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,70,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,71,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,72,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,73,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,74,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,75,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,76,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,77,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,78,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,79,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,80,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,81,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,82,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,7,83,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,16,37,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,16,38,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,22,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,22,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,25,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,25,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,26,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,26,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,28,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,28,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,31,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,31,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,32,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,32,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,35,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,35,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,35,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Numbers,35,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,12,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,12,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,13,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,13,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,14,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,19,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,19,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,24,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,24,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,29,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,29,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,32,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Deuteronomy,32,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,1,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,1,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,1,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,2,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,2,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,3,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,4,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,4,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,5,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,5,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,5,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,5,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,7,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,7,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,7,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,17,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,17,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,18,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joshua,18,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,1,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,1,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,3,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,3,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,4,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,9,5,z
+UNICODE_SUSPICIOUS,Judges,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,9,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,9,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,16,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,16,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,18,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,18,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,18,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,18,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,20,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,20,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,20,39,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,20,40,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Judges,20,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ruth,4,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,4,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,4,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,9,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,9,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,14,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,14,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,14,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,14,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,17,56,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,17,57,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,17,58,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,22,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,22,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,23,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,25,44,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,30,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Samuel,30,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,1,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,1,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,3,31,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,3,32,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,4,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,4,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,7,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,7,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,13,31,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,13,32,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,17,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,17,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,22,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,22,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Samuel,23,39,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,1,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,1,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,4,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,4,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,6,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,6,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,6,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,8,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,8,42,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,9,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,9,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,12,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,12,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,12,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Kings,12,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,5,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,5,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,7,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,8,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,8,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,8,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,9,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,9,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,9,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,9,37,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,10,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,10,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,10,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,10,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,12,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,12,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,12,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,12,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,17,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,20,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,20,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,21,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,22,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,22,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,22,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,23,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,23,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,25,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,25,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,25,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,25,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Kings,25,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,1,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,1,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,1,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,2,55,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,3,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,3,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,3,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,37,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,4,38,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,5,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,5,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,5,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,72,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,73,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,74,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,75,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,78,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,79,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,80,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,6,81,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,8,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,17,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,17,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,21,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,21,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,21,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,21,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,29,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Chronicles,29,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,8,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,8,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,13,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,28,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,28,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,28,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,29,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,30,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,30,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,31,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,31,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,32,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,32,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,34,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,34,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,35,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Chronicles,35,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,2,64,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,2,65,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,2,66,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,2,67,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,4,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,4,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezra,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,2,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,2,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,7,66,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,7,67,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,7,68,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,7,69,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,8,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,8,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,10,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,10,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,12,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,12,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,13,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nehemiah,13,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,1,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,1,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,1,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,1,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,4,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,4,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,4,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,4,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,4,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,4,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,9,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Esther,9,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,3,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,3,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,4,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,4,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,6,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,6,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,20,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,20,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,33,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Job,33,16,Tabefhilmnoprstvy
+VERY_SHORT_VERSE,Psalm,3,1,
+VERY_SHORT_VERSE,Psalm,3,2,
+VERY_SHORT_VERSE,Psalm,3,3,
+VERY_SHORT_VERSE,Psalm,3,4,
+VERY_SHORT_VERSE,Psalm,3,5,
+VERY_SHORT_VERSE,Psalm,3,6,
+VERY_SHORT_VERSE,Psalm,3,7,
+VERY_SHORT_VERSE,Psalm,3,8,
+UNICODE_SUSPICIOUS,Psalm,14,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,14,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,18,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,18,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,37,40,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,38,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,43,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,50,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,51,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,56,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,66,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,66,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,73,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,73,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,75,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,75,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,76,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,76,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,78,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,78,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,78,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,78,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,83,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,83,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,89,50,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,89,51,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,93,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,99,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,122,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,125,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,125,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,125,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,125,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Psalm,130,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,3,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,3,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,4,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,4,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,5,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,5,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,5,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,5,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,6,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,6,31,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,21,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,21,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,22,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,23,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,26,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,26,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Proverbs,30,33,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,2,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,2,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,2,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,6,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,6,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,7,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,7,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,7,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,7,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,7,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,7,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,12,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ecclesiastes,12,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Song of Solomon,1,1,Sfglmno
+UNICODE_SUSPICIOUS,Song of Solomon,1,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Song of Solomon,1,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Song of Solomon,6,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Song of Solomon,8,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,8,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,8,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,9,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,9,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,11,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,11,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,22,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,22,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,22,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,22,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,22,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,32,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,32,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,33,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,33,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,33,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,33,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,33,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,33,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,36,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,36,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,37,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,37,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,37,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,37,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,38,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,38,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,56,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,56,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,57,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,66,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Isaiah,66,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,9,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,10,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,10,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,26,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,26,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,28,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,38,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,38,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,41,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,41,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,41,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,41,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,52,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jeremiah,52,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Lamentations,5,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,1,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,1,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,1,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,1,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,1,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,5,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,5,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,9,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,9,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,10,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,10,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,23,49,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,24,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,24,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,26,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,29,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,29,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,30,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,32,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,32,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,45,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ezekiel,48,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,2,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,2,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,2,49,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,4,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,4,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,4,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,4,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,7,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Daniel,12,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Hosea,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Joel,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,3,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,5,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,5,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,5,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,8,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Amos,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Obadiah,1,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jonah,1,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jonah,4,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Micah,1,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Micah,7,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nahum,1,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Nahum,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Habakkuk,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zephaniah,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Haggai,2,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Haggai,2,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,3,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,14,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,14,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,14,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,14,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Zechariah,14,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Malachi,4,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,1,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,1,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,5,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,5,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,5,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,5,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,6,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,7,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,7,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,7,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,7,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,10,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,10,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,12,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,12,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,15,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,15,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,18,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,18,33,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,18,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,19,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,19,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,19,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,19,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,20,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,20,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,21,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,21,26,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,22,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,22,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,27,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Matthew,27,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,2,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,5,12,s
+UNICODE_SUSPICIOUS,Mark,7,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,9,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,9,31,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,9,44,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,9,46,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,9,47,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,10,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,10,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,10,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,12,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,15,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Mark,15,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,1,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,1,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,10,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,11,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,11,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,11,54,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,14,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,14,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,17,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,19,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,19,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,19,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,19,41,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,19,42,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,19,48,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,20,42,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,20,43,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,21,8,V
+UNICODE_SUSPICIOUS,Luke,22,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,22,63,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,22,64,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,23,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,23,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,23,44,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,23,45,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,24,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,24,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,24,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Luke,24,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,1,1,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,1,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,3,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,3,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,6,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,6,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,10,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,10,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,11,51,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,11,52,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,12,4,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,12,5,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,12,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,12,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,14,16,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,14,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,19,36,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,John,19,37,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,1,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,1,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,2,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,2,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,5,22,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,5,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,6,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,6,14,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,8,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,8,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,8,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,8,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,10,34,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,10,35,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,11,30,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,13,52,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,15,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,15,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,18,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,18,10,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,21,27,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,21,28,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,22,13,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,24,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,27,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,27,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Acts,28,29,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,4,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,5,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,5,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,7,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,8,15,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,9,11,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,9,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,11,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,11,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,16,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Romans,16,25,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Corinthians,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Corinthians,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Galatians,6,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Ephesians,6,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Philippians,4,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Colossians,3,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Colossians,3,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Colossians,4,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Thessalonians,5,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Thessalonians,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Timothy,6,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Timothy,4,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Titus,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Philemon,1,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Hebrews,3,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Hebrews,3,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Hebrews,9,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Hebrews,11,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Hebrews,11,18,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,James,1,2,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,James,1,3,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,James,1,23,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,James,1,24,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,James,5,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Peter,1,17,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Peter,2,12,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Peter,3,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Peter,4,8,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 Peter,5,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Peter,1,21,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 Peter,3,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 John,3,19,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 John,3,20,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,1 John,5,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,2 John,1,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,3 John,1,6,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,3 John,1,7,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,3 John,1,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Jude,1,9,Tabefhilmnoprstvy
+UNICODE_SUSPICIOUS,Revelation,9,9,Tabefhilmnoprstvy

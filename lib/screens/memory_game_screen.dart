@@ -213,7 +213,7 @@ class _MemoryGameScreenState extends State<MemoryGameScreen> {
       });
       // Award XP in UserDataProvider
       final xpEarned = _totalCorrectWords * 5; // +5 XP per correct word!
-      final provider = Provider.of<UserDataProvider>(context, listen: false);
+      final provider = context.read<UserDataProvider>();
       provider.addXp(xpEarned);
       provider.completeMemoryGame();
     }
@@ -774,7 +774,7 @@ class _MemoryGameScreenState extends State<MemoryGameScreen> {
                             InkWell(
                               onTap: () {
                                 final shareText = "I just recalled $_totalCorrectWords words in the Scripture Memory Game of Bible Quiz app! Can you beat my score? 🧠🏆";
-                                Share.share(shareText);
+                                SharePlus.instance.share(ShareParams(text: shareText));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

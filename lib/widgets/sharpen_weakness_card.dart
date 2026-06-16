@@ -69,9 +69,8 @@ class _SharpenWeaknessCardState extends State<SharpenWeaknessCard> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<UserDataProvider>(context);
-    final topic = provider.getWeakestTopic();
-    final isCompleted = provider.weaknessQuizCompleted;
+    final topic = context.select<UserDataProvider, String?>((p) => p.getWeakestTopic());
+    final isCompleted = context.select<UserDataProvider, bool>((p) => p.weaknessQuizCompleted);
 
     if (topic == null || isCompleted) {
       return const SizedBox.shrink();
@@ -151,7 +150,7 @@ class _SharpenWeaknessCardState extends State<SharpenWeaknessCard> {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: _loading ? null : () => _startWeaknessQuiz(context, provider, topic),
+                    onPressed: _loading ? null : () => _startWeaknessQuiz(context, context.read<UserDataProvider>(), topic),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber.shade700,
                       foregroundColor: Colors.white,

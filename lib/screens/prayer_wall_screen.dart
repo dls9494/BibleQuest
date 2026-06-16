@@ -6,6 +6,7 @@ import '../models/prayer_request.dart';
 import '../models/profile_title.dart';
 import '../services/firebase_service.dart';
 import '../services/activity_service.dart';
+import '../services/analytics_service.dart';
 import '../providers/user_data_provider.dart';
 import '../widgets/floating_emoji.dart';
 
@@ -304,11 +305,13 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
     });
 
     try {
-      final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+      final userProvider = context.read<UserDataProvider>();
       final userId = currentUser.uid;
       final userName = _isAnonymous ? 'Anonymous' : userProvider.displayName;
 
       await FirebaseService.submitPrayerRequest(userId, userName, requestText);
+      // Analytics: prayer request created
+      AnalyticsService.logPrayerRequestCreated();
 
       // Log activity
       await ActivityService.logActivity(
@@ -840,6 +843,8 @@ class _PrayerRequestCardState extends State<PrayerRequestCard> {
 
     try {
       await FirebaseService.reactToPrayer(widget.request.id, widget.currentUserId, reactionType);
+      // Analytics: prayer reaction
+      AnalyticsService.logPrayerReaction();
     } catch (_) {}
   }
 

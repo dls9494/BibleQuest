@@ -1,11 +1,14 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
 import '../providers/theme_provider.dart';
 import '../providers/locale_provider.dart';
 import '../providers/user_data_provider.dart';
 import '../services/notification_service.dart';
+import '../services/crashlytics_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -37,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
-    final userProvider = Provider.of<UserDataProvider>(context);
+    final streakDays = context.select<UserDataProvider, int>((p) => p.streakDays);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
     final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
@@ -82,7 +85,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 : ListView(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     children: [
-                      // Section 1: Appearance
                       _buildSectionHeader("Appearance", textColor),
                       const SizedBox(height: 12),
                       _buildGlassCard(
@@ -106,13 +108,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Section 2: Language
                       _buildSectionHeader("Content Language", textColor),
                       const SizedBox(height: 12),
                       _buildGlassCard(
                         isDark: isDark,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
@@ -153,7 +154,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Section 3: Notifications
+                      _buildSectionHeader("Bible Versions", textColor),
+                      const SizedBox(height: 12),
+                      _buildGlassCard(
+                        isDark: isDark,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Telugu Translation",
+                                style: TextStyle(
+                                  color: textColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  fontFamily: 'Outfit',
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                "Used when reading in Telugu or Bilingual mode",
+                                style: TextStyle(color: subTextColor, fontSize: 11, fontFamily: 'Outfit'),
+                              ),
+                              const SizedBox(height: 10),
+                              _buildVersionPicker(
+                                versions: const [
+                                  ('telugu_ov', 'OV', 'Old Version (పాత నిబంధన)'),
+                                  ('telugu_irv', 'IRV', 'Indian Revised Version'),
+                                  ('telugu_wbtc', 'WBTC', 'World Bible Translation Center'),
+                                ],
+                                currentVersion: localeProvider.activeTeluguVersion,
+                                accentColor: isDark ? const Color(0xFFF7BC64) : const Color(0xFFB57C1E),
+                                isDark: isDark,
+                                textColor: textColor,
+                                onSelect: (v) => localeProvider.setTeluguVersion(v),
+                              ),
+                              const Divider(color: Colors.white12, height: 28),
+                              Text(
+                                "English Translation",
+                                style: TextStyle(
+                                  color: textColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  fontFamily: 'Outfit',
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                "Used when reading in English or Bilingual mode",
+                                style: TextStyle(color: subTextColor, fontSize: 11, fontFamily: 'Outfit'),
+                              ),
+                              const SizedBox(height: 10),
+                              _buildVersionPicker(
+                                versions: const [
+                                  ('kjv', 'KJV', 'King James Version'),
+                                  ('asv', 'ASV', 'American Standard Version'),
+                                  ('web', 'WEB', 'World English Bible'),
+                                  ('darby', 'Darby', 'Darby Translation'),
+                                ],
+                                currentVersion: localeProvider.activeEnglishVersion,
+                                accentColor: isDark ? const Color(0xFF38BDF8) : const Color(0xFF0284C7),
+                                isDark: isDark,
+                                textColor: textColor,
+                                onSelect: (v) => localeProvider.setEnglishVersion(v),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+
                       _buildSectionHeader("Notifications", textColor),
                       const SizedBox(height: 12),
                       _buildGlassCard(
@@ -166,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 title: "Daily Challenge Reminder",
                                 subtitle: "Remind me every day at 8:00 AM IST",
                                 prefKey: 'pref_notification_daily',
-                                userProvider: userProvider,
+                                streakDays: streakDays,
                                 textColor: textColor,
                                 subTextColor: subTextColor,
                               ),
@@ -175,7 +246,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 title: "Streak Alerts",
                                 subtitle: "Warn me before losing my daily streak at 6:00 PM IST",
                                 prefKey: 'pref_notification_streak',
-                                userProvider: userProvider,
+                                streakDays: streakDays,
                                 textColor: textColor,
                                 subTextColor: subTextColor,
                               ),
@@ -184,7 +255,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 title: "Weekly Challenge Alerts",
                                 subtitle: "Notify me when the Weekly Challenge starts",
                                 prefKey: 'pref_notification_weekly',
-                                userProvider: userProvider,
+                                streakDays: streakDays,
                                 textColor: textColor,
                                 subTextColor: subTextColor,
                               ),
@@ -193,7 +264,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 title: "Monthly Challenge Alerts",
                                 subtitle: "Notify me when the Monthly Challenge starts",
                                 prefKey: 'pref_notification_monthly',
-                                userProvider: userProvider,
+                                streakDays: streakDays,
                                 textColor: textColor,
                                 subTextColor: subTextColor,
                               ),
@@ -201,6 +272,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                       ),
+
+                      if (kDebugMode) ...[
+                        const SizedBox(height: 24),
+                        _buildSectionHeader("Developer", textColor),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF38BDF8),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            icon: const Icon(Icons.analytics),
+                            label: const Text(
+                              'View Analytics Event Log (Debug Only)',
+                              style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () => context.push('/analytics-debug'),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red.shade700,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            icon: const Icon(Icons.bug_report),
+                            label: const Text(
+                              'Force Crash (Debug Only)',
+                              style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () => CrashlyticsService.triggerTestCrash(),
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 32),
                     ],
                   ),
           ),
@@ -291,11 +408,67 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildVersionPicker({
+    required List<(String, String, String)> versions,
+    required String currentVersion,
+    required Color accentColor,
+    required bool isDark,
+    required Color textColor,
+    required void Function(String) onSelect,
+  }) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: versions.map((entry) {
+        final (id, abbr, fullName) = entry;
+        final isSelected = currentVersion == id;
+        return Tooltip(
+          message: fullName,
+          child: GestureDetector(
+            onTap: () => onSelect(id),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? accentColor.withValues(alpha: 0.15)
+                    : (isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.04)),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected ? accentColor : (isDark ? Colors.white24 : Colors.black12),
+                  width: isSelected ? 1.5 : 1.0,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (isSelected) ...[
+                    Icon(Icons.check_circle, color: accentColor, size: 14),
+                    const SizedBox(width: 6),
+                  ],
+                  Text(
+                    abbr,
+                    style: TextStyle(
+                      color: isSelected ? accentColor : textColor,
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                      fontSize: 13,
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
   Widget _buildNotificationRow({
     required String title,
     required String subtitle,
     required String prefKey,
-    required UserDataProvider userProvider,
+    required int streakDays,
     required Color textColor,
     required Color subTextColor,
   }) {
@@ -329,7 +502,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             if (_prefs != null) {
               await _prefs!.setBool(prefKey, val);
               setState(() {});
-              await NotificationService.scheduleNotifications(userProvider.streakDays);
+              await NotificationService.scheduleNotifications(streakDays);
             }
           },
         ),

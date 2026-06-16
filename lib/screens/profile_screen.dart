@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../theme/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -1424,7 +1425,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
+    // Select only what this build actually needs from UserDataProvider
+    final userAchievements = context.select<UserDataProvider, List<Achievement>>((p) => p.achievements);
+    final userDisplayName = context.select<UserDataProvider, String>((p) => p.displayName);
+    final userUsername = context.select<UserDataProvider, String>((p) => p.username);
+    final userId = context.select<UserDataProvider, String?>((p) => p.userId);
+    // Also keep a read reference for methods called in build side-effects
+    final userProvider = context.read<UserDataProvider>();
     final localeProvider = context.watch<LocaleProvider>();
     final themeProvider = context.watch<ThemeProvider>();
 
@@ -1461,19 +1468,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     }
 
-    if (!_controllersInitialized && userProvider.username != "guest_username" && userProvider.displayName != "Guest Player") {
-      _nameController.text = userProvider.displayName;
-      _usernameController.text = userProvider.username;
+    if (!_controllersInitialized && userUsername != "guest_username" && userDisplayName != "Guest Player") {
+      _nameController.text = userDisplayName;
+      _usernameController.text = userUsername;
       _controllersInitialized = true;
     } else if (!_controllersInitialized) {
-      _nameController.text = userProvider.displayName;
-      _usernameController.text = userProvider.username;
-      if (userProvider.displayName != "Guest Player") {
+      _nameController.text = userDisplayName;
+      _usernameController.text = userUsername;
+      if (userDisplayName != "Guest Player") {
         _controllersInitialized = true;
       }
     }
 
-    if (userProvider.userId != _loadedUserId && userProvider.userId != null) {
+    if (userId != _loadedUserId && userId != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _loadReferralStats();
       });
@@ -1505,7 +1512,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final battlesLost = _getProfileValue('battlesLost', 0) as int;
 
     final unlockedAchievements = _isOwnProfile
-        ? userProvider.achievements.where((a) => a.isUnlocked).toList()
+        ? userAchievements.where((a) => a.isUnlocked).toList()
         : <Achievement>[];
     final badgesCount = _isOwnProfile
         ? unlockedAchievements.length
@@ -2722,7 +2729,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         const Text("YOUR REFERRAL CODE", style: TextStyle(color: Colors.white38, fontSize: 9, fontWeight: FontWeight.bold, letterSpacing: 0.8, fontFamily: 'Outfit')),
                         const SizedBox(height: 4),
-                        Text(_referralCode ?? 'WELCOME123', style: const TextStyle(color: Color(0xFFF7BC64), fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1.2, fontFamily: 'Outfit')),
+                        Text(_referralCode ?? 'WELCOME123', style: AppTextStyles.sectionHeader.copyWith(color: Color(0xFFF7BC64), letterSpacing: 1.2, fontFamily: 'Outfit')),
                       ],
                     ),
                     IconButton(
@@ -2775,7 +2782,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 12),
               ElevatedButton.icon(
                 onPressed: () {
-                  Share.share("Join me on the multilingual Bible Quiz app! Use my referral code: ${_referralCode ?? 'WELCOME123'} to claim a 200 XP welcome reward. Download now!");
+                  SharePlus.instance.share(ShareParams(text: "Join me on the multilingual Bible Quiz app! Use my referral code: ${_referralCode ?? 'WELCOME123'} to claim a 200 XP welcome reward. Download now!"));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF59E0B),
@@ -2811,7 +2818,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Text(
                   "$count",
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+                  style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
                 ),
                 Text(
                   label,
@@ -2840,7 +2847,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+                  style: AppTextStyles.sectionHeader.copyWith(color: Colors.white, fontFamily: 'Outfit'),
                   textAlign: TextAlign.center,
                 ),
               ),

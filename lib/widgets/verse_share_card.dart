@@ -67,9 +67,11 @@ class VerseShareCard extends StatelessWidget {
                   shareText += '$bookNameTe / $bookNameEn $chapter:$verse\n\n$textTe\n\n$textEn';
                 }
 
-                await Share.shareXFiles(
-                  [XFile(file.path)],
-                  text: shareText,
+                await SharePlus.instance.share(
+                  ShareParams(
+                    text: shareText,
+                    files: [XFile(file.path)],
+                  ),
                 );
               }
             } else {

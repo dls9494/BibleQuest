@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/bible.dart';
 import '../providers/user_data_provider.dart';
 import '../services/bible_service.dart';
 
@@ -9,8 +8,8 @@ class BookmarkedVersesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserDataProvider>();
-    final bookmarks = userProvider.bookmarkedVerseRefs.toList();
+    final bookmarks = context.select<UserDataProvider, Set<String>>((p) => p.bookmarkedVerseRefs);
+    final bookmarksList = bookmarks.toList();
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
@@ -50,7 +49,7 @@ class BookmarkedVersesScreen extends StatelessWidget {
             ),
           ),
           SafeArea(
-            child: bookmarks.isEmpty
+            child: bookmarksList.isEmpty
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +74,9 @@ class BookmarkedVersesScreen extends StatelessWidget {
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                    itemCount: bookmarks.length,
+                    itemCount: bookmarksList.length,
                     itemBuilder: (context, index) {
-                      final ref = bookmarks[index];
+                      final ref = bookmarksList[index];
                       return _BookmarkedVerseItem(
                         verseRef: ref,
                         cardBg: cardBg,
@@ -90,12 +89,12 @@ class BookmarkedVersesScreen extends StatelessWidget {
                             final chapter = int.tryParse(parts[1]) ?? 1;
                             final verse = int.tryParse(parts[2]) ?? 1;
                             
-                            userProvider.setBibleTarget(bookId, chapter, verse);
+                            context.read<UserDataProvider>().setBibleTarget(bookId, chapter, verse);
                             Navigator.popUntil(context, (route) => route.isFirst);
                           }
                         },
                         onDismissed: () {
-                          userProvider.toggleVerseBookmark(ref);
+                          context.read<UserDataProvider>().toggleVerseBookmark(ref);
                         },
                       );
                     },
@@ -201,7 +200,7 @@ class _BookmarkedVerseItem extends StatelessWidget {
                         color: textColor.withValues(alpha: 0.9),
                         fontSize: 14,
                         fontFamily: 'NotoSansTelugu',
-                        height: 1.5,
+                        height: 1.6,
                       ),
                     ),
                     const SizedBox(height: 6),

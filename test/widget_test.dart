@@ -44,6 +44,10 @@ void main() {
     // Allow translations/resources to load and settle.
     await tester.pumpAndSettle();
 
+    // Tap the 'Continue with Email' button to navigate to the login form
+    await tester.tap(find.text('Continue with Email'));
+    await tester.pumpAndSettle();
+
     // Verify that the onboarding screen is displayed and shows the welcome title.
     expect(find.text('Welcome Back'), findsWidgets);
 
