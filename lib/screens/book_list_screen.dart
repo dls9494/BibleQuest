@@ -70,25 +70,36 @@ class BookListScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Builder(
                 builder: (context) {
-                  final accentColor = isDark ? const Color(0xFFFFD700) : const Color(0xFFFFD700);
                   return TabBar(
-                    labelColor: isDark ? Colors.white : const Color(0xFF3E2723),
-                    unselectedLabelColor: textColor.withValues(alpha: 0.55),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.white54,
                     indicator: BoxDecoration(
-                      color: accentColor.withValues(alpha: 0.16),
-                      borderRadius: BorderRadius.circular(14),
+                      color: Colors.white.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    indicatorPadding: const EdgeInsets.symmetric(vertical: 6),
-                    labelStyle: AppTextStyles.sectionHeader.copyWith(fontWeight: FontWeight.w700, fontSize: 14),
-                    unselectedLabelStyle: AppTextStyles.sectionHeader.copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: Colors.transparent,
+                    labelStyle: const TextStyle(
+                      fontFamily: 'Outfit',
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    unselectedLabelStyle: const TextStyle(
+                      fontFamily: 'Outfit',
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                    ),
                     tabs: const [
                       Tab(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('OLD TESTAMENT', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white)),
+                            Text('OLD TESTAMENT'),
                             SizedBox(height: 2),
-                            Text('పాత నిబంధన', style: TextStyle(fontSize: 11, color: Colors.white70)),
+                            Opacity(
+                              opacity: 0.7,
+                              child: Text('పాత నిబంధన', style: TextStyle(fontSize: 11)),
+                            ),
                           ],
                         ),
                       ),
@@ -96,9 +107,12 @@ class BookListScreen extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('NEW TESTAMENT', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white)),
+                            Text('NEW TESTAMENT'),
                             SizedBox(height: 2),
-                            Text('కొత్త నిబంధన', style: TextStyle(fontSize: 11, color: Colors.white70)),
+                            Opacity(
+                              opacity: 0.7,
+                              child: Text('కొత్త నిబంధన', style: TextStyle(fontSize: 11)),
+                            ),
                           ],
                         ),
                       ),
