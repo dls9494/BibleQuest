@@ -82,8 +82,26 @@ class BookListScreen extends StatelessWidget {
                     labelStyle: AppTextStyles.sectionHeader.copyWith(fontWeight: FontWeight.w700, fontSize: 14),
                     unselectedLabelStyle: AppTextStyles.sectionHeader.copyWith(fontWeight: FontWeight.w600, fontSize: 14),
                     tabs: const [
-                      Tab(text: 'OLD TESTAMENT'),
-                      Tab(text: 'NEW TESTAMENT'),
+                      Tab(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('OLD TESTAMENT', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white)),
+                            SizedBox(height: 2),
+                            Text('పాత నిబంధన', style: TextStyle(fontSize: 11, color: Colors.white70)),
+                          ],
+                        ),
+                      ),
+                      Tab(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('NEW TESTAMENT', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white)),
+                            SizedBox(height: 2),
+                            Text('కొత్త నిబంధన', style: TextStyle(fontSize: 11, color: Colors.white70)),
+                          ],
+                        ),
+                      ),
                     ],
                   );
                 },
@@ -166,10 +184,12 @@ class BookListScreen extends StatelessWidget {
     bool isDark,
     Color textColor,
   ) {
-    final rows = <Widget>[const SizedBox(height: 8)];
+    final rows = <Widget>[const SizedBox(height: 4)];
 
+    bool isFirst = true;
     for (final group in groups) {
-      rows.add(_buildGroupHeader(group.label, isDark));
+      rows.add(_buildGroupHeader(group.label, isDark, isFirst: isFirst));
+      isFirst = false;
 
       // Gather books for this group in display order
       final groupBooks = group.bookIds
@@ -186,7 +206,7 @@ class BookListScreen extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(child: _buildBookCard(context, left, lp, isDark, textColor)),
-                const SizedBox(width: 8),
+                const SizedBox(width: 6),
                 Expanded(
                   child: right != null
                       ? _buildBookCard(context, right, lp, isDark, textColor)
@@ -204,9 +224,9 @@ class BookListScreen extends StatelessWidget {
     return ListView(physics: const BouncingScrollPhysics(), padding: const EdgeInsets.symmetric(vertical: 8), children: rows);
   }
 
-  Widget _buildGroupHeader(String label, bool isDark) {
+  Widget _buildGroupHeader(String label, bool isDark, {bool isFirst = false}) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(14, 18, 14, 8),
+      padding: EdgeInsets.fromLTRB(14, isFirst ? 4 : 8, 14, 6),
       child: Row(
         children: [
           Container(
@@ -262,7 +282,7 @@ class BookListScreen extends StatelessWidget {
           highlightColor: const Color(0xFFFFD700).withValues(alpha: 0.05),
           onTap: () => context.push('/bible/${lp.activeTeluguVersion}/${book.nameEn}'),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -270,20 +290,20 @@ class BookListScreen extends StatelessWidget {
                   book.nameEn,
                   style: TextStyle(
                     color: textColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
                     fontFamily: 'Outfit',
                     letterSpacing: 0.3,
                   ),
                 ),
                 if (book.nameTe.isNotEmpty) ...[
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 4),
                   Text(
                     book.nameTe,
-                    style: TextStyle(
-                      color: isDark ? const Color(0xFFD4A574).withValues(alpha: 0.8) : const Color(0xFF8B6914).withValues(alpha: 0.7),
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.normal,
-                      fontSize: 12,
+                      fontSize: 14,
                       fontFamily: 'NotoSansTelugu',
                     ),
                   ),
