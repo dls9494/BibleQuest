@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -153,28 +154,12 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("🔴 Daily Live Event"),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        flexibleSpace: const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
       ),
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           
           SafeArea(
             child: SingleChildScrollView(

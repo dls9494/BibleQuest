@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:ui';
 import 'dart:convert';
 import 'dart:async';
@@ -1344,18 +1345,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A1A2E),
-                  Color(0xFF0F3460),
-                ],
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -1534,18 +1524,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A1A2E),
-                  Color(0xFF0F3460),
-                ],
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           Positioned.fill(
             child: Align(
               alignment: Alignment.center,

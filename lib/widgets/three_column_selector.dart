@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/bible_service.dart';
+import '../constants/theme.dart';
 
 class ThreeColumnSelector extends StatefulWidget {
   final String initialBookId;
@@ -120,7 +121,7 @@ class _ThreeColumnSelectorState extends State<ThreeColumnSelector> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final accentGold = const Color(0xFFFFD700);
+    final accentGold = AppTheme.gold;
     final borderGold = const Color(0xFFD4A574);
 
     final selectedBook = _books.firstWhere(

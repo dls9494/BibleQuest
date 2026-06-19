@@ -12,14 +12,14 @@ class ChapterVersePicker extends StatefulWidget {
   final VoidCallback onDismissed;
 
   const ChapterVersePicker({
-    Key? key,
+    super.key,
     required this.currentBook,
     required this.initialChapter,
     required this.initialVerse,
     required this.onChapterSelected,
     required this.onVerseSelected,
     required this.onDismissed,
-  }) : super(key: key);
+  }) : super();
 
   @override
   State<ChapterVersePicker> createState() => _ChapterVersePickerState();

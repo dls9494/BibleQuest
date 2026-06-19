@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -97,18 +98,7 @@ class _StudyToolsScreenState extends State<StudyToolsScreen> with SingleTickerPr
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A1A2E),
-                  Color(0xFF0F3460),
-                ],
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           // Ambient background lights
           Positioned.fill(
             child: Align(

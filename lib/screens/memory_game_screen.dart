@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
@@ -317,15 +318,7 @@ class _MemoryGameScreenState extends State<MemoryGameScreen> {
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -700,15 +693,7 @@ class _MemoryGameScreenState extends State<MemoryGameScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),

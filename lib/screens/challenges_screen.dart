@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -242,23 +243,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: isDark
-                    ? const [
-                        Color(0xFF1A1A2E),
-                        Color(0xFF0F3460),
-                      ]
-                    : const [
-                        Color(0xFFFDF6EC),
-                        Color(0xFFF3E7D8),
-                      ],
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           // Luminous background glow
           Positioned.fill(
             child: Align(

@@ -91,18 +91,15 @@ class BookListScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Stack(
-          children: [
-            const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
-            SafeArea(
-              child: TabBarView(
-                children: [
-                  _buildGroupedList(context, otBooks, _otGroups, localeProvider, isDark, textColor),
-                  _buildGroupedList(context, ntBooks, _ntGroups, localeProvider, isDark, textColor),
-                ],
-              ),
+        body: GradientBackground(
+          child: SafeArea(
+            child: TabBarView(
+              children: [
+                _buildGroupedList(context, otBooks, _otGroups, localeProvider, isDark, textColor),
+                _buildGroupedList(context, ntBooks, _ntGroups, localeProvider, isDark, textColor),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -13,7 +13,7 @@ class ReaderBottomToolbar extends StatelessWidget {
   final VoidCallback onJumpToPressed;
 
   const ReaderBottomToolbar({
-    Key? key,
+    super.key,
     required this.bookName,
     required this.currentChapter,
     required this.totalChapters,
@@ -21,7 +21,7 @@ class ReaderBottomToolbar extends StatelessWidget {
     required this.onNextChapter,
     required this.onSearchPressed,
     required this.onJumpToPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

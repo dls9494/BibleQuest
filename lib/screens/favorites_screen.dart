@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,16 +72,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
     if (uid == null) {
       return Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: isDark
-                  ? const [Color(0xFF1A1A2E), Color(0xFF0F3460)]
-                  : const [Color(0xFFFDF6EC), Color(0xFFF3E7D8)],
-            ),
-          ),
+        body: GradientBackground(
           child: Center(
             child: Text(
               'Please log in to view favorites',
@@ -92,16 +84,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     }
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isDark
-                ? const [Color(0xFF1A1A2E), Color(0xFF0F3460)]
-                : const [Color(0xFFFDF6EC), Color(0xFFF3E7D8)],
-          ),
-        ),
+      body: GradientBackground(
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

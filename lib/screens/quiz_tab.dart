@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'dart:math';
@@ -1176,15 +1177,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -1293,15 +1286,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
       body: Stack(
         children: [
           // Gradient Background
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1637,15 +1622,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
         body: Stack(
           children: [
             // Background
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-            ),
+            const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
             // Correct glowing light
             Positioned.fill(
               child: Align(
@@ -1864,15 +1841,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
         body: Stack(
           children: [
             // Background
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-            ),
+            const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
             // Incorrect glowing light
             Positioned.fill(
               child: Align(

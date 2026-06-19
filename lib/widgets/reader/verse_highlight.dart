@@ -8,11 +8,11 @@ class VerseHighlight extends StatefulWidget {
   final VoidCallback onLongPress;
 
   const VerseHighlight({
-    Key? key,
+    super.key,
     required this.verseText,
     required this.isSelected,
     required this.onLongPress,
-  }) : super(key: key);
+  });
 
   @override
   State<VerseHighlight> createState() => _VerseHighlightState();
@@ -69,32 +69,30 @@ class _VerseHighlightState extends State<VerseHighlight>
     return AnimatedBuilder(
       animation: _opacityAnimation,
       builder: (context, child) {
-        return Container(
-          child: GestureDetector(
-            onLongPress: widget.onLongPress,
-            child: Stack(
-              children: [
-                // Verse text
-                Text(
-                  widget.verseText,
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                    color: textColor,
-                  ),
+        return GestureDetector(
+          onLongPress: widget.onLongPress,
+          child: Stack(
+            children: [
+              // Verse text
+              Text(
+                widget.verseText,
+                style: TextStyle(
+                  fontSize: 16,
+                  height: 1.5,
+                  color: textColor,
                 ),
-                // Gold overlay (animated opacity)
-                if (widget.isSelected)
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppTheme.gold.withValues(
-                        alpha: AppTheme.verseHighlightGoldOverlayOpacity *
-                            _opacityAnimation.value,
-                      ),
+              ),
+              // Gold overlay (animated opacity)
+              if (widget.isSelected)
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppTheme.gold.withValues(
+                      alpha: AppTheme.verseHighlightGoldOverlayOpacity *
+                          _opacityAnimation.value,
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         );
       },

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:ui';
-import '../models/bible.dart';
 import '../services/bible_service.dart';
 import '../providers/user_data_provider.dart';
 import '../widgets/verse_share_card.dart';
 import '../widgets/gradient_background.dart';
 import 'package:audio_service/audio_service.dart' as as_pkg;
-import "../providers/theme_provider.dart";
-import "../constants/theme.dart";
 import '../services/audio_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,7 +44,7 @@ class _BibleScreenState extends State<BibleScreen> {
   bool _isSwipeTriggered = false;
   List<BibleBook>? _allBooks;
   final ValueNotifier<bool> _showSelectorNotifier = ValueNotifier<bool>(false);
-  String _tempSelectedBookId = 'genesis';
+  String? _tempSelectedBookId = 'genesis';
   String _testamentFilter = 'ALL';
   List<Map<String, dynamic>> _chapterNotes = [];
   Map<int, String> _labelledVerses = {};
@@ -76,7 +74,7 @@ class _BibleScreenState extends State<BibleScreen> {
 
   int? _targetVerse;
   int? _selectedVerse;
-  int? _activeLabelingVerse;
+  bool _showVerseActions = false;
   StreamSubscription<as_pkg.MediaItem?>? _mediaItemSubscription;
 
   @override
@@ -93,6 +91,7 @@ class _BibleScreenState extends State<BibleScreen> {
     if (widget.initialVerse != null) {
       _targetVerse = widget.initialVerse;
       _selectedVerse = widget.initialVerse;
+      _showVerseActions = false;
     }
 
     // Listen for mediaItem changes to track playing verse for highlight only (no auto-scroll)
@@ -144,6 +143,12 @@ class _BibleScreenState extends State<BibleScreen> {
           _barsVisible = true;
         });
       }
+    }
+    if (_showVerseActions) {
+      setState(() {
+        _showVerseActions = false;
+        _selectedVerse = null;
+      });
     }
   }
 
@@ -334,8 +339,10 @@ class _BibleScreenState extends State<BibleScreen> {
           _targetVerse = userProvider.bibleVerse;
           if (_targetVerse != null) {
             _selectedVerse = _targetVerse!;
+            _showVerseActions = false;
           } else {
             _selectedVerse = null;
+            _showVerseActions = false;
           }
         });
         userProvider.clearBibleTarget();
@@ -485,6 +492,7 @@ class _BibleScreenState extends State<BibleScreen> {
         }
 
         return Scaffold(
+          backgroundColor: Colors.transparent,
           body: Stack(
             children: [
               // 1. Background
@@ -532,8 +540,8 @@ class _BibleScreenState extends State<BibleScreen> {
                           : ListView.builder(
                               controller: _scrollController,
                               padding: EdgeInsets.only(
-                                left: 12,
-                                right: 12,
+                                left: 0,
+                                right: 0,
                                 top: MediaQuery.of(context).padding.top + kToolbarHeight + 16,
                                 bottom: MediaQuery.of(context).padding.bottom + 90,
                               ),
@@ -551,7 +559,7 @@ class _BibleScreenState extends State<BibleScreen> {
                 left: 0,
                 right: 0,
                 child: Visibility(
-                  visible: _barsVisible,
+                  visible: _barsVisible && _selectedVerse == null,
                   maintainState: true,
                   child: _buildTopBar(bookNameEn, bookNameTe),
                 ),
@@ -562,11 +570,19 @@ class _BibleScreenState extends State<BibleScreen> {
                 left: 20,
                 right: 20,
                 child: Visibility(
-                  visible: _barsVisible,
+                  visible: _barsVisible && _selectedVerse == null,
                   maintainState: true,
                   child: _buildBottomBar(bookNameEn, bookNameTe),
                 ),
               ),
+              // 4b. Floating Verse Action Panel
+              if (_selectedVerse != null && _showVerseActions)
+                Positioned(
+                  bottom: MediaQuery.of(context).padding.bottom + 16,
+                  left: 20,
+                  right: 20,
+                  child: _buildVerseActionPanel(context, _selectedVerse!, userProvider, bookNameEn, bookNameTe),
+                ),
               // 5. Search overlay
               if (_isSearchActive)
                 _buildSearchOverlay(),
@@ -609,7 +625,7 @@ class _BibleScreenState extends State<BibleScreen> {
                                       return b.testament == filter;
                                     }).toList();
                                     if (filtered.isNotEmpty && !filtered.any((b) => b.id == _tempSelectedBookId)) {
-                                      _tempSelectedBookId = filtered.first.id;
+                                      _tempSelectedBookId = filtered.isNotEmpty ? filtered.first.id : null;
                                     }
                                   });
                                 },
@@ -1727,6 +1743,7 @@ class _BibleScreenState extends State<BibleScreen> {
                 _selectedChapter = result.chapter;
                 _targetVerse = result.verse;
                 _selectedVerse = result.verse;
+                _showVerseActions = false;
 
 
               });
@@ -1771,26 +1788,6 @@ class _BibleScreenState extends State<BibleScreen> {
     );
   }
 
-  String _toSuperscript(int val) {
-    final s = val.toString();
-    final buffer = StringBuffer();
-    for (int i = 0; i < s.length; i++) {
-      final char = s[i];
-      switch (char) {
-        case '0': buffer.write('⁰'); break;
-        case '1': buffer.write('¹'); break;
-        case '2': buffer.write('²'); break;
-        case '3': buffer.write('³'); break;
-        case '4': buffer.write('⁴'); break;
-        case '5': buffer.write('⁵'); break;
-        case '6': buffer.write('⁶'); break;
-        case '7': buffer.write('⁷'); break;
-        case '8': buffer.write('⁸'); break;
-        case '9': buffer.write('⁹'); break;
-      }
-    }
-    return buffer.toString();
-  }
   Widget _buildSearchOverlay() {
     return Positioned.fill(
       child: Container(
@@ -1850,26 +1847,331 @@ class _BibleScreenState extends State<BibleScreen> {
     );
   }
 
-                  if (_activeLabelingVerse == v.verse) ...[
-                    const SizedBox(height: 10),
-                    _buildInlineColorPalette(v),
+  Widget _buildVerseRow(BuildContext context, BibleVerse v, UserDataProvider userProvider, int? playingVerse) {
+    final showTelugu = _isBilingual || _selectedLanguage == 'telugu';
+    final showEnglish = _isBilingual || _selectedLanguage == 'english';
+
+    final isCurrentlyPlaying = playingVerse == v.verse;
+    final isSelected = _selectedVerse == v.verse || isCurrentlyPlaying;
+    final hasNotes = _chapterNotes.any((note) => note['verseNumber'] == v.verse);
+    final label = _showLabels ? VerseLabels.getLabel(_selectedBookId, _selectedChapter, v.verse) : null;
+
+    final labelColourHex = _labelledVerses[v.verse];
+    Color? highlightColor;
+    if (labelColourHex != null) {
+      final normalizedHex = labelColourHex.replaceAll('#', '').toUpperCase();
+      if (normalizedHex == 'FFD54F' || normalizedHex == 'FFC107') {
+        highlightColor = const Color(0xFFFFD54F);
+      } else if (normalizedHex == '90CAF9' || normalizedHex == '2196F3') {
+        highlightColor = const Color(0xFF90CAF9);
+      } else if (normalizedHex == 'A5D6A7' || normalizedHex == '4CAF50') {
+        highlightColor = const Color(0xFFA5D6A7);
+      } else if (normalizedHex == 'F48FB1' || normalizedHex == 'E91E63') {
+        highlightColor = const Color(0xFFF48FB1);
+      } else {
+        try {
+          highlightColor = Color(int.parse(labelColourHex.replaceAll('#', '0xFF')));
+        } catch (_) {}
+      }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        if (_selectedVerse != null) {
+          setState(() {
+            _selectedVerse = null;
+            _showVerseActions = false;
+          });
+        } else {
+          setState(() {
+            _barsVisible = !_barsVisible;
+          });
+        }
+      },
+      onLongPress: () {
+        setState(() {
+          _selectedVerse = v.verse;
+          _showVerseActions = true;
+          _barsVisible = false; // Hide top/bottom bars when action panel is shown
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? const Color(0xFFFFD700).withValues(alpha: 0.15)
+              : (highlightColor != null
+                  ? highlightColor.withValues(alpha: 0.15)
+                  : Colors.transparent),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Telugu text (always shown in Telugu or Bilingual)
+            if (showTelugu)
+              Text.rich(
+                TextSpan(
+                  children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.top,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 6.0),
+                        child: Text(
+                          '${v.verse}',
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Color(0xFFFFD700), // Gold/yellow color matching reference
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Outfit',
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (label != null) ...[
+                      WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: VerseLabels.getLabelColor(label),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            label,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Outfit',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    TextSpan(
+                      text: v.textTe,
+                      style: TextStyle(
+                        color: const Color(0xFFF5F5F0), // Cream/off-white
+                        fontSize: _fontSize, // Base size
+                        height: 1.8,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'NotoSerifTelugu',
+                      ),
+                    ),
                   ],
+                ),
+              ),
+            if (showTelugu && showEnglish) const SizedBox(height: 8.0),
+            // English text (bilingual sub-version)
+            if (showEnglish)
+              Text.rich(
+                TextSpan(
+                  children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.top,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 6.0),
+                        child: Text(
+                          '${v.verse}',
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            color: Color(0xFFFFD700), // Gold/yellow color matching reference
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Outfit',
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (label != null && !showTelugu) ...[
+                      WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: VerseLabels.getLabelColor(label),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            label,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Outfit',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    TextSpan(
+                      text: v.textKjv,
+                      style: TextStyle(
+                        color: const Color(0xFF90A4AE), // Muted grey-blue text color for English as shown in reference
+                        fontSize: _fontSize * 0.8,
+                        height: 1.6,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'NotoSerif',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            if (hasNotes) ...[
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.sticky_note_2,
+                    color: Color(0xFFFFD700),
+                    size: 16,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Note added',
+                    style: TextStyle(
+                      color: const Color(0xFFFFD700).withValues(alpha: 0.8),
+                      fontSize: 11,
+                      fontStyle: FontStyle.italic,
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
                 ],
               ),
+            ],
+            // NEW SEPARATOR
+            Container(
+              height: 1,
+              margin: const EdgeInsets.only(top: 12),
+              color: Colors.white.withValues(alpha: 0.05),
             ),
-            if (isSelected) ...[
-              const SizedBox(width: 8),
-              // Actions (Favorite | Bookmark | Share)
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildVerseActionPanel(
+    BuildContext context,
+    int verseNum,
+    UserDataProvider userProvider,
+    String bookNameEn,
+    String bookNameTe,
+  ) {
+    final v = _verses.firstWhere((element) => element.verse == verseNum, orElse: () => _verses.isNotEmpty ? _verses.first : const BibleVerse(chapter: 1, verse: 1, textTe: '', textKjv: '', textNhv: ''));
+    final verseRef = '${_selectedBookId}_${_selectedChapter}_${v.verse}';
+    final isBookmarked = userProvider.isVerseBookmarked(verseRef);
+    final isFavorited = _favoritedVerses.contains(v.verse);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF132038).withValues(alpha: 0.85),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.12),
+              width: 1.5,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header indicating which verse is selected
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: Icon(
-                      _favoritedVerses.contains(v.verse) ? Icons.star : Icons.star_border,
-                      color: _favoritedVerses.contains(v.verse) ? const Color(0xFFFFD700) : Colors.white.withValues(alpha: 0.4),
+                  Text(
+                    '$bookNameEn ($bookNameTe) $_selectedChapter:${v.verse}',
+                    style: const TextStyle(
+                      color: Color(0xFF38BDF8),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedVerse = null;
+                        _showVerseActions = false;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white60,
                       size: 20,
                     ),
-                    onPressed: () async {
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              // Highlighter colors row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildPanelColorOption(v, 'FFD54F', const Color(0xFFFFD54F)),
+                  _buildPanelColorOption(v, '90CAF9', const Color(0xFF90CAF9)),
+                  _buildPanelColorOption(v, 'A5D6A7', const Color(0xFFA5D6A7)),
+                  _buildPanelColorOption(v, 'F48FB1', const Color(0xFFF48FB1)),
+                  // Clear highlight button
+                  GestureDetector(
+                    onTap: () async {
+                      final uid = FirebaseAuth.instance.currentUser?.uid;
+                      if (uid != null) {
+                        await FirebaseService.removeLabelledVerse(uid, _selectedBookId, _selectedChapter, v.verse);
+                        if (mounted) {
+                          setState(() {
+                            _labelledVerses.remove(v.verse);
+                          });
+                        }
+                      }
+                    },
+                    child: Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white24),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.format_color_reset,
+                        color: Colors.white,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(color: Colors.white12, height: 24),
+              // Action Buttons Row (Bookmark, Favorite, Note, Copy, Share)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Bookmark Toggle
+                  _buildPanelActionButton(
+                    icon: isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                    label: 'Bookmark',
+                    color: isBookmarked ? const Color(0xFFFFD700) : Colors.white70,
+                    onTap: () {
+                      userProvider.toggleVerseBookmark(verseRef);
+                      setState(() {});
+                    },
+                  ),
+                  // Favorite Toggle
+                  _buildPanelActionButton(
+                    icon: isFavorited ? Icons.star : Icons.star_border,
+                    label: 'Favorite',
+                    color: isFavorited ? const Color(0xFFFFD700) : Colors.white70,
+                    onTap: () async {
                       final uid = FirebaseAuth.instance.currentUser?.uid;
                       if (uid == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -1889,34 +2191,35 @@ class _BibleScreenState extends State<BibleScreen> {
                         });
                       }
                     },
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.white.withValues(alpha: 0.05),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
                   ),
-                  const SizedBox(height: 8),
-                  IconButton(
-                    icon: Icon(
-                      isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                      color: isBookmarked ? const Color(0xFFFFD700) : Colors.white.withValues(alpha: 0.4),
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      userProvider.toggleVerseBookmark(verseRef);
+                  // Add/Edit Note
+                  _buildPanelActionButton(
+                    icon: Icons.sticky_note_2_outlined,
+                    label: 'Note',
+                    onTap: () {
+                      _showNotesSheet(initialVerse: v.verse);
                     },
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.white.withValues(alpha: 0.05),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
                   ),
-                  const SizedBox(height: 8),
-                  IconButton(
-                    icon: Icon(
-                      Icons.share_rounded,
-                      color: Colors.white.withValues(alpha: 0.4),
-                      size: 20,
-                    ),
-                    onPressed: () {
+                  // Copy Verse Text
+                  _buildPanelActionButton(
+                    icon: Icons.copy_rounded,
+                    label: 'Copy',
+                    onTap: () {
+                      final copyText = '$bookNameEn $bookNameTe $_selectedChapter:${v.verse}\n\nTelugu: ${v.textTe}\n\nEnglish: ${v.textKjv}';
+                      Clipboard.setData(ClipboardData(text: copyText));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Verse copied to clipboard!'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                  ),
+                  // Share verse
+                  _buildPanelActionButton(
+                    icon: Icons.share_rounded,
+                    label: 'Share',
+                    onTap: () {
                       VerseShareCard.shareVerse(
                         context: context,
                         bookNameEn: bookNameEn,
@@ -1932,245 +2235,25 @@ class _BibleScreenState extends State<BibleScreen> {
                                 : 'kjv',
                       );
                     },
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.white.withValues(alpha: 0.05),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
                   ),
                 ],
               ),
             ],
-            if (hasNotes) ...[
-              const SizedBox(width: 8),
-              GestureDetector(
-                onTap: () => _showNotesSheet(initialVerse: v.verse),
-                child: const Tooltip(
-                  message: 'View Notes',
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                    child: Icon(
-                      Icons.sticky_note_2,
-                      color: Color(0xFFFFD700),
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ],
+          ),
         ),
       ),
     );
   }
-  Widget _buildVerseRow(BuildContext context, BibleVerse v, UserDataProvider userProvider, int? playingVerse) {
-    final showTelugu = _isBilingual || _selectedLanguage == 'telugu';
-    final showEnglish = _isBilingual || _selectedLanguage == 'english';
 
-    final isCurrentlyPlaying = playingVerse == v.verse;
-    final isSelected = _selectedVerse == v.verse || isCurrentlyPlaying;
-    final verseRef = '${_selectedBookId}_${_selectedChapter}_${v.verse}';
-    final isBookmarked = userProvider.isVerseBookmarked(verseRef);
-    final hasNotes = _chapterNotes.any((note) => note['verseNumber'] == v.verse);
-    final label = _showLabels ? VerseLabels.getLabel(_selectedBookId, _selectedChapter, v.verse) : null;
-
-    final labelColourHex = _labelledVerses[v.verse];
-    Color? tintColour;
-    if (labelColourHex != null) {
-      final normalizedHex = labelColourHex.replaceAll('#', '').toUpperCase();
-      if (normalizedHex == 'FFD54F' || normalizedHex == 'FFC107') {
-        tintColour = const Color(0xFFFFD54F);
-      } else if (normalizedHex == '90CAF9' || normalizedHex == '2196F3') {
-        tintColour = const Color(0xFF90CAF9);
-      } else if (normalizedHex == 'A5D6A7' || normalizedHex == '4CAF50') {
-        tintColour = const Color(0xFFA5D6A7);
-      } else if (normalizedHex == 'F48FB1' || normalizedHex == 'E91E63') {
-        tintColour = const Color(0xFFF48FB1);
-      } else {
-        try {
-          tintColour = Color(int.parse(labelColourHex.replaceAll('#', '0xFF')));
-        } catch (_) {}
-      }
-    }
-
-    final TextStyle englishStyle;
-    switch (_fontStyle) {
-      case 'bold':
-        englishStyle = TextStyle(
-          color: Colors.white.withValues(alpha: 0.9), // +10% contrast for English
-          fontSize: ((_fontSize * 16 / 18).clamp(_fontSizeMin, _fontSizeMax)),
-          height: 1.7,
-          fontWeight: FontWeight.w700,
-          fontStyle: FontStyle.normal,
-          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
-        );
-        break;
-      case 'italic':
-        englishStyle = TextStyle(
-          color: Colors.white.withValues(alpha: 0.88), // improved readability
-          fontSize: ((_fontSize * 16 / 18).clamp(_fontSizeMin, _fontSizeMax)),
-          height: 1.7,
-          fontWeight: FontWeight.w600, // slightly heavier
-          fontStyle: FontStyle.italic,
-          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
-        );
-        break;
-      case 'normal':
-      default:
-        englishStyle = TextStyle(
-          color: Colors.white.withValues(alpha: 0.88), // +10% contrast for secondary text
-          fontSize: ((_fontSize * 16 / 18).clamp(_fontSizeMin, _fontSizeMax)),
-          height: 1.7,
-          fontWeight: FontWeight.w600, // slightly heavier for better legibility
-          fontStyle: FontStyle.normal,
-          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
-        );
-        break;
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Telugu text (always shown in Telugu or Bilingual)
-        if (showTelugu)
-          Text.rich(
-            TextSpan(
-              children: [
-                WidgetSpan(
-                  alignment: PlaceholderAlignment.middle,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: Text(
-                      _toSuperscript(v.verse),
-                      style: TextStyle(
-                        fontSize: 12.0,  // Small verse number
-                        color: AppTheme.gold,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                const TextSpan(text: ' '),
-                if (label != null) ...[
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: VerseLabels.getLabelColor(label),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        label,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Outfit',
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                const TextSpan(text: ' '),
-                TextSpan(
-                  text: v.textTe,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: _fontSize,  // User-controlled base size (default 18px)
-                    height: 1.8,        // Telugu line height 1.8
-                    fontWeight: FontWeight.w400,  // Normal weight for verse body
-                    fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'NotoSansTelugu',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        const SizedBox(height: 4.0),  // Small space between Telugu and English
-        // English text (bilingual sub-version)
-        if (showEnglish)
-          Text.rich(
-            TextSpan(
-              children: [
-                WidgetSpan(
-                  alignment: PlaceholderAlignment.middle,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: Text(
-                      _toSuperscript(v.verse),
-                      style: TextStyle(
-                        fontSize: 12.0,  // Small verse number
-                        color: AppTheme.gold,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                const TextSpan(text: ' '),
-                if (label != null && !showTelugu) ...[
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: VerseLabels.getLabelColor(label),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        label,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Outfit',
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                const TextSpan(text: ' '),
-                TextSpan(
-                  text: v.textKjv,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.6),  // 60% opacity for secondary text
-                    fontSize: 14.0,    // Fixed 14px for English
-                    height: 1.6,       // English line height 1.6
-                    fontWeight: FontWeight.w400,  // Light weight for verse body
-                    fontStyle: FontStyle.italic,  // Italic for English
-                    fontFamily: 'Outfit',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        const SizedBox(height: 20.0),  // Space between verse pairs (20px as requested)
-      ],
-    );
-  }
+  Widget _buildPanelColorOption(BibleVerse v, String hex, Color color) {
     final currentLabel = _labelledVerses[v.verse];
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildInlineColorCircle(v, 'FFD54F', const Color(0xFFFFD54F), currentLabel),
-        const SizedBox(width: 12),
-        _buildInlineColorCircle(v, '90CAF9', const Color(0xFF90CAF9), currentLabel),
-        const SizedBox(width: 12),
-        _buildInlineColorCircle(v, 'A5D6A7', const Color(0xFFA5D6A7), currentLabel),
-        const SizedBox(width: 12),
-        _buildInlineColorCircle(v, 'F48FB1', const Color(0xFFF48FB1), currentLabel),
-      ],
-    );
-  }
-
-  Widget _buildInlineColorCircle(BibleVerse v, String hex, Color color, String? currentLabel) {
     final isSelected = currentLabel == hex || currentLabel == '#$hex';
     return GestureDetector(
       onTap: () async {
         final uid = FirebaseAuth.instance.currentUser?.uid;
         if (uid == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please log in to label verses.')),
+            const SnackBar(content: Text('Please log in to highlight verses.')),
           );
           return;
         }
@@ -2192,22 +2275,46 @@ class _BibleScreenState extends State<BibleScreen> {
         }
       },
       child: Container(
-        width: 32,
-        height: 32,
+        width: 28,
+        height: 28,
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
-          border: isSelected
-              ? Border.all(color: Colors.white, width: 2.5)
-              : Border.all(color: Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.3),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          border: Border.all(
+            color: isSelected ? Colors.white : Colors.transparent,
+            width: 2,
+          ),
+          boxShadow: isSelected
+              ? [BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 8)]
+              : null,
         ),
+      ),
+    );
+  }
+
+  Widget _buildPanelActionButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+    Color color = Colors.white70,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 22),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: color.withValues(alpha: 0.8),
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Outfit',
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -2215,7 +2322,7 @@ class _BibleScreenState extends State<BibleScreen> {
 
 class _BookChapterSelectorDialog extends StatelessWidget {
   final List<BibleBook>? allBooks;
-  final String selectedBookId;
+  final String? selectedBookId;
   final int selectedChapter;
   final String testamentFilter;
   final Function(String bookId) onBookSelected;
@@ -2261,7 +2368,7 @@ class _BookChapterSelectorDialog extends StatelessWidget {
 
     final selectedBook = allBooks!.firstWhere(
       (b) => b.id == selectedBookId,
-      orElse: () => allBooks!.first,
+      orElse: () => allBooks!.isNotEmpty ? allBooks!.first : const BibleBook(id: 'dummy', nameEn: 'Dummy', nameTe: 'డమ్మీ', chapters: 1, testament: 'OT'),
     );
 
     return Material(
@@ -2312,7 +2419,7 @@ class _BookChapterSelectorDialog extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: ListView.builder(
-                      itemExtent: 48,
+                      itemExtent: 54,
                       itemCount: filteredBooks.length,
                       itemBuilder: (context, index) {
                         final b = filteredBooks[index];

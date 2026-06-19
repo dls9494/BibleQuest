@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../features/bible/providers/bible_providers.dart';
 import '../services/bible_service.dart';
+import '../constants/theme.dart';
 
 class DailyVerseCard extends ConsumerWidget {
   const DailyVerseCard({super.key});
@@ -23,19 +24,15 @@ class DailyVerseCard extends ConsumerWidget {
             ? '$displayBookNameEn ($displayBookNameTe) ${dailyVerse.chapter}:${dailyVerse.verse}'
             : '$displayBookNameEn ${dailyVerse.chapter}:${dailyVerse.verse}';
 
-        final isDark = Theme.of(context).brightness == Brightness.dark;
-        final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-        final cardColor = isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.03);
-
         return Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
           child: Container(
             decoration: BoxDecoration(
-              color: cardColor,
+              color: AppTheme.gold.withValues(alpha: 0.05), // Background: Gold 5%
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: const Color(0xFFFFD700).withValues(alpha: 0.3),
-                width: 1.2,
+                color: AppTheme.gold.withValues(alpha: 0.4), // Border: Gold 40%
+                width: 1.0,
               ),
             ),
             child: ClipRRect(
@@ -63,16 +60,16 @@ class DailyVerseCard extends ConsumerWidget {
                                   height: 32,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: const Color(0xFFFFD700).withValues(alpha: 0.15),
+                                  color: AppTheme.gold.withValues(alpha: 0.15),
                                   border: Border.all(
-                                    color: const Color(0xFFFFD700).withValues(alpha: 0.3),
+                                    color: AppTheme.gold.withValues(alpha: 0.3),
                                     width: 1,
                                   ),
                                 ),
                                 alignment: Alignment.center,
                                 child: const Icon(
                                   Icons.star_rounded,
-                                  color: Color(0xFFFFD700),
+                                  color: AppTheme.gold,
                                   size: 17,
                                 ),
                               ),
@@ -81,24 +78,23 @@ class DailyVerseCard extends ConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "VERSE OF THE DAY • నేటి వాక్యము",
                                       style: TextStyle(
-                                        color: Color(0xFFFFD700),
+                                        color: AppTheme.gold,
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Outfit',
-                                        letterSpacing: 1.0,
+                                        letterSpacing: 1.5,
                                       ),
                                     ),
                                     const SizedBox(height: 2),
                                     Text(
                                       displayName,
                                       style: TextStyle(
-                                        color: textColor,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Outfit',
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
@@ -112,9 +108,9 @@ class DailyVerseCard extends ConsumerWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: isDark ? Colors.white70 : Colors.black87,
-                              fontSize: 13.5,
-                              height: 1.45,
+                              color: Colors.white.withValues(alpha: 0.85), // Verse: White, 85% opacity
+                              fontSize: 14,
+                              height: 1.6,
                               fontFamily: 'NotoSansTelugu',
                             ),
                           ),

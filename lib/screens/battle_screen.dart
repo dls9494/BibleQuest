@@ -1,3 +1,4 @@
+import '../widgets/gradient_background.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -165,27 +166,11 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
             Tab(text: "Results"),
           ],
         ),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        flexibleSpace: const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A1A2E), Color(0xFF0F3460)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GradientBackground(child: SizedBox.shrink())),
           
           SafeArea(
             child: TabBarView(

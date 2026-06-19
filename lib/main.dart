@@ -22,6 +22,7 @@ import 'services/notification_service.dart';
 import 'services/local_storage_service.dart';
 import 'services/connectivity_service.dart';
 import 'services/crashlytics_service.dart';
+import 'widgets/gradient_background.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:audio_service/audio_service.dart' as as_pkg;
 
@@ -293,6 +294,7 @@ class BibleQuizApp extends StatelessWidget {
             themeMode: themeProvider.themeMode,
             theme: _buildLightTheme(context),
             darkTheme: _buildDarkTheme(context),
+            builder: (context, child) => GradientBackground(child: child!),
           );
         },
       ),
@@ -301,15 +303,13 @@ class BibleQuizApp extends StatelessWidget {
 
   ThemeData _buildLightTheme(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
-
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: const Color(0xFF6C4AB6), // Deep purple
         brightness: Brightness.light,
       ),
       useMaterial3: true,
-      scaffoldBackgroundColor: const Color(0xFFFDF6EC), // Parchment/cream background
+      scaffoldBackgroundColor: Colors.transparent,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -322,37 +322,42 @@ class BibleQuizApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF3E2723)), // Dark brown
         titleTextStyle: TextStyle(
           color: Color(0xFF3E2723), // Dark brown
-          fontSize: 20,
+          fontSize: themeProvider.scaledFontSize(20),
           fontWeight: FontWeight.bold,
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
       ),
       actionIconTheme: ActionIconThemeData(
-        backButtonIconBuilder: (BuildContext context) => const Padding(
+        backButtonIconBuilder: (BuildContext context) => Padding(
           padding: EdgeInsets.only(left: 8.0),
           child: Text(
             '✝',
             style: TextStyle(
               color: Color(0xFF3E2723), // Dark brown
-              fontSize: 24,
+              fontSize: themeProvider.scaledFontSize(24),
               fontWeight: FontWeight.bold,
+              fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
             ),
           ),
         ),
       ),
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: Color(0xFF3E2723), fontFamily: 'Outfit'),
+        bodyLarge: TextStyle(
+          color: Color(0xFF3E2723),
+          fontSize: themeProvider.scaledFontSize(16),
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
+        ),
         bodyMedium: TextStyle(
           color: Color(0xFF5D4037),
-          fontSize: 14,
+          fontSize: themeProvider.scaledFontSize(14),
           height: 1.5,
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
         titleLarge: TextStyle(
           color: Color(0xFF3E2723),
-          fontSize: 20,
+          fontSize: themeProvider.scaledFontSize(20),
           fontWeight: FontWeight.bold,
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
       ),
     );
@@ -360,15 +365,13 @@ class BibleQuizApp extends StatelessWidget {
 
   ThemeData _buildDarkTheme(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
-
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: const Color(0xFFE21B3C),
         brightness: Brightness.dark,
       ),
       useMaterial3: true,
-      scaffoldBackgroundColor: const Color(0xFF1A1A2E),
+      scaffoldBackgroundColor: Colors.transparent,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -383,7 +386,7 @@ class BibleQuizApp extends StatelessWidget {
           color: Colors.white,
           fontSize: themeProvider.scaledFontSize(20),
           fontWeight: FontWeight.bold,
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
       ),
       actionIconTheme: ActionIconThemeData(
@@ -395,7 +398,7 @@ class BibleQuizApp extends StatelessWidget {
               color: Colors.white,
               fontSize: themeProvider.scaledFontSize(24),
               fontWeight: FontWeight.bold,
-              fontFamily: 'Outfit',
+              fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
             ),
           ),
         ),
@@ -403,21 +406,21 @@ class BibleQuizApp extends StatelessWidget {
       textTheme: TextTheme(
         bodyLarge: TextStyle(
           color: Colors.white,
-          fontSize: 16,
+          fontSize: themeProvider.scaledFontSize(16),
           height: 1.7, // English line height 1.7 as per requirement
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
         bodyMedium: TextStyle(
           color: Color(0xFF5D4037),
-          fontSize: 14,
+          fontSize: themeProvider.scaledFontSize(14),
           height: 1.5,
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
         titleLarge: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: themeProvider.scaledFontSize(20),
           fontWeight: FontWeight.bold,
-          fontFamily: 'Outfit',
+          fontFamily: themeProvider.useSerifFonts ? 'Georgia' : 'Outfit',
         ),
       ),
     );

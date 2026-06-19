@@ -7,10 +7,10 @@ class OtNtTabs extends StatefulWidget {
   final ValueChanged<BibleSection> onTabChanged;
 
   const OtNtTabs({
-    Key? key,
+    super.key,
     required this.activeSection,
     required this.onTabChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<OtNtTabs> createState() => _OtNtTabsState();

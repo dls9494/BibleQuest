@@ -51,13 +51,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/bible/:version/:bookName/:chapter',
       builder: (context, state) {
-        final version = state.pathParameters['version']!;
         final bookName = state.pathParameters['bookName']!;
         final chapter = int.tryParse(state.pathParameters['chapter']!) ?? 1;
         final verseStr = state.uri.queryParameters['verse'];
         final verse = verseStr != null ? int.tryParse(verseStr) : null;
         return BibleScreen(
-          initialVersion: version,
           initialBook: bookName,
           initialChapter: chapter,
           initialVerse: verse,
