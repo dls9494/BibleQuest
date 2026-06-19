@@ -74,8 +74,9 @@ class BookListScreen extends StatelessWidget {
                     labelColor: Colors.white,
                     unselectedLabelColor: Colors.white54,
                     indicator: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white.withValues(alpha: 0.06),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.10), width: 0.8),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerColor: Colors.transparent,
