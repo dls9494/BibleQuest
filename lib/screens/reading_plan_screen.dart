@@ -184,7 +184,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                             color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
                             fontFamily: 'Outfit',
                           ),
-                          teluguStyle: const TextStyle(
+                          teluguStyle: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
@@ -521,7 +521,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
                           ),
-                          teluguStyle: const TextStyle(
+                          teluguStyle: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
@@ -546,7 +546,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                   color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                   height: 1.4,
                 ),
-                teluguStyle: const TextStyle(
+                teluguStyle: TextStyle(
                   fontSize: 14,
                   color: Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF5D4037),
                   height: 1.4,
