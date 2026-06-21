@@ -15,6 +15,7 @@ import '../services/connectivity_service.dart';
 import '../main.dart';
 import '../widgets/achievement_celebration.dart';
 import '../services/analytics_service.dart';
+import 'package:flutter/foundation.dart';
 
 class UserDataProvider extends ChangeNotifier {
   String? _userId;
@@ -148,12 +149,28 @@ class UserDataProvider extends ChangeNotifier {
     _dirtyFields.add(field);
   }
 
+  bool _isPiiField(String field) {
+    return field == 'displayName' ||
+        field == 'username' ||
+        field == 'email' ||
+        field == 'phoneNumber';
+  }
+
   void _enqueueWrite(Future<void> Function() writeOperation) {
     _writeQueue.add(writeOperation);
 
     if (_dirtyFields.isNotEmpty) {
       for (final field in _dirtyFields) {
-        LocalStorageService.userStateBox.put(field, _getFieldValue(field));
+        if (_isPiiField(field)) {
+          final val = _getFieldValue(field);
+          if (val == null) {
+            LocalStorageService.secureStorage.delete(key: field);
+          } else {
+            LocalStorageService.secureStorage.write(key: field, value: val.toString());
+          }
+        } else {
+          LocalStorageService.userStateBox.put(field, _getFieldValue(field));
+        }
       }
       LocalStorageService.pendingWritesBox.add({
         'fields': _dirtyFields.toList(),
@@ -256,10 +273,11 @@ class UserDataProvider extends ChangeNotifier {
         if (LocalStorageService.pendingWritesBox.isNotEmpty) {
           await LocalStorageService.pendingWritesBox.deleteAt(0);
         }
-        _persistFullStateSnapshot();
+        await _persistFullStateSnapshot();
       } catch (e) {
-        // ignore: avoid_print
-        print("Error in write queue operation: $e");
+        if (kDebugMode) {
+          print("Error in write queue operation: $e");
+        }
         break;
       }
     }
@@ -623,8 +641,9 @@ class UserDataProvider extends ChangeNotifier {
           FirebaseService.createUserProfile(uid, displayName: FirebaseAuth.instance.currentUser?.displayName, email: FirebaseAuth.instance.currentUser?.email);
         }
       }, onError: (e) {
-        // ignore: avoid_print
-        print("Error listening to user document: $e");
+        if (kDebugMode) {
+          print("Error listening to user document: $e");
+        }
       });
     }
   }
@@ -641,6 +660,64 @@ class UserDataProvider extends ChangeNotifier {
 
     // Step 1: Load from Hive cache instantly (works offline)
     _loadFromHive();
+
+    // Load secure storage PII fields
+    final secureDisplayName = await LocalStorageService.secureStorage.read(key: 'displayName');
+    final secureUsername = await LocalStorageService.secureStorage.read(key: 'username');
+    final secureEmail = await LocalStorageService.secureStorage.read(key: 'email');
+    final securePhoneNumber = await LocalStorageService.secureStorage.read(key: 'phoneNumber');
+
+    bool migrated = false;
+
+    // Check if secure storage is empty, meaning we might need to migrate legacy plaintext values
+    if (secureDisplayName == null && secureUsername == null) {
+      // Look for legacy plaintext values in SharedPreferences (userStateBox)
+      final legacyFullState = LocalStorageService.userStateBox.get('fullState') as Map<String, dynamic>?;
+      final legacyDisplayName = legacyFullState?['displayName'] as String? ?? 
+                                LocalStorageService.userStateBox.get('displayName') as String?;
+      final legacyUsername = legacyFullState?['username'] as String? ?? 
+                             LocalStorageService.userStateBox.get('username') as String?;
+      final legacyEmail = LocalStorageService.userStateBox.get('email') as String?;
+      final legacyPhoneNumber = legacyFullState?['phoneNumber'] as String? ??
+                                LocalStorageService.userStateBox.get('phoneNumber') as String?;
+
+      if (legacyDisplayName != null) {
+        _displayName = legacyDisplayName;
+        await LocalStorageService.secureStorage.write(key: 'displayName', value: legacyDisplayName);
+        migrated = true;
+      }
+      if (legacyUsername != null) {
+        _username = legacyUsername;
+        await LocalStorageService.secureStorage.write(key: 'username', value: legacyUsername);
+        migrated = true;
+      }
+      if (legacyEmail != null) {
+        _email = legacyEmail;
+        await LocalStorageService.secureStorage.write(key: 'email', value: legacyEmail);
+        migrated = true;
+      }
+      if (legacyPhoneNumber != null) {
+        _phoneNumber = legacyPhoneNumber;
+        await LocalStorageService.secureStorage.write(key: 'phoneNumber', value: legacyPhoneNumber);
+        migrated = true;
+      }
+
+      // If migrated, clear these keys from plaintext SharedPreferences
+      if (migrated) {
+        await LocalStorageService.userStateBox.remove('displayName');
+        await LocalStorageService.userStateBox.remove('username');
+        await LocalStorageService.userStateBox.remove('email');
+        await LocalStorageService.userStateBox.remove('phoneNumber');
+        // Regenerate fullState map without PII and save it
+        await _persistFullStateSnapshot(); 
+      }
+    } else {
+      // Secure storage has the values, use them
+      if (secureDisplayName != null) _displayName = secureDisplayName;
+      if (secureUsername != null) _username = secureUsername;
+      if (secureEmail != null) _email = secureEmail;
+      if (securePhoneNumber != null) _phoneNumber = securePhoneNumber;
+    }
 
     // Step 2: Recover pending dirty fields from persisted write queue
     _recoverDirtyFields();
@@ -674,7 +751,7 @@ class UserDataProvider extends ChangeNotifier {
         } else {
           _loadFromMap(firestoreData);
         }
-        _persistFullStateSnapshot();
+        await _persistFullStateSnapshot();
       } else {
         await FirebaseService.createUserProfile(
           _userId!,
@@ -1147,8 +1224,9 @@ class UserDataProvider extends ChangeNotifier {
       await batch.commit();
       _dirtyFields.clear();
     } catch (e) {
-      // ignore: avoid_print
-      print("Error saving user state to Firestore: $e");
+      if (kDebugMode) {
+        print("Error saving user state to Firestore: $e");
+      }
       rethrow;
     }
   }
@@ -2292,8 +2370,6 @@ class UserDataProvider extends ChangeNotifier {
       'challengesWon': _challengesWon,
       'challengesCreated': _challengesCreated,
       'wonChallengeIds': _wonChallengeIds,
-      'displayName': _displayName,
-      'username': _username,
       'photoURL': _photoURL,
       'bannerUrl': _bannerUrl,
       'bioEn': _bioEn,
@@ -2315,8 +2391,16 @@ class UserDataProvider extends ChangeNotifier {
     };
   }
 
-  void _persistFullStateSnapshot() {
+  Future<void> _persistFullStateSnapshot() async {
     LocalStorageService.userStateBox.put('fullState', _buildFullStateMap());
+    await LocalStorageService.secureStorage.write(key: 'displayName', value: _displayName);
+    await LocalStorageService.secureStorage.write(key: 'username', value: _username);
+    await LocalStorageService.secureStorage.write(key: 'email', value: _email);
+    if (_phoneNumber != null) {
+      await LocalStorageService.secureStorage.write(key: 'phoneNumber', value: _phoneNumber);
+    } else {
+      await LocalStorageService.secureStorage.delete(key: 'phoneNumber');
+    }
   }
 
   void _ensureFirestoreSubscription() {
@@ -2326,14 +2410,15 @@ class UserDataProvider extends ChangeNotifier {
         .collection('users')
         .doc(_userId)
         .snapshots()
-        .listen((snapshot) {
+        .listen((snapshot) async {
       if (snapshot.exists && snapshot.data() != null) {
         _loadFromMap(snapshot.data()!);
-        _persistFullStateSnapshot();
+        await _persistFullStateSnapshot();
       }
     }, onError: (e) {
-      // ignore: avoid_print
-      print("Error listening to user document: $e");
+      if (kDebugMode) {
+        print("Error listening to user document: $e");
+      }
     });
   }
 
@@ -2354,7 +2439,7 @@ class UserDataProvider extends ChangeNotifier {
       try {
         await _saveToFirestore();
         await LocalStorageService.pendingWritesBox.deleteAt(i);
-        _persistFullStateSnapshot();
+        await _persistFullStateSnapshot();
       } catch (e) {
         break;
       }

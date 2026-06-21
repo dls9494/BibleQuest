@@ -1,0 +1,495 @@
+book,chapter,verse,issue_type,verse_text,confidence
+Genesis,11,31,length:abnormally_long,"తెరహు తన కుమారుడగు అబ్రామును, తన కుమారుని కుమారుడు, అనగా హారాను కుమారుడగు లోతును",medium
+Genesis,19,9,length:abnormally_long,ఈ మనుష్యులు నా యింటినీడకు వచ్చియున్నారు గనుక వారిని మీరేమి చేయ కూడదని చెప్పినప్ప,medium
+Genesis,24,7,length:abnormally_long,నా తండ్రి యింట నుండియు నేను పుట్టిన దేశము నుండియు నన్ను తెచ్చి నాతో మాటలాడి నీ స,medium
+Genesis,24,14,length:abnormally_long,కాబట్టి నేను త్రాగునట్లు నీవు దయచేసి నీ కడవను వంచుమని నేను చెప్పగానీవు త్రాగుము ,medium
+Genesis,26,4,length:abnormally_long,"ఏలయనగా నీకును నీ సంతానమునకును ఈ దేశములన్నియు ఇచ్చి, నీ తండ్రియైన అబ్రాహాముతో నేన",medium
+Genesis,29,10,length:abnormally_long,"యాకోబు తన తల్లి సహోదరుడైన లాబాను కుమార్తెయగు రాహేలును, తన తల్లి సహోదరుడగు లాబాను",medium
+Genesis,32,8,merged_word,తప్పించుకొనిపోవుననుకొని,medium
+Exodus,2,14,length:abnormally_long,అప్పుడతడు అన్యాయము చేసినవాని చూచి నీ వేల నీ పొరుగు వాని కొట్టుచున్నావని అడుగగా అ,medium
+Exodus,3,8,length:abnormally_long,"కాబట్టి ఐగుప్తీయుల చేతిలోనుండి వారిని విడిపించుటకును, ఆ దేశములోనుండి విశాలమైన మం",medium
+Exodus,3,18,length:abnormally_long,వారు నీ మాట విందురు గనుక నీవును ఇశ్రాయేలీయుల పెద్దలును ఐగుప్తు రాజు నొద్దకు వెళ్,medium
+Exodus,3,23,structural:missing_verse,,high
+Exodus,3,24,structural:missing_verse,,high
+Exodus,3,25,structural:missing_verse,,high
+Exodus,3,26,structural:missing_verse,,high
+Exodus,3,27,structural:missing_verse,,high
+Exodus,5,24,structural:missing_verse,,high
+Exodus,5,25,structural:missing_verse,,high
+Exodus,5,26,structural:missing_verse,,high
+Exodus,5,27,structural:missing_verse,,high
+Exodus,5,28,structural:missing_verse,,high
+Exodus,5,29,structural:missing_verse,,high
+Exodus,5,30,structural:missing_verse,,high
+Exodus,7,19,length:abnormally_long,మరియు యెహోవా మోషేతో ఇట్లనెను - నీవు అహరోనుతో నీకఱ్ఱను పట్టుకొని ఐగుప్తు జలములమీద,medium
+Exodus,7,26,structural:missing_verse,,high
+Exodus,7,27,structural:missing_verse,,high
+Exodus,7,28,structural:missing_verse,,high
+Exodus,7,29,structural:missing_verse,,high
+Exodus,7,30,structural:missing_verse,,high
+Exodus,7,31,structural:missing_verse,,high
+Exodus,7,32,structural:missing_verse,,high
+Exodus,7,33,structural:missing_verse,,high
+Exodus,7,34,structural:missing_verse,,high
+Exodus,13,15,length:abnormally_long,ఫరో మనలను పోనియ్యకుండ తన మనస్సును కఠినపరచుకొనగా యెహోవా మనుష్యుల తొలి సంతానమేమి జ,medium
+Exodus,17,17,structural:missing_verse,,high
+Exodus,17,18,structural:missing_verse,,high
+Exodus,17,19,structural:missing_verse,,high
+Exodus,17,20,structural:missing_verse,,high
+Exodus,17,21,structural:missing_verse,,high
+Exodus,17,22,structural:missing_verse,,high
+Exodus,17,23,structural:missing_verse,,high
+Exodus,17,24,structural:missing_verse,,high
+Exodus,17,25,structural:missing_verse,,high
+Exodus,17,26,structural:missing_verse,,high
+Exodus,17,27,structural:missing_verse,,high
+Exodus,19,26,structural:missing_verse,,high
+Exodus,19,27,structural:missing_verse,,high
+Exodus,19,28,structural:missing_verse,,high
+Exodus,19,29,structural:missing_verse,,high
+Exodus,19,30,structural:missing_verse,,high
+Exodus,19,31,structural:missing_verse,,high
+Exodus,19,32,structural:missing_verse,,high
+Exodus,19,33,structural:missing_verse,,high
+Exodus,19,34,structural:missing_verse,,high
+Exodus,19,35,structural:missing_verse,,high
+Exodus,19,36,structural:missing_verse,,high
+Exodus,19,37,structural:missing_verse,,high
+Exodus,19,38,structural:missing_verse,,high
+Exodus,20,12,merged_word,దీర్ఘాయుష్మంతుడవగునట్లు,medium
+Exodus,22,9,length:abnormally_long,"ప్రతి విధమైన ద్రోహమును గూర్చి, అనగా ఎద్దును గూర్చి గాడిదను గూర్చి గొఱ్ఱెను గూర్చ",medium
+Exodus,29,21,length:abnormally_long,మరియు నీవు బలిపీఠము మీదనున్న రక్తములోను అభిషేక తైలములోను కొంచెము తీసి అహరోనుమీదన,medium
+Exodus,32,13,length:abnormally_long,నీ సేవకులైన అబ్రాహామును ఇస్సాకును ఇశ్రాయేలు ను జ్ఞాపకము చేసికొనుము. నీవు వారితోఆ,medium
+Exodus,32,13,merged_word,వారితోఆకాశనక్షత్రములవలె,medium
+Exodus,32,32,merged_word,బ్రతిమాలుకొనుచున్నాననెను,medium
+Leviticus,6,17,merged_word,అపరాధపరిహారార్థబలివలెను,medium
+Leviticus,10,17,merged_word,పాపపరిహారార్థబలిపశువును,medium
+Leviticus,16,16,length:abnormally_long,"అట్లు అతడు ఇశ్రాయేలీయుల సమస్త పాపములను బట్టియు, అనగా వారి అపవిత్రతను బట్టియు, వా",medium
+Leviticus,17,17,structural:missing_verse,,high
+Leviticus,17,18,structural:missing_verse,,high
+Leviticus,17,19,structural:missing_verse,,high
+Leviticus,17,20,structural:missing_verse,,high
+Leviticus,17,21,structural:missing_verse,,high
+Leviticus,17,22,structural:missing_verse,,high
+Leviticus,17,23,structural:missing_verse,,high
+Leviticus,17,24,structural:missing_verse,,high
+Leviticus,17,25,structural:missing_verse,,high
+Leviticus,17,26,structural:missing_verse,,high
+Leviticus,17,27,structural:missing_verse,,high
+Leviticus,23,37,length:abnormally_long,"యెహోవా నియమించిన విశ్రాంతిదినములు గాకయు, మీరు దానములనిచ్చు దినములుగాకయు, మీ మ్రొ",medium
+Numbers,2,7,merged_word,జెబూలూనుగోత్రికులుండవలెను,medium
+Numbers,5,27,length:abnormally_long,ఆ నీళ్లు ఆ స్త్రీకి త్రాగింపవలెను. అతడు ఆమెకు ఆ నీళ్లు త్రాగించిన తరువాత జరుగునద,medium
+Numbers,8,19,length:abnormally_long,మరియు ప్రత్యక్షపు గుడారములో ఇశ్రా యేలీయుల నిమిత్తము సేవచేయుటకును ఇశ్రాయేలీయుల ని,medium
+Numbers,15,39,merged_word,ప్రతిష్ఠితులైయుండునట్లు,medium
+Numbers,16,3,merged_word,హెచ్చించుకొనుచున్నారనగా,medium
+Numbers,18,8,merged_word,ప్రతిష్ఠించువాటన్నిటిలో,medium
+Numbers,18,9,length:abnormally_long,"అగ్నిలో దహింపబడని అతి పరిశుద్ధమైన వాటిలో నీకు రావలసినవేవనగా, వారి నైవేద్యములన్ని",medium
+Numbers,18,19,merged_word,ప్రతిష్ఠార్పణములన్నిటిని,medium
+Numbers,29,8,length:abnormally_long,ప్రాయ శ్చిత్తము కలుగుటకై పాపపరిహారార్థబలియు నిత్యమైన దహనబలియు దాని నైవేద్యమును వ,medium
+Numbers,33,54,length:abnormally_long,మీరు మీ వంశములచొప్పున చీట్లువేసి ఆ దేశమును స్వాస్థ్యములుగా పంచుకొనవలెను. ఎక్కువ ,medium
+Deuteronomy,3,20,length:abnormally_long,అనగా మీ దేవుడైన యెహోవా యొర్దాను అద్దరిని వారి కిచ్చుచున్న దేశమును వారును స్వాధీన,medium
+Deuteronomy,4,40,merged_word,దీర్ఘాయుష్మంతుడవగునట్లు,medium
+Deuteronomy,6,2,length:abnormally_long,"నీ దేవుడైన యెహోవాకు భయపడి, నేను నీకాజ్ఞాపించు ఆయన కట్టడలన్నియు ఆజ్ఞలన్నియు నీ జీ",medium
+Deuteronomy,6,2,merged_word,దీర్ఘాయుష్మంతుడవగునట్లు,medium
+Deuteronomy,11,9,merged_word,దీర్ఘాయుష్మంతులగునట్లును,medium
+Deuteronomy,13,5,length:abnormally_long,నీవు నడవవలెనని నీ దేవుడైన యెహోవా నీకాజ్ఞాపించిన మార్గములోనుండి నిన్ను తొలగించునట,medium
+Deuteronomy,14,9,merged_word,పొలుసులుగలవాటినన్నిటిని,medium
+Deuteronomy,17,2,length:abnormally_long,"నీ దేవుడైన యెహోవా నిబంధనను మీరి ఆయన దృష్టికి చెడ్డదానిని చేయుచు, నేనిచ్చిన ఆజ్ఞక",medium
+Deuteronomy,19,12,merged_word,ప్రతిహత్యచేయువానిచేతికి,medium
+Deuteronomy,22,7,merged_word,దీర్ఘాయుష్మంతుడవగునట్లును,medium
+Deuteronomy,27,3,merged_word,శాస్త్రవాక్యములన్నిటిని,medium
+Deuteronomy,27,9,merged_word,ఇట్లనిరిఇశ్రాయేలీయులారా,medium
+Deuteronomy,30,20,length:abnormally_long,నీ పితరులైన అబ్రాహాము ఇస్సాకు యాకోబులకు ఆయన ప్రమాణము చేసిన దేశములో మీరు నివసించు,medium
+Joshua,8,33,length:abnormally_long,అప్పుడు ఇశ్రా యేలీయులను దీవించుటకు యెహోవా సేవకుడైన మోషే పూర్వము ఆజ్ఞాపించినది జర,medium
+Joshua,10,2,merged_word,అదోనీసెదెకుగిబియోనీయులు,medium
+Joshua,10,12,length:abnormally_long,"యెహోవా ఇశ్రాయేలీయుల యెదుట అమోరీయు లను అప్పగించిన దినమున, ఇశ్రాయేలీయులు వినుచుండగ",medium
+Joshua,22,24,merged_word,సంతానపువారితోఇశ్రాయేలీయుల,medium
+Judges,5,2,merged_word,ఇశ్రాయేలీయులలోయుద్ధశాలులు,medium
+Judges,5,30,length:abnormally_long,వారికి దొరకెను గదా? దోపుడుసొమ్ము పంచుకొను చున్నారు గదా? యోధులందరు తలాయొక స్త్రీన,medium
+Judges,6,8,merged_word,ప్రకటించెనుఇశ్రాయేలీయుల,medium
+Judges,8,21,merged_word,పల్మున్నాలుప్రాయముకొలది,medium
+Judges,14,16,length:abnormally_long,కాబట్టి సమ్సోను భార్య అతని పాదములయొద్ద పడి యేడ్చుచునీవు నన్ను ద్వేషించితివి గాని,medium
+Judges,16,20,merged_word,నిద్రమేలుకొనియెప్పటియట్లు,medium
+Judges,16,20,merged_word,విడజిమ్ముకొందుననుకొనెను,medium
+Judges,19,9,length:abnormally_long,ఆ మనుష్యుడు తానును అతని ఉపపత్నియు అతని దాసుడును వెళ్ల లేచినప్పుడు ఆ చిన్నదాని తం,medium
+Judges,19,28,merged_word,ప్రత్యుత్తరమియ్యకుండెను,medium
+Judges,20,12,merged_word,బెన్యామీనీయులందరియొద్దకు,medium
+Judges,20,34,merged_word,ఇశ్రాయేలీయులందరిలోనుండి,medium
+Ruth,4,4,length:abnormally_long,ఈ పుర నివాసులయెదుటను నా జనుల పెద్దలయెదుటను ఆ భూమిని సంపాదించుకొనుము; ఏమ నగా దాని,medium
+Ruth,4,10,length:abnormally_long,"మరియు చనిపోయినవాని పేరట అతని స్వాస్థ్యమును స్థిరపరచునట్లును, చనిపోయినవాని పేరు అ",medium
+Ruth,4,10,merged_word,పెండ్లిచేసికొనుచున్నాను,medium
+1 Samuel,1,11,length:abnormally_long,"సైన్యములకధి పతివగు యెహోవా, నీ సేవకురాలనైన నాకు కలిగియున్న శ్రమను చూచి, నీ సేవకుర",medium
+1 Samuel,2,30,length:abnormally_long,నీ యింటి వారును నీ పితరుని యింటివారును నా సన్నిధిని యాజ కత్వము జరిగించుదురని యెహ,medium
+1 Samuel,4,16,merged_word,మనుష్యుడుయుద్ధములోనుండి,medium
+1 Samuel,5,11,merged_word,పిలువనంపించిఇశ్రాయేలీయుల,medium
+1 Samuel,7,5,merged_word,సమూయేలుఇశ్రాయేలీయులందరిని,medium
+1 Samuel,9,9,merged_word,దీర్ఘదర్శియనిపించుకొనెను,medium
+1 Samuel,12,3,length:abnormally_long,"ఇదిగో నేనున్నాను, నేనెవని యెద్దునైన తీసికొంటినా? ఎవని గార్దభమునైన పట్టు కొంటినా?",medium
+1 Samuel,13,13,merged_word,రాజ్యమునుఇశ్రాయేలీయులమీద,medium
+1 Samuel,16,1,merged_word,విచ్చెనుఇశ్రాయేలీయులమీద,medium
+1 Samuel,16,15,merged_word,సేవకులుదేవునియొద్దనుండి,medium
+1 Samuel,20,29,length:abnormally_long,"దయచేసి నన్ను పోనిమ్ము, పట్టణమందు మా యింటివారు బలి అర్పింపబోవుచున్నారునీవును రావల",medium
+1 Samuel,20,29,merged_word,అర్పింపబోవుచున్నారునీవును,medium
+1 Samuel,22,7,merged_word,ఇట్లనెనుబెన్యామీనీయులారా,medium
+1 Samuel,24,2,merged_word,ఇశ్రాయేలీయులందరిలోనుండి,medium
+1 Samuel,26,19,length:abnormally_long,"రాజా నా యేలిన వాడా, నీ దాసుని మాటలు వినుము. నామీద పడవలెనని యెహోవా నిన్ను ప్రేరేప",medium
+2 Samuel,1,27,merged_word,పడిపోయిరియుద్ధసన్నద్ధులు,medium
+2 Samuel,2,5,merged_word,యాబేష్గిలాదువారియొద్దకు,medium
+2 Samuel,13,32,length:abnormally_long,దావీదు సహోదరుడైన షిమ్యాకు పుట్టిన యెహోనాదాబు దీనిని చూచిరాజకుమారులైన ¸యవ నులనందర,medium
+2 Samuel,18,12,merged_word,ముట్టకుండజాగ్రత్తపడుడని,medium
+2 Samuel,22,3,merged_word,రక్షకుడుబలాత్కారులనుండి,medium
+2 Samuel,22,5,merged_word,చుట్టుకొనగనువరదపొర్లువలె,medium
+2 Samuel,22,42,merged_word,ప్రత్యుత్తరమియ్యకుండును,medium
+2 Samuel,24,13,length:abnormally_long,కావున గాదు దావీదునొద్దకు వచ్చి యిట్లని సంగతి తెలియజెప్పెనునీవు నీ దేశమందు ఏడు సం,medium
+2 Samuel,24,17,merged_word,ప్రార్థించెనుచిత్తగించుము,medium
+1 Kings,3,11,merged_word,విచ్చెనుదీర్ఘాయువునైనను,medium
+1 Kings,5,9,length:abnormally_long,నా సేవకులు వాటిని లెబానోనునుండి సముద్రమునొద్దకు తెచ్చెదరు; అప్పుడు వాటిని తెప్పల,medium
+1 Kings,11,1,length:abnormally_long,మోయాబీయులు ఎదోమీయులు అమ్మోనీయులు సీదోనీయులు హిత్తీయులు అను జనులు మీ హృదయ ములను త,medium
+1 Kings,11,38,length:abnormally_long,"నేను నీకు ఆజ్ఞాపించినదంతయు నీవు విని, నా మార్గముల ననుసరించి నడచుచు, నా దృష్టికి ",medium
+1 Kings,12,16,length:abnormally_long,కాబట్టి ఇశ్రాయేలు వారందరును రాజు తమ విన్నపమును వినలేదని తెలిసికొని రాజుకీలాగు ప్,medium
+1 Kings,15,10,merged_word,సంవత్సరములుయెరూషలేమునందు,medium
+1 Kings,19,11,length:abnormally_long,అందుకాయననీవు పోయి పర్వతముమీద యెహోవా సముఖమందు నిలిచి యుండుమని సెలవిచ్చెను. అంతట య,medium
+1 Kings,20,34,length:abnormally_long,అంతట బెన్హదదుతమ తండ్రి చేతిలోనుండి నా తండ్రి తీసికొనిన పట్టణములను నేను మరల అప్పగ,medium
+1 Kings,20,39,length:abnormally_long,రాజు వచ్చుట చూచి బిగ్గరగా రాజుతో ఈలాగు మనవి చేసికొనెనునీ దాసుడనైన నేను యుద్ధములో,medium
+2 Kings,1,6,length:abnormally_long,వారుఒక మనుష్యుడు మాకు ఎదురుపడిమిమ్మును పంపిన రాజునొద్దకు తిరిగిపోయి అతనికి ఈ సంగ,medium
+2 Kings,5,19,merged_word,చెప్పగాఒఎలీషానెమ్మదిగలిగి,medium
+2 Kings,6,27,merged_word,ద్రాక్షగానుగలోనుండియైనను,medium
+2 Kings,6,32,length:abnormally_long,అయితే ఎలీషా తన యింట కూర్చునియుండగా పెద్దలును అతనితో కూడ కూర్చుండి యున్నప్పుడు రా,medium
+2 Kings,8,12,length:abnormally_long,హజాయేలునా యేలిన వాడవైన నీవు కన్నీళ్లు రాల్చెదవేమని అతని నడుగగా ఎలీషా యీలాగు ప్రత,medium
+2 Kings,16,15,length:abnormally_long,అప్పుడు రాజైన ఆహాజు యాజకుడైన ఊరియాకు ఆజ్ఞాపించిన దేమనగా ఈ పెద్ద బలిపీఠముమీద ఉదయమ,medium
+2 Kings,18,32,length:abnormally_long,"అటుపిమ్మట మీరుచావక బ్రదుకునట్లుగా మేము వచ్చి మీ దేశమువంటి దేశమునకు, అనగా గోధుమలు",medium
+2 Kings,19,23,length:abnormally_long,ఇశ్రాయేలీయుల పరిశుద్ధ దేవునినేగదా నీ దూతలచేత యెహోవాను తిరస్కరించి పలికించిన మాటల,medium
+2 Kings,24,1,merged_word,బబులోనురాజైననెబుకద్నెజరు,medium
+1 Chronicles,6,70,merged_word,అర్ధగోత్రస్థానములోనుండి,medium
+1 Chronicles,6,72,merged_word,ఖారుగోత్రస్థానములోనుండి,medium
+1 Chronicles,10,11,merged_word,పరాక్రమశాలులైనవారందరును,medium
+1 Chronicles,12,17,length:abnormally_long,దావీదు బయలుదేరి వారికి ఎదురుగా పోయి వారితో ఇట్లనెనుమీరు సమాధానము కలిగి నాకు సహాయ,medium
+1 Chronicles,12,18,length:abnormally_long,"అప్పుడు ముప్పదిమందికి అధిపతియైన అమాశై ఆత్మవశుడైదావీదూ, మేము నీవారము; యెష్షయి కుమ",medium
+1 Chronicles,12,40,length:abnormally_long,ఇశ్రాయేలీయులకు సంతోషము కలిగియుండెను గనుక ఇశ్శాఖారు జెబూలూను నఫ్తాలి అనువారి పొలి,medium
+1 Chronicles,15,13,length:abnormally_long,"ఇంతకుముందు మీరు ఇశ్రా యేలీయుల దేవుడైన యెహోవా మందసమును మోయక యుండుటచేతను, మనము మన ",medium
+1 Chronicles,16,20,merged_word,రాజ్యమునుండిరాజ్యమునకును,medium
+1 Chronicles,16,36,length:abnormally_long,మేము నీ పరిశుద్ధనామమునకు కృతజ్ఞతాస్తుతులు చెల్లించునట్లు నిన్ను స్తుతించుచు అతిశ,medium
+1 Chronicles,17,9,length:abnormally_long,"మరియు నేను నా జనులైన ఇశ్రాయేలీయుల కొరకు ఒక స్థలము ఏర్పరచి వారిని నాటుదును, వారు ",medium
+1 Chronicles,18,10,length:abnormally_long,హదరెజెరునకును తోహూకును విరోధము కలిగియుండెను గనుక రాజైన దావీదు హదరెజెరుతో యుద్ధము,medium
+1 Chronicles,21,12,length:abnormally_long,"మూడేండ్ల పాటు కరవు కలుగుట, మూడు నెలలపాటు నీ శత్రువులు కత్తిదూసి నిన్ను తరుమగా నీ",medium
+1 Chronicles,22,5,length:abnormally_long,నా కుమారుడైన సొలొమోను పిన్నవయస్సుగల లేతవాడు; యెహోవాకు కట్టబోవు మందిరము దాని కీర్,medium
+1 Chronicles,24,6,length:abnormally_long,"లేవీయులలో శాస్త్రిగానున్న నెతనేలు కుమారుడగు షెమయా రాజు ఎదుటను, అధిపతుల యెదు టను,",medium
+1 Chronicles,27,11,merged_word,సంబంధుడునుహుషాతీయుడునైన,medium
+1 Chronicles,28,1,length:abnormally_long,"గోత్రముల పెద్దలను, వంతులచొప్పున రాజునకు సేవచేయు అధిపతులను సహస్రాధిపతులను, శతాధిప",medium
+1 Chronicles,28,4,length:abnormally_long,ఇశ్రాయేలీయులమీద నిత్యము రాజునై యుండుటకు ఇశ్రాయేలీయుల దేవుడైన యెహోవా నా తండ్రి యి,medium
+1 Chronicles,28,8,length:abnormally_long,"కాబట్టి మీరు ఈ మంచిదేశమును స్వాస్థ్యముగా అనుభవించి, మీ తరువాత మీ సంతతివారికి శాశ",medium
+1 Chronicles,28,9,length:abnormally_long,"సొలొమోనా, నా కుమారుడా, నీ తండ్రియొక్క దేవుడైన యెహోవా అందరి హృదయములను పరిశోధించువ",medium
+1 Chronicles,29,2,length:abnormally_long,"నేను బహుగా ప్రయాసపడి నా దేవుని మందిరమునకు కావలసిన బంగారపు పనికి బంగారమును, వెండి",medium
+2 Chronicles,2,4,length:abnormally_long,నా దేవుడైన యెహోవా సన్నిధిని సుగంధ వర్గములను ధూపము వేయుటకును సన్నిధి రొట్టెలను ని,medium
+2 Chronicles,2,14,length:abnormally_long,"అతడు దాను వంశపురాలగు ఒక స్త్రీకి పుట్టినవాడు, వాని తండ్రి తూరు సంబంధమైనవాడు, అతడ",medium
+2 Chronicles,7,5,length:abnormally_long,రాజైన సొలొమోను ఇరువది రెండువేల పశువులను లక్ష యిరువది వేల గొఱ్ఱెలను బలులుగా అర్పి,medium
+2 Chronicles,8,14,length:abnormally_long,అతడు తన తండ్రియైన దావీదు చేసిన నిర్ణయమునుబట్టి వారి వారి సేవాధర్మములను జరుపుకొను,medium
+2 Chronicles,14,11,length:abnormally_long,"ఆసా తన దేవుడైన యెహోవాకు మొఱ్ఱపెట్టి యెహోవా, విస్తారమైన సైన్యముచేతిలో ఓడిపోకుండ బ",medium
+2 Chronicles,18,10,merged_word,చేయించుకొనివచ్చిసిరియనులు,medium
+2 Chronicles,19,10,length:abnormally_long,"నరహత్యను గూర్చియు, ధర్మశాస్త్రమును గూర్చియు, ధర్మమును గూర్చియు, కట్టడలను గూర్చియ",medium
+2 Chronicles,20,20,merged_word,కృతార్థులగుదురనిచెప్పెను,medium
+2 Chronicles,28,15,length:abnormally_long,పేళ్లు ఉదాహరింపబడినవారు అప్పుడు లేచి చెరపట్టబడిన వారిని చేపట్టి దోపుసొమ్ముచేత వా,medium
+2 Chronicles,29,16,merged_word,నిషిద్ధవస్తువులన్నిటిని,medium
+2 Chronicles,31,3,merged_word,యెహోవాధర్మశాస్త్రమునందు,medium
+2 Chronicles,35,21,merged_word,శత్రువులగువారిమీదికేగాని,medium
+Nehemiah,8,13,merged_word,ధర్మశాస్త్రగ్రంథపుమాటలు,medium
+Nehemiah,9,17,length:abnormally_long,వారు విధేయులగుటకు మనస్సు లేనివారై తమ మధ్య నీవు చేసిన అద్భుతములను జ్ఞాపకము చేసికొ,medium
+Nehemiah,10,33,length:abnormally_long,"సవరింపబడిన రొట్టెవిషయములోను, నిత్య నైవేద్యము విషయములోను, నిత్యము అర్పించు దహన బల",medium
+Nehemiah,11,29,merged_word,ఏన్రిమ్మోనులోనుజొర్యాలోను,medium
+Nehemiah,12,44,length:abnormally_long,ఆ కాలమందు పదార్థములకును ప్రతిష్ఠార్పణలకును ప్రథమ ఫలములకును పదియవవంతుల సంబంధమైన వ,medium
+Esther,2,12,length:abnormally_long,"ఆరుమాసములు గోపరస తైలముతోను, ఆరు మాసములు సుగంధవర్గములతోను, స్త్రీల పరిమళ క్రియలకొ",medium
+Esther,3,12,length:abnormally_long,మొదటి నెల పదమూడవ దినమందు రాజుయొక్క వ్రాతగాండ్రు పిలువబడిరి; హామాను ఆజ్ఞాపించిన ప,medium
+Esther,9,16,merged_word,కొల్లసొమ్ముపట్టుకొనలేదు,medium
+Esther,9,26,merged_word,చూచినదానినంతటినిబట్టియు,medium
+Esther,9,31,merged_word,విశ్వాసార్థ్వములగునట్టియు,medium
+Job,1,3,length:abnormally_long,అతనికి ఏడువేల గొఱ్ఱెలును మూడువేల ఒంటెలును ఐదువందల జతల యెడ్లును ఐదువందల ఆడు గాడిద,medium
+Job,1,4,length:abnormally_long,అతని కుమారులందరు వంతుల చొప్పున అనుదినము ఒకరికొకరు తమ తమ యిండ్లలో విందు చేయనై కూడ,medium
+Job,1,5,length:abnormally_long,"వారి వారి విందు దినములు పూర్తికాగా యోబు, తన కుమారులు పాపముచేసి తమ హృదయములలో దేవు",medium
+Job,1,8,length:abnormally_long,అందుకు యెహోవా - నీవు నా సేవకుడైన యోబు సంగతి ఆలో చించితివా? అతడు యథార్థవర్తనుడును,medium
+Job,1,10,length:abnormally_long,నీవు అతనికిని అతని యింటివారికిని అతనికి కలిగిన సమస్తమునకును చుట్టు కంచె వేసితివి,medium
+Job,1,16,length:abnormally_long,అతడు ఇంక మాట లాడుచుండగా మరియొకడు వచ్చిదేవుని అగ్ని ఆకాశమునుండి పడి గొఱ్ఱెలను పని,medium
+Job,1,17,length:abnormally_long,అతడు ఇంక మాట లాడుచుండగా మరియొకడు వచ్చికల్దీయులు మూడు సమూహములుగా వచ్చి ఒంటెలమీద ప,medium
+Job,1,19,length:abnormally_long,గొప్ప సుడిగాలి అరణ్యమార్గముగా వచ్చి ఆ యింటి నాలుగు మూలలను కొట్టగా అది ¸యౌవనుల మీ,medium
+Job,2,3,length:abnormally_long,అందుకు యెహోవానీవు నా సేవకుడైన యోబు సంగతి ఆలోచించితివా? అతడు యథార్థవర్తనుడును న్య,medium
+Job,2,10,length:abnormally_long,అందుకతడు మూర్ఖురాలు మాటలాడునట్లు నీవు మాటలాడుచున్నావు; మనము దేవునివలన మేలు అనుభవ,medium
+Job,2,11,length:abnormally_long,"తేమానీయుడైన ఎలీఫజు, షూహీయుడైన బిల్దదు నయమాతీయుడైన జోఫరు అను యోబు ముగ్గురు స్నేహి",medium
+Job,3,3,length:abnormally_long,నా తల్లి గర్భద్వారములను అది మూయనందుకును నా నేత్రములకు అది బాధను మరుగు చేయనందుకున,medium
+Job,4,16,length:abnormally_long,అది నిలువబడగా దాని రూపమును నేను గురుతుపట్టలేక పోతిని ఒక రూపము నా కన్నులయెదుట నుం,medium
+Job,8,21,merged_word,అవమానభరితులగుదురుదుష్టుల,medium
+Job,9,27,merged_word,మరచిపోయెదననియుదుఃఖముఖుడనై,medium
+Job,10,17,length:abnormally_long,సింహము వేటాడునట్లు నీవు నన్ను వేటాడుచుందువుఎడతెగక నామీదికి క్రొత్త సాక్షులను పిల,medium
+Job,10,22,length:abnormally_long,కటికచీకటియై గాఢాంధకారమయమైన దేశమునకుభ్రమ పుట్టించు మరణాంధకార దేశమునకు వెలుగే చీకట,medium
+Job,12,3,length:abnormally_long,అయినను మీకున్నట్టు నాకును వివేచనాశక్తి కలిగియున్నది నేను మీకంటె తక్కువజ్ఞానము కల,medium
+Job,14,13,length:abnormally_long,నీవు పాతాళములో నన్ను దాచినయెడల ఎంతోమేలునీ కోపము చల్లారువరకు నన్ను చాటున నుంచినయె,medium
+Job,21,19,merged_word,చెప్పుచున్నారుచేసినవారు,medium
+Job,22,29,merged_word,చూచెదనందువువినయముగలవానిని,medium
+Job,31,22,length:abnormally_long,"నేనాలాగు చేయలేదు, నా బాల్యము మొదలుకొని దిక్కు లేనివాడు తండ్రిభావముతో నన్ను భావిం",medium
+Job,31,34,length:abnormally_long,మహా సమూహమునకు భయపడియు కుటుంబముల తిరస్కారమునకు జడిసియు నేను మౌనముగానుండి ద్వారము ,medium
+Psalms,7,5,length:abnormally_long,శత్రువు నన్ను తరిమి పట్టుకొననిమ్మునా ప్రాణమును నేలకు అణగద్రొక్క నిమ్మునా అతిశయాస,medium
+Psalms,7,7,merged_word,చుట్టుకొనునప్పుడువారికి,medium
+Psalms,9,2,merged_word,సంతోషించిహర్షించుచున్నాను,medium
+Psalms,10,14,length:abnormally_long,"నీవు దీనిని చూచి యున్నావు గదా, వారికి ప్రతికారము చేయుటకై నీవు చేటును పగను కనిపెట",medium
+Psalms,12,5,length:abnormally_long,బాధపడువారికి చేయబడిన బలాత్కారమును బట్టియుదరిద్రుల నిట్టూర్పులనుబట్టియు నేనిప్పుడ,medium
+Psalms,17,6,merged_word,మొఱ్ఱపెట్టుకొనియున్నాను,medium
+Psalms,17,9,length:abnormally_long,ఒకడు తన కనుపాపను కాపాడుకొనునట్లు నన్నుకాపాడుమునన్ను లయపరచగోరు దుష్టులను పోగొట్టి,medium
+Psalms,17,10,merged_word,కఠినపరచుకొనియున్నారువారి,medium
+Psalms,17,14,length:abnormally_long,లోకులచేతిలోనుండి ఈ జీవితకాలములోనే తమ పాలు పొందిన యీ లోకుల చేతిలోనుండినీ హస్తబలము,medium
+Psalms,18,6,length:abnormally_long,నా శ్రమలో నేను యెహోవాకు మొఱ్ఱపెట్టితిని నా దేవునికి ప్రార్థన చేసితిని ఆయన తన ఆలయ,medium
+Psalms,18,48,length:abnormally_long,ఆయన నా శత్రువుల చేతిలోనుండి నన్ను విడి పించును. నా మీదికి లేచువారికంటె ఎత్తుగా న,medium
+Psalms,27,4,length:abnormally_long,యెహోవాయొద్ద ఒక్క వరము అడిగితిని దానిని నేను వెదకుచున్నాను. యెహోవా ప్రసన్నతను చూచ,medium
+Psalms,27,6,length:abnormally_long,ఇప్పుడు నన్ను చుట్టుకొనియున్న నా శత్రువుల కంటె ఎత్తుగా నా తలయెత్తబడును. ఆయన గుడా,medium
+Psalms,28,7,length:abnormally_long,"యెహోవా నా ఆశ్రయము, నా కేడెము నా హృదయము ఆయనయందు నమ్మికయుంచెను గనుక నాకు సహాయము కల",medium
+Psalms,31,11,length:abnormally_long,నా శత్రువులకందరికి నేను నిందాస్పదుడనైయున్నాను నా పొరుగువారికి విచారకారణముగా ఉన్న,medium
+Psalms,35,10,length:abnormally_long,అప్పుడు యెహోవా నీవంటివాడెవడు? మించిన బలముగలవారి చేతినుండి దీనులను దోచుకొనువారి చ,medium
+Psalms,40,5,length:abnormally_long,"యెహోవా నా దేవా, నీవు మా యెడల జరిగించిన ఆశ్చర్యక్రియలును మాయెడల నీకున్న తలంపులును",medium
+Psalms,40,10,length:abnormally_long,నీ నీతిని నా హృదయములో నుంచుకొని నేను ఊర కుండలేదు. నీ సత్యమును నీ రక్షణను నేను వె,medium
+Psalms,40,12,length:abnormally_long,లెక్కలేని అపాయములు నన్ను చుట్టుకొనియున్నవి నా దోషములు నన్ను తరిమి పట్టుకొనగా నేన,medium
+Psalms,42,4,length:abnormally_long,జనసమూహముతో పండుగచేయుచున్న సమూహ ముతో నేను వెళ్లిన సంగతిని సంతోషముకలిగి స్తోత్రముల,medium
+Psalms,42,5,length:abnormally_long,"నా ప్రాణమా, నీవు ఏల క్రుంగియున్నావు? నాలో నీవేల తొందరపడుచున్నావు? దేవునియందు నిర",medium
+Psalms,44,3,length:abnormally_long,వారు తమ ఖడ్గముచేత దేశమును స్వాధీనపరచు కొనలేదు వారి బాహువు వారికి జయమియ్యలేదు నీవ,medium
+Psalms,44,15,merged_word,తీర్చుకొనువారినిబట్టియు,medium
+Psalms,51,4,length:abnormally_long,నీకు కేవలము నీకే విరోధముగా నేను పాపము చేసియున్నాను నీ దృష్టియెదుట నేను చెడుతనము ,medium
+Psalms,55,3,length:abnormally_long,శత్రువుల శబ్దమునుబట్టియు దుష్టుల బలాత్కారమునుబట్టియు నేను చింతాక్రాంతుడనై విశ్రా,medium
+Psalms,55,3,merged_word,మోపుచున్నారుఆగ్రహముగలవారై,medium
+Psalms,59,13,length:abnormally_long,కోపముచేత వారిని నిర్మూలము చేయుము వారు లేకపోవునట్లు వారిని నిర్మూలము చేయుము దేవుడ,medium
+Psalms,63,2,length:abnormally_long,నీ బలమును నీ ప్రభావమును చూడవలెనని పరిశుద్ధాలయమందు నే నెంతో ఆశతో నీతట్టు కనిపెట్ట,medium
+Psalms,65,9,length:abnormally_long,నీవు భూమిని దర్శించి దాని తడుపుచున్నావు దానికి మహదైశ్వర్యము కలుగజేయుచున్నావు దేవ,medium
+Psalms,68,4,length:abnormally_long,దేవుని గూర్చిపాడుడి ఆయన నామమునుబట్టి స్తోత్ర గానము చేయుడి వాహనమెక్కి అరణ్యములలో ,medium
+Psalms,68,18,length:abnormally_long,నీవు ఆరోహణమైతివి పట్టబడినవారిని చెరపట్టుకొని పోతివి మనుష్యులచేత నీవు కానుకలు తీస,medium
+Psalms,69,4,length:abnormally_long,నిర్నిమిత్తముగా నామీద పగపట్టువారు నా తలవెండ్రుకలకంటె విస్తారముగా ఉన్నారు అబద్ధము,medium
+Psalms,69,16,merged_word,వాత్సల్యబాహుళ్యతనుబట్టి,medium
+Psalms,69,20,length:abnormally_long,నిందకు నా హృదయము బద్దలాయెను నేను బహుగా కృశించియున్నాను కరుణించువారికొరకు కనిపెట్,medium
+Psalms,75,8,length:abnormally_long,"యెహోవా చేతిలో ఒక పాత్రయున్నది అందులోని ద్రాక్షారసము పొంగుచున్నది, అది సంబారముతో ",medium
+Psalms,82,3,merged_word,తలిదండ్రులులేనివారికిని,medium
+Psalms,84,2,length:abnormally_long,యెహోవా మందిరావరణములను చూడవలెనని నా ప్రాణము ఎంతో ఆశపడుచున్నది అది సొమ్మ సిల్లుచున,medium
+Psalms,105,2,merged_word,ఆశ్చర్యకార్యములన్నిటిని,medium
+Psalms,106,47,length:abnormally_long,"యెహోవా మాదేవా, మమ్మును రక్షింపుము మేము నీ పరిశుద్ధనామమునకు కృతజ్ఞతాస్తుతులు చెల్",medium
+Psalms,108,6,char:latin_in_telugu,నీ ప్రభావము సర్వభూమిమీద కనబడనిమ్ము నీ ప్రియులు విమోచింపబడునట్లుn నీ కుడిచేతితో నన్ను రక్షించి నాకు ఉ,low
+Psalms,130,6,length:abnormally_long,కావలివారు ఉదయముకొరకు కనిపెట్టుటకంటె ఎక్కు వగా నా ప్రాణము ప్రభువు కొరకు కనిపెట్టు,medium
+Psalms,131,2,length:abnormally_long,నేను నా ప్రాణమును నిమ్మళ పరచుకొనియున్నాను సముదాయించుకొని యున్నాను చనుపాలు విడిచి,medium
+Psalms,132,11,length:abnormally_long,నీ గర్భఫలమును నీ రాజ్యముమీద నేను నియమింతును. నీ కుమారులు నా నిబంధనను గైకొనినయెడల,medium
+Psalms,138,2,length:abnormally_long,నీ పరిశుద్ధాలయముతట్టు నేను నమస్కారము చేయు చున్నాను నీ నామమంతటికంటె నీవిచ్చిన వాక,medium
+Psalms,139,14,length:abnormally_long,నీవు నన్ను కలుగజేసిన విధము చూడగా భయమును ఆశ్చర్యమును నాకు పుట్టుచున్నవి అందునుబట్,medium
+Psalms,141,5,length:abnormally_long,నీతిమంతులు నన్ను కొట్టుట నాకు ఉపకారము వారు నన్ను గద్దించుట నాకు తైలాభిషేకము నేను,medium
+Psalms,142,7,length:abnormally_long,నేను నీ నామమునకు కృతజ్ఞతాస్తుతులు చెల్లించునట్లు చెరసాలలోనుండి నా ప్రాణమును తప్ప,medium
+Psalms,149,2,merged_word,రాజునుబట్టిఆనందించుదురు,medium
+Proverbs,1,12,length:abnormally_long,పాతాళము మనుష్యులను మింగివేయునట్లు వారిని జీవముతోనే మింగివేయుదము సమాధిలోనికి దిగు,medium
+Proverbs,1,22,length:abnormally_long,"ఎట్లనగా, జ్ఞానములేనివారలారా, మీరెన్నాళ్లు జ్ఞానములేని వారుగా ఉండగోరుదురు? అపహాసక",medium
+Proverbs,1,27,length:abnormally_long,భయము మీమీదికి తుపానువలె వచ్చునప్పుడు సుడిగాలి వచ్చునట్లు మీకు అపాయము కలుగు నప్పు,medium
+Proverbs,1,28,merged_word,ప్రత్యుత్తరమియ్యకుందును,medium
+Proverbs,6,22,length:abnormally_long,నీవు త్రోవను వెళ్లునప్పుడు అది నిన్ను నడిపించును నీవు పండుకొనునప్పుడు అది నిన్ను,medium
+Proverbs,13,8,merged_word,ఐశ్వర్యముప్రాయశ్చిత్తము,medium
+Proverbs,18,19,length:abnormally_long,బలమైన పట్టణమును వశపరచుకొనుటకంటె ఒకనిచేత అన్యాయమునొందిన సహోదరుని వశపరచు కొనుట కష్,medium
+Proverbs,23,5,length:abnormally_long,నీవు దానిమీద దృష్టి నిలిపినతోడనే అది లేకపోవును నిశ్చయముగా అది రెక్కలు ధరించి యెగ,medium
+Proverbs,23,20,merged_word,హెచ్చుగాతినువారితోనైనను,medium
+Proverbs,23,35,length:abnormally_long,నన్ను కొట్టినను నాకు నొప్పి కలుగలేదు నామీద దెబ్బలు పడినను నాకు తెలియలేదు నేనెప్ప,medium
+Proverbs,24,12,length:abnormally_long,ఈ సంగతి మాకు తెలియదని నీవనుకొనినయెడల హృదయములను శోధించువాడు నీ మాటను గ్రహించును గ,medium
+Proverbs,24,29,merged_word,ప్రతిఫలమిచ్చెదననుకొనకుము,medium
+Proverbs,27,10,length:abnormally_long,నీ స్నేహితునినైనను నీ తండ్రి స్నేహితునైనను విడిచి పెట్టకుము నీకు అపద కలిగిన దినమ,medium
+Proverbs,30,4,length:abnormally_long,ఆకాశమునకెక్కి మరల దిగినవాడెవడు? తన పిడికిళ్లతో గాలిని పట్టుకొన్నవాడెవడు? బట్టలో ,medium
+Proverbs,30,14,length:abnormally_long,దేశములో ఉండకుండ వారు దరిద్రులను మింగు నట్లును మనుష్యులలో ఉండకుండ బీదలను నశింపజేయ,medium
+Proverbs,31,8,merged_word,దిక్కులేనివారికందరికిని,medium
+Ecclesiastes,9,2,length:abnormally_long,"సంభవించునవి అన్నియు అందరికిని ఏకరీతిగానే సంభ వించును; నీతిమంతులకును దుష్టులకును,",medium
+Ecclesiastes,9,11,length:abnormally_long,మరియు నేను ఆలోచింపగా సూర్యునిక్రింద జరుగు చున్నది నాకు తెలియబడెను. వడిగలవారు పరు,medium
+Song of Solomon,5,1,length:abnormally_long,"నా సహోదరీ, ప్రాణేశ్వరీ, నా ఉద్యానవనమునకు నేను ఏతెంచితిని నా జటామాంసిని నా గంధవర్",medium
+Isaiah,2,14,merged_word,ఉన్నతపర్వతములకన్నిటికిని,medium
+Isaiah,8,19,merged_word,కర్ణపిశాచిగలవారియొద్దకును,medium
+Isaiah,11,11,merged_word,సముద్రద్వీపములలోనుండియు,medium
+Isaiah,14,19,merged_word,దిగుచున్నవానివలెనున్నావు,medium
+Isaiah,19,3,merged_word,కర్ణపిశాచిగలవారియొద్దకును,medium
+Isaiah,24,2,length:abnormally_long,ప్రజలకు కలిగినట్టు యాజకులకు కలుగును దాసులకు కలిగినట్లు యజమానులకు కలుగును దాసీలకు,medium
+Isaiah,25,6,char:latin_in_telugu,ఈ పర్వతముమీద సైన్యములకధిపతియగు యెహోవా సమస్తజనముల నిమిత్తము క్రొవ్వినవాటితో విందు చేయును మడ్డిమీదనున్,low
+Isaiah,37,24,length:abnormally_long,నీ దూతలచేత యెహోవాను తిరస్కరించి నీ వీలాగు పలికితివి నా రథముల సముదాయముతో నేను పర్,medium
+Isaiah,45,14,length:abnormally_long,యెహోవా ఈ మాట సెలవిచ్చుచున్నాడు ఐగుప్తీయుల కష్టార్జితమును కూషు వర్తక లాభమును నీకు,medium
+Isaiah,45,21,length:abnormally_long,మీ ప్రమాణవాక్యములు నా సన్నిధిని తెలియ జేయుడి జనులు కూడుకొని ఆలోచన చేసికొందురు గా,medium
+Isaiah,49,7,length:abnormally_long,ఇశ్రాయేలు విమోచకుడును పరిశుద్ధ దేవుడునగు యెహోవా మనుష్యులచేత నిరాకరింపబడినవాడును ,medium
+Isaiah,49,8,length:abnormally_long,యెహోవా ఈలాగు సెలవిచ్చుచున్నాడు అనుకూలసమయమందు నేను నీ మొర నాలకించి నీకు ఉత్తరమిచ్,medium
+Isaiah,53,10,merged_word,అపరాధపరిహారార్థబలిచేయగా,medium
+Isaiah,57,15,length:abnormally_long,మహా ఘనుడును మహోన్నతుడును పరిశుద్ధుడును నిత్యనివాసియునైనవాడు ఈలాగు సెల విచ్చుచున్,medium
+Isaiah,59,10,merged_word,బ్రతుకుచున్నవారిలోనుండియు,medium
+Isaiah,61,3,length:abnormally_long,సీయోనులో దుఃఖించువారికి ఉల్లాస వస్త్రములు ధరింపజేయుటకును బూడిదెకు ప్రతిగా పూదండన,medium
+Isaiah,61,7,merged_word,దేశములోరెట్టింపుభాగమునకు,medium
+Isaiah,63,19,merged_word,పెట్టబడనివారివలెనైతివిు,medium
+Isaiah,64,6,merged_word,అపవిత్రులవంటివారమైతివిు,medium
+Isaiah,65,23,merged_word,ఆశీర్వదింపబడినవారగుదురు,medium
+Isaiah,66,3,length:abnormally_long,ఎద్దును వధించువాడు నరుని చంపువానివంటివాడే గొఱ్ఱెపిల్లను బలిగా అర్పించువాడు కుక్క,medium
+Isaiah,66,19,length:abnormally_long,నేను వారియెదుట ఒక సూచక క్రియను జరిగించెదను వారిలో తప్పించుకొనినవారిని విలుకాండ్ర,medium
+Isaiah,66,20,length:abnormally_long,ఇశ్రాయేలీయులు పవిత్రమైన పాత్రలో నైవేద్య మును యెహోవా మందిరములోనికి తెచ్చునట్లుగా ,medium
+Jeremiah,3,20,merged_word,విశ్వాసఘాతకురాలగునట్లుగా,medium
+Jeremiah,11,4,length:abnormally_long,"ఐగుప్తుదేశములోనుండి, ఆ యినుప కొలిమిలోనుండి నేను మీ పితరులను రప్పించిన దినమున నేన",medium
+Jeremiah,19,13,merged_word,పానార్పణములనర్పించుదురో,medium
+Jeremiah,29,14,length:abnormally_long,నన్ను నేను మీకు కనుపరచుకొందును; ఇదే యెహోవా వాక్కు. నేను మిమ్మును చెరలోనుండి రప్ప,medium
+Jeremiah,29,22,length:abnormally_long,"ఆలకించుడి, వారు ఇశ్రాయేలీయులలో దుర్మార్గము జరిగించుచు, తమ పొరుగువారి భార్యలతో వ్",medium
+Jeremiah,29,26,length:abnormally_long,వెఱ్ఱి వారై తమ్మును తాము ప్రవక్తలనుగా ఏర్పరచుకొనువారిని నీవు సంకెళ్లచేత బంధించి ,medium
+Jeremiah,33,11,length:abnormally_long,సంతోష స్వరమును ఆనంద శబ్దమును పెండ్లి కుమారుని స్వరమును పెండ్లికుమార్తె స్వర మును,medium
+Jeremiah,35,17,merged_word,ప్రత్యుత్తరమియ్యకపోయిరి,medium
+Jeremiah,40,1,merged_word,రాజదేహసంరక్షకులకధిపతియైన,medium
+Jeremiah,40,4,length:abnormally_long,"ఆలకించుము, ఈ దినమున నేను నీ చేతుల సంకెళ్లను తీసి నిన్ను విడిపించుచున్నాను, నాతో ",medium
+Jeremiah,40,5,length:abnormally_long,ఇంకను అతడు తిరిగి వెళ్లక తడవు చేయగా రాజదేహసంరక్షకుల కధిపతి అతనితో ఈలాగు చెప్పెను,medium
+Jeremiah,42,4,merged_word,వారికుత్తరమిచ్చినదేమనగా,medium
+Jeremiah,44,12,length:abnormally_long,"అనగా యూదావారినందరిని నిర్మూలము చేయునట్లు, నేను మీకు అభిముఖుడనగుదును; ఐగుప్తు దేశ",medium
+Jeremiah,44,17,length:abnormally_long,మేము నీతో చెప్పిన సంగతులన్నిటిని నిశ్చయముగా నెరవేర్చ బోవుచున్నాము; మేమును మా పిత,medium
+Jeremiah,44,25,length:abnormally_long,"ఇశ్రాయేలు దేవుడును, సైన్యములకధిపతియునగు యెహోవా ఈ మాట సెలవిచ్చుచున్నాడు ఆకాశరాణిక",medium
+Jeremiah,49,35,merged_word,సెలవిచ్చెనుసైన్యములకధిపతి,medium
+Ezekiel,6,13,length:abnormally_long,తమ విగ్రహముల మధ్యను తాము కట్టిన బలిపీఠములచుట్టును ఎత్తయిన కొండలన్నిటిమీదను సకల ప,medium
+Ezekiel,26,19,length:abnormally_long,ప్రభువైన యెహోవా సెలవిచ్చునదేమనగ ా నివాసులులేని పట్టణములవలెనే నేను నిన్ను పాడుచేయ,medium
+Ezekiel,28,2,length:abnormally_long,"నరపుత్రుడా, తూరు అధిపతితో ఈలాగు ప్రకటింపుము ప్రభువగు యెహోవా సెలవిచ్చునదేమనగ ా గర",medium
+Ezekiel,31,15,length:abnormally_long,ప్రభువైన యెహోవా సెలవిచ్చునదేమనగ ా అతడు పాతాళములోనికి పోయిన దినమున నేను అంగలార్పు,medium
+Ezekiel,31,18,merged_word,సున్నతినొందనివారియొద్దను,medium
+Ezekiel,33,11,length:abnormally_long,కాగా వారితో ఇట్లనుము నా జీవముతోడు దుర్మార్గుడు మరణము నొందుటవలన నాకు సంతోషము లేదు,medium
+Ezekiel,37,23,length:abnormally_long,"వారిని ఏకజనముగా చేసి, వారికందరికి ఒక రాజునే నియమించెదను. తమ విగ్రహముల వలనగాని తా",medium
+Ezekiel,42,13,length:abnormally_long,అప్పుడాయన నాతో ఇట్లనెను విడిచోటునకు ఎదురుగానున్న ఉత్తరపు గదులును దక్షిణపుగదులును,medium
+Ezekiel,45,1,merged_word,సరిహద్దులన్నిటిలోగానున్న,medium
+Ezekiel,45,7,length:abnormally_long,మరియు ప్రతిష్ఠిత భాగమునకును పట్టణమునకై యేర్పడిన ప్రదేశమునకును ఎదురుగా వాటికి పడ ,medium
+Ezekiel,48,21,length:abnormally_long,ప్రతిష్ఠితస్థానమునకును పట్టణమునకు ఏర్పాటు చేయబడిన భాగమునకును ఇరు ప్రక్కలనున్న భూ,medium
+Daniel,2,21,merged_word,అనుగ్రహించువాడునైయున్నాడు,medium
+Daniel,5,23,length:abnormally_long,ఎట్లనగా నీవును నీ యధిపతులును నీ రాణులును నీ ఉపపత్నులును దేవుని ఆలయసంబంధమగు ఉపకరణ,medium
+Daniel,6,7,char:latin_in_telugu,"రాజ్యపు ప్రధానులు సేనాధిపతులు అధిపతులు మంత్రులు సంస్థానాధిపతులు అందరును కూడి, రాజొక ఖండితమైన చట్టము ",low
+Daniel,6,7,length:abnormally_long,"రాజ్యపు ప్రధానులు సేనాధిపతులు అధిపతులు మంత్రులు సంస్థానాధిపతులు అందరును కూడి, రా",medium
+Daniel,8,13,length:abnormally_long,అప్పుడు పరిశుద్ధులలో ఒకడు మాటలాడగా వింటిని; అంతలో మాటలాడుచున్న ఆ పరిశుద్ధునితో మ,medium
+Hosea,2,5,merged_word,వెంటాడుదుననుకొనుచున్నది,medium
+Hosea,5,10,merged_word,తీసివేయువారివలెనున్నారు,medium
+Hosea,9,10,length:abnormally_long,అరణ్యములో ద్రాక్షపండ్లు దొరికినట్లు ఇశ్రాయేలు వారు నాకు దొరికిరి; చిగురుపెట్టు క,medium
+Joel,2,20,length:abnormally_long,"మరియు ఉత్తరదిక్కునుండి వచ్చువాటిని మీకు దూరముగా పార దోలి, యెండిపోయిన నిష్ఫల భూమి",medium
+Micah,2,3,merged_word,తప్పించుకొనలేకుండునంతగాను,medium
+Micah,2,4,length:abnormally_long,ఆ దినమున జనులు మిమ్మునుగురించి బహుగా అంగలార్చుచు సామెత నెత్తుదురు. వారు చెప్పు స,medium
+Nahum,4,1,structural:missing_verse,,high
+Nahum,4,2,structural:missing_verse,,high
+Nahum,4,3,structural:missing_verse,,high
+Zephaniah,2,9,length:abnormally_long,"నా జీవముతోడు మోయాబుదేశము సొదొమ పట్టణమువలెను, అమ్మోనుదేశము గొమొఱ్ఱా పట్టణమువలెను ",medium
+Matthew,2,13,length:abnormally_long,వారు వెళ్ళిన తరువాత ఇదిగో ప్రభువు దూత స్వప్న మందు యోసేపునకు ప్రత్యక్షమై హేరోదు ఆ,medium
+Matthew,2,16,length:abnormally_long,"ఆ జ్ఞానులు తన్ను అపహసించిరని హేరోదు గ్రహించి బహు ఆగ్రహము తెచ్చుకొని, తాను జ్ఞాను",medium
+Matthew,4,24,length:abnormally_long,ఆయన కీర్తి సిరియ దేశమంతట వ్యాపించెను. నానావిధములైన రోగముల చేతను వేదనలచేతను పీడిం,medium
+Matthew,9,17,length:abnormally_long,"మరియు పాత తిత్తు లలో క్రొత్త ద్రాక్షారసము పోయరు; పోసినయెడల తిత్తులు పిగిలి, ద్రా",medium
+Matthew,12,44,length:abnormally_long,"విశ్రాంతి దొరకనందుననేను వదలివచ్చిన నా యింటికి తిరిగి వెళ్లుదుననుకొని వచ్చి, ఆ యి",medium
+Matthew,14,2,merged_word,క్రియారూపకములగుచున్నవని,medium
+Matthew,15,32,length:abnormally_long,అంతట యేసు తన శిష్యులను పిలిచి ఈ జనులు నేటికి మూడు దినములనుండి నాయొద్ద నున్నారు; ,medium
+Matthew,16,13,merged_word,వచ్చిమనుష్యకుమారుడెవడని,medium
+Matthew,17,27,length:abnormally_long,"అయినను మనము వారికి అభ్యంతరము కలుగజేయకుండునట్లు నీవు సముద్రమునకు పోయి, గాలము వేసి",medium
+Matthew,18,8,length:abnormally_long,"కాగా నీ చెయ్యియైనను నీ పాదమైనను నిన్ను అభ్యంతరపరచినయెడల, దానిని నరికి నీయొద్దనుం",medium
+Matthew,19,10,merged_word,శిష్యులుభార్యాభర్తలకుండు,medium
+Matthew,19,12,length:abnormally_long,"తల్లి గర్భమునుండి నపుంసకులుగా పుట్టినవారు గలరు, మనుష్యులవలన నపుంసకులుగా చేయబడిన ",medium
+Matthew,21,19,length:abnormally_long,"అప్పుడు త్రోవప్రక్కను ఉన్న యొక అంజూరపుచెట్టును చూచి, దానియొద్దకు రాగా, దానియందు ",medium
+Matthew,21,21,length:abnormally_long,"అందుకు యేసు–మీరు విశ్వాసముగలిగి సందేహపడకుండినయెడల, ఈ అంజూరపుచెట్టునకు జరిగిన దాన",medium
+Matthew,23,20,merged_word,ఒట్టుపెట్టుకొనుచున్నాడు,medium
+Matthew,23,21,merged_word,ఒట్టుపెట్టుకొనుచున్నాడు,medium
+Matthew,23,23,length:abnormally_long,"అయ్యో, వేషధారులైన శాస్త్రులారా, పరిసయ్యులారా, మీరు పుదీనాలోను సోపులోను జీలకఱ్ఱలో",medium
+Matthew,23,37,length:abnormally_long,"యెరూషలేమా, యెరూషలేమా, ప్రవక్తలను చంపుచును నీయొద్దకు పంపబడినవారిని రాళ్లతో కొట్టు",medium
+Mark,1,45,length:abnormally_long,"అయితే వాడు వెళ్లి దానిని గూర్చి విస్తారముగా ప్రకటించుటకును, ఆ సంగతి ప్రచురము చేయ",medium
+Mark,6,2,length:abnormally_long,విశ్రాంతి దినము వచ్చినప్పుడు ఆయన సమాజమందిరములో బోధింపనారంభించెను. అనేకులు ఆయన బో,medium
+Mark,6,14,merged_word,క్రియారూపకములగుచున్నవని,medium
+Mark,6,56,length:abnormally_long,గ్రామముల లోను పట్టణములలోను పల్లెటూళ్లలోను ఆయన యెక్క డెక్కడ ప్రవేశించెనో అక్కడి జ,medium
+Mark,10,32,length:abnormally_long,వారు ప్రయాణమై యెరూషలేమునకు వెళ్లుచుండిరి. యేసు వారికి ముందు నడుచుచుండగా వారు విస,medium
+Mark,14,43,merged_word,ప్రధానయాజకులయొద్దనుండియు,medium
+Luke,1,17,length:abnormally_long,"మరియు అతడు తండ్రుల హృదయములను పిల్లల తట్టునకును, అవిధేయులను నీతి మంతుల జ్ఞానము నన",medium
+Luke,2,38,merged_word,కనిపెట్టుచున్నవారందరితో,medium
+Luke,3,16,merged_word,బాప్తిస్మమిచ్చుచున్నాను,medium
+Luke,6,17,length:abnormally_long,"ఆయన వారితో కూడ దిగివచ్చి మైదానమందు నిలిచినప్పుడు ఆయన శిష్యుల గొప్ప సమూహమును, ఆయన",medium
+Luke,6,35,length:abnormally_long,"మీరైతే ఎట్టి వారిని గూర్చియైనను నిరాశ చేసికొనక మీ శత్రువులను ప్రేమించుడి, మేలుచే",medium
+Luke,6,42,length:abnormally_long,"నీ కంటిలో ఉన్న దూలమును చూడక నీ సహోదరునితో సహోదరుడా, నీ కంటిలో ఉన్న నలుసును తీసివ",medium
+Luke,7,22,length:abnormally_long,"అప్పుడాయన మీరు వెళ్లి, కన్నవాటిని విన్న వాటిని యోహానుకు తెలుపుడి. గ్రుడ్డివారు చ",medium
+Luke,8,29,length:abnormally_long,ఏలయనగా ఆయనఆ మనుష్యుని విడిచి వెలుపలికి రమ్మని ఆ అపవిత్రాత్మకు ఆజ్ఞాపించెను. అది ,medium
+Luke,9,44,merged_word,అప్పగింపబడబోవుచున్నాడని,medium
+Luke,10,21,length:abnormally_long,"ఆ గడియలోనే యేసు పరిశుద్ధాత్మయందు బహుగా ఆనందించి - తండ్రీ, ఆకాశమునకును భూమికిని ప",medium
+Luke,11,45,merged_word,ధర్మశాస్త్రోపదేశకుడొకడు,medium
+Luke,11,51,length:abnormally_long,"కాబట్టి లోకము పుట్టినది మొదలుకొని, అనగా హేబెలు రక్తము మొదలుకొని బలిపీఠమునకును మం",medium
+Luke,12,58,length:abnormally_long,వాదించువానితో కూడ అధికారియొద్దకు నీవు వెళ్లుచుండగా అతని చేతినుండి తప్పించుకొనుటక,medium
+Luke,13,34,length:abnormally_long,"యెరూషలేమా, యెరూషలేమా, ప్రవక్తలను చంపుచు, నీయొద్దకు పంప బడినవారిని రాళ్లతో కొట్టు",medium
+Luke,14,12,length:abnormally_long,మరియు ఆయన తన్ను పిలిచినవానితో ఇట్లనెను నీవు పగటి విందైనను రాత్రి విందైనను చేయునప,medium
+Luke,14,21,length:abnormally_long,"అప్పుడా దాసుడు తిరిగి వచ్చి యీ మాటలు తన యజమానునికి తెలియజేయగా, ఆ యింటి యజ మానుడు",medium
+Luke,23,46,merged_word,అప్పగించుకొనుచున్నాననెను,medium
+John,1,25,merged_word,బాప్తిస్మమిచ్చుచున్నావని,medium
+John,1,26,merged_word,బాప్తిస్మమిచ్చుచున్నాను,medium
+John,8,44,length:abnormally_long,మీరు మీ తండ్రియగు అపవాది సంబంధులు; మీ తండ్రి దురాశలు నెరవేర్చ గోరుచున్నారు. ఆదిన,medium
+John,17,23,length:abnormally_long,వారియందు నేనును నా యందు నీవును ఉండుటవలన వారు సంపూర్ణులుగా చేయబడి యేకముగా ఉన్నందు,medium
+John,19,23,length:abnormally_long,"సైనికులు యేసును సిలువవేసిన తరువాత ఆయన వస్త్ర ములు తీసికొని, యొక్కొక్క సైనికునికి",medium
+John,19,24,length:abnormally_long,వారు దానిని చింపక అది ఎవనికి వచ్చునో అని దానికోసరము చీట్లు వేయుదమని యొకరితో ఒకరు,medium
+John,21,15,length:abnormally_long,"వారు భోజనముచేసిన తరువాత యేసు సీమోను పేతురును చూచియెహాను కుమారుడవైన సీమోనూ, వీరిక",medium
+John,21,17,length:abnormally_long,"మూడవసారి ఆయన యోహాను కుమారుడవైన సీమోనూ, నన్ను ప్రేమించుచున్నావా? అని అతనిని అడిగె",medium
+John,21,18,length:abnormally_long,యేసు నా గొఱ్ఱెలను మేపుము. నీవు ¸యౌవనుడవై యుండినప్పుడు నీ అంతట నీవే నడుము కట్టుకొ,medium
+Acts,5,28,char:latin_in_telugu,ప్రధానయాజకుడు వారిని చూచిమీరు ఈ నామమునుబట్టి బోధింప కూడdదని మేము మీకు ఖండితముగా ఆజ్ఞాపింపలేదా? ఇదిగో,low
+Acts,5,34,merged_word,ధర్మశాస్త్రోపదేశకుడునైన,medium
+Acts,10,22,length:abnormally_long,"అందుకు వారునీతిమంతుడును, దేవునికి భయపడువాడును, యూద జనులందరివలన మంచిపేరు పొందినవా",medium
+Acts,12,20,length:abnormally_long,తూరీయులమీదను సీదోనీయులమీదను అతనికి అత్యా గ్రహము కలిగినందున వారేకమనస్సుతో రాజునొద,medium
+Acts,19,2,merged_word,పరిశుద్ధాత్ముడున్నాడన్న,medium
+Acts,20,32,merged_word,స్వాస్థ్యమనుగ్రహించుటకును,medium
+Acts,21,24,length:abnormally_long,"నీవు వారిని వెంటబెట్టుకొనిపోయి వారితో కూడ శుద్ధిచేసికొని, వారు తలక్షౌరము చేయించు",medium
+Acts,23,3,length:abnormally_long,"పౌలు అతనిని చూచి సున్నము కొట్టిన గోడా, దేవుడు నిన్ను కొట్టును; నీవు ధర్మశాస్త్రమ",medium
+Acts,23,11,merged_word,మియ్యవలసియున్నదనిచెప్పెను,medium
+Acts,23,30,length:abnormally_long,"అయితే వారు ఈ మనుష్యునిమీద కుట్రచేయనై యున్నారని నాకు తెలియవచ్చినందున, వెంటనే అతని",medium
+Acts,26,3,merged_word,చెప్పుకొనబోవుచున్నందుకు,medium
+Acts,28,17,length:abnormally_long,మూడు దినములైన తరువాత అతడు యూదులలో ముఖ్యులైనవారిని తనయొద్దకు పిలిపించెను. వారు కూ,medium
+Acts,28,23,length:abnormally_long,"అతనికి ఒక దినము నియమించి, అతని బసలోనికి అతనియొద్దకు అనేకులు వచ్చిరి. ఉదయమునుండి ",medium
+Acts,28,27,length:abnormally_long,ఈ ప్రజలు కన్నులార చూచి చెవులార విని మనస్సార గ్రహించి నా వైపు తిరిగి నావలన స్వస్థ,medium
+Romans,2,1,length:abnormally_long,"కాబట్టి తీర్పు తీర్చు మనుష్యుడా, నీ వెవడవైనను సరే నిరుత్తరుడవై యున్నావు. దేనివిష",medium
+Romans,2,14,merged_word,ధర్మశాస్త్రమైనట్టున్నారు,medium
+Romans,8,1,merged_word,క్రీస్తుయేసునందున్నవారికి,medium
+Romans,10,12,merged_word,ప్రార్థనచేయువారందరియెడల,medium
+Romans,10,15,merged_word,ప్రకటించువారిపాదములెంతో,medium
+Romans,12,3,length:abnormally_long,"తన్నుతాను ఎంచుకొనతగినదానికంటె ఎక్కువగా ఎంచుకొనక, దేవుడు ఒక్కొకనికి విభజించి యిచ్",medium
+Romans,13,7,length:abnormally_long,ఇందుకే గదా మీరు పన్ను కూడ చెల్లించుచున్నారు? కాబట్టి యెవనికి పన్నో వానికి పన్నున,medium
+1 Corinthians,1,2,length:abnormally_long,"కొరింథులోనున్న దేవుని సంఘమునకు, అనగా క్రీస్తుయేసునందు పరిశుద్ధపరచబడినవారై పరిశుద",medium
+1 Corinthians,1,2,merged_word,ప్రార్థించువారికందరికిని,medium
+1 Corinthians,7,11,merged_word,పెండ్లిచేసికొనకుండవలెను,medium
+1 Corinthians,7,34,merged_word,పవిత్రురాండ్రయియుండుటకు,medium
+1 Corinthians,8,6,length:abnormally_long,"ఆకాశమందైనను భూమిమీదనైనను దేవతలనబడినవి యున్నను, మనకు ఒక్కడే దేవుడున్నాడు. ఆయన తండ",medium
+1 Corinthians,9,14,merged_word,ప్రభువునియమించియున్నాడు,medium
+1 Corinthians,12,28,length:abnormally_long,"మరియు దేవుడు సంఘములో మొదట కొందరిని అపొస్తలులు గాను, పిమ్మట కొందరిని ప్రవక్తలుగాన",medium
+1 Corinthians,14,26,length:abnormally_long,"సహోదరులారా, యిప్పుడు మీలో ఏమి జరుగు చున్నది? మీరు కూడి వచ్చునప్పుడు ఒకడు ఒక కీర్",medium
+1 Corinthians,16,5,merged_word,వెళ్లనుద్దేశించుచున్నాను,medium
+2 Corinthians,1,3,merged_word,యేసుక్రీస్తుతండ్రియునైన,medium
+2 Corinthians,5,11,merged_word,ప్రత్యక్షపరచబడియున్నామని,medium
+2 Corinthians,5,13,merged_word,స్వస్థబుద్ధిగలవారమైతిమా,medium
+2 Corinthians,6,9,merged_word,తెలియబడనివారమైనట్లుండియు,medium
+2 Corinthians,7,11,length:abnormally_long,మీరు దేవుని చిత్త ప్రకారము పొందిన యీ దుఃఖము ఎట్టి జాగ్రతను ఎట్టిదోష నివారణకైన ప్,medium
+Galatians,2,14,length:abnormally_long,వారు సువార్త సత్యము చొప్పున క్రమముగా నడుచుకొనకపోవుట నేను చూచినప్పుడు అందరి యెదుట,medium
+Galatians,2,15,length:abnormally_long,మనము జన్మమువలన యూదులమే గాని అన్య జనులలో చేరిన పాపులము కాము. మనుష్యుడు యేసు క్రీస,medium
+Galatians,2,20,length:abnormally_long,"నేను క్రీస్తుతో కూడ సిలువ వేయబడియున్నాను; ఇకను జీవించువాడను నేను కాను, క్రీస్తే ",medium
+Galatians,3,1,merged_word,సిలువవేయబడినవాడైనట్టుగా,medium
+Galatians,3,21,merged_word,నీతిధర్మశాస్త్రమూలముగానే,medium
+Galatians,5,6,merged_word,యేసుక్రీస్తునందుండువారికి,medium
+Ephesians,1,7,merged_word,కృపామహదైశ్వర్యమునుబట్టి,medium
+Ephesians,4,13,length:abnormally_long,"పరిశుద్ధులు సంపూర్ణులగునట్లు క్రీస్తు శరీరము క్షేమాభివృద్ధి చెందుటకును, పరిచర్య ",medium
+Ephesians,4,14,length:abnormally_long,"అందువలన మనమిక మీదట పసిపిల్లలమై యుండి, మనుష్యుల మాయో పాయములచేత వంచనతోను, తప్పుమార",medium
+Ephesians,4,16,length:abnormally_long,"ఆయన శిరస్సయి యున్నాడు, ఆయననుండి సర్వశరీరము చక్కగా అమర్చ బడి, తనలోనున్న ప్రతి అవయ",medium
+Ephesians,5,5,merged_word,దేవునియొక్కయురాజ్యమునకు,medium
+Philippians,1,17,merged_word,నియమింపబడియున్నాననియెరిగి,medium
+Philippians,1,27,length:abnormally_long,"నేను వచ్చి మిమ్మును చూచినను, రాకపోయినను, మీరు ఏ విషయములోను ఎదిరించువారికి బెదరక,",medium
+1 Thessalonians,2,13,length:abnormally_long,"ఆ హేతువుచేతను, మీరు దేవుని గూర్చిన వర్తమాన వాక్యము మావలన అంగీకరించినప్పుడు, మనుష",medium
+1 Thessalonians,4,10,merged_word,వృద్ధినొందుచుండవలెననియు,medium
+2 Thessalonians,2,13,length:abnormally_long,"ప్రభువు వలన ప్రేమింపబడిన సహోదరులారా, ఆత్మ మిమ్మును పరిశుద్ధపరచుటవలనను, మీరు సత్య",medium
+2 Timothy,1,10,length:abnormally_long,"క్రీస్తు యేసను మన రక్షకుని ప్రత్యక్షతవలన బయలుపరచబడి నదియునైన తన కృపనుబట్టియు, మన",medium
+2 Timothy,1,13,merged_word,క్రీస్తుయేసునందుంచవలసిన,medium
+Titus,4,1,structural:missing_verse,,high
+Titus,4,2,structural:missing_verse,,high
+Titus,4,3,structural:missing_verse,,high
+Titus,4,4,structural:missing_verse,,high
+Titus,4,5,structural:missing_verse,,high
+Titus,4,6,structural:missing_verse,,high
+Titus,4,7,structural:missing_verse,,high
+Titus,4,8,structural:missing_verse,,high
+Titus,4,9,structural:missing_verse,,high
+Titus,4,10,structural:missing_verse,,high
+Titus,4,11,structural:missing_verse,,high
+Titus,4,12,structural:missing_verse,,high
+Titus,4,13,structural:missing_verse,,high
+Titus,4,14,structural:missing_verse,,high
+Titus,4,15,structural:missing_verse,,high
+Titus,4,16,structural:missing_verse,,high
+Titus,4,17,structural:missing_verse,,high
+Titus,4,18,structural:missing_verse,,high
+Hebrews,7,2,length:abnormally_long,"ఎవడు కలిసికొని అతనిని ఆశీర్వదించెనో, యెవనికి అబ్రాహాము అన్నిటిలో పదియవవంతు ఇచ్చె",medium
+Hebrews,12,2,length:abnormally_long,"మనము కూడ ప్రతిభారమును, సుళువుగా చిక్కులబెట్టు పాపమును విడిచిపెట్టి, విశ్వాసమునకు",medium
+James,1,22,merged_word,ప్రవర్తించువారునైయుండుడి,medium
+James,4,11,length:abnormally_long,"సహోదరులారా, ఒకనికి విరోధముగా ఒకడు మాట లాడకుడి. తన సహోదరునికి విరోధముగా మాటలాడి త",medium
+1 Peter,1,2,length:abnormally_long,"ఆత్మవలని పరిశుద్ధత పొందినవారై విధేయులగుటకును, యేసుక్రీస్తు రక్తమువలన ప్రోక్షింపబ",medium
+2 Peter,1,13,merged_word,పెట్టవలసివచ్చుననియెరిగి,medium
+1 John,2,14,length:abnormally_long,"చిన్న పిల్లలారా, మీరు తండ్రిని ఎరిగియున్నారు గనుక మీకు వ్రాయుచున్నాను. తండ్రులార",medium
+1 John,2,27,length:abnormally_long,అయితే ఆయనవలన మీరు పొందిన అభిషేకము మీలో నిలుచుచున్నది గనుక ఎవడును మీకు బోధింపనక్క,medium
+2 John,1,3,merged_word,యేసుక్రీస్తునొద్దనుండియు,medium
+Revelation,7,9,length:abnormally_long,"అటు తరువాత నేను చూడగా, ఇదిగో, ప్రతి జనములోనుండియు ప్రతి వంశములోనుండియు ప్రజలలోను",medium
+Revelation,17,8,length:abnormally_long,నీవు చూచిన ఆ మృగము ఉండెను గాని యిప్పుడు లేదు; అయితే అది అగాధ జలములోనుండి పైకి వచ,medium
+Revelation,18,22,length:abnormally_long,నీ వర్తకులు భూమిమీద గొప్ప ప్రభువులై యుండిరి; జనములన్నియు నీ మాయమంత్రములచేత మోసపో,medium
+Revelation,19,18,length:abnormally_long,"అతడు గొప్ప శబ్దముతో ఆర్భటించి–రండి, రాజుల మాంసమును సహస్రాధిపతుల మాంసమును బలిష్ఠు",medium
+Revelation,20,4,length:abnormally_long,అంతట సింహాసనములను చూచితిని; వాటిమీద ఆసీనులై యుండువారికి విమర్శచేయుటకు అధికారము ఇ,medium
+Revelation,21,5,merged_word,సింహాసనాసీనుడైయున్నవాడు,medium

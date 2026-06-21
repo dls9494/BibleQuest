@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LocalStorageService {
   static late SharedPreferencesBox userStateBox;
   static late SharedPreferencesBox pendingWritesBox;
+  static const secureStorage = FlutterSecureStorage();
 
   static Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
@@ -14,6 +16,7 @@ class LocalStorageService {
   static Future<void> clearUserData() async {
     await userStateBox.clear();
     await pendingWritesBox.clear();
+    await secureStorage.deleteAll();
   }
 }
 
@@ -93,6 +96,11 @@ class SharedPreferencesBox {
       _list.removeAt(index);
       await _prefs.setString(_prefix, json.encode(_list));
     }
+  }
+
+  Future<void> remove(dynamic key) async {
+    if (isList) return;
+    await _prefs.remove('${_prefix}_$key');
   }
 
   Future<void> clear() async {

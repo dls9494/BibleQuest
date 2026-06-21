@@ -157,7 +157,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
     }
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final photoURL = provider_pkg.Provider.of<UserDataProvider>(context).photoURL;
 
     return Scaffold(
@@ -259,7 +259,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
 
   Widget _buildMainMenu() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     // Icons Setup
     final otIcon = _buildFlatIcon(IconAssets.oldTestament, Icons.auto_stories, Colors.amber, size: 20);
@@ -697,8 +697,8 @@ class GamifiedMenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
 
     final double iconSize = isRowLayout ? 30.0 : 34.0;
 
@@ -870,7 +870,7 @@ class TestamentBooksScreen extends StatelessWidget {
     final title = testament == 'old' ? 'Old Testament' : 'New Testament';
     final books = BibleService.getBooks().where((b) => b.testament == testamentType).toList();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -1020,7 +1020,7 @@ class ChapterGridScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -1159,7 +1159,7 @@ class VerseGridScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final book = BibleService.getBookById(bookId);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       extendBodyBehindAppBar: true,

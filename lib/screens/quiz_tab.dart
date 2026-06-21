@@ -468,7 +468,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
     final highestUnlocked = unlocked.isEmpty ? 1 : unlocked.reduce((a, b) => a > b ? a : b);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final accentColor = isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6);
 
     return Scaffold(
@@ -752,7 +752,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                         Text(
                           title,
                           style: TextStyle(
-                            color: isDark ? Colors.white : const Color(0xFF3E2723),
+                            color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Outfit',
@@ -762,7 +762,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                         Text(
                           subtitle,
                           style: TextStyle(
-                            color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+                            color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                             fontSize: 13,
                             fontFamily: 'Outfit',
                           ),
@@ -772,7 +772,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                   ),
                   Icon(
                     Icons.arrow_forward_ios_rounded,
-                    color: isDark ? Colors.white38 : const Color(0xFF3E2723),
+                    color: isDark ? Colors.white38 : Theme.of(context).textTheme.bodyLarge?.color ?? Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
                     size: 16,
                   ),
                 ],
@@ -786,8 +786,8 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
 
   Widget _buildStudyBanner() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
     final accentColor = isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6);
 
     return ClipRRect(
@@ -916,7 +916,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                 style: TextStyle(
                   color: isSelected
                       ? (category == 'All' || category == 'Old Testament' || category == 'New Testament' ? Colors.white : Colors.black)
-                      : (isDark ? Colors.white70 : const Color(0xFF3E2723)),
+                      : (Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white70 : Color(0xFF3E2723))),
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   fontFamily: 'Outfit',
                   fontSize: 13,
@@ -1079,7 +1079,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                             style: TextStyle(
                               color: isLocked
                                   ? (isDark ? const Color(0xFF958E9D) : Colors.grey.shade500)
-                                  : (isDark ? Colors.white : const Color(0xFF3E2723)),
+                                  : (Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723))),
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Outfit',
@@ -1132,7 +1132,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                           Text(
                             "1 Quiz",
                             style: TextStyle(
-                              color: isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037).withValues(alpha: 0.8),
+                              color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037)).withValues(alpha: 0.8),
                               fontSize: 11,
                               fontFamily: 'Outfit',
                             ),
@@ -2354,8 +2354,8 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
 
   Widget _buildCustomQuizCard() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
     final accentColor = const Color(0xFF10B981); // Emerald green
 
     return Container(

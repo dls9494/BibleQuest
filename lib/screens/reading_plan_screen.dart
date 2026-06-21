@@ -53,7 +53,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
             IconButton(
               icon: Icon(
                 Icons.refresh,
-                color: isDark ? Colors.white70 : const Color(0xFF3E2723),
+                color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white70 : Color(0xFF3E2723)),
               ),
               tooltip: "Reset / Change Plan",
               onPressed: () => _showResetConfirmation(context, planProvider, userProvider),
@@ -99,7 +99,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
           "Spend time in God's Word daily, test your retention, and earn bonus XP!",
           style: TextStyle(
             fontSize: 15,
-            color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+            color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
             fontFamily: 'Outfit',
           ),
           textAlign: TextAlign.center,
@@ -181,13 +181,13 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                           englishStyle: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : const Color(0xFF3E2723),
+                            color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
                             fontFamily: 'Outfit',
                           ),
                           teluguStyle: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF3E2723),
+                            color: Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
                             fontFamily: 'Outfit',
                           ),
                         ),
@@ -217,7 +217,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                 desc,
                 style: TextStyle(
                   fontSize: 14,
-                  color: isDark ? Colors.white60 : const Color(0xFF5D4037),
+                  color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white60 : Color(0xFF5D4037)),
                 ),
               ),
               const SizedBox(height: 16),
@@ -232,7 +232,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                         "+10 XP/read",
                         style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+                          color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -243,7 +243,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                         "+25 XP/quiz",
                         style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+                          color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -251,7 +251,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                   ),
                   Icon(
                     Icons.arrow_forward_rounded,
-                    color: isDark ? Colors.white54 : const Color(0xFF3E2723),
+                    color: isDark ? Colors.white54 : Theme.of(context).textTheme.bodyLarge?.color ?? Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
                   ),
                 ],
               ),
@@ -388,7 +388,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+                          color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -445,7 +445,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                   "${(percent * 100).toInt()}%",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white70 : const Color(0xFF3E2723),
+                    color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white70 : Color(0xFF3E2723)),
                   ),
                 ),
               ],
@@ -519,12 +519,12 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                           englishStyle: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : const Color(0xFF3E2723),
+                            color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
                           ),
                           teluguStyle: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF3E2723),
+                            color: Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
                           ),
                         ),
                       ],
@@ -543,12 +543,12 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
                 teluguText: day.summaryTe,
                 englishStyle: TextStyle(
                   fontSize: 14,
-                  color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+                  color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                   height: 1.4,
                 ),
                 teluguStyle: const TextStyle(
                   fontSize: 14,
-                  color: Color(0xFF5D4037),
+                  color: Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF5D4037),
                   height: 1.4,
                 ),
               ),
@@ -721,7 +721,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
             child: Text(
               "$dayNum",
               style: TextStyle(
-                color: isLocked ? Colors.grey : (isDark ? Colors.white70 : const Color(0xFF3E2723)),
+                color: isLocked ? Colors.grey : (Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white70 : Color(0xFF3E2723))),
                 fontSize: 13,
               ),
             ),
@@ -924,7 +924,7 @@ class _ReadingQuizViewState extends State<ReadingQuizView> {
                 const SizedBox(height: 10),
                 Text(
                   "You scored $_score out of ${widget.questions.length}",
-                  style: TextStyle(fontSize: 18, color: isDark ? Colors.white70 : const Color(0xFF5D4037)),
+                  style: TextStyle(fontSize: 18, color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037))),
                 ),
                 const SizedBox(height: 30),
                 Container(
@@ -1011,7 +1011,7 @@ class _ReadingQuizViewState extends State<ReadingQuizView> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: isDark ? Colors.white : const Color(0xFF3E2723),
+                                color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
                                 height: 1.4,
                               ),
                               textAlign: TextAlign.center,
@@ -1021,7 +1021,7 @@ class _ReadingQuizViewState extends State<ReadingQuizView> {
                               question.questionEn,
                               style: TextStyle(
                                 fontSize: 15,
-                                color: isDark ? Colors.white60 : const Color(0xFF5D4037),
+                                color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white60 : Color(0xFF5D4037)),
                                 height: 1.4,
                               ),
                               textAlign: TextAlign.center,

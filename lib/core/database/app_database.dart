@@ -1,15 +1,17 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AppDatabase {
   static final AppDatabase instance = AppDatabase._init();
   AppDatabase._init();
 
+  static const int _dbVersion = 4; // Increment this whenever DB assets are updated.
   final Map<String, Database> _databases = {};
 
-  /// Pre-copies all 6 databases from assets to database directory on first launch.
+  /// Pre-copies all 7 databases from assets to database directory on first launch.
   Future<void> copyAllDatabasesOnFirstLaunch() async {
     final versions = [
       'telugu_ov',
@@ -23,18 +25,33 @@ class AppDatabase {
     for (final version in versions) {
       await _copyDatabaseIfNeeded(version);
     }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('db_version_key', _dbVersion);
   }
 
   Future<void> _copyDatabaseIfNeeded(String version) async {
     final databasesPath = await getDatabasesPath();
     final dbPath = p.join(databasesPath, '$version.sqlite');
 
+    final prefs = await SharedPreferences.getInstance();
+    final currentSavedVersion = prefs.getInt('db_version_key') ?? 0;
+
     final exists = await databaseExists(dbPath);
-    if (!exists) {
+    if (!exists || currentSavedVersion < _dbVersion) {
       // Create parent directory
       try {
         await Directory(p.dirname(dbPath)).create(recursive: true);
       } catch (_) {}
+
+      // Force delete old version if it exists to allow overwrite
+      if (exists) {
+        try {
+          final file = File(dbPath);
+          if (await file.exists()) {
+            await file.delete();
+          }
+        } catch (_) {}
+      }
 
       // Copy from asset
       final assetPath = 'assets/bible/$version.sqlite';
@@ -58,6 +75,10 @@ class AppDatabase {
     }
 
     await _copyDatabaseIfNeeded(version);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('db_version_key', _dbVersion);
+
     final databasesPath = await getDatabasesPath();
     final dbPath = p.join(databasesPath, '$version.sqlite');
 

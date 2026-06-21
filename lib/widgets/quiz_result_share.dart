@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -72,8 +72,9 @@ class QuizResultShare extends StatelessWidget {
               }
             }
           } catch (e) {
-            // ignore: avoid_print
-            print("Error sharing: $e");
+            if (kDebugMode) {
+              print("Error sharing: $e");
+            }
             if (dialogContext.mounted && Navigator.canPop(dialogContext)) {
               Navigator.pop(dialogContext);
             }

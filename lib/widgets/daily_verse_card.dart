@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../features/bible/providers/bible_providers.dart';
 import '../services/bible_service.dart';
 import '../constants/theme.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DailyVerseCard extends ConsumerWidget {
   const DailyVerseCard({super.key});
@@ -54,6 +55,7 @@ class DailyVerseCard extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                   width: 32,
@@ -99,6 +101,30 @@ class DailyVerseCard extends ConsumerWidget {
                                     ),
                                   ],
                                 ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.share, color: AppTheme.gold, size: 20),
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                                onPressed: () async {
+                                  final bookMeta = BibleService.findBookByName(dailyVerse.bookName);
+                                  final bookId = bookMeta?.id ?? dailyVerse.bookName.toLowerCase();
+                                  
+                                  final teluguMap = await BibleService.getChapter(bookId, dailyVerse.chapter, 'telugu_ov');
+                                  final englishMap = await BibleService.getChapter(bookId, dailyVerse.chapter, 'kjv');
+                                  
+                                  final teluguText = teluguMap[dailyVerse.verse] ?? dailyVerse.text;
+                                  final englishText = englishMap[dailyVerse.verse] ?? '';
+                                  
+                                  final displayBookNameEn = bookMeta?.nameEn ?? dailyVerse.bookName;
+                                  final displayBookNameTe = bookMeta?.nameTe ?? '';
+                                  final refString = displayBookNameTe.isNotEmpty
+                                      ? '$displayBookNameEn ($displayBookNameTe) ${dailyVerse.chapter}:${dailyVerse.verse}'
+                                      : '$displayBookNameEn ${dailyVerse.chapter}:${dailyVerse.verse}';
+                                  
+                                  final shareText = '$refString\n\n$teluguText\n\n$englishText\n\n— BibleQuest';
+                                  await SharePlus.instance.share(ShareParams(text: shareText));
+                                },
                               ),
                             ],
                           ),

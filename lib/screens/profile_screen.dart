@@ -2055,7 +2055,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Text(
                               "Content Display Mode",
                               style: TextStyle(
-                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF3E2723),
+                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723),
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Outfit',
@@ -2065,7 +2065,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             DropdownButtonFormField<ContentLanguageMode>(
                               dropdownColor: Theme.of(context).brightness == Brightness.dark ? const Color(0xFF1E2020) : Colors.white,
                               style: TextStyle(
-                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF3E2723),
+                                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723),
                                 fontFamily: 'Outfit',
                               ),
                               decoration: InputDecoration(
@@ -2093,15 +2093,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               items: [
                                 DropdownMenuItem(
                                   value: ContentLanguageMode.english,
-                                  child: Text('English Only', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF3E2723))),
+                                  child: Text('English Only', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
                                 ),
                                 DropdownMenuItem(
                                   value: ContentLanguageMode.telugu,
-                                  child: Text('Telugu Only (తెలుగు)', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF3E2723))),
+                                  child: Text('Telugu Only (తెలుగు)', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
                                 ),
                                 DropdownMenuItem(
                                   value: ContentLanguageMode.bilingual,
-                                  child: Text('Bilingual', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF3E2723))),
+                                  child: Text('Bilingual', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
                                 ),
                               ],
                               onChanged: (val) {
@@ -2129,7 +2129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Text(
                                       "Dark Mode",
                                       style: TextStyle(
-                                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF3E2723),
+                                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723),
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Outfit',
@@ -2528,7 +2528,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         break;
       case TitleRarity.epic:
         gradientColors = [const Color(0xFFF59E0B), const Color(0xFFD97706)];
-        textColor = const Color(0xFF3E2723);
+        textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723);
         break;
       case TitleRarity.legendary:
         isLegendary = true;

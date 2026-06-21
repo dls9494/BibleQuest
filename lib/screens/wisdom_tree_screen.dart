@@ -293,7 +293,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
       branchScores[b] = topicPerformance[b] ?? 0.0;
     }
 
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final cardBg = isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white;
     final cardBorder = isDark ? Colors.white.withValues(alpha: 0.1) : const Color(0xFFD4A574).withValues(alpha: 0.3);
 
@@ -377,7 +377,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
                               'The Wisdom Tree represents your progress. Correct quiz answers, reading, and streaks cause it to grow branches, foliage, and bear fruit.',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: isDark ? Colors.white70 : const Color(0xFF5D4037),
+                                color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
                                 fontSize: 13,
                                 height: 1.4,
                                 fontFamily: 'Outfit',
@@ -526,7 +526,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
                       child: Text(
                         '💡 Tap branch tips to view details and study more.',
                         style: TextStyle(
-                          color: isDark ? Colors.white60 : const Color(0xFF5D4037).withValues(alpha: 0.8),
+                          color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white60 : Color(0xFF5D4037)).withValues(alpha: 0.8),
                           fontSize: 12,
                           fontStyle: FontStyle.italic,
                           fontFamily: 'Outfit',
@@ -676,7 +676,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
 
   Widget _buildMilestoneRow(String title, String subtitle, bool unlocked) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Row(
       children: [

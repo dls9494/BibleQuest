@@ -67,8 +67,8 @@ class _AnalyticsDebugScreenState extends State<AnalyticsDebugScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
 
     return Scaffold(
       extendBodyBehindAppBar: true,

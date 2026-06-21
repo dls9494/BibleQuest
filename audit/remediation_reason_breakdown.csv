@@ -1,0 +1,7 @@
+Reason,Count
+Derived spacing normalization,3696
+Whitespace normalization,3563
+Soft hyphen / character artifact removal,128
+Legitimate word split (BSI Merge),42
+Spelling / Typo correction,14
+Structural insertion,1

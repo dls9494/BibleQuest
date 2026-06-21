@@ -111,7 +111,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
     final currentLevel = unlocked.isEmpty ? 1 : unlocked.reduce((a, b) => a > b ? a : b);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       body: Stack(
@@ -334,7 +334,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                 style: TextStyle(
                   color: isSelected
                       ? (category == 'All Topics' || category == 'Old Testament' || category == 'New Testament' ? Colors.white : Colors.black)
-                      : (isDark ? Colors.white70 : const Color(0xFF3E2723)),
+                      : (Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white70 : Color(0xFF3E2723))),
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   fontFamily: 'Outfit',
                   fontSize: 13,
@@ -376,7 +376,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
         ? _weeklyRank 
         : (period == 'monthly' ? _monthlyRank : _allTimeRank);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
 
     return StreamBuilder<Map<String, dynamic>>(
       stream: FirebaseService.getLeaderboardWithCount(period),
@@ -509,7 +509,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
     required String targetUserId,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final subTextColor = isDark ? const Color(0xFF958E9D) : const Color(0xFF8D7B9D);
 
     final displayRankColor = isDark
@@ -520,7 +520,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                 ? Colors.blueGrey.shade600 // Silver
                 : (rankColor == const Color(0xFFCD7F32)
                     ? const Color(0xFF8D501D) // Bronze
-                    : const Color(0xFF5D4037))));
+                    : Theme.of(context).textTheme.bodyMedium?.color ?? Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF5D4037))));
 
     final avatarBgColor = isDark ? const Color(0xFF0284C7) : const Color(0xFF6C4AB6);
 
@@ -778,7 +778,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
         Text(
           label.toUpperCase(),
           style: TextStyle(
-            color: isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037),
+            color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037)),
             fontSize: 10,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.1,

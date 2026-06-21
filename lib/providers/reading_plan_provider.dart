@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../models/reading_plan.dart';
 import '../services/firebase_service.dart';
 import 'user_data_provider.dart';
@@ -38,8 +38,9 @@ class ReadingPlanProvider extends ChangeNotifier {
         _currentPlan = null;
       }
     } catch (e) {
-      // ignore: avoid_print
-      print("Error loading current plan: $e");
+      if (kDebugMode) {
+        print("Error loading current plan: $e");
+      }
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -69,8 +70,9 @@ class ReadingPlanProvider extends ChangeNotifier {
         totalDaysCompleted: 0,
       );
     } catch (e) {
-      // ignore: avoid_print
-      print("Error starting plan: $e");
+      if (kDebugMode) {
+        print("Error starting plan: $e");
+      }
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -144,8 +146,9 @@ class ReadingPlanProvider extends ChangeNotifier {
         finishedPlanType: isFinished ? plan.planType : null,
       );
     } catch (e) {
-      // ignore: avoid_print
-      print("Error marking day as read: $e");
+      if (kDebugMode) {
+        print("Error marking day as read: $e");
+      }
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -173,8 +176,9 @@ class ReadingPlanProvider extends ChangeNotifier {
       // Award XP for quiz completion
       userDataProvider.addXp(25);
     } catch (e) {
-      // ignore: avoid_print
-      print("Error completing reading quiz: $e");
+      if (kDebugMode) {
+        print("Error completing reading quiz: $e");
+      }
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -197,8 +201,9 @@ class ReadingPlanProvider extends ChangeNotifier {
       // Reset statistics on the UserDataProvider side if needed
       // (but generally achievements and history completed count persist. That's fine)
     } catch (e) {
-      // ignore: avoid_print
-      print("Error resetting reading plan: $e");
+      if (kDebugMode) {
+        print("Error resetting reading plan: $e");
+      }
     } finally {
       _isLoading = false;
       notifyListeners();

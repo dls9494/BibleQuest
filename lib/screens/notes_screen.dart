@@ -136,8 +136,8 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
   Widget build(BuildContext context) {
     final notes = ref.watch(notesProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
 
     final filteredNotes = notes.where((n) {
       final text = (n['text'] as String? ?? '').toLowerCase();

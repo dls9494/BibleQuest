@@ -12,7 +12,7 @@ class BookmarkedVersesScreen extends StatelessWidget {
     final bookmarksList = bookmarks.toList();
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final cardBg = isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white;
     final cardBorder = isDark ? Colors.white.withValues(alpha: 0.1) : const Color(0xFFD4A574).withValues(alpha: 0.3);
 

@@ -17,7 +17,7 @@ class ChapterListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     // Get metadata for display & initial selection
     final metadataBook = BibleService.getBooks().firstWhere(

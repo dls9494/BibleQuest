@@ -35,7 +35,7 @@ class BookListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeProvider = p.Provider.of<LocaleProvider>(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     // P5 FIX: Use BibleService static metadata — always 39 OT, 27 NT. No async needed.
     final otBooks = BibleService.getOTBooks();

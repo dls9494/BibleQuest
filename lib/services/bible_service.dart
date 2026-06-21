@@ -87,9 +87,10 @@ class BibleService {
 
   static BibleBook? getBookById(String id) {
     try {
-      return _books.firstWhere((b) => b.id == id);
+      final lid = id.toLowerCase().replaceAll(' ', '');
+      return _books.firstWhere((b) => b.id == lid);
     } catch (_) {
-      return null;
+      return findBookByName(id);
     }
   }
 

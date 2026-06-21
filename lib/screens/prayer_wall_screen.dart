@@ -94,8 +94,8 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
     final controller = TextEditingController(text: request.request);
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
     
     await showDialog(
       context: context,
@@ -449,8 +449,8 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
 
     return Scaffold(
       body: Stack(
@@ -940,7 +940,7 @@ class _PrayerRequestCardState extends State<PrayerRequestCard> {
                                   : Icons.account_circle_rounded,
                               color: hasPrayed
                                   ? const Color(0xFF6C4AB6)
-                                  : (widget.isDark ? const Color(0xFF38BDF8) : const Color(0xFF5D4037)),
+                                  : (widget.isDark ? Color(0xFF38BDF8) : Theme.of(context).textTheme.bodyMedium?.color ?? Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF5D4037)),
                               size: 20,
                             ),
                             const SizedBox(width: 8),
@@ -1243,7 +1243,7 @@ class _ReactionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textThemeColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textThemeColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return GestureDetector(
       onTapDown: (details) {

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,8 +15,9 @@ import 'real_questions.dart';
 
 class FirebaseService {
   static Future<void> initialize() async {
-    // ignore: avoid_print
-    print("FirebaseService initialized with real Firebase.");
+    if (kDebugMode) {
+      print("FirebaseService initialized with real Firebase.");
+    }
   }
 
   static final List<Quiz> _levelQuizzes = _generateInitialQuizzes();
@@ -190,8 +192,9 @@ class FirebaseService {
         return generated;
       }
     } catch (e) {
-      // ignore: avoid_print
-      print("Error fetching real questions from Firestore: $e");
+      if (kDebugMode) {
+        print("Error fetching real questions from Firestore: $e");
+      }
       final localMaps = RealQuestionsService.getQuestionsForLevel(level, setId);
       if (localMaps.isNotEmpty) {
         return localMaps.map((q) => Question.fromMap(q)).toList();
@@ -218,8 +221,9 @@ class FirebaseService {
         return questionsData.map((q) => Question.fromMap(Map<String, dynamic>.from(q))).toList();
       }
     } catch (e) {
-      // ignore: avoid_print
-      print("Error fetching custom quiz questions: $e");
+      if (kDebugMode) {
+        print("Error fetching custom quiz questions: $e");
+      }
     }
     return [];
   }
@@ -308,8 +312,9 @@ class FirebaseService {
           });
         }
       } catch (e) {
-        // ignore: avoid_print
-        print("Error submitting score to $collectionName: $e");
+        if (kDebugMode) {
+          print("Error submitting score to $collectionName: $e");
+        }
       }
     }
 
@@ -339,8 +344,9 @@ class FirebaseService {
         });
       }
     } catch (e) {
-      // ignore: avoid_print
-      print("Error submitting score to weekly_leaderboard: $e");
+      if (kDebugMode) {
+        print("Error submitting score to weekly_leaderboard: $e");
+      }
     }
   }
 
@@ -646,8 +652,9 @@ class FirebaseService {
 
       return downloadUrl;
     } catch (e) {
-      // ignore: avoid_print
-      print("Error uploading avatar: $e");
+      if (kDebugMode) {
+        print("Error uploading avatar: $e");
+      }
       return null;
     }
   }
@@ -848,8 +855,9 @@ class FirebaseService {
         }
       }
     } catch (e) {
-      // ignore: avoid_print
-      print("Error fetching weekly challenge from Firestore: $e");
+      if (kDebugMode) {
+        print("Error fetching weekly challenge from Firestore: $e");
+      }
     }
 
     try {
@@ -1046,8 +1054,9 @@ class FirebaseService {
         'answeredAt': null,
       });
     } catch (e) {
-      // ignore: avoid_print
-      print("Error submitting prayer request: $e");
+      if (kDebugMode) {
+        print("Error submitting prayer request: $e");
+      }
       throw Exception("Failed to submit prayer request: ${e.toString()}");
     }
   }
@@ -1060,8 +1069,9 @@ class FirebaseService {
         'answeredAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      // ignore: avoid_print
-      print("Error marking prayer as answered: $e");
+      if (kDebugMode) {
+        print("Error marking prayer as answered: $e");
+      }
       throw Exception("Failed to mark prayer as answered: ${e.toString()}");
     }
   }
@@ -1081,8 +1091,9 @@ class FirebaseService {
         return PrayerRequest.fromFirestore(data, doc.id);
       }).toList();
     }).handleError((error) {
-      // ignore: avoid_print
-      print("Error fetching prayer requests stream: $error");
+      if (kDebugMode) {
+        print("Error fetching prayer requests stream: $error");
+      }
       return <PrayerRequest>[];
     });
   }
@@ -1115,8 +1126,9 @@ class FirebaseService {
         }
       });
     } catch (e) {
-      // ignore: avoid_print
-      print("Error praying for request: $e");
+      if (kDebugMode) {
+        print("Error praying for request: $e");
+      }
       rethrow;
     }
   }
@@ -1149,8 +1161,9 @@ class FirebaseService {
         'userReactions': userReactions,
       });
     } catch (e) {
-      // ignore: avoid_print
-      print("Error reacting to prayer: $e");
+      if (kDebugMode) {
+        print("Error reacting to prayer: $e");
+      }
       rethrow;
     }
   }
@@ -1170,8 +1183,9 @@ class FirebaseService {
         'editedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      // ignore: avoid_print
-      print("Error updating prayer request: $e");
+      if (kDebugMode) {
+        print("Error updating prayer request: $e");
+      }
       rethrow;
     }
   }
@@ -1188,8 +1202,9 @@ class FirebaseService {
 
       await docRef.delete();
     } catch (e) {
-      // ignore: avoid_print
-      print("Error deleting prayer request: $e");
+      if (kDebugMode) {
+        print("Error deleting prayer request: $e");
+      }
       rethrow;
     }
   }
@@ -1204,8 +1219,9 @@ class FirebaseService {
           .doc('current')
           .set(data);
     } catch (e) {
-      // ignore: avoid_print
-      print("Error saving reading progress: $e");
+      if (kDebugMode) {
+        print("Error saving reading progress: $e");
+      }
       rethrow;
     }
   }
@@ -1223,8 +1239,9 @@ class FirebaseService {
       }
       return null;
     } catch (e) {
-      // ignore: avoid_print
-      print("Error getting reading progress: $e");
+      if (kDebugMode) {
+        print("Error getting reading progress: $e");
+      }
       return null;
     }
   }

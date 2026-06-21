@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 class ActivityService {
   /// Write activity log to top-level activities collection
@@ -13,8 +14,9 @@ class ActivityService {
         'timestamp': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      // ignore: avoid_print
-      print("Error logging activity ($type): $e");
+      if (kDebugMode) {
+        print("Error logging activity ($type): $e");
+      }
     }
   }
 }

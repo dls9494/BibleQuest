@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -16,8 +17,9 @@ class NotificationService {
       tz.setLocalLocation(tz.getLocation('Asia/Kolkata'));
     } catch (e) {
       // Fallback in case location lookup fails
-      // ignore: avoid_print
-      print("Warning: Failed to set Asia/Kolkata timezone: $e");
+      if (kDebugMode) {
+        print("Warning: Failed to set Asia/Kolkata timezone: $e");
+      }
     }
 
     const AndroidInitializationSettings initializationSettingsAndroid =

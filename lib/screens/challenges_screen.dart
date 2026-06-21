@@ -207,7 +207,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     final dailyQuizLevelVal = context.select<UserDataProvider, int>((p) => p.dailyQuizLevel ?? p.getDailyQuizLevel());
     final localeProvider = context.watch<LocaleProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -418,8 +418,8 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     VoidCallback? onLeaderboardPressed,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
 
     final displayAccentColor = isDark
         ? accentColor
@@ -558,8 +558,8 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
 
   Widget _buildBattleCard() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
     const accentColor = Color(0xFFFF6B35);
     final displayAccentColor = isDark ? accentColor : const Color(0xFFD4440D);
 
@@ -660,8 +660,8 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
 
   Widget _buildChurchGroupsCard() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
-    final subTextColor = isDark ? const Color(0xFFCBC3D4) : const Color(0xFF5D4037);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
     const accentColor = Color(0xFF6C4AB6);
     final displayAccentColor = isDark ? accentColor : const Color(0xFF533483);
 

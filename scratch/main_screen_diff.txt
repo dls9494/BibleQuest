@@ -1,0 +1,1254 @@
+diff --git a/lib/screens/main_screen.dart b/lib/screens/main_screen.dart
+index b3b5d29..b9a4f66 100644
+--- a/lib/screens/main_screen.dart
++++ b/lib/screens/main_screen.dart
+@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
+ import '../providers/user_data_provider.dart';
+ import '../services/firebase_service.dart';
+ import '../services/bible_service.dart';
+-import '../services/icon_assets.dart';
++
+ import 'quiz_tab.dart';
+ import 'bible_screen.dart';
+ import 'challenges_screen.dart';
+@@ -101,24 +101,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
+     );
+   }
+ 
+-  Widget _buildFlatIcon(String assetPath, IconData fallbackIcon, Color fallbackColor, {double size = 22}) {
+-    if (assetPath.isEmpty) {
+-      return Icon(fallbackIcon, size: size, color: fallbackColor);
+-    }
+-    return Image.asset(
+-      assetPath,
+-      width: size,
+-      height: size,
+-      fit: BoxFit.contain,
+-      errorBuilder: (context, error, stackTrace) {
+-        return Icon(
+-          fallbackIcon,
+-          size: size,
+-          color: fallbackColor,
+-        );
+-      },
+-    );
+-  }
++
+ 
+ 
+   @override
+@@ -227,9 +210,9 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
+     );
+   }
+ 
+-  Widget _buildSectionHeader(String title) {
++  Widget _buildSectionHeader(String title, {double topPadding = 24.0}) {
+     return Padding(
+-      padding: const EdgeInsets.only(left: 20, right: 20, top: 24, bottom: 12),
++      padding: EdgeInsets.only(left: 20, right: 20, top: topPadding, bottom: 12),
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+@@ -261,22 +244,32 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
+     final isDark = Theme.of(context).brightness == Brightness.dark;
+     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+ 
+-    // Icons Setup
+-    final otIcon = _buildFlatIcon(IconAssets.oldTestament, Icons.auto_stories, Colors.amber, size: 20);
+-    final ntIcon = _buildFlatIcon(IconAssets.newTestament, Icons.auto_stories, Colors.blue, size: 20);
+-    final quizIcon = _buildFlatIcon(IconAssets.quiz, Icons.quiz, Colors.green, size: 20);
+-    final challengeIcon = _buildFlatIcon(IconAssets.challenges, Icons.emoji_events, Colors.amber, size: 20);
+-    final planIcon = _buildFlatIcon(IconAssets.readingPlans, Icons.calendar_month, Colors.green, size: 20);
+-    final memoryIcon = _buildFlatIcon(IconAssets.scriptureMemory, Icons.psychology, Colors.orange, size: 20);
+-    final creatorIcon = _buildFlatIcon(IconAssets.quizCreator, Icons.create, Colors.purple, size: 20);
+-    final leaderboardIcon = _buildFlatIcon(IconAssets.leaderboard, Icons.leaderboard, Colors.blue, size: 16);
+-    final prayerWallIcon = _buildFlatIcon(IconAssets.prayerWall, Icons.volunteer_activism, Colors.teal, size: 16);
+-    final socialIcon = _buildFlatIcon(IconAssets.socialFeed, Icons.forum, Colors.deepOrange, size: 16);
+-    final wisdomIcon = _buildFlatIcon(IconAssets.wisdomTree, Icons.forest, Colors.amber, size: 16);
+-    final bookmarkIcon = _buildFlatIcon(IconAssets.bookmarks, Icons.bookmark, Colors.red, size: 16);
+-    final favoriteIcon = _buildFlatIcon(IconAssets.favorites, Icons.favorite, Colors.amber, size: 16);
+-    final notesIcon = _buildFlatIcon('', Icons.note_alt_rounded, Colors.orange, size: 16);
+-    final searchIcon = _buildFlatIcon('', Icons.search_rounded, Colors.cyan, size: 16);
++    const goldAccent = Color(0xFFC9A843);
++    const double mainIconSize = 38.0;
++
++    Widget otIcon = Image.asset(
++      'assets/icons/flat/old_testament.png',
++      width: 56,
++      height: 56,
++    );
++    Widget ntIcon = Image.asset(
++      'assets/icons/flat/new_testment.png',
++      width: 56,
++      height: 56,
++    );
++    const quizIcon = Icon(Icons.quiz_rounded, color: goldAccent, size: mainIconSize);
++    const challengeIcon = Icon(Icons.emoji_events_rounded, color: goldAccent, size: mainIconSize);
++    const planIcon = ReadingPlansIconWidget(size: 47.0);
++    const memoryIcon = ScriptureMemoryIconWidget(size: 47.0);
++    const creatorIcon = Icon(Icons.edit_note_rounded, color: goldAccent, size: mainIconSize);
++    const leaderboardIcon = Icon(Icons.leaderboard_rounded, color: goldAccent, size: mainIconSize);
++    const prayerWallIcon = Icon(Icons.volunteer_activism_rounded, color: goldAccent, size: mainIconSize);
++    const socialIcon = Icon(Icons.forum_rounded, color: goldAccent, size: mainIconSize);
++    const wisdomIcon = Icon(Icons.eco_rounded, color: goldAccent, size: mainIconSize);
++    const bookmarkIcon = Icon(Icons.bookmark_rounded, color: goldAccent, size: mainIconSize);
++    const favoriteIcon = Icon(Icons.favorite_rounded, color: goldAccent, size: mainIconSize);
++    const notesIcon = Icon(Icons.note_alt_rounded, color: goldAccent, size: mainIconSize);
++    const searchIcon = Icon(Icons.search_rounded, color: goldAccent, size: mainIconSize);
+ 
+     final readingProgress = ref.watch(readingProgressProvider);
+     final lastRead = readingProgress.isNotEmpty ? readingProgress.first : null;
+@@ -316,90 +309,112 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
+       final cardColor = isDark ? Colors.white.withValues(alpha: 0.06) : Colors.black.withValues(alpha: 0.05);
+       const accentColor = Color(0xFFFFD700);
+ 
+-      continueReadingCard = Padding(
+-        padding: const EdgeInsets.only(bottom: 14.0),
+-        child: Container(
+-          decoration: BoxDecoration(
+-            color: cardColor,
+-            borderRadius: BorderRadius.circular(18),
+-            border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08), width: 1.0),
+-          ),
+-          child: ClipRRect(
+-            borderRadius: BorderRadius.circular(18),
+-            child: BackdropFilter(
+-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+-              child: Material(
+-                color: Colors.transparent,
+-                child: InkWell(
+-                  onTap: () {
+-                    context.push('/bible/$lastVersion/$lastBookName/$lastChapter?verse=$lastVerse');
+-                  },
+-                  borderRadius: BorderRadius.circular(18),
+-                  child: Padding(
+-                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
+-                    child: Row(
+-                      children: [
+-                        Expanded(
+-                          child: Column(
+-                            crossAxisAlignment: CrossAxisAlignment.start,
+-                            children: [
+-                              Text(
+-                                'Continue Reading',
+-                                style: AppTextStyles.bodyText.copyWith(
+-                                  color: accentColor,
+-                                  fontWeight: FontWeight.w700,
+-                                  fontSize: 12,
+-                                  letterSpacing: 0.4,
+-                                ),
++      continueReadingCard = FutureBuilder<Map<int, String>>(
++        future: BibleService.getChapter(bookMeta?.id ?? lastBookName.toLowerCase(), lastChapter, 'telugu_ov'),
++        builder: (context, snapshot) {
++          final teluguText = (snapshot.hasData && snapshot.data != null)
++              ? (snapshot.data![lastVerse] ?? '')
++              : '';
++
++          return Padding(
++            padding: const EdgeInsets.only(bottom: 14.0),
++            child: Container(
++              decoration: BoxDecoration(
++                color: cardColor,
++                borderRadius: BorderRadius.circular(18),
++                border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08), width: 1.0),
++              ),
++              child: ClipRRect(
++                borderRadius: BorderRadius.circular(18),
++                child: BackdropFilter(
++                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
++                  child: Material(
++                    color: Colors.transparent,
++                    child: InkWell(
++                      onTap: () {
++                        context.push('/bible/$lastVersion/$lastBookName/$lastChapter?verse=$lastVerse');
++                      },
++                      borderRadius: BorderRadius.circular(18),
++                      child: Padding(
++                        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 11.0),
++                        child: Row(
++                          children: [
++                            Expanded(
++                              child: Column(
++                                crossAxisAlignment: CrossAxisAlignment.start,
++                                children: [
++                                  Text(
++                                    'Continue Reading',
++                                    style: AppTextStyles.bodyText.copyWith(
++                                      color: accentColor,
++                                      fontWeight: FontWeight.w700,
++                                      fontSize: 12,
++                                      letterSpacing: 0.4,
++                                    ),
++                                  ),
++                                  const SizedBox(height: 6),
++                                  Text(
++                                    displayName.toUpperCase(),
++                                    style: AppTextStyles.screenTitle.copyWith(
++                                      color: textColor,
++                                      fontWeight: FontWeight.w800,
++                                      fontSize: 18,
++                                      height: 1.1,
++                                    ),
++                                  ),
++                                  if (teluguText.isNotEmpty) ...[
++                                    const SizedBox(height: 4),
++                                    Text(
++                                      teluguText,
++                                      maxLines: 1,
++                                      overflow: TextOverflow.ellipsis,
++                                      style: TextStyle(
++                                        color: isDark ? Colors.white70 : Colors.black54,
++                                        fontSize: 12,
++                                        fontFamily: 'NotoSansTelugu',
++                                      ),
++                                    ),
++                                  ],
++                                  const SizedBox(height: 6),
++                                  Text(
++                                    relativeTime.isNotEmpty
++                                        ? 'Last opened $relativeTime'
++                                        : 'Last opened recently',
++                                    style: AppTextStyles.bodyText.copyWith(
++                                      color: isDark ? Colors.white54 : Colors.black54,
++                                      fontSize: 11,
++                                    ),
++                                  ),
++                                ],
+                               ),
+-                              const SizedBox(height: 8),
+-                              Text(
+-                                displayName.toUpperCase(),
+-                                style: AppTextStyles.screenTitle.copyWith(
+-                                  color: textColor,
+-                                  fontWeight: FontWeight.w800,
+-                                  fontSize: 22,
+-                                  height: 1.1,
+-                                ),
++                            ),
++                            const SizedBox(width: 16),
++                            Container(
++                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
++                              decoration: BoxDecoration(
++                                borderRadius: BorderRadius.circular(999),
++                                border: Border.all(color: accentColor.withValues(alpha: 0.18), width: 1),
++                                color: accentColor.withValues(alpha: 0.08),
+                               ),
+-                              const SizedBox(height: 12),
+-                              Text(
+-                                relativeTime.isNotEmpty
+-                                    ? 'Last opened $relativeTime'
+-                                    : 'Last opened recently',
++                              child: Text(
++                                'Resume →',
+                                 style: AppTextStyles.bodyText.copyWith(
+-                                  color: isDark ? Colors.white54 : Colors.black54,
++                                  color: accentColor,
++                                  fontWeight: FontWeight.w700,
+                                   fontSize: 12,
+                                 ),
+                               ),
+-                            ],
+-                          ),
+-                        ),
+-                        const SizedBox(width: 16),
+-                        Container(
+-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+-                          decoration: BoxDecoration(
+-                            borderRadius: BorderRadius.circular(999),
+-                            border: Border.all(color: accentColor.withValues(alpha: 0.18), width: 1),
+-                            color: accentColor.withValues(alpha: 0.08),
+-                          ),
+-                          child: Text(
+-                            'Resume →',
+-                            style: AppTextStyles.bodyText.copyWith(
+-                              color: accentColor,
+-                              fontWeight: FontWeight.w700,
+-                              fontSize: 12,
+                             ),
+-                          ),
++                          ],
+                         ),
+-                      ],
++                      ),
+                     ),
+                   ),
+                 ),
+               ),
+             ),
+-          ),
+-        ),
++          );
++        },
+       );
+     }
+ 
+@@ -409,7 +424,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+           // ── READ SECTION ────────────────────────────────────────────────────
+-          _buildSectionHeader("📖 READ"),
++          _buildSectionHeader("📖 READ", topPadding: 4.0),
+           if (continueReadingCard != null) continueReadingCard,
+           Row(
+             children: [
+@@ -700,82 +715,6 @@ class GamifiedMenuCard extends StatelessWidget {
+     final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+     final subTextColor = isDark ? Colors.white70 : const Color(0xFF5D4037);
+ 
+-    final double iconSize = isRowLayout ? 30.0 : 34.0;
+-
+-    // Static circular glassmorphism container for flat PNG/fallback icons
+-    Widget iconContainer = Container(
+-      width: iconSize,
+-      height: iconSize,
+-      decoration: BoxDecoration(
+-        shape: BoxShape.circle,
+-        gradient: LinearGradient(
+-          colors: [
+-            Colors.white.withValues(alpha: 0.16),
+-            Colors.white.withValues(alpha: 0.06),
+-          ],
+-          begin: Alignment.topLeft,
+-          end: Alignment.bottomRight,
+-        ),
+-        border: Border.all(
+-          color: Colors.white.withValues(alpha: 0.18),
+-          width: 1.0,
+-        ),
+-        boxShadow: [
+-          BoxShadow(
+-            color: Colors.black.withValues(alpha: 0.08),
+-            offset: const Offset(0, 1.5),
+-            blurRadius: 4,
+-          ),
+-          BoxShadow(
+-            color: glowColor.withValues(alpha: 0.06),
+-            blurRadius: 8,
+-            spreadRadius: 0.4,
+-            offset: const Offset(0, 0),
+-          ),
+-        ],
+-      ),
+-      child: Stack(
+-        alignment: Alignment.center,
+-        children: [
+-          // Glint Highlight (top-left)
+-          Positioned.fill(
+-            child: Container(
+-              decoration: BoxDecoration(
+-                shape: BoxShape.circle,
+-                gradient: LinearGradient(
+-                  begin: Alignment.topLeft,
+-                  end: Alignment.bottomRight,
+-                  colors: [
+-                    Colors.white.withValues(alpha: 0.25),
+-                    Colors.white.withValues(alpha: 0.0),
+-                  ],
+-                  stops: const [0.0, 0.5],
+-                ),
+-              ),
+-            ),
+-          ),
+-          // Darkening Shadow (bottom-right)
+-          Positioned.fill(
+-            child: Container(
+-              decoration: BoxDecoration(
+-                shape: BoxShape.circle,
+-                gradient: LinearGradient(
+-                  begin: Alignment.topLeft,
+-                  end: Alignment.bottomRight,
+-                  colors: [
+-                    Colors.black.withValues(alpha: 0.0),
+-                    Colors.black.withValues(alpha: 0.1),
+-                  ],
+-                  stops: const [0.5, 1.0],
+-                ),
+-              ),
+-            ),
+-          ),
+-          iconWidget,
+-        ],
+-      ),
+-    );
+-
+     return GestureDetector(
+       onTap: onTap,
+       child: _buildGlassCard(
+@@ -788,7 +727,7 @@ class GamifiedMenuCard extends StatelessWidget {
+           child: isRowLayout
+               ? Row(
+                   children: [
+-                    iconContainer,
++                    iconWidget,
+                     const SizedBox(width: 12),
+                     Expanded(
+                       child: Column(
+@@ -823,7 +762,7 @@ class GamifiedMenuCard extends StatelessWidget {
+               : Column(
+                   mainAxisSize: MainAxisSize.min,
+                   children: [
+-                    iconContainer,
++                    iconWidget,
+                     const SizedBox(height: 8),
+                     Text(
+                       title,
+@@ -1263,3 +1202,808 @@ class VerseGridScreen extends StatelessWidget {
+     );
+   }
+ }
++
++
++
++class ReadingPlansIconWidget extends StatelessWidget {
++  final double size;
++  const ReadingPlansIconWidget({super.key, this.size = 38.0});
++
++  @override
++  Widget build(BuildContext context) {
++    return SizedBox(
++      width: size,
++      height: size,
++      child: CustomPaint(
++        painter: const ReadingPlansPainter(),
++      ),
++    );
++  }
++}
++
++class ReadingPlansPainter extends CustomPainter {
++  const ReadingPlansPainter();
++
++  void _drawGlyph(Canvas canvas, double cx, double cy, double gw, double gh, String glyph, Paint paint) {
++    final w2 = gw / 2;
++    final h2 = gh / 2;
++
++    switch (glyph) {
++      case 'A': // Aleph
++        canvas.drawLine(Offset(cx - w2, cy - h2), Offset(cx + w2, cy + h2), paint);
++        canvas.drawLine(Offset(cx + w2 * 0.1, cy - h2 * 0.1), Offset(cx + w2, cy - h2 * 0.8), paint);
++        canvas.drawLine(Offset(cx - w2 * 0.1, cy + h2 * 0.1), Offset(cx - w2, cy + h2 * 0.8), paint);
++        break;
++      case 'Y': // Ayin
++        canvas.drawLine(Offset(cx - w2, cy - h2), Offset(cx, cy), paint);
++        canvas.drawLine(Offset(cx + w2, cy - h2), Offset(cx - w2 * 0.5, cy + h2), paint);
++        break;
++      case 'L': // Lamed
++        final path = Path()
++          ..moveTo(cx - w2 * 0.2, cy - h2 * 1.5)
++          ..quadraticBezierTo(cx - w2 * 0.6, cy - h2 * 1.5, cx - w2 * 0.4, cy - h2 * 0.8)
++          ..lineTo(cx + w2 * 0.2, cy)
++          ..lineTo(cx + w2 * 0.2, cy + h2 * 0.4)
++          ..quadraticBezierTo(cx + w2 * 0.2, cy + h2, cx - w2 * 0.8, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'B': // Bet
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2)
++          ..lineTo(cx - w2 * 1.1, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'H': // He
++        canvas.drawLine(Offset(cx - w2 * 0.8, cy - h2), Offset(cx + w2 * 0.8, cy - h2), paint);
++        canvas.drawLine(Offset(cx + w2 * 0.8, cy - h2), Offset(cx + w2 * 0.8, cy + h2), paint);
++        canvas.drawLine(Offset(cx - w2 * 0.8, cy - h2 * 0.3), Offset(cx - w2 * 0.8, cy + h2), paint);
++        break;
++      case 'N': // Nun
++        final path = Path()
++          ..moveTo(cx - w2 * 0.3, cy - h2)
++          ..lineTo(cx + w2 * 0.3, cy - h2)
++          ..lineTo(cx + w2 * 0.3, cy + h2)
++          ..lineTo(cx - w2 * 0.6, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'S': // Shin
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..quadraticBezierTo(cx - w2 * 0.8, cy + h2, cx, cy + h2)
++          ..quadraticBezierTo(cx + w2 * 0.8, cy + h2, cx + w2 * 0.8, cy - h2)
++          ..moveTo(cx, cy + h2)
++          ..lineTo(cx, cy - h2 * 0.3);
++        canvas.drawPath(path, paint);
++        break;
++      case 'R': // Resh
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'V': // Vav
++        final path = Path()
++          ..moveTo(cx - w2 * 0.2, cy - h2)
++          ..lineTo(cx + w2 * 0.2, cy - h2)
++          ..lineTo(cx + w2 * 0.2, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'T': // Tav
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2)
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx - w2 * 0.8, cy + h2 * 0.6)
++          ..quadraticBezierTo(cx - w2 * 0.8, cy + h2, cx - w2 * 1.2, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'M': // Mem
++        final path = Path()
++          ..moveTo(cx - w2 * 0.4, cy + h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx - w2 * 0.8, cy + h2 * 0.4);
++        canvas.drawPath(path, paint);
++        break;
++      case 'I': // Yod
++        final path = Path()
++          ..moveTo(cx - w2 * 0.3, cy - h2)
++          ..quadraticBezierTo(cx + w2 * 0.3, cy - h2, cx + w2 * 0.1, cy - h2 * 0.2);
++        canvas.drawPath(path, paint);
++        break;
++    }
++  }
++
++  @override
++  void paint(Canvas canvas, Size size) {
++    final w = size.width;
++    final h = size.height;
++
++    // 1. Draw Background Glow (radial glow)
++    final radialGlow = RadialGradient(
++      colors: [
++        const Color(0xFFFFD54F).withValues(alpha: 0.50),
++        const Color(0xFFFF8F00).withValues(alpha: 0.15),
++        const Color(0xFFFF8F00).withValues(alpha: 0.0),
++      ],
++      stops: const [0.0, 0.6, 1.0],
++    );
++    final glowPaint = Paint()
++      ..shader = radialGlow.createShader(Rect.fromCenter(center: Offset(w / 2, h / 2), width: w * 0.95, height: h * 0.95))
++      ..style = PaintingStyle.fill;
++    canvas.drawOval(
++      Rect.fromCenter(center: Offset(w / 2, h / 2), width: w * 0.95, height: h * 0.95),
++      glowPaint,
++    );
++
++    // Draw background sparks
++    final sparkPaint = Paint()
++      ..color = const Color(0xFFFFD54F)
++      ..style = PaintingStyle.fill;
++    canvas.drawCircle(Offset(w * 0.18, h * 0.30), w * 0.012, sparkPaint);
++    canvas.drawCircle(Offset(w * 0.82, h * 0.28), w * 0.015, sparkPaint);
++    canvas.drawCircle(Offset(w * 0.14, h * 0.68), w * 0.010, sparkPaint);
++    canvas.drawCircle(Offset(w * 0.86, h * 0.65), w * 0.012, sparkPaint);
++
++    // 2. Draw Open Book
++    // Save, translate to center, rotate slightly counter-clockwise
++    canvas.save();
++    canvas.translate(w / 2, h / 2);
++    canvas.rotate(-0.16); // tilt book
++
++    // Cover path (slightly larger than pages)
++    final coverPath = Path();
++    coverPath.addRRect(RRect.fromRectAndRadius(
++      Rect.fromLTRB(-w * 0.44, -h * 0.28, w * 0.44, h * 0.28),
++      Radius.circular(w * 0.04),
++    ));
++
++    final coverShadow = Paint()
++      ..color = const Color(0xFF23160B).withValues(alpha: 0.6)
++      ..style = PaintingStyle.fill;
++    
++    // Draw cover shadow
++    canvas.save();
++    canvas.translate(w * 0.02, h * 0.02);
++    canvas.drawPath(coverPath, coverShadow);
++    canvas.restore();
++
++    // Draw cover main body
++    final coverPaint = Paint()
++      ..shader = LinearGradient(
++        colors: const [
++          Color(0xFF53351C), // dark brown
++          Color(0xFF321E0F), // deeper brown
++        ],
++        begin: Alignment.topCenter,
++        end: Alignment.bottomCenter,
++      ).createShader(Rect.fromLTRB(-w * 0.44, -h * 0.28, w * 0.44, h * 0.28))
++      ..style = PaintingStyle.fill;
++    canvas.drawPath(coverPath, coverPaint);
++
++    // Gold corners
++    final goldCornerPaint = Paint()
++      ..color = const Color(0xFFCFA83B)
++      ..style = PaintingStyle.fill;
++    
++    void drawCorner(double cx, double cy, double rx, double ry) {
++      final cornerPath = Path()
++        ..moveTo(cx, cy)
++        ..lineTo(cx + rx, cy)
++        ..lineTo(cx, cy + ry)
++        ..close();
++      canvas.drawPath(cornerPath, goldCornerPaint);
++    }
++    // Top-left
++    drawCorner(-w * 0.44, -h * 0.28, w * 0.08, h * 0.08);
++    // Top-right
++    drawCorner(w * 0.44, -h * 0.28, -w * 0.08, h * 0.08);
++    // Bottom-left
++    drawCorner(-w * 0.44, h * 0.28, w * 0.08, -h * 0.08);
++    // Bottom-right
++    drawCorner(w * 0.44, h * 0.28, -w * 0.08, -h * 0.08);
++
++    // Draw book page thickness
++    final thicknessPath = Path()
++      ..moveTo(-w * 0.40, h * 0.20)
++      ..quadraticBezierTo(-w * 0.20, h * 0.22, 0, h * 0.26)
++      ..quadraticBezierTo(w * 0.20, h * 0.22, w * 0.40, h * 0.20)
++      ..lineTo(w * 0.40, h * 0.24)
++      ..quadraticBezierTo(w * 0.20, h * 0.26, 0, h * 0.30)
++      ..quadraticBezierTo(-w * 0.20, h * 0.26, -w * 0.40, h * 0.24)
++      ..close();
++    canvas.drawPath(thicknessPath, Paint()..color = const Color(0xFFC5A059));
++
++    // Left Page
++    final leftPagePath = Path()
++      ..moveTo(-w * 0.015, -h * 0.22)
++      ..quadraticBezierTo(-w * 0.20, -h * 0.26, -w * 0.40, -h * 0.20)
++      ..lineTo(-w * 0.40, h * 0.20)
++      ..quadraticBezierTo(-w * 0.20, h * 0.24, -w * 0.015, h * 0.22)
++      ..close();
++
++    final leftPageGradient = LinearGradient(
++      colors: const [
++        Color(0xFFE5D5B3), // outer edge
++        Color(0xFFFFF7E6), // middle
++        Color(0xFFDFCDA6), // crease shadow
++      ],
++      begin: Alignment.centerLeft,
++      end: Alignment.centerRight,
++    );
++    canvas.drawPath(leftPagePath, Paint()..shader = leftPageGradient.createShader(Rect.fromLTRB(-w * 0.40, -h * 0.26, -w * 0.015, h * 0.24)));
++
++    // Right Page
++    final rightPagePath = Path()
++      ..moveTo(w * 0.015, -h * 0.22)
++      ..quadraticBezierTo(w * 0.20, -h * 0.26, w * 0.40, -h * 0.20)
++      ..lineTo(w * 0.40, h * 0.20)
++      ..quadraticBezierTo(w * 0.20, h * 0.24, w * 0.015, h * 0.22)
++      ..close();
++
++    final rightPageGradient = LinearGradient(
++      colors: const [
++        Color(0xFFDFCDA6), // crease shadow
++        Color(0xFFFFF7E6), // middle
++        Color(0xFFE5D5B3), // outer edge
++      ],
++      begin: Alignment.centerLeft,
++      end: Alignment.centerRight,
++    );
++    canvas.drawPath(rightPagePath, Paint()..shader = rightPageGradient.createShader(Rect.fromLTRB(w * 0.015, -h * 0.26, w * 0.40, h * 0.24)));
++
++    // Page borders
++    final pageBorderPaint = Paint()
++      ..color = const Color(0xFF8B6C3F)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.010;
++    canvas.drawPath(leftPagePath, pageBorderPaint);
++    canvas.drawPath(rightPagePath, pageBorderPaint);
++
++    // Crease line
++    canvas.drawLine(Offset(0, -h * 0.22), Offset(0, h * 0.22), Paint()..color = const Color(0xFF6E4E23)..strokeWidth = w * 0.015);
++
++    // Characters / lines on left page
++    final textPaint = Paint()
++      ..color = const Color(0xFF5E4221).withValues(alpha: 0.95)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.015
++      ..strokeCap = StrokeCap.round;
++
++    final textShadow = Paint()
++      ..color = const Color(0xFFFFF2CD).withValues(alpha: 0.4)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.015
++      ..strokeCap = StrokeCap.round;
++
++    void drawPageGlyph(String text, double cx, double cy, double gw, double gh) {
++      final len = text.length;
++      final totalW = gw * len * 1.1;
++      final step = len > 1 ? totalW / (len - 1) : 0.0;
++      final startOffset = cx - totalW / 2;
++
++      for (int i = 0; i < len; i++) {
++        final charX = startOffset + i * step;
++        canvas.save();
++        canvas.translate(w * 0.005, h * 0.005);
++        _drawGlyph(canvas, charX, cy, gw, gh, text[i], textShadow);
++        canvas.restore();
++        _drawGlyph(canvas, charX, cy, gw, gh, text[i], textPaint);
++      }
++    }
++
++    final charW = w * 0.035;
++    final charH = h * 0.040;
++
++    // Left Page Hebrew lines
++    drawPageGlyph("LBH", -w * 0.20, -h * 0.12, charW, charH);
++    drawPageGlyph("SRVT", -w * 0.20, -h * 0.04, charW, charH);
++    drawPageGlyph("RBT", -w * 0.20, h * 0.04, charW, charH);
++
++    // Left Page printed paragraph text (straight lines)
++    final linePaint = Paint()
++      ..color = const Color(0xFF7E5C31).withValues(alpha: 0.8)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.008
++      ..strokeCap = StrokeCap.round;
++    canvas.drawLine(Offset(-w * 0.32, h * 0.10), Offset(-w * 0.08, h * 0.10), linePaint);
++    canvas.drawLine(Offset(-w * 0.30, h * 0.14), Offset(-w * 0.10, h * 0.14), linePaint);
++    canvas.drawLine(Offset(-w * 0.32, h * 0.18), Offset(-w * 0.14, h * 0.18), linePaint);
++
++    // Right Page Hebrew lines
++    drawPageGlyph("ANI", w * 0.20, -h * 0.12, charW, charH);
++    drawPageGlyph("SMI", w * 0.20, -h * 0.04, charW, charH);
++    drawPageGlyph("RB", w * 0.20, h * 0.04, charW, charH);
++
++    // Right Page printed paragraph text
++    canvas.drawLine(Offset(w * 0.08, h * 0.10), Offset(w * 0.32, h * 0.10), linePaint);
++    canvas.drawLine(Offset(w * 0.10, h * 0.14), Offset(w * 0.30, h * 0.14), linePaint);
++    canvas.drawLine(Offset(w * 0.08, h * 0.18), Offset(w * 0.24, h * 0.18), linePaint);
++
++    canvas.restore(); // Restore from book tilt
++
++    // 3. Draw Calendar (leaning on bottom right corner)
++    // Save, translate to calendar position, rotate slightly clockwise
++    canvas.save();
++    canvas.translate(w * 0.25, h * 0.22);
++    canvas.rotate(0.06); // counter-tilt calendar
++
++    final calW = w * 0.38;
++    final calH = h * 0.36;
++
++    // Calendar Shadow
++    final calShadow = Paint()
++      ..color = const Color(0xFF1E140B).withValues(alpha: 0.5)
++      ..style = PaintingStyle.fill;
++    canvas.save();
++    canvas.translate(w * 0.015, h * 0.015);
++    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromCenter(center: const Offset(0, 0), width: calW, height: calH), Radius.circular(w * 0.04)), calShadow);
++    canvas.restore();
++
++    // Calendar Backing Card
++    final calCardPaint = Paint()
++      ..color = const Color(0xFFFFFDF5)
++      ..style = PaintingStyle.fill;
++    final calBorderPaint = Paint()
++      ..color = const Color(0xFFCFA83B)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.016;
++    final calRRect = RRect.fromRectAndRadius(Rect.fromCenter(center: const Offset(0, 0), width: calW, height: calH), Radius.circular(w * 0.04));
++    canvas.drawRRect(calRRect, calCardPaint);
++    canvas.drawRRect(calRRect, calBorderPaint);
++
++    // Header bar (gold-brown)
++    final headerPaint = Paint()
++      ..color = const Color(0xFF8B5A2B)
++      ..style = PaintingStyle.fill;
++    final headerPath = Path()
++      ..addRRect(RRect.fromRectAndCorners(
++        Rect.fromLTRB(-calW / 2, -calH / 2, calW / 2, -calH / 2 + calH * 0.28),
++        topLeft: Radius.circular(w * 0.04),
++        topRight: Radius.circular(w * 0.04),
++      ));
++    canvas.drawPath(headerPath, headerPaint);
++
++    // Calendar Header Text (Calendar) - represented by a tiny horizontal line
++    final whiteLinePaint = Paint()
++      ..color = Colors.white
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.008
++      ..strokeCap = StrokeCap.round;
++    canvas.drawLine(Offset(-calW * 0.25, -calH * 0.36), Offset(calW * 0.25, -calH * 0.36), whiteLinePaint);
++
++    // Days of week S M T W T F S (represented by tiny vertical ticks or dots)
++    final tickPaint = Paint()
++      ..color = const Color(0xFF5E4221)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.006
++      ..strokeCap = StrokeCap.round;
++    
++    final startTickX = -calW * 0.35;
++    final tickStep = calW * 0.70 / 6;
++    final tickY = -calH * 0.08;
++    for (int i = 0; i < 7; i++) {
++      final tx = startTickX + i * tickStep;
++      canvas.drawLine(Offset(tx, tickY - h * 0.012), Offset(tx, tickY + h * 0.012), tickPaint);
++    }
++
++    // Calendar numbers grid (small dots for dates)
++    final gridDotPaint = Paint()
++      ..color = const Color(0xFF8B7355)
++      ..style = PaintingStyle.fill;
++    
++    final gridYStart = calH * 0.06;
++    final gridRowStep = calH * 0.18;
++    for (int row = 0; row < 3; row++) {
++      final gy = gridYStart + row * gridRowStep;
++      for (int col = 0; col < 7; col++) {
++        // Skip some positions to look like a real calendar month starting in mid-week
++        if (row == 0 && col < 3) continue; // Start on Wednesday
++        final gx = startTickX + col * tickStep;
++        
++        // Let's make one date (e.g. Wednesday in the 3rd row, which would be the 16th) circled in red!
++        if (row == 2 && col == 1) {
++          // Draw red circle around this date instead of just a dot!
++          final redCirclePaint = Paint()
++            ..color = const Color(0xFFE53935)
++            ..style = PaintingStyle.stroke
++            ..strokeWidth = w * 0.012;
++          canvas.drawCircle(Offset(gx, gy), w * 0.026, redCirclePaint);
++          // And a tiny dark dot inside the circle
++          canvas.drawCircle(Offset(gx, gy), w * 0.006, Paint()..color = const Color(0xFFE53935));
++        } else {
++          canvas.drawCircle(Offset(gx, gy), w * 0.008, gridDotPaint);
++        }
++      }
++    }
++
++    // Top metal rings binding the calendar
++    final ringPaint = Paint()
++      ..color = const Color(0xFFB0BEC5)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.016
++      ..strokeCap = StrokeCap.round;
++    
++    void drawRing(double rx) {
++      final ringPath = Path()
++        ..moveTo(rx, -calH * 0.50)
++        ..quadraticBezierTo(rx, -calH * 0.68, rx + w * 0.02, -calH * 0.68)
++        ..quadraticBezierTo(rx + w * 0.04, -calH * 0.68, rx + w * 0.04, -calH * 0.50);
++      canvas.drawPath(ringPath, ringPaint);
++    }
++    drawRing(-calW * 0.22);
++    drawRing(calW * 0.12);
++
++    canvas.restore(); // Restore calendar coordinate system
++  }
++
++  @override
++  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
++}
++
++class ScriptureMemoryIconWidget extends StatelessWidget {
++  final double size;
++  const ScriptureMemoryIconWidget({super.key, this.size = 38.0});
++
++  @override
++  Widget build(BuildContext context) {
++    return SizedBox(
++      width: size,
++      height: size,
++      child: CustomPaint(
++        painter: const ScriptureMemoryPainter(),
++      ),
++    );
++  }
++}
++
++class ScriptureMemoryPainter extends CustomPainter {
++  const ScriptureMemoryPainter();
++
++  void _drawGlyph(Canvas canvas, double cx, double cy, double gw, double gh, String glyph, Paint paint) {
++    final w2 = gw / 2;
++    final h2 = gh / 2;
++
++    switch (glyph) {
++      case 'A': // Aleph
++        canvas.drawLine(Offset(cx - w2, cy - h2), Offset(cx + w2, cy + h2), paint);
++        canvas.drawLine(Offset(cx + w2 * 0.1, cy - h2 * 0.1), Offset(cx + w2, cy - h2 * 0.8), paint);
++        canvas.drawLine(Offset(cx - w2 * 0.1, cy + h2 * 0.1), Offset(cx - w2, cy + h2 * 0.8), paint);
++        break;
++      case 'Y': // Ayin
++        canvas.drawLine(Offset(cx - w2, cy - h2), Offset(cx, cy), paint);
++        canvas.drawLine(Offset(cx + w2, cy - h2), Offset(cx - w2 * 0.5, cy + h2), paint);
++        break;
++      case 'L': // Lamed
++        final path = Path()
++          ..moveTo(cx - w2 * 0.2, cy - h2 * 1.5)
++          ..quadraticBezierTo(cx - w2 * 0.6, cy - h2 * 1.5, cx - w2 * 0.4, cy - h2 * 0.8)
++          ..lineTo(cx + w2 * 0.2, cy)
++          ..lineTo(cx + w2 * 0.2, cy + h2 * 0.4)
++          ..quadraticBezierTo(cx + w2 * 0.2, cy + h2, cx - w2 * 0.8, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'B': // Bet
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2)
++          ..lineTo(cx - w2 * 1.1, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'H': // He
++        canvas.drawLine(Offset(cx - w2 * 0.8, cy - h2), Offset(cx + w2 * 0.8, cy - h2), paint);
++        canvas.drawLine(Offset(cx + w2 * 0.8, cy - h2), Offset(cx + w2 * 0.8, cy + h2), paint);
++        canvas.drawLine(Offset(cx - w2 * 0.8, cy - h2 * 0.3), Offset(cx - w2 * 0.8, cy + h2), paint);
++        break;
++      case 'N': // Nun
++        final path = Path()
++          ..moveTo(cx - w2 * 0.3, cy - h2)
++          ..lineTo(cx + w2 * 0.3, cy - h2)
++          ..lineTo(cx + w2 * 0.3, cy + h2)
++          ..lineTo(cx - w2 * 0.6, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'S': // Shin
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..quadraticBezierTo(cx - w2 * 0.8, cy + h2, cx, cy + h2)
++          ..quadraticBezierTo(cx + w2 * 0.8, cy + h2, cx + w2 * 0.8, cy - h2)
++          ..moveTo(cx, cy + h2)
++          ..lineTo(cx, cy - h2 * 0.3);
++        canvas.drawPath(path, paint);
++        break;
++      case 'R': // Resh
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'V': // Vav
++        final path = Path()
++          ..moveTo(cx - w2 * 0.2, cy - h2)
++          ..lineTo(cx + w2 * 0.2, cy - h2)
++          ..lineTo(cx + w2 * 0.2, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'T': // Tav
++        final path = Path()
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2)
++          ..moveTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx - w2 * 0.8, cy + h2 * 0.6)
++          ..quadraticBezierTo(cx - w2 * 0.8, cy + h2, cx - w2 * 1.2, cy + h2);
++        canvas.drawPath(path, paint);
++        break;
++      case 'M': // Mem
++        final path = Path()
++          ..moveTo(cx - w2 * 0.4, cy + h2)
++          ..lineTo(cx + w2 * 0.8, cy + h2)
++          ..lineTo(cx + w2 * 0.8, cy - h2)
++          ..lineTo(cx - w2 * 0.8, cy - h2)
++          ..lineTo(cx - w2 * 0.8, cy + h2 * 0.4);
++        canvas.drawPath(path, paint);
++        break;
++      case 'I': // Yod
++        final path = Path()
++          ..moveTo(cx - w2 * 0.3, cy - h2)
++          ..quadraticBezierTo(cx + w2 * 0.3, cy - h2, cx + w2 * 0.1, cy - h2 * 0.2);
++        canvas.drawPath(path, paint);
++        break;
++    }
++  }
++
++  @override
++  void paint(Canvas canvas, Size size) {
++    final w = size.width;
++    final h = size.height;
++
++    // 1. Draw Background Glow (radial glow)
++    final radialGlow = RadialGradient(
++      colors: [
++        const Color(0xFFFFD54F).withValues(alpha: 0.50),
++        const Color(0xFFFF8F00).withValues(alpha: 0.15),
++        const Color(0xFFFF8F00).withValues(alpha: 0.0),
++      ],
++      stops: const [0.0, 0.6, 1.0],
++    );
++    final glowPaint = Paint()
++      ..shader = radialGlow.createShader(Rect.fromCenter(center: Offset(w / 2, h / 2), width: w * 0.95, height: h * 0.95))
++      ..style = PaintingStyle.fill;
++    canvas.drawOval(
++      Rect.fromCenter(center: Offset(w / 2, h / 2), width: w * 0.95, height: h * 0.95),
++      glowPaint,
++    );
++
++    // Draw background sparks
++    final sparkPaint = Paint()
++      ..color = const Color(0xFFFFD54F)
++      ..style = PaintingStyle.fill;
++    canvas.drawCircle(Offset(w * 0.28, h * 0.22), w * 0.012, sparkPaint);
++    canvas.drawCircle(Offset(w * 0.72, h * 0.78), w * 0.015, sparkPaint);
++    canvas.drawCircle(Offset(w * 0.15, h * 0.60), w * 0.010, sparkPaint);
++    canvas.drawCircle(Offset(w * 0.85, h * 0.40), w * 0.012, sparkPaint);
++
++    // 2. Draw Rolled Scroll (tilted diagonally)
++    canvas.save();
++    canvas.translate(w / 2, h / 2);
++    canvas.rotate(-0.70); // tilt scroll ~ -40 degrees
++
++    final scrollLength = w * 0.76;
++    final scrollRadius = h * 0.13;
++
++    // Scroll Cover/Backing shadow
++    final scrollShadow = Paint()
++      ..color = const Color(0xFF23160B).withValues(alpha: 0.55)
++      ..style = PaintingStyle.fill;
++    canvas.save();
++    canvas.translate(w * 0.02, h * 0.025);
++    canvas.drawRRect(RRect.fromRectAndRadius(
++      Rect.fromCenter(center: const Offset(0, 0), width: scrollLength, height: scrollRadius * 2),
++      Radius.circular(w * 0.02),
++    ), scrollShadow);
++    canvas.restore();
++
++    // Scroll main body
++    final scrollPaint = Paint()
++      ..shader = LinearGradient(
++        colors: const [
++          Color(0xFF8B6C3F), // shadow top
++          Color(0xFFEADBBE), // light center
++          Color(0xFF9E8159), // shadow bottom
++        ],
++        begin: Alignment.topCenter,
++        end: Alignment.bottomCenter,
++      ).createShader(Rect.fromLTRB(-scrollLength / 2, -scrollRadius, scrollLength / 2, scrollRadius))
++      ..style = PaintingStyle.fill;
++    canvas.drawRRect(RRect.fromRectAndRadius(
++      Rect.fromCenter(center: const Offset(0, 0), width: scrollLength, height: scrollRadius * 2),
++      Radius.circular(w * 0.02),
++    ), scrollPaint);
++
++    // Page border outlines on the rolled scroll
++    final borderPaint = Paint()
++      ..color = const Color(0xFF7E5C31)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.010;
++    canvas.drawRRect(RRect.fromRectAndRadius(
++      Rect.fromCenter(center: const Offset(0, 0), width: scrollLength, height: scrollRadius * 2),
++      Radius.circular(w * 0.02),
++    ), borderPaint);
++
++    // Left end roll layers (rolled spiral ellipses)
++    final spiralPaint = Paint()
++      ..color = const Color(0xFF6E4E23)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.012;
++    canvas.drawOval(Rect.fromCenter(center: Offset(-scrollLength / 2, 0), width: w * 0.05, height: scrollRadius * 2), spiralPaint);
++    canvas.drawOval(Rect.fromCenter(center: Offset(-scrollLength / 2, 0), width: w * 0.025, height: scrollRadius * 1.2), spiralPaint);
++
++    // Characters written on the scroll (written vertically along the width)
++    final scrollTextPaint = Paint()
++      ..color = const Color(0xFF5E4221).withValues(alpha: 0.9)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.016
++      ..strokeCap = StrokeCap.round
++      ..strokeJoin = StrokeJoin.round;
++
++    final scrollTextShadow = Paint()
++      ..color = const Color(0xFFFFF2CD).withValues(alpha: 0.4)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.016
++      ..strokeCap = StrokeCap.round
++      ..strokeJoin = StrokeJoin.round;
++
++    void drawVerticalScrollString(String text, double cx, double cy, double gw, double gh) {
++      final len = text.length;
++      final totalH = gh * len * 1.1;
++      final step = len > 1 ? totalH / (len - 1) : 0.0;
++      final startOffset = cy - totalH / 2;
++
++      for (int i = 0; i < len; i++) {
++        final charY = startOffset + i * step;
++        canvas.save();
++        canvas.translate(w * 0.005, h * 0.005);
++        _drawGlyph(canvas, cx, charY, gw, gh, text[i], scrollTextShadow);
++        canvas.restore();
++        _drawGlyph(canvas, cx, charY, gw, gh, text[i], scrollTextPaint);
++      }
++    }
++
++    final charW = w * 0.035;
++    final charH = h * 0.040;
++
++    // Draw characters on left and right sides of the bow center (which is at x = 0)
++    drawVerticalScrollString("LBH", -w * 0.20, 0, charW, charH);
++    drawVerticalScrollString("SRVT", -w * 0.12, 0, charW, charH);
++
++    drawVerticalScrollString("ANI", w * 0.12, 0, charW, charH);
++    drawVerticalScrollString("SMI", w * 0.20, 0, charW, charH);
++
++    // 3. Draw Golden Ribbon Band wrapping the scroll
++    final ribbonPaint = Paint()
++      ..shader = LinearGradient(
++        colors: const [
++          Color(0xFFFFF176), // bright gold
++          Color(0xFFFBC02D), // main gold
++          Color(0xFFF57F17), // shadow gold
++        ],
++        begin: Alignment.topCenter,
++        end: Alignment.bottomCenter,
++      ).createShader(Rect.fromLTRB(-w * 0.04, -scrollRadius, w * 0.04, scrollRadius))
++      ..style = PaintingStyle.fill;
++    
++    final ribbonBorder = Paint()
++      ..color = const Color(0xFFC58B12)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.008;
++
++    final wrappingRect = Rect.fromLTRB(-w * 0.035, -scrollRadius - h * 0.005, w * 0.035, scrollRadius + h * 0.005);
++    canvas.drawRect(wrappingRect, ribbonPaint);
++    canvas.drawRect(wrappingRect, ribbonBorder);
++
++    // 4. Draw Ribbon Bow Loops and Tails
++    // Left loop path
++    final leftLoopPath = Path()
++      ..moveTo(0, 0)
++      ..cubicTo(-w * 0.12, -h * 0.16, -w * 0.20, -h * 0.08, -w * 0.16, -h * 0.02)
++      ..cubicTo(-w * 0.12, h * 0.04, -w * 0.05, 0, 0, 0);
++
++    // Right loop path
++    final rightLoopPath = Path()
++      ..moveTo(0, 0)
++      ..cubicTo(w * 0.12, -h * 0.16, w * 0.20, -h * 0.08, w * 0.16, -h * 0.02)
++      ..cubicTo(w * 0.12, h * 0.04, w * 0.05, 0, 0, 0);
++
++    // Left tail path
++    final leftTailPath = Path()
++      ..moveTo(0, 0)
++      ..quadraticBezierTo(-w * 0.15, h * 0.06, -w * 0.28, h * 0.04)
++      ..lineTo(-w * 0.26, h * 0.09)
++      ..quadraticBezierTo(-w * 0.15, h * 0.11, 0, 0);
++
++    // Right tail path
++    final rightTailPath = Path()
++      ..moveTo(0, 0)
++      ..quadraticBezierTo(w * 0.16, h * 0.08, w * 0.22, h * 0.20)
++      ..lineTo(w * 0.17, h * 0.23)
++      ..quadraticBezierTo(w * 0.10, h * 0.10, 0, 0);
++
++    // Draw Bow Shadows
++    final bowShadowPaint = Paint()
++      ..color = const Color(0xFF2C1E0A).withValues(alpha: 0.45)
++      ..style = PaintingStyle.fill;
++    
++    canvas.save();
++    canvas.translate(w * 0.015, h * 0.015);
++    canvas.drawPath(leftLoopPath, bowShadowPaint);
++    canvas.drawPath(rightLoopPath, bowShadowPaint);
++    canvas.drawPath(leftTailPath, bowShadowPaint);
++    canvas.drawPath(rightTailPath, bowShadowPaint);
++    canvas.restore();
++
++    // Fill bow parts
++    final bowFillPaint = Paint()
++      ..shader = LinearGradient(
++        colors: const [
++          Color(0xFFFFF59D), // bright yellow highlight
++          Color(0xFFFFD54F), // yellow
++          Color(0xFFFF8F00), // amber-gold shadow
++        ],
++        begin: Alignment.topLeft,
++        end: Alignment.bottomRight,
++      ).createShader(Rect.fromCircle(center: const Offset(0, 0), radius: w * 0.25))
++      ..style = PaintingStyle.fill;
++
++    canvas.drawPath(leftLoopPath, bowFillPaint);
++    canvas.drawPath(leftLoopPath, ribbonBorder);
++    canvas.drawPath(rightLoopPath, bowFillPaint);
++    canvas.drawPath(rightLoopPath, ribbonBorder);
++    canvas.drawPath(leftTailPath, bowFillPaint);
++    canvas.drawPath(leftTailPath, ribbonBorder);
++    canvas.drawPath(rightTailPath, bowFillPaint);
++    canvas.drawPath(rightTailPath, ribbonBorder);
++
++    // Center knot circle
++    final knotPaint = Paint()
++      ..shader = RadialGradient(
++        colors: const [
++          Color(0xFFFFF9C4),
++          Color(0xFFFFC107),
++          Color(0xFFFF6F00),
++        ],
++      ).createShader(Rect.fromCircle(center: const Offset(0, 0), radius: w * 0.045))
++      ..style = PaintingStyle.fill;
++    canvas.drawCircle(const Offset(0, 0), w * 0.045, knotPaint);
++    canvas.drawCircle(const Offset(0, 0), w * 0.045, ribbonBorder);
++
++    // High Gloss highlight strokes
++    final glossPaint = Paint()
++      ..color = Colors.white.withValues(alpha: 0.6)
++      ..style = PaintingStyle.stroke
++      ..strokeWidth = w * 0.010
++      ..strokeCap = StrokeCap.round;
++
++    final leftGlossPath = Path()
++      ..moveTo(-w * 0.02, -h * 0.01)
++      ..quadraticBezierTo(-w * 0.08, -h * 0.09, -w * 0.12, -h * 0.05);
++    final rightGlossPath = Path()
++      ..moveTo(w * 0.02, -h * 0.01)
++      ..quadraticBezierTo(w * 0.08, -h * 0.09, w * 0.12, -h * 0.05);
++
++    canvas.drawPath(leftGlossPath, glossPaint);
++    canvas.drawPath(rightGlossPath, glossPaint);
++
++    canvas.restore(); // Restore from rotation
++  }
++
++  @override
++  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
++}
+diff --git a/lib/widgets/daily_verse_card.dart b/lib/widgets/daily_verse_card.dart
+index e2fce07..d7f988f 100644
+--- a/lib/widgets/daily_verse_card.dart
++++ b/lib/widgets/daily_verse_card.dart
+@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
+ import '../features/bible/providers/bible_providers.dart';
+ import '../services/bible_service.dart';
+ import '../constants/theme.dart';
++import 'package:share_plus/share_plus.dart';
+ 
+ class DailyVerseCard extends ConsumerWidget {
+   const DailyVerseCard({super.key});
+@@ -54,6 +55,7 @@ class DailyVerseCard extends ConsumerWidget {
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Row(
++                            crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Container(
+                                   width: 32,
+@@ -100,6 +102,30 @@ class DailyVerseCard extends ConsumerWidget {
+                                   ],
+                                 ),
+                               ),
++                              IconButton(
++                                icon: const Icon(Icons.share, color: AppTheme.gold, size: 20),
++                                padding: EdgeInsets.zero,
++                                constraints: const BoxConstraints(),
++                                onPressed: () async {
++                                  final bookMeta = BibleService.findBookByName(dailyVerse.bookName);
++                                  final bookId = bookMeta?.id ?? dailyVerse.bookName.toLowerCase();
++                                  
++                                  final teluguMap = await BibleService.getChapter(bookId, dailyVerse.chapter, 'telugu_ov');
++                                  final englishMap = await BibleService.getChapter(bookId, dailyVerse.chapter, 'kjv');
++                                  
++                                  final teluguText = teluguMap[dailyVerse.verse] ?? dailyVerse.text;
++                                  final englishText = englishMap[dailyVerse.verse] ?? '';
++                                  
++                                  final displayBookNameEn = bookMeta?.nameEn ?? dailyVerse.bookName;
++                                  final displayBookNameTe = bookMeta?.nameTe ?? '';
++                                  final refString = displayBookNameTe.isNotEmpty
++                                      ? '$displayBookNameEn ($displayBookNameTe) ${dailyVerse.chapter}:${dailyVerse.verse}'
++                                      : '$displayBookNameEn ${dailyVerse.chapter}:${dailyVerse.verse}';
++                                  
++                                  final shareText = '$refString\n\n$teluguText\n\n$englishText\n\n— BibleQuest';
++                                  await SharePlus.instance.share(ShareParams(text: shareText));
++                                },
++                              ),
+                             ],
+                           ),
+                           const SizedBox(height: 8),

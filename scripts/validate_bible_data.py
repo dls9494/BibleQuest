@@ -286,14 +286,7 @@ def main():
                 if "ఈ వచనం" in ov_txt or "not available" in ov_txt or "This verse" in ov_txt:
                     continue
                     
-                whitelist = {
-                    ("joshua", 12, 10), ("joshua", 12, 11), ("joshua", 12, 12), ("joshua", 12, 13),
-                    ("joshua", 12, 14), ("joshua", 12, 15), ("joshua", 12, 16), ("joshua", 12, 17),
-                    ("joshua", 12, 18), ("joshua", 12, 19), ("joshua", 12, 20), ("joshua", 12, 21),
-                    ("2samuel", 22, 32), ("2samuel", 23, 25), ("2samuel", 23, 31), ("2samuel", 23, 35),
-                    ("2samuel", 23, 38), ("1chronicles", 11, 36), ("1chronicles", 11, 40), ("1chronicles", 12, 5),
-                    ("john", 4, 54)
-                }
+                whitelist = set()
                 if (book_id, chapter, v) in whitelist:
                     continue
 

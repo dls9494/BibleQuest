@@ -654,7 +654,7 @@ class _BibleScreenState extends State<BibleScreen> {
 
   Widget _buildTopBar(String bookNameEn, String bookNameTe) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final userProvider = Provider.of<UserDataProvider>(context);
     final currentDropdownValue = _selectedLanguage == 'telugu' ? _activeTeluguVersion : _activeEnglishVersion;
@@ -910,7 +910,7 @@ class _BibleScreenState extends State<BibleScreen> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             final isDark = Theme.of(context).brightness == Brightness.dark;
-            final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+            final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
             return AlertDialog(
               backgroundColor: isDark ? const Color(0xFF1E1E30) : Colors.white,
@@ -1015,7 +1015,7 @@ class _BibleScreenState extends State<BibleScreen> {
       backgroundColor: Colors.transparent,
       builder: (context) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
-        final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+        final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
         final bgColor = isDark ? const Color(0xFF1E1E30) : Colors.white;
 
         return Container(
@@ -1083,7 +1083,7 @@ class _BibleScreenState extends State<BibleScreen> {
 
   Widget _buildBottomBar(String bookNameEn, String bookNameTe) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final book = BibleService.getBookById(_selectedBookId);
     final totalChapters = book?.chapters ?? 1;
     final isFirstChapter = _selectedChapter == 1;
@@ -2344,7 +2344,7 @@ class _BookChapterSelectorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     if (allBooks == null) {
       return Container(
@@ -2538,7 +2538,7 @@ class _BookChapterSelectorDialog extends StatelessWidget {
   Widget _buildFilterButton(BuildContext context, String value, String label) {
     final isSelected = testamentFilter == value;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return InkWell(
       onTap: () => onFilterChanged(value),

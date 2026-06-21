@@ -1,0 +1,5 @@
+Reason,Count
+USFM inline markup and tag removal,17022
+Footnote and cross-reference tag removal,422
+Structural merge of verses,2
+Omitted verse row in SQLite database to align with canon,2

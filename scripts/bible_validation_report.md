@@ -6,9 +6,9 @@ This report displays validation checks across all 7 SQLite databases.
 
 | Version | Merged Words | Shifts | Missing Verses | Duplicate Verses | Text Integrity | Cross-Version Discr. | Formatting | Total |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **telugu_ov** | 0 | 0 | 0 | 790 | 0 | 0 | 0 | **790** |
-| **telugu_irv** | 0 | 0 | 0 | 612 | 0 | 0 | 0 | **612** |
-| **telugu_wbtc** | 0 | 0 | 0 | 25308 | 0 | 0 | 0 | **25308** |
+| **telugu_ov** | 1 | 0 | 0 | 790 | 0 | 0 | 0 | **791** |
+| **telugu_irv** | 0 | 0 | 0 | 612 | 20 | 0 | 0 | **632** |
+| **telugu_wbtc** | 0 | 0 | 0 | 25308 | 1 | 0 | 0 | **25309** |
 | **kjv** | 0 | 0 | 0 | 2776 | 0 | 0 | 0 | **2776** |
 | **asv** | 0 | 0 | 0 | 3142 | 0 | 0 | 0 | **3142** |
 | **web** | 0 | 0 | 0 | 3074 | 0 | 0 | 0 | **3074** |
@@ -20,9 +20,9 @@ This report displays validation checks across all 7 SQLite databases.
 
 | Version | Merged Words | Shifts | Missing Verses | Duplicate Verses | Text Integrity | Cross-Version Discr. | Formatting |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| **telugu_ov** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
-| **telugu_irv** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
-| **telugu_wbtc** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
+| **telugu_ov** | ❌ FAIL | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
+| **telugu_irv** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ❌ FAIL | ✅ PASS | ✅ PASS |
+| **telugu_wbtc** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ❌ FAIL | ✅ PASS | ✅ PASS |
 | **kjv** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
 | **asv** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
 | **web** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
@@ -38,7 +38,7 @@ No chapter verse count mismatches found.
 
 ## 4. DETAILED FINDINGS
 
-Showing first 500 of 1272 detailed findings:
+Showing first 500 of 1294 detailed findings:
 
 | Book | Chapter | Verse | Version | Issue Category | Description | Snippet |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -1699,6 +1699,9 @@ Showing first 500 of 1272 detailed findings:
 | 1chronicles | 9 | 40 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `And the son of Jonathan was Merib-baal; and Merib-baal begat Micah.` |
 | 1chronicles | 9 | 40 | web | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `The son of Jonathan was Merib Baal; and Merib Baal became the father of Micah.` |
 | 1chronicles | 9 | 40 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `And the son of Jonathan was Merib-Baal; and Merib-Baal begot Micah.` |
+| 1chronicles | 11 | 36 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `మెకేరాతీయుడైన హెపెరు, పెలోనీయుడైన అహీయా,` |
+| 1chronicles | 11 | 40 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `ఇత్రీయుడైన ఈరా, ఇత్రీయుడైన గారేబు,` |
+| 1chronicles | 12 | 5 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `ఎలూజై, యెరీమోతు, బెయల్యా, షెమర్యా, హరీపీయుడైన షెఫటయా,` |
 | 1chronicles | 14 | 6 | telugu_irv | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `నోగహు, నెపెగు, యాఫీయ,` |
 | 1chronicles | 14 | 6 | kjv | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `And Nogah, and Nepheg, and Japhia,` |
 | 1chronicles | 14 | 6 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `and Nogah, and Nepheg, and Japhia,` |
@@ -4572,6 +4575,11 @@ Showing first 500 of 1272 detailed findings:
 | 2samuel | 22 | 3 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2samuel 17:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2samuel | 22 | 3 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2samuel 22:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2samuel | 22 | 3 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2samuel 23:39 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
+| 2samuel | 22 | 32 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `యెహోవా తప్ప దేవుడేడి? మన దేవుడు తప్ప ఆశ్రయదుర్గమేది?` |
+| 2samuel | 23 | 25 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `హరోదీయుడైన షమ్మా, హరోదీయుడైన ఎలీకా,` |
+| 2samuel | 23 | 31 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `అర్బాతీయుడైన అబీయల్బోను, బర్హుమీయుడైన అజ్మావెతు,` |
+| 2samuel | 23 | 35 | telugu_wbtc | text_integrity | Cross-contamination: WBTC text is 100% identical to Telugu OV | `కర్మెతీయుడైన హెస్రై, అర్బీయుడైన పయరై,` |
+| 2samuel | 23 | 38 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `ఇత్రీయుడైన ఈరా, ఇత్రీయుడైన గారేబు,` |
 | 2samuel | 23 | 39 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2samuel 1:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2samuel | 23 | 39 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2samuel 1:16 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2samuel | 23 | 39 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2samuel 3:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -6088,6 +6096,7 @@ Showing first 500 of 1272 detailed findings:
 | ephesians | 4 | 3 | telugu_irv | duplicate_verses | Duplicate verse content matching ephesians 4:2 | `కాబట్టి మీరు పిలువబడిన పిలుపుకు తగినట్టుగా సంపూర్ణ వినయం, సాత్వికం, సమాధానం కలిగిన వారై, ప్రేమతో ఒకడ` |
 | ephesians | 4 | 11 | telugu_irv | duplicate_verses | Duplicate verse content matching ephesians 4:12 | `విశ్వాసులను సేవా కార్యాలకు సిద్ధం చేయాలనీ క్రీస్తు సంఘానికి క్షేమాభివృద్ధి కలగాలనీ ఆయన కొందరిని అపొస` |
 | ephesians | 4 | 12 | telugu_irv | duplicate_verses | Duplicate verse content matching ephesians 4:11 | `విశ్వాసులను సేవా కార్యాలకు సిద్ధం చేయాలనీ క్రీస్తు సంఘానికి క్షేమాభివృద్ధి కలగాలనీ ఆయన కొందరిని అపొస` |
+| ephesians | 4 | 14 | telugu_ov | merged_words | Potential merged Telugu word: 'ఎగురగొట్టబడినవా...' length 26 | `అందువలన మనమిక మీదట పసిపిల్లలమై యుండి, మనుష్యుల మాయో పాయములచేత వంచనతోను, తప్పుమార్గమునకు లాగు కుయుక్త` |
 | ephesians | 6 | 2 | telugu_irv | duplicate_verses | Duplicate verse content matching ephesians 6:3 | `“నీకు మేలు కలిగేలా నీ తండ్రిని తల్లిని గౌరవించు. అది నీకు దీర్ఘాయువును కలిగిస్తుంది.” ఇది వాగ్దానంతో` |
 | ephesians | 6 | 3 | telugu_irv | duplicate_verses | Duplicate verse content matching ephesians 6:2 | `“నీకు మేలు కలిగేలా నీ తండ్రిని తల్లిని గౌరవించు. అది నీకు దీర్ఘాయువును కలిగిస్తుంది.” ఇది వాగ్దానంతో` |
 | esther | 1 | 10 | telugu_wbtc | duplicate_verses | Duplicate verse content matching esther 1:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -12077,355 +12086,4 @@ Showing first 500 of 1272 detailed findings:
 | genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 23 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 30 | 24 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 31 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 35 | 15 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 36 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| ... | ... | ... | ... | ... | *And 772 more issues.* | ... |
+| ... | ... | ... | ... | ... | *And 794 more issues.* | ... |

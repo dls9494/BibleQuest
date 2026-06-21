@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>BibleQuest needs access to your photo library to set your profile avatar.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>BibleQuest needs access to your camera to take a profile photo.</string>
 </dict>
 </plist>

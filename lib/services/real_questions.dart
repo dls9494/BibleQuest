@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class RealQuestionsService {
@@ -30,11 +31,13 @@ class RealQuestionsService {
           }
         });
       }
-      // ignore: avoid_print
-      print("RealQuestionsService initialized. Loaded ${_cachedQuestions.length} sets of questions.");
+      if (kDebugMode) {
+        print("RealQuestionsService initialized. Loaded ${_cachedQuestions.length} sets of questions.");
+      }
     } catch (e) {
-      // ignore: avoid_print
-      print("Error initializing RealQuestionsService: $e");
+      if (kDebugMode) {
+        print("Error initializing RealQuestionsService: $e");
+      }
     }
   }
 
