@@ -10,8 +10,8 @@ This report displays validation checks across all 7 SQLite databases.
 | **telugu_irv** | 0 | 0 | 0 | 612 | 20 | 0 | 0 | **632** |
 | **telugu_wbtc** | 0 | 0 | 0 | 25308 | 1 | 0 | 0 | **25309** |
 | **kjv** | 0 | 0 | 0 | 2776 | 0 | 0 | 0 | **2776** |
-| **asv** | 0 | 0 | 0 | 3142 | 0 | 0 | 0 | **3142** |
-| **web** | 0 | 0 | 0 | 3074 | 0 | 0 | 0 | **3074** |
+| **asv** | 0 | 0 | 0 | 3172 | 0 | 0 | 0 | **3172** |
+| **web** | 0 | 0 | 1 | 3078 | 0 | 1 | 0 | **3080** |
 | **darby** | 0 | 0 | 0 | 3898 | 0 | 0 | 0 | **3898** |
 
 ---
@@ -25,20 +25,22 @@ This report displays validation checks across all 7 SQLite databases.
 | **telugu_wbtc** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ❌ FAIL | ✅ PASS | ✅ PASS |
 | **kjv** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
 | **asv** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
-| **web** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
+| **web** | ✅ PASS | ✅ PASS | ❌ FAIL | ❌ FAIL | ✅ PASS | ❌ FAIL | ✅ PASS |
 | **darby** | ✅ PASS | ✅ PASS | ✅ PASS | ❌ FAIL | ✅ PASS | ✅ PASS | ✅ PASS |
 
 ---
 
 ## 3. CHAPTERS WITH VERSE COUNT MISMATCHES
 
-No chapter verse count mismatches found.
+| Version | Book | Chapter | Description |
+| --- | --- | --- | --- |
+| web | romans | 14 | Verse count mismatch: expected 23, got 26 |
 
 ---
 
 ## 4. DETAILED FINDINGS
 
-Showing first 500 of 1294 detailed findings:
+Showing first 500 of 1301 detailed findings:
 
 | Book | Chapter | Verse | Version | Issue Category | Description | Snippet |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -309,7 +311,7 @@ Showing first 500 of 1294 detailed findings:
 | 1chronicles | 3 | 7 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 29:27 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 3 | 7 | kjv | duplicate_verses | Duplicate verse content matching 1chronicles 14:6 | `And Nogah, and Nepheg, and Japhia,` |
 | 1chronicles | 3 | 7 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 14:6 | `and Nogah, and Nepheg, and Japhia,` |
-| 1chronicles | 3 | 7 | web | duplicate_verses | Duplicate verse content matching 1chronicles 14:6 | `and Nogah, and Nepheg, and Japhia,` |
+| 1chronicles | 3 | 7 | web | duplicate_verses | Duplicate verse content matching 1chronicles 14:6 | `Nogah, Nepheg, Japhia,` |
 | 1chronicles | 3 | 7 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 14:6 | `and Nogah, and Nepheg, and Japhia,` |
 | 1chronicles | 3 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 1:1 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 3 | 8 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 1:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -1639,13 +1641,13 @@ Showing first 500 of 1294 detailed findings:
 | 1chronicles | 8 | 13 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 21:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 8 | 13 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 29:26 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 8 | 13 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 29:27 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
+| 1chronicles | 8 | 29 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 9:35 | `And in Gibeon there dwelt the father of Gibeon, Jeiel, whose wife’s name was Maacah;` |
 | 1chronicles | 8 | 33 | telugu_ov | duplicate_verses | Duplicate verse content matching 1chronicles 9:39 | `నేరు కీషును కనెను, కీషు సౌలును కనెను, సౌలు యోనాతానును మల్కీషూవను అబీనాదాబును ఎష్బయలును కనెను.` |
-| 1chronicles | 8 | 33 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 9:39 | `And Ner begat Kish; and Kish begat Saul; and Saul begat Jonathan, and Malchi-shua, and Abinadab, and` |
-| 1chronicles | 8 | 33 | web | duplicate_verses | Duplicate verse content matching 1chronicles 9:39 | `Ner became the father of Kish; and Kish became the father of Saul; and Saul became the father of Jon` |
+| 1chronicles | 8 | 33 | web | duplicate_verses | Duplicate verse content matching 1chronicles 9:39 | `Ner became the father of Kish. Kish became the father of Saul. Saul became the father of Jonathan, M` |
 | 1chronicles | 8 | 33 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 9:39 | `And Ner begot Kish; and Kish begot Saul; and Saul begot Jonathan, and Malchishua, and Abinadab, and ` |
 | 1chronicles | 8 | 34 | telugu_ov | duplicate_verses | Duplicate verse content matching 1chronicles 9:40 | `యోనాతాను కుమారుడు మెరీబ్బయలు, మెరీబ్బయలు మీకాను కనెను.` |
 | 1chronicles | 8 | 34 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 9:40 | `And the son of Jonathan was Merib-baal; and Merib-baal begat Micah.` |
-| 1chronicles | 8 | 34 | web | duplicate_verses | Duplicate verse content matching 1chronicles 9:40 | `The son of Jonathan was Merib Baal; and Merib Baal became the father of Micah.` |
+| 1chronicles | 8 | 34 | web | duplicate_verses | Duplicate verse content matching 1chronicles 9:40 | `The son of Jonathan was Merib-baal. Merib-baal became the father of Micah.` |
 | 1chronicles | 8 | 34 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 9:40 | `And the son of Jonathan was Merib-Baal; and Merib-Baal begot Micah.` |
 | 1chronicles | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 1:1 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 1:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -1691,13 +1693,13 @@ Showing first 500 of 1294 detailed findings:
 | 1chronicles | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 21:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 29:26 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 29:27 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
+| 1chronicles | 9 | 35 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 8:29 | `And in Gibeon there dwelt the father of Gibeon, Jeiel, whose wife’s name was Maacah;` |
 | 1chronicles | 9 | 39 | telugu_ov | duplicate_verses | Duplicate verse content matching 1chronicles 8:33 | `నేరు కీషును కనెను, కీషు సౌలును కనెను, సౌలు యోనాతానును మల్కీషూవను అబీనాదాబును ఎష్బయలును కనెను.` |
-| 1chronicles | 9 | 39 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 8:33 | `And Ner begat Kish; and Kish begat Saul; and Saul begat Jonathan, and Malchi-shua, and Abinadab, and` |
-| 1chronicles | 9 | 39 | web | duplicate_verses | Duplicate verse content matching 1chronicles 8:33 | `Ner became the father of Kish; and Kish became the father of Saul; and Saul became the father of Jon` |
+| 1chronicles | 9 | 39 | web | duplicate_verses | Duplicate verse content matching 1chronicles 8:33 | `Ner became the father of Kish. Kish became the father of Saul. Saul became the father of Jonathan, M` |
 | 1chronicles | 9 | 39 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 8:33 | `And Ner begot Kish; and Kish begot Saul; and Saul begot Jonathan, and Malchishua, and Abinadab, and ` |
 | 1chronicles | 9 | 40 | telugu_ov | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `యోనాతాను కుమారుడు మెరీబ్బయలు, మెరీబ్బయలు మీకాను కనెను.` |
 | 1chronicles | 9 | 40 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `And the son of Jonathan was Merib-baal; and Merib-baal begat Micah.` |
-| 1chronicles | 9 | 40 | web | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `The son of Jonathan was Merib Baal; and Merib Baal became the father of Micah.` |
+| 1chronicles | 9 | 40 | web | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `The son of Jonathan was Merib-baal. Merib-baal became the father of Micah.` |
 | 1chronicles | 9 | 40 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 8:34 | `And the son of Jonathan was Merib-Baal; and Merib-Baal begot Micah.` |
 | 1chronicles | 11 | 36 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `మెకేరాతీయుడైన హెపెరు, పెలోనీయుడైన అహీయా,` |
 | 1chronicles | 11 | 40 | telugu_irv | text_integrity | Cross-contamination: IRV text is 100% identical to Telugu OV | `ఇత్రీయుడైన ఈరా, ఇత్రీయుడైన గారేబు,` |
@@ -1705,7 +1707,7 @@ Showing first 500 of 1294 detailed findings:
 | 1chronicles | 14 | 6 | telugu_irv | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `నోగహు, నెపెగు, యాఫీయ,` |
 | 1chronicles | 14 | 6 | kjv | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `And Nogah, and Nepheg, and Japhia,` |
 | 1chronicles | 14 | 6 | asv | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `and Nogah, and Nepheg, and Japhia,` |
-| 1chronicles | 14 | 6 | web | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `and Nogah, and Nepheg, and Japhia,` |
+| 1chronicles | 14 | 6 | web | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `Nogah, Nepheg, Japhia,` |
 | 1chronicles | 14 | 6 | darby | duplicate_verses | Duplicate verse content matching 1chronicles 3:7 | `and Nogah, and Nepheg, and Japhia,` |
 | 1chronicles | 17 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 1:1 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1chronicles | 17 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1chronicles 1:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -2319,21 +2321,21 @@ Showing first 500 of 1294 detailed findings:
 | 1kings | 15 | 32 | darby | duplicate_verses | Duplicate verse content matching 1kings 15:16 | `And there was war between Asa and Baasha king of Israel all their days.` |
 | 1kings | 17 | 2 | kjv | duplicate_verses | Duplicate verse content matching 1kings 17:8 | `And the word of the LORD came unto him, saying,` |
 | 1kings | 17 | 2 | asv | duplicate_verses | Duplicate verse content matching 1kings 17:8 | `And the word of Jehovah came unto him, saying,` |
-| 1kings | 17 | 2 | web | duplicate_verses | Duplicate verse content matching 1kings 17:8 | `The word of Yahweh came to him, saying,` |
 | 1kings | 17 | 2 | darby | duplicate_verses | Duplicate verse content matching 1kings 17:8 | `And the word of Jehovah came to him saying,` |
 | 1kings | 17 | 8 | kjv | duplicate_verses | Duplicate verse content matching 1kings 17:2 | `And the word of the LORD came unto him, saying,` |
 | 1kings | 17 | 8 | asv | duplicate_verses | Duplicate verse content matching 1kings 17:2 | `And the word of Jehovah came unto him, saying,` |
-| 1kings | 17 | 8 | web | duplicate_verses | Duplicate verse content matching 1kings 17:2 | `The word of Yahweh came to him, saying,` |
 | 1kings | 17 | 8 | darby | duplicate_verses | Duplicate verse content matching 1kings 17:2 | `And the word of Jehovah came to him saying,` |
+| 1kings | 19 | 10 | web | duplicate_verses | Duplicate verse content matching 1kings 19:14 | `He said, “I have been very jealous for Yahweh, the God of Armies; for the children of Israel have fo` |
 | 1kings | 19 | 10 | darby | duplicate_verses | Duplicate verse content matching 1kings 19:14 | `And he said, I have been very jealous for Jehovah the God of hosts; for the children of Israel have ` |
+| 1kings | 19 | 14 | web | duplicate_verses | Duplicate verse content matching 1kings 19:10 | `He said, “I have been very jealous for Yahweh, the God of Armies; for the children of Israel have fo` |
 | 1kings | 19 | 14 | darby | duplicate_verses | Duplicate verse content matching 1kings 19:10 | `And he said, I have been very jealous for Jehovah the God of hosts; for the children of Israel have ` |
 | 1kings | 21 | 17 | kjv | duplicate_verses | Duplicate verse content matching 1kings 21:28 | `And the word of the LORD came to Elijah the Tishbite, saying,` |
 | 1kings | 21 | 17 | asv | duplicate_verses | Duplicate verse content matching 1kings 21:28 | `And the word of Jehovah came to Elijah the Tishbite, saying,` |
-| 1kings | 21 | 17 | web | duplicate_verses | Duplicate verse content matching 1kings 21:28 | `The word of Yahweh came to Elijah the Tishbite, saying,` |
+| 1kings | 21 | 17 | web | duplicate_verses | Duplicate verse content matching 1kings 21:28 | `Yahweh’s word came to Elijah the Tishbite, saying,` |
 | 1kings | 21 | 17 | darby | duplicate_verses | Duplicate verse content matching 1kings 21:28 | `And the word of Jehovah came to Elijah the Tishbite, saying,` |
 | 1kings | 21 | 28 | kjv | duplicate_verses | Duplicate verse content matching 1kings 21:17 | `And the word of the LORD came to Elijah the Tishbite, saying,` |
 | 1kings | 21 | 28 | asv | duplicate_verses | Duplicate verse content matching 1kings 21:17 | `And the word of Jehovah came to Elijah the Tishbite, saying,` |
-| 1kings | 21 | 28 | web | duplicate_verses | Duplicate verse content matching 1kings 21:17 | `The word of Yahweh came to Elijah the Tishbite, saying,` |
+| 1kings | 21 | 28 | web | duplicate_verses | Duplicate verse content matching 1kings 21:17 | `Yahweh’s word came to Elijah the Tishbite, saying,` |
 | 1kings | 21 | 28 | darby | duplicate_verses | Duplicate verse content matching 1kings 21:17 | `And the word of Jehovah came to Elijah the Tishbite, saying,` |
 | 1peter | 1 | 17 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1peter 2:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 1peter | 1 | 17 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 1peter 3:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -3697,6 +3699,7 @@ Showing first 500 of 1294 detailed findings:
 | 2kings | 10 | 36 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 25:20 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 10 | 36 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 25:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 10 | 36 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 25:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
+| 2kings | 12 | 3 | web | duplicate_verses | Duplicate verse content matching 2kings 15:4 | `However, the high places were not taken away. The people still sacrificed and burned incense in the ` |
 | 2kings | 12 | 3 | darby | duplicate_verses | Duplicate verse content matching 2kings 14:4 | `Only, the high places were not removed: the people still sacrificed and burned incense on the high p` |
 | 2kings | 12 | 3 | darby | duplicate_verses | Duplicate verse content matching 2kings 15:4 | `Only, the high places were not removed: the people still sacrificed and burned incense on the high p` |
 | 2kings | 12 | 4 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 5:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -3828,24 +3831,23 @@ Showing first 500 of 1294 detailed findings:
 | 2kings | 12 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 25:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 12 | 14 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 25:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 14 | 4 | asv | duplicate_verses | Duplicate verse content matching 2kings 15:4 | `Howbeit the high places were not taken away: the people still sacrificed and burnt incense in the hi` |
-| 2kings | 14 | 4 | web | duplicate_verses | Duplicate verse content matching 2kings 15:4 | `However the high places were not taken away: the people still sacrificed and burnt incense in the hi` |
 | 2kings | 14 | 4 | darby | duplicate_verses | Duplicate verse content matching 2kings 12:3 | `Only, the high places were not removed: the people still sacrificed and burned incense on the high p` |
 | 2kings | 14 | 4 | darby | duplicate_verses | Duplicate verse content matching 2kings 15:4 | `Only, the high places were not removed: the people still sacrificed and burned incense on the high p` |
 | 2kings | 15 | 4 | asv | duplicate_verses | Duplicate verse content matching 2kings 14:4 | `Howbeit the high places were not taken away: the people still sacrificed and burnt incense in the hi` |
-| 2kings | 15 | 4 | web | duplicate_verses | Duplicate verse content matching 2kings 14:4 | `However the high places were not taken away: the people still sacrificed and burnt incense in the hi` |
+| 2kings | 15 | 4 | web | duplicate_verses | Duplicate verse content matching 2kings 12:3 | `However, the high places were not taken away. The people still sacrificed and burned incense in the ` |
 | 2kings | 15 | 4 | darby | duplicate_verses | Duplicate verse content matching 2kings 12:3 | `Only, the high places were not removed: the people still sacrificed and burned incense on the high p` |
 | 2kings | 15 | 4 | darby | duplicate_verses | Duplicate verse content matching 2kings 14:4 | `Only, the high places were not removed: the people still sacrificed and burned incense on the high p` |
 | 2kings | 15 | 24 | telugu_ov | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `ఇతడును ఇశ్రాయేలు వారు పాపము చేయుటకు కారకుడగు నెబాతు కుమారుడైన యరొబాము చేసిన పాపములను విడువక అనుసరించ` |
 | 2kings | 15 | 24 | telugu_irv | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `ఇతడు కూడా తన కాలమంతా ఇశ్రాయేలు వారు పాపం చెయ్యడానికి కారకుడైన నెబాతు కొడుకు యరొబాము చేసిన పాపాలను వి` |
 | 2kings | 15 | 24 | kjv | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `And he did that which was evil in the sight of the LORD: he departed not from the sins of Jeroboam t` |
 | 2kings | 15 | 24 | asv | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `And he did that which was evil in the sight of Jehovah: he departed not from the sins of Jeroboam th` |
-| 2kings | 15 | 24 | web | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `He did that which was evil in the sight of Yahweh: he didn't depart from the sins of Jeroboam the so` |
+| 2kings | 15 | 24 | web | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `He did that which was evil in Yahweh’s sight. He didn’t depart from the sins of Jeroboam the son of ` |
 | 2kings | 15 | 24 | darby | duplicate_verses | Duplicate verse content matching 2kings 15:28 | `And he did evil in the sight of Jehovah: he departed not from the sins of Jeroboam the son of Nebat,` |
 | 2kings | 15 | 28 | telugu_ov | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `ఇతడును ఇశ్రాయేలు వారు పాపము చేయుటకు కారకుడగు నెబాతు కుమారుడైన యరొబాము చేసిన పాపములను విడువక అనుసరించ` |
 | 2kings | 15 | 28 | telugu_irv | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `ఇతడు కూడా తన కాలమంతా ఇశ్రాయేలు వారు పాపం చెయ్యడానికి కారకుడైన నెబాతు కొడుకు యరొబాము చేసిన పాపాలను వి` |
 | 2kings | 15 | 28 | kjv | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `And he did that which was evil in the sight of the LORD: he departed not from the sins of Jeroboam t` |
 | 2kings | 15 | 28 | asv | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `And he did that which was evil in the sight of Jehovah: he departed not from the sins of Jeroboam th` |
-| 2kings | 15 | 28 | web | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `He did that which was evil in the sight of Yahweh: he didn't depart from the sins of Jeroboam the so` |
+| 2kings | 15 | 28 | web | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `He did that which was evil in Yahweh’s sight. He didn’t depart from the sins of Jeroboam the son of ` |
 | 2kings | 15 | 28 | darby | duplicate_verses | Duplicate verse content matching 2kings 15:24 | `And he did evil in the sight of Jehovah: he departed not from the sins of Jeroboam the son of Nebat,` |
 | 2kings | 17 | 41 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 5:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 17 | 41 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 5:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -4137,11 +4139,11 @@ Showing first 500 of 1294 detailed findings:
 | 2kings | 23 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 25:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 23 | 32 | kjv | duplicate_verses | Duplicate verse content matching 2kings 23:37 | `And he did that which was evil in the sight of the LORD, according to all that his fathers had done.` |
 | 2kings | 23 | 32 | asv | duplicate_verses | Duplicate verse content matching 2kings 23:37 | `And he did that which was evil in the sight of Jehovah, according to all that his fathers had done.` |
-| 2kings | 23 | 32 | web | duplicate_verses | Duplicate verse content matching 2kings 23:37 | `He did that which was evil in the sight of Yahweh, according to all that his fathers had done.` |
+| 2kings | 23 | 32 | web | duplicate_verses | Duplicate verse content matching 2kings 23:37 | `He did that which was evil in Yahweh’s sight, according to all that his fathers had done.` |
 | 2kings | 23 | 32 | darby | duplicate_verses | Duplicate verse content matching 2kings 23:37 | `And he did evil in the sight of Jehovah, according to all that his fathers had done.` |
 | 2kings | 23 | 37 | kjv | duplicate_verses | Duplicate verse content matching 2kings 23:32 | `And he did that which was evil in the sight of the LORD, according to all that his fathers had done.` |
 | 2kings | 23 | 37 | asv | duplicate_verses | Duplicate verse content matching 2kings 23:32 | `And he did that which was evil in the sight of Jehovah, according to all that his fathers had done.` |
-| 2kings | 23 | 37 | web | duplicate_verses | Duplicate verse content matching 2kings 23:32 | `He did that which was evil in the sight of Yahweh, according to all that his fathers had done.` |
+| 2kings | 23 | 37 | web | duplicate_verses | Duplicate verse content matching 2kings 23:32 | `He did that which was evil in Yahweh’s sight, according to all that his fathers had done.` |
 | 2kings | 23 | 37 | darby | duplicate_verses | Duplicate verse content matching 2kings 23:32 | `And he did evil in the sight of Jehovah, according to all that his fathers had done.` |
 | 2kings | 25 | 16 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 5:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | 2kings | 25 | 16 | telugu_wbtc | duplicate_verses | Duplicate verse content matching 2kings 5:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -5518,6 +5520,8 @@ Showing first 500 of 1294 detailed findings:
 | daniel | 12 | 13 | telugu_wbtc | duplicate_verses | Duplicate verse content matching daniel 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | deuteronomy | 1 | 3 | telugu_irv | duplicate_verses | Duplicate verse content matching deuteronomy 1:4 | `హెష్బోనులో నివసించిన అమోరీయుల రాజు సీహోనునూ అష్తారోతులో నివసించిన బాషాను రాజు ఓగునూ ఎద్రెయీలో చంపిన ` |
 | deuteronomy | 1 | 4 | telugu_irv | duplicate_verses | Duplicate verse content matching deuteronomy 1:3 | `హెష్బోనులో నివసించిన అమోరీయుల రాజు సీహోనునూ అష్తారోతులో నివసించిన బాషాను రాజు ఓగునూ ఎద్రెయీలో చంపిన ` |
+| deuteronomy | 2 | 2 | web | duplicate_verses | Duplicate verse content matching deuteronomy 2:17 | `Yahweh spoke to me, saying,` |
+| deuteronomy | 2 | 17 | web | duplicate_verses | Duplicate verse content matching deuteronomy 2:2 | `Yahweh spoke to me, saying,` |
 | deuteronomy | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching deuteronomy 12:20 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | deuteronomy | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching deuteronomy 12:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | deuteronomy | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching deuteronomy 13:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -6340,6 +6344,7 @@ Showing first 500 of 1294 detailed findings:
 | exodus | 7 | 25 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 28:37 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 7 | 25 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 29:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 7 | 25 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 29:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
+| exodus | 8 | 30 | web | duplicate_verses | Duplicate verse content matching exodus 10:18 | `Moses went out from Pharaoh, and prayed to Yahweh.` |
 | exodus | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 1:20 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 1:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 5:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -6352,6 +6357,7 @@ Showing first 500 of 1294 detailed findings:
 | exodus | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 28:37 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 29:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 9 | 9 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 29:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
+| exodus | 10 | 18 | web | duplicate_verses | Duplicate verse content matching exodus 8:30 | `Moses went out from Pharaoh, and prayed to Yahweh.` |
 | exodus | 13 | 1 | telugu_ov | duplicate_verses | Duplicate verse content matching exodus 14:1 | `మరియు యెహోవా మోషేతో ఈలాగు సెలవిచ్చెను` |
 | exodus | 13 | 1 | telugu_irv | duplicate_verses | Duplicate verse content matching exodus 25:1 | `యెహోవా మోషేతో ఇలా చెప్పాడు.` |
 | exodus | 13 | 1 | telugu_irv | duplicate_verses | Duplicate verse content matching exodus 40:1 | `యెహోవా మోషేతో ఇలా చెప్పాడు.` |
@@ -6555,18 +6561,17 @@ Showing first 500 of 1294 detailed findings:
 | exodus | 25 | 1 | darby | duplicate_verses | Duplicate verse content matching exodus 31:1 | `And Jehovah spoke to Moses, saying,` |
 | exodus | 25 | 1 | darby | duplicate_verses | Duplicate verse content matching exodus 31:12 | `And Jehovah spoke to Moses, saying,` |
 | exodus | 25 | 1 | darby | duplicate_verses | Duplicate verse content matching exodus 40:1 | `And Jehovah spoke to Moses, saying,` |
-| exodus | 25 | 4 | kjv | duplicate_verses | Duplicate verse content matching exodus 35:6 | `And blue, and purple, and scarlet, and fine linen, and goats' hair,` |
-| exodus | 25 | 4 | asv | duplicate_verses | Duplicate verse content matching exodus 35:6 | `and blue, and purple, and scarlet, and fine linen, and goats' [hair],` |
-| exodus | 25 | 4 | web | duplicate_verses | Duplicate verse content matching exodus 35:6 | `blue, purple, scarlet, fine linen, goats' hair,` |
+| exodus | 25 | 4 | kjv | duplicate_verses | Duplicate verse content matching exodus 35:6 | `And blue, and purple, and scarlet, and fine linen, and goats’ hair,` |
+| exodus | 25 | 4 | asv | duplicate_verses | Duplicate verse content matching exodus 35:6 | `and blue, and purple, and scarlet, and fine linen, and goats’ hair,` |
+| exodus | 25 | 4 | web | duplicate_verses | Duplicate verse content matching exodus 35:6 | `blue, purple, scarlet, fine linen, goats’ hair,` |
 | exodus | 25 | 4 | darby | duplicate_verses | Duplicate verse content matching exodus 35:6 | `and blue, and purple, and scarlet, and byssus, and goats' [hair],` |
-| exodus | 25 | 5 | kjv | duplicate_verses | Duplicate verse content matching exodus 35:7 | `And rams' skins dyed red, and badgers' skins, and shittim wood,` |
-| exodus | 25 | 5 | asv | duplicate_verses | Duplicate verse content matching exodus 35:7 | `and rams' skins dyed red, and sealskins, and acacia wood,` |
-| exodus | 25 | 5 | web | duplicate_verses | Duplicate verse content matching exodus 35:7 | `rams' skins dyed red, sea cow hides, acacia wood,` |
+| exodus | 25 | 5 | kjv | duplicate_verses | Duplicate verse content matching exodus 35:7 | `And rams’ skins dyed red, and badgers’ skins, and shittim wood,` |
+| exodus | 25 | 5 | asv | duplicate_verses | Duplicate verse content matching exodus 35:7 | `and rams’ skins dyed red, and sealskins, and acacia wood,` |
+| exodus | 25 | 5 | web | duplicate_verses | Duplicate verse content matching exodus 35:7 | `rams’ skins dyed red, sea cow hides, acacia wood,` |
 | exodus | 25 | 6 | web | duplicate_verses | Duplicate verse content matching exodus 35:8 | `oil for the light, spices for the anointing oil and for the sweet incense,` |
 | exodus | 25 | 7 | web | duplicate_verses | Duplicate verse content matching exodus 35:9 | `onyx stones, and stones to be set for the ephod and for the breastplate.` |
 | exodus | 26 | 21 | kjv | duplicate_verses | Duplicate verse content matching exodus 36:26 | `And their forty sockets of silver; two sockets under one board, and two sockets under another board.` |
 | exodus | 26 | 21 | asv | duplicate_verses | Duplicate verse content matching exodus 36:26 | `and their forty sockets of silver; two sockets under one board, and two sockets under another board.` |
-| exodus | 26 | 21 | web | duplicate_verses | Duplicate verse content matching exodus 36:26 | `and their forty sockets of silver; two sockets under one board, and two sockets under another board.` |
 | exodus | 28 | 18 | darby | duplicate_verses | Duplicate verse content matching exodus 39:11 | `and the second row, a carbuncle, a sapphire, and a diamond;` |
 | exodus | 28 | 19 | darby | duplicate_verses | Duplicate verse content matching exodus 39:12 | `and the third row, an opal, an agate, and an amethyst;` |
 | exodus | 28 | 36 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 1:20 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -6593,8 +6598,7 @@ Showing first 500 of 1294 detailed findings:
 | exodus | 28 | 37 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 28:36 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 28 | 37 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 29:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 28 | 37 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 29:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| exodus | 29 | 4 | web | duplicate_verses | Duplicate verse content matching exodus 40:12 | `You shall bring Aaron and his sons to the door of the tent of meeting, and shall wash them with wate` |
-| exodus | 29 | 8 | web | duplicate_verses | Duplicate verse content matching exodus 40:14 | `You shall bring his sons, and put coats on them.` |
+| exodus | 29 | 8 | web | duplicate_verses | Duplicate verse content matching exodus 40:14 | `You shall bring his sons, and put tunics on them.` |
 | exodus | 29 | 40 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 1:20 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 29 | 40 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 1:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | exodus | 29 | 40 | telugu_wbtc | duplicate_verses | Duplicate verse content matching exodus 5:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -6789,18 +6793,17 @@ Showing first 500 of 1294 detailed findings:
 | exodus | 31 | 12 | darby | duplicate_verses | Duplicate verse content matching exodus 30:22 | `And Jehovah spoke to Moses, saying,` |
 | exodus | 31 | 12 | darby | duplicate_verses | Duplicate verse content matching exodus 31:1 | `And Jehovah spoke to Moses, saying,` |
 | exodus | 31 | 12 | darby | duplicate_verses | Duplicate verse content matching exodus 40:1 | `And Jehovah spoke to Moses, saying,` |
-| exodus | 35 | 6 | kjv | duplicate_verses | Duplicate verse content matching exodus 25:4 | `And blue, and purple, and scarlet, and fine linen, and goats' hair,` |
-| exodus | 35 | 6 | asv | duplicate_verses | Duplicate verse content matching exodus 25:4 | `and blue, and purple, and scarlet, and fine linen, and goats' [hair],` |
-| exodus | 35 | 6 | web | duplicate_verses | Duplicate verse content matching exodus 25:4 | `blue, purple, scarlet, fine linen, goats' hair,` |
+| exodus | 35 | 6 | kjv | duplicate_verses | Duplicate verse content matching exodus 25:4 | `And blue, and purple, and scarlet, and fine linen, and goats’ hair,` |
+| exodus | 35 | 6 | asv | duplicate_verses | Duplicate verse content matching exodus 25:4 | `and blue, and purple, and scarlet, and fine linen, and goats’ hair,` |
+| exodus | 35 | 6 | web | duplicate_verses | Duplicate verse content matching exodus 25:4 | `blue, purple, scarlet, fine linen, goats’ hair,` |
 | exodus | 35 | 6 | darby | duplicate_verses | Duplicate verse content matching exodus 25:4 | `and blue, and purple, and scarlet, and byssus, and goats' [hair],` |
-| exodus | 35 | 7 | kjv | duplicate_verses | Duplicate verse content matching exodus 25:5 | `And rams' skins dyed red, and badgers' skins, and shittim wood,` |
-| exodus | 35 | 7 | asv | duplicate_verses | Duplicate verse content matching exodus 25:5 | `and rams' skins dyed red, and sealskins, and acacia wood,` |
-| exodus | 35 | 7 | web | duplicate_verses | Duplicate verse content matching exodus 25:5 | `rams' skins dyed red, sea cow hides, acacia wood,` |
+| exodus | 35 | 7 | kjv | duplicate_verses | Duplicate verse content matching exodus 25:5 | `And rams’ skins dyed red, and badgers’ skins, and shittim wood,` |
+| exodus | 35 | 7 | asv | duplicate_verses | Duplicate verse content matching exodus 25:5 | `and rams’ skins dyed red, and sealskins, and acacia wood,` |
+| exodus | 35 | 7 | web | duplicate_verses | Duplicate verse content matching exodus 25:5 | `rams’ skins dyed red, sea cow hides, acacia wood,` |
 | exodus | 35 | 8 | web | duplicate_verses | Duplicate verse content matching exodus 25:6 | `oil for the light, spices for the anointing oil and for the sweet incense,` |
 | exodus | 35 | 9 | web | duplicate_verses | Duplicate verse content matching exodus 25:7 | `onyx stones, and stones to be set for the ephod and for the breastplate.` |
 | exodus | 36 | 26 | kjv | duplicate_verses | Duplicate verse content matching exodus 26:21 | `And their forty sockets of silver; two sockets under one board, and two sockets under another board.` |
 | exodus | 36 | 26 | asv | duplicate_verses | Duplicate verse content matching exodus 26:21 | `and their forty sockets of silver; two sockets under one board, and two sockets under another board.` |
-| exodus | 36 | 26 | web | duplicate_verses | Duplicate verse content matching exodus 26:21 | `and their forty sockets of silver; two sockets under one board, and two sockets under another board.` |
 | exodus | 39 | 11 | darby | duplicate_verses | Duplicate verse content matching exodus 28:18 | `and the second row, a carbuncle, a sapphire, and a diamond;` |
 | exodus | 39 | 12 | darby | duplicate_verses | Duplicate verse content matching exodus 28:19 | `and the third row, an opal, an agate, and an amethyst;` |
 | exodus | 40 | 1 | telugu_ov | duplicate_verses | Duplicate verse content matching exodus 31:1 | `మరియు యెహోవా మోషేతో ఇట్లనెను` |
@@ -6843,8 +6846,7 @@ Showing first 500 of 1294 detailed findings:
 | exodus | 40 | 1 | darby | duplicate_verses | Duplicate verse content matching exodus 30:22 | `And Jehovah spoke to Moses, saying,` |
 | exodus | 40 | 1 | darby | duplicate_verses | Duplicate verse content matching exodus 31:1 | `And Jehovah spoke to Moses, saying,` |
 | exodus | 40 | 1 | darby | duplicate_verses | Duplicate verse content matching exodus 31:12 | `And Jehovah spoke to Moses, saying,` |
-| exodus | 40 | 12 | web | duplicate_verses | Duplicate verse content matching exodus 29:4 | `You shall bring Aaron and his sons to the door of the tent of meeting, and shall wash them with wate` |
-| exodus | 40 | 14 | web | duplicate_verses | Duplicate verse content matching exodus 29:8 | `You shall bring his sons, and put coats on them.` |
+| exodus | 40 | 14 | web | duplicate_verses | Duplicate verse content matching exodus 29:8 | `You shall bring his sons, and put tunics on them.` |
 | ezekiel | 1 | 1 | telugu_wbtc | duplicate_verses | Duplicate verse content matching ezekiel 1:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | ezekiel | 1 | 1 | telugu_wbtc | duplicate_verses | Duplicate verse content matching ezekiel 1:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | ezekiel | 1 | 1 | telugu_wbtc | duplicate_verses | Duplicate verse content matching ezekiel 1:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -7130,25 +7132,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 6 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 6 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 6 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 6 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 6 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 6 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 6 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 12:1 | `And the word of Jehovah came unto me, saying,` |
@@ -7215,12 +7217,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 7 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 7 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 7 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Jehovah came unto me, saying,` |
-| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 7 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 7 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 7 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 7 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 12:1 | `And the word of Jehovah came unto me, saying,` |
@@ -7458,25 +7460,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 11 | 14 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 11 | 14 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 11 | 14 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 11 | 14 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 11 | 14 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 11 | 14 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 11 | 14 | darby | duplicate_verses | Duplicate verse content matching ezekiel 12:1 | `And the word of Jehovah came unto me, saying,` |
@@ -7592,12 +7594,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 12 | 17 | telugu_irv | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `యెహోవా వాక్కు నా దగ్గరకి వచ్చింది. ఆయన నాతో ఇలా చెప్పాడు.` |
 | ezekiel | 12 | 17 | telugu_irv | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `యెహోవా వాక్కు నా దగ్గరకి వచ్చింది. ఆయన నాతో ఇలా చెప్పాడు.` |
 | ezekiel | 12 | 17 | telugu_irv | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `యెహోవా వాక్కు నా దగ్గరకి వచ్చింది. ఆయన నాతో ఇలా చెప్పాడు.` |
-| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 12 | 21 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `మరియు యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను` |
 | ezekiel | 12 | 21 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 12:1 | `మరియు యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను` |
 | ezekiel | 12 | 21 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `మరియు యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను` |
@@ -7649,25 +7651,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 12 | 21 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 21 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 21 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 12 | 21 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 12 | 21 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 21 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 21 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -7704,7 +7706,7 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 12 | 21 | darby | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 26 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 18:1 | `మరల యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను` |
 | ezekiel | 12 | 26 | telugu_irv | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `తిరిగి యెహోవా వాక్కు నా దగ్గరకి వచ్చింది. ఆయన నాకిలా చెప్పాడు.` |
-| ezekiel | 12 | 26 | web | duplicate_verses | Duplicate verse content matching ezekiel 16:1 | `Again the word of Yahweh came to me, saying,` |
+| ezekiel | 12 | 26 | web | duplicate_verses | Duplicate verse content matching ezekiel 16:1 | `Again Yahweh’s word came to me, saying,` |
 | ezekiel | 12 | 26 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 26 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 12 | 26 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -7794,25 +7796,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 13 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 13 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 13 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 13 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 13 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `And the word of Jehovah came unto me, saying:` |
 | ezekiel | 14 | 2 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను` |
 | ezekiel | 14 | 2 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను` |
@@ -7850,25 +7852,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 14 | 2 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 2 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 2 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 14 | 2 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 2 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 2 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -7934,25 +7936,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 14 | 12 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 12 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 12 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 14 | 12 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 14 | 12 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 12 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 14 | 12 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8042,25 +8044,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 15 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 15 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 15 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 15 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 15 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 15 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 15 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8120,7 +8122,7 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 16 | 1 | kjv | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Again the word of the LORD came unto me, saying,` |
 | ezekiel | 16 | 1 | kjv | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Again the word of the LORD came unto me, saying,` |
 | ezekiel | 16 | 1 | kjv | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Again the word of the LORD came unto me, saying,` |
-| ezekiel | 16 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:26 | `Again the word of Yahweh came to me, saying,` |
+| ezekiel | 16 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:26 | `Again Yahweh’s word came to me, saying,` |
 | ezekiel | 16 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 16 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 16 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8210,25 +8212,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 17 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 17 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8297,12 +8299,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 17 | 11 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 11 | asv | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 11 | asv | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Jehovah came unto me, saying,` |
-| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 17 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 17 | 11 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 11 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 17 | 11 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8342,7 +8344,7 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 18 | 1 | telugu_wbtc | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `యెహోవా వాక్కు నాకు వినిపించింది. ఆయన ఇలా చెప్పాడు:` |
 | ezekiel | 18 | 1 | kjv | duplicate_verses | Duplicate verse content matching ezekiel 21:18 | `The word of the LORD came unto me again, saying,` |
 | ezekiel | 18 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 21:18 | `The word of Jehovah came unto me again, saying,` |
-| ezekiel | 18 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:18 | `The word of Yahweh came to me again, saying,` |
+| ezekiel | 18 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:18 | `Yahweh’s word came to me again, saying,` |
 | ezekiel | 18 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 18 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 18 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8400,25 +8402,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 20 | 2 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 2 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 2 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 2 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 20 | 2 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 2 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 2 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8478,25 +8480,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 20 | 45 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 45 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 45 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 20 | 45 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 20 | 45 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 45 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 20 | 45 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8560,25 +8562,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 21 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 21 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8643,25 +8645,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 21 | 8 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 8 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 8 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 21 | 8 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 21 | 8 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 8 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 8 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8705,7 +8707,7 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 21 | 18 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `మరియు యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను.` |
 | ezekiel | 21 | 18 | kjv | duplicate_verses | Duplicate verse content matching ezekiel 18:1 | `The word of the LORD came unto me again, saying,` |
 | ezekiel | 21 | 18 | asv | duplicate_verses | Duplicate verse content matching ezekiel 18:1 | `The word of Jehovah came unto me again, saying,` |
-| ezekiel | 21 | 18 | web | duplicate_verses | Duplicate verse content matching ezekiel 18:1 | `The word of Yahweh came to me again, saying,` |
+| ezekiel | 21 | 18 | web | duplicate_verses | Duplicate verse content matching ezekiel 18:1 | `Yahweh’s word came to me again, saying,` |
 | ezekiel | 21 | 18 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 18 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 21 | 18 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8758,12 +8760,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 22 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Jehovah came unto me, saying,` |
-| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 22 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8848,25 +8850,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 22 | 17 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 17 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 17 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 17 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 22 | 17 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 17 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 17 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -8952,25 +8954,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 22 | 23 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 23 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 23 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 22 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 22 | 23 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 23 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 22 | 23 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9038,10 +9040,10 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 23 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 23 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 23 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Jehovah came again unto me, saying,` |
-| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Yahweh came again to me, saying,` |
+| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 23 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `Yahweh’s word came again to me, saying,` |
 | ezekiel | 23 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 23 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 23 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9288,25 +9290,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 25 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 25 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 25 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 25 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 25 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 25 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 25 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9393,10 +9395,10 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 27 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 27 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 27 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Jehovah came again unto me, saying,` |
-| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Yahweh came again to me, saying,` |
+| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 27 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `Yahweh’s word came again to me, saying,` |
 | ezekiel | 27 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `And the word of Jehovah came unto me, saying:` |
 | ezekiel | 28 | 1 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `మరియు యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను.` |
 | ezekiel | 28 | 1 | telugu_ov | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `మరియు యెహోవా వాక్కు నాకు ప్రత్యక్షమై యీలాగు సెలవిచ్చెను.` |
@@ -9416,10 +9418,10 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 28 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 28 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 28 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Jehovah came again unto me, saying,` |
-| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Yahweh came again to me, saying,` |
+| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 28 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `Yahweh’s word came again to me, saying,` |
 | ezekiel | 28 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9488,12 +9490,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 28 | 11 | asv | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 11 | asv | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 11 | asv | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Jehovah came unto me, saying,` |
-| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 11 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 28 | 11 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 11 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 11 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9577,25 +9579,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 28 | 20 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 20 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 20 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 28 | 20 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 28 | 20 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 20 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 28 | 20 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9737,10 +9739,10 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 30 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 30 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 30 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Jehovah came again unto me, saying,` |
-| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `The word of Yahweh came again to me, saying,` |
+| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 30 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `Yahweh’s word came again to me, saying,` |
 | ezekiel | 30 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 30 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 30 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -9919,25 +9921,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 33 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 33 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10017,25 +10019,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 33 | 23 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 23 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 23 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 33 | 23 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 33 | 23 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 23 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 33 | 23 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10123,25 +10125,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 34 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 34 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 34 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 34 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 38:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 34 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 34 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 34 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10215,12 +10217,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 35 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 35 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 35 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Jehovah came unto me, saying,` |
-| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 35 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 35 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 35 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 35 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10278,12 +10280,12 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 36 | 16 | asv | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 36 | 16 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Jehovah came unto me, saying,` |
 | ezekiel | 36 | 16 | asv | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Jehovah came unto me, saying,` |
-| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover the word of Yahweh came to me, saying,` |
-| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover the word of Yahweh came to me, saying,` |
+| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:17 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:1 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:11 | `Moreover Yahweh’s word came to me, saying,` |
+| ezekiel | 36 | 16 | web | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `Moreover Yahweh’s word came to me, saying,` |
 | ezekiel | 36 | 16 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 36 | 16 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 36 | 16 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10350,10 +10352,10 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 37 | 15 | asv | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 37 | 15 | asv | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Jehovah came again unto me, saying,` |
 | ezekiel | 37 | 15 | asv | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Jehovah came again unto me, saying,` |
-| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `The word of Yahweh came again to me, saying,` |
-| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `The word of Yahweh came again to me, saying,` |
+| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 23:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 27:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:1 | `Yahweh’s word came again to me, saying,` |
+| ezekiel | 37 | 15 | web | duplicate_verses | Duplicate verse content matching ezekiel 30:1 | `Yahweh’s word came again to me, saying,` |
 | ezekiel | 37 | 15 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 37 | 15 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 37 | 15 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10438,25 +10440,25 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 38 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 38 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 38 | 1 | asv | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `And the word of Jehovah came unto me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `The word of Yahweh came to me, saying,` |
-| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `The word of Yahweh came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 12:21 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 13:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 14:12 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 15:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 17:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:2 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 20:45 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 21:8 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:17 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 22:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 25:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 28:20 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:1 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 33:23 | `Yahweh’s word came to me, saying,` |
+| ezekiel | 38 | 1 | web | duplicate_verses | Duplicate verse content matching ezekiel 34:1 | `Yahweh’s word came to me, saying,` |
 | ezekiel | 38 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 6:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 38 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 7:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 38 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 11:14 | `And the word of Jehovah came unto me, saying,` |
@@ -10491,7 +10493,9 @@ Showing first 500 of 1294 detailed findings:
 | ezekiel | 38 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 35:1 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 38 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 36:16 | `And the word of Jehovah came unto me, saying,` |
 | ezekiel | 38 | 1 | darby | duplicate_verses | Duplicate verse content matching ezekiel 37:15 | `And the word of Jehovah came unto me, saying,` |
+| ezekiel | 40 | 29 | web | duplicate_verses | Duplicate verse content matching ezekiel 40:33 | `with its lodges, its posts, and its arches, according to these measurements. There were windows in i` |
 | ezekiel | 40 | 29 | darby | duplicate_verses | Duplicate verse content matching ezekiel 40:33 | `and its chambers, and its posts, and its projections, according to these measures; and there were wi` |
+| ezekiel | 40 | 33 | web | duplicate_verses | Duplicate verse content matching ezekiel 40:29 | `with its lodges, its posts, and its arches, according to these measurements. There were windows in i` |
 | ezekiel | 40 | 33 | darby | duplicate_verses | Duplicate verse content matching ezekiel 40:29 | `and its chambers, and its posts, and its projections, according to these measures; and there were wi` |
 | ezekiel | 45 | 25 | telugu_wbtc | duplicate_verses | Duplicate verse content matching ezekiel 1:1 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | ezekiel | 45 | 25 | telugu_wbtc | duplicate_verses | Duplicate verse content matching ezekiel 1:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
@@ -11930,160 +11934,4 @@ Showing first 500 of 1294 detailed findings:
 | genesis | 23 | 18 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | genesis | 23 | 18 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
 | genesis | 23 | 18 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 29 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 24 | 30 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 5 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 4:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:2 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 6:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:11 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:12 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:13 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 7:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:3 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 8:4 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 9:9 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 20:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:17 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 23:18 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:29 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 24:30 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 25:5 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:23 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 30:24 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 31:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:14 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 35:15 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:6 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:7 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:8 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:40 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:41 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:42 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 36:43 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:21 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| genesis | 25 | 6 | telugu_wbtc | duplicate_verses | Duplicate verse content matching genesis 43:22 | `ఈ వచనం ఈ అనువాదంలో లేదు` |
-| ... | ... | ... | ... | ... | *And 794 more issues.* | ... |
+| ... | ... | ... | ... | ... | *And 801 more issues.* | ... |

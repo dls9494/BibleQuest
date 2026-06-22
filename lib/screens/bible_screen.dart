@@ -52,11 +52,10 @@ class _BibleScreenState extends State<BibleScreen> {
   StreamSubscription? _notesSubscription;
   bool _showLabels = false;
 
-  // Font size & style (persisted)
+  // Font size (persisted)
   double _fontSize = 18.0;
   static const double _fontSizeMin = 14.0;
   static const double _fontSizeMax = 28.0;
-  String _fontStyle = 'normal'; // 'normal' | 'bold' | 'italic'
 
   List<BibleVerse> _verses = [];
   bool _isLoading = false;
@@ -239,7 +238,6 @@ class _BibleScreenState extends State<BibleScreen> {
         _activeTeluguVersion = prefs.getString('bible_telugu_version') ?? 'telugu_ov';
         _isBilingual = prefs.getBool('bible_is_bilingual') ?? true;
         _showLabels = prefs.getBool('bible_show_labels') ?? false;
-        _fontStyle = prefs.getString('bible_font_style') ?? 'normal';
 
         final savedFontSize = prefs.get('bible_font_size');
         if (savedFontSize is int) {
@@ -559,7 +557,7 @@ class _BibleScreenState extends State<BibleScreen> {
                 left: 0,
                 right: 0,
                 child: Visibility(
-                  visible: _barsVisible && _selectedVerse == null,
+                  visible: _barsVisible && !_showVerseActions,
                   maintainState: true,
                   child: _buildTopBar(bookNameEn, bookNameTe),
                 ),
@@ -570,7 +568,7 @@ class _BibleScreenState extends State<BibleScreen> {
                 left: 20,
                 right: 20,
                 child: Visibility(
-                  visible: _barsVisible && _selectedVerse == null,
+                  visible: _barsVisible && !_showVerseActions,
                   maintainState: true,
                   child: _buildBottomBar(bookNameEn, bookNameTe),
                 ),
@@ -654,244 +652,170 @@ class _BibleScreenState extends State<BibleScreen> {
 
   Widget _buildTopBar(String bookNameEn, String bookNameTe) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final statusBarHeight = MediaQuery.of(context).padding.top;
-    final userProvider = Provider.of<UserDataProvider>(context);
-    final currentDropdownValue = _selectedLanguage == 'telugu' ? _activeTeluguVersion : _activeEnglishVersion;
+    const accentColor = Color(0xFFF7BC64);
 
+    // §12B: Borderless glassmorphic header — no bottom divider
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Container(
-          padding: EdgeInsets.only(top: statusBarHeight + 4, left: 16, right: 16, bottom: 12),
+          padding: EdgeInsets.only(top: statusBarHeight + 4, left: 8, right: 8, bottom: 10),
           decoration: BoxDecoration(
             color: isDark ? Colors.black.withValues(alpha: 0.4) : Colors.white.withValues(alpha: 0.6),
-            border: Border(
-              bottom: BorderSide(
-                color: const Color(0xFFFFD700).withValues(alpha: 0.4),
-                width: 1,
-              ),
-            ),
+            // §12B: No yellow bottom border — borderless glassmorphism
           ),
           child: SizedBox(
-            height: kToolbarHeight + 6,
+            height: kToolbarHeight,
             child: Row(
               children: [
-                // 1. Back button
+                // §12B: Hamburger menu back button
                 if (Navigator.canPop(context))
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: textColor),
+                    icon: Icon(Icons.menu_rounded, color: accentColor, size: 26),
                     onPressed: () => Navigator.pop(context),
+                    tooltip: 'Back',
                   ),
-                if (Navigator.canPop(context)) const SizedBox(width: 8),
-                
-                // 2. Book & Chapter Title
+
+                // §13: Bilingual stacked title — EN bold / TE normal 60%
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        '$bookNameEn $_selectedChapter',
-                        style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          fontFamily: 'Outfit',
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              bookNameEn,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                fontFamily: 'Outfit',
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              bookNameTe,
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.6),
+                                fontSize: 12,
+                                fontFamily: 'NotoSansTelugu',
+                                fontWeight: FontWeight.normal,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        bookNameTe,
-                        style: const TextStyle(
-                          color: Color(0xFFD4A574),
-                          fontSize: 16,
-                          fontFamily: 'NotoSansTelugu',
-                          fontWeight: FontWeight.bold,
+                      const SizedBox(width: 8),
+                      // §13: Tappable chapter number in bold gold
+                      GestureDetector(
+                        onTap: () {
+                          _tempSelectedBookId = _selectedBookId;
+                          _showSelectorNotifier.value = true;
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                          child: Text(
+                            '$_selectedChapter',
+                            style: const TextStyle(
+                              color: Color(0xFFF7BC64),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              fontFamily: 'Outfit',
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                
-                // 3. Version Dropdown
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    canvasColor: isDark ? const Color(0xFF1E1E30) : Colors.white,
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: currentDropdownValue,
-                      icon: Icon(Icons.arrow_drop_down, color: textColor, size: 20),
-                      style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        fontFamily: 'Outfit',
-                      ),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          if (value == 'telugu_ov') {
-                            _selectedLanguage = 'telugu';
-                            _activeTeluguVersion = value;
-                          } else {
-                            _selectedLanguage = 'english';
-                            _activeEnglishVersion = value;
-                          }
-                        });
-                        _saveVersionPrefs();
-                        _loadVerses();
-                      },
-                      items: [
-                        DropdownMenuItem(
-                          value: 'telugu_ov',
-                          child: Text('Telugu OV', style: TextStyle(color: textColor)),
-                        ),
-                        DropdownMenuItem(
-                          value: 'english_kjv',
-                          child: Text('KJV', style: TextStyle(color: textColor)),
-                        ),
-                        DropdownMenuItem(
-                          value: 'english_asv',
-                          child: Text('ASV', style: TextStyle(color: textColor)),
-                        ),
-                        DropdownMenuItem(
-                          value: 'english_web',
-                          child: Text('WEB', style: TextStyle(color: textColor)),
-                        ),
-                        DropdownMenuItem(
-                          value: 'english_darby',
-                          child: Text('Darby', style: TextStyle(color: textColor)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
 
-                // 4. Bilingual Toggle
-                IconButton(
-                  icon: const Icon(Icons.translate),
-                  color: _isBilingual ? const Color(0xFFFFD700) : textColor.withValues(alpha: 0.5),
-                  tooltip: 'Bilingual Mode',
-                  onPressed: () {
-                    setState(() {
-                      _isBilingual = !_isBilingual;
-                    });
-                    _saveVersionPrefs();
-                    _loadVerses();
-                  },
-                ),
-
-                // 5. Audio Button
-                StreamBuilder<as_pkg.PlaybackState>(
-                  stream: AudioService.instance.playbackState,
-                  builder: (context, snapshot) {
-                    final isPlaying = snapshot.data?.playing ?? false;
-                    return IconButton(
-                      icon: Icon(isPlaying ? Icons.pause_circle_filled : Icons.headset),
-                      color: isPlaying ? const Color(0xFFFFD700) : textColor.withValues(alpha: 0.8),
-                      tooltip: 'Audio Playback',
-                      onPressed: () {
-                        if (isPlaying) {
-                          AudioService.instance.pause();
-                        } else {
-                          _startAudioPlayback();
-                        }
-                      },
-                    );
-                  },
-                ),
-
-                // 6. Kebab Menu
+                // §12B: Globe icon — popup for bilingual toggle + version selection
                 PopupMenuButton<String>(
-                  color: const Color(0xFF1E1E30).withValues(alpha: 0.95),
+                  color: const Color(0xFF1A1E35).withValues(alpha: 0.97),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                     side: BorderSide(
-                      color: const Color(0xFFFFD700).withValues(alpha: 0.3),
+                      color: accentColor.withValues(alpha: 0.25),
                       width: 1.0,
                     ),
                   ),
-                  icon: Icon(Icons.more_vert, color: textColor),
+                  icon: Icon(Icons.language_rounded, color: accentColor, size: 24),
+                  tooltip: 'Language & Version',
                   onSelected: (value) {
-                    if (value == 'font_size') {
-                      _showFontSizeDialog();
-                    } else if (value == 'font_style') {
-                      _showFontStyleBottomSheet();
-                    } else if (value == 'toggle_labels') {
+                    if (value == 'bilingual') {
+                      setState(() { _isBilingual = !_isBilingual; });
+                      _saveVersionPrefs();
+                      _loadVerses();
+                    } else {
                       setState(() {
-                        _showLabels = !_showLabels;
+                        if (value == 'telugu_ov') {
+                          _selectedLanguage = 'telugu';
+                          _activeTeluguVersion = value;
+                        } else {
+                          _selectedLanguage = 'english';
+                          _activeEnglishVersion = value;
+                        }
                       });
-                      _saveShowLabelsPref();
-                    } else if (value == 'bookmark_chapter') {
-                      final isBookmarked = userProvider.isChapterBookmarked(_selectedBookId, _selectedChapter);
-                      if (isBookmarked) {
-                        userProvider.removeBookmarkedChapter(_selectedBookId, _selectedChapter);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Chapter removed from bookmarks.')),
-                        );
-                      } else {
-                        userProvider.addBookmarkedChapter(_selectedBookId, _selectedChapter);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Chapter bookmarked!')),
-                        );
-                      }
+                      _saveVersionPrefs();
+                      _loadVerses();
                     }
                   },
                   itemBuilder: (context) {
-                    final isBookmarked = userProvider.isChapterBookmarked(_selectedBookId, _selectedChapter);
+                    final currentVersion = _selectedLanguage == 'telugu'
+                        ? _activeTeluguVersion
+                        : _activeEnglishVersion;
                     return [
-                      const PopupMenuItem<String>(
-                        value: 'font_size',
-                        child: Row(
-                          children: [
-                            Icon(Icons.format_size, size: 20, color: Colors.white70),
-                            SizedBox(width: 8),
-                            Text('Font Size', style: TextStyle(fontFamily: 'Outfit', color: Colors.white)),
-                          ],
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'font_style',
-                        child: Row(
-                          children: [
-                            Icon(Icons.font_download_outlined, size: 20, color: Colors.white70),
-                            SizedBox(width: 8),
-                            Text('Font Style', style: TextStyle(fontFamily: 'Outfit', color: Colors.white)),
-                          ],
-                        ),
-                      ),
                       PopupMenuItem<String>(
-                        value: 'toggle_labels',
-                        child: Row(
-                          children: [
-                            Icon(_showLabels ? Icons.label : Icons.label_outline, size: 20, color: Colors.white70),
-                            const SizedBox(width: 8),
-                            Text(
-                              _showLabels ? 'Hide Labels' : 'Add Labels',
-                              style: const TextStyle(fontFamily: 'Outfit', color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      PopupMenuItem<String>(
-                        value: 'bookmark_chapter',
+                        value: 'bilingual',
                         child: Row(
                           children: [
                             Icon(
-                              isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                              size: 20,
-                              color: isBookmarked ? const Color(0xFFFFD700) : Colors.white70,
+                              _isBilingual ? Icons.check_box : Icons.check_box_outline_blank,
+                              size: 18,
+                              color: accentColor,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              isBookmarked ? 'Remove Bookmark' : 'Bookmark Chapter',
-                              style: const TextStyle(fontFamily: 'Outfit', color: Colors.white),
-                            ),
+                            const SizedBox(width: 10),
+                            const Text('Bilingual Mode',
+                                style: TextStyle(fontFamily: 'Outfit', color: Colors.white, fontSize: 14)),
                           ],
                         ),
                       ),
+                      const PopupMenuDivider(),
+                      for (final entry in [
+                        ('telugu_ov', 'Telugu OV'),
+                        ('english_kjv', 'KJV'),
+                        ('english_asv', 'ASV'),
+                        ('english_web', 'WEB'),
+                        ('english_darby', 'Darby'),
+                      ])
+                        PopupMenuItem<String>(
+                          value: entry.$1,
+                          child: Row(
+                            children: [
+                              Icon(
+                                currentVersion == entry.$1 ? Icons.radio_button_checked : Icons.radio_button_off,
+                                size: 18,
+                                color: currentVersion == entry.$1 ? accentColor : Colors.white38,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(entry.$2,
+                                  style: TextStyle(
+                                    fontFamily: 'Outfit',
+                                    color: currentVersion == entry.$1 ? accentColor : Colors.white,
+                                    fontWeight: currentVersion == entry.$1 ? FontWeight.bold : FontWeight.normal,
+                                    fontSize: 14,
+                                  )),
+                            ],
+                          ),
+                        ),
                     ];
                   },
                 ),
@@ -1009,78 +933,6 @@ class _BibleScreenState extends State<BibleScreen> {
     });
   }
 
-  void _showFontStyleBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
-        final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
-        final bgColor = isDark ? const Color(0xFF1E1E30) : Colors.white;
-
-        return Container(
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Select Font Style',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Outfit',
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              const Divider(),
-              _buildFontStyleOption('normal', 'Normal', textColor),
-              _buildFontStyleOption('bold', 'Bold', textColor),
-              _buildFontStyleOption('italic', 'Italic', textColor),
-              const SizedBox(height: 12),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildFontStyleOption(String value, String label, Color textColor) {
-    final isSelected = _fontStyle == value;
-    return ListTile(
-      title: Text(
-        label,
-        style: TextStyle(
-          color: textColor,
-          fontFamily: 'Outfit',
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-        ),
-      ),
-      trailing: isSelected ? const Icon(Icons.check, color: Color(0xFFFFD700)) : null,
-      onTap: () async {
-        setState(() {
-          _fontStyle = value;
-        });
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('bible_font_style', value);
-        if (mounted) {
-          Navigator.pop(context);
-        }
-      },
-    );
-  }
-
-  Future<void> _saveShowLabelsPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('bible_show_labels', _showLabels);
-  }
-
   Widget _buildBottomBar(String bookNameEn, String bookNameTe) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
@@ -1088,127 +940,233 @@ class _BibleScreenState extends State<BibleScreen> {
     final totalChapters = book?.chapters ?? 1;
     final isFirstChapter = _selectedChapter == 1;
     final isLastChapter = _selectedChapter == totalChapters;
+    const accentColor = Color(0xFFF7BC64);
+    final userProvider = Provider.of<UserDataProvider>(context);
+    final isBookmarked = userProvider.isChapterBookmarked(_selectedBookId, _selectedChapter);
 
+    Widget glasspill({required Widget child, double? width, double height = 56}) {
+      return Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(height / 2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.18),
+              blurRadius: 14,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(height / 2),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+            child: Container(
+              decoration: BoxDecoration(
+                color: isDark ? Colors.black.withValues(alpha: 0.45) : Colors.white.withValues(alpha: 0.55),
+                borderRadius: BorderRadius.circular(height / 2),
+                border: Border.all(
+                  color: isDark ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.1),
+                  width: 1.0,
+                ),
+              ),
+          child: child,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // §12A ── TOP PILL: SIZE · AUDIO · SAVE ──────────────────────────────
+        glasspill(
+          width: 250,
+          height: 56,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // SIZE
+              InkWell(
+                onTap: _showFontSizeDialog,
+                borderRadius: BorderRadius.circular(26),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.format_size_rounded, color: accentColor, size: 18),
+                      const SizedBox(height: 2),
+                      Text('SIZE', style: TextStyle(color: textColor.withValues(alpha: 0.7), fontSize: 9, fontFamily: 'Outfit', fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+              ),
+              // AUDIO
+              StreamBuilder<as_pkg.PlaybackState>(
+                stream: AudioService.instance.playbackState,
+                builder: (context, snapshot) {
+                  final isPlaying = snapshot.data?.playing ?? false;
+                  return InkWell(
+                    onTap: () {
+                      if (isPlaying) {
+                        AudioService.instance.pause();
+                      } else {
+                        _startAudioPlayback();
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(26),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            isPlaying ? Icons.pause_rounded : Icons.headphones_rounded,
+                            color: isPlaying ? accentColor : accentColor.withValues(alpha: 0.75),
+                            size: 18,
+                          ),
+                          const SizedBox(height: 2),
+                          Text('AUDIO', style: TextStyle(color: textColor.withValues(alpha: 0.7), fontSize: 9, fontFamily: 'Outfit', fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+              // SAVE / SAVED
+              InkWell(
+                onTap: () {
+                  if (isBookmarked) {
+                    userProvider.removeBookmarkedChapter(_selectedBookId, _selectedChapter);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Chapter removed from bookmarks.')),
+                    );
+                  } else {
+                    userProvider.addBookmarkedChapter(_selectedBookId, _selectedChapter);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Chapter bookmarked!')),
+                    );
+                  }
+                },
+                borderRadius: BorderRadius.circular(26),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        isBookmarked ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+                        color: isBookmarked ? accentColor : accentColor.withValues(alpha: 0.75),
+                        size: 18,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        isBookmarked ? 'SAVED' : 'SAVE',
+                        style: TextStyle(
+                          color: isBookmarked ? accentColor : textColor.withValues(alpha: 0.7),
+                          fontSize: 9,
+                          fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // §12A ── MAIN BAR: ‹ SEARCH ● NOTES ›
+        _buildMainNavBar(isFirstChapter, isLastChapter, accentColor, textColor),
+      ],
+    );
+  }
+
+  Widget _buildMainNavBar(bool isFirstChapter, bool isLastChapter, Color accentColor, Color textColor) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
+      height: 64,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
-            blurRadius: 12,
+            color: Colors.black.withValues(alpha: 0.18),
+            blurRadius: 14,
             offset: const Offset(0, 5),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(32),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.black.withValues(alpha: 0.4) : Colors.white.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1),
-                    width: 1.2,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // 1. Previous Chapter button (⏮)
-                    IconButton(
-                      icon: const Icon(Icons.skip_previous),
-                      iconSize: 20,
-                      color: textColor.withValues(alpha: isFirstChapter ? 0.3 : 0.8),
-                      tooltip: 'Previous Chapter',
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: isFirstChapter ? null : _navigateToPreviousChapter,
-                    ),
-                    // 2. Notes button (📝)
-                    IconButton(
-                      icon: const Icon(Icons.sticky_note_2),
-                      color: textColor.withValues(alpha: 0.8),
-                      tooltip: 'Notes',
-                      onPressed: () => _showNotesSheet(),
-                    ),
-                    // 3. Search button (🔍)
-                    IconButton(
-                      icon: const Icon(Icons.search),
-                      color: textColor.withValues(alpha: 0.8),
-                      tooltip: 'Search',
-                      onPressed: () {
-                        setState(() {
-                          _isSearchActive = true;
-                        });
-                      },
-                    ),
-                    // 4. Current Book/Chapter indicator (📖)
-                    InkWell(
-                      onTap: () {
-                        _tempSelectedBookId = _selectedBookId;
-                        _showSelectorNotifier.value = true;
-                      },
-                      borderRadius: BorderRadius.circular(16),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFFD700).withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: const Color(0xFFFFD700).withValues(alpha: 0.35),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.book_rounded, color: Color(0xFFFFD700), size: 16),
-                            const SizedBox(width: 6),
-                            Text(
-                              '$bookNameEn $_selectedChapter',
-                              style: const TextStyle(
-                                color: Color(0xFFFFD700),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // 5. Next Chapter button (⏭)
-                    IconButton(
-                      icon: const Icon(Icons.skip_next),
-                      iconSize: 20,
-                      color: textColor.withValues(alpha: isLastChapter ? 0.3 : 0.8),
-                      tooltip: 'Next Chapter',
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: isLastChapter ? null : _navigateToNextChapter,
-                    ),
-                  ],
-                ),
+          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+          child: Container(
+            decoration: BoxDecoration(
+              color: isDark ? Colors.black.withValues(alpha: 0.45) : Colors.white.withValues(alpha: 0.55),
+              borderRadius: BorderRadius.circular(32),
+              border: Border.all(
+                color: isDark ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.1),
+                width: 1.0,
               ),
-              Positioned.fill(
-                child: IgnorePointer(
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Previous chapter
+                IconButton(
+                  icon: Icon(Icons.chevron_left_rounded,
+                      color: textColor.withValues(alpha: isFirstChapter ? 0.25 : 0.85), size: 28),
+                  onPressed: isFirstChapter ? null : _navigateToPreviousChapter,
+                  tooltip: 'Previous Chapter',
+                ),
+                // Search
+                IconButton(
+                  icon: Icon(Icons.search_rounded, color: textColor.withValues(alpha: 0.85), size: 24),
+                  onPressed: () => setState(() { _isSearchActive = true; }),
+                  tooltip: 'Search',
+                ),
+                // §12A: Golden grid nav circle
+                GestureDetector(
+                  onTap: () {
+                    _tempSelectedBookId = _selectedBookId;
+                    _showSelectorNotifier.value = true;
+                  },
                   child: Container(
+                    width: 44,
+                    height: 44,
                     decoration: BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: const Color(0xFFFFD700).withValues(alpha: 0.4),
-                          width: 1.2,
+                      shape: BoxShape.circle,
+                      color: accentColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: accentColor.withValues(alpha: 0.45),
+                          blurRadius: 12,
+                          spreadRadius: 1,
                         ),
-                      ),
+                      ],
                     ),
+                    child: const Icon(Icons.grid_view_rounded, color: Colors.black, size: 20),
                   ),
                 ),
-              ),
-            ],
+                // Notes
+                IconButton(
+                  icon: Icon(Icons.edit_note_rounded, color: textColor.withValues(alpha: 0.85), size: 26),
+                  onPressed: () => _showNotesSheet(),
+                  tooltip: 'Notes',
+                ),
+                // Next chapter
+                IconButton(
+                  icon: Icon(Icons.chevron_right_rounded,
+                      color: textColor.withValues(alpha: isLastChapter ? 0.25 : 0.85), size: 28),
+                  onPressed: isLastChapter ? null : _navigateToNextChapter,
+                  tooltip: 'Next Chapter',
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -1240,228 +1198,263 @@ class _BibleScreenState extends State<BibleScreen> {
             final isDark = Theme.of(context).brightness == Brightness.dark;
             final uid = user.uid;
 
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.75,
-              decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF1E1E30) : Colors.white,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-              ),
-              child: Column(
-                children: [
-                  // Header
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(Icons.sticky_note_2, color: Color(0xFFFFD700), size: 24),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            filterVerse != null
-                                ? 'Notes for ${book.nameEn} $_selectedChapter:$filterVerse'
-                                : 'Notes for ${book.nameEn} $_selectedChapter',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Outfit',
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        if (filterVerse != null)
-                          TextButton.icon(
-                            icon: const Icon(Icons.clear, size: 16, color: Color(0xFFFFD700)),
-                            label: const Text('Show All', style: TextStyle(fontFamily: 'Outfit', color: Color(0xFFFFD700))),
-                            onPressed: () {
-                              setSheetState(() {
-                                filterVerse = null;
-                              });
-                            },
-                          ),
-                        IconButton(
-                          icon: const Icon(Icons.close, color: Colors.white70),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
+            return ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? const Color(0xFF0F111E).withValues(alpha: 0.85)
+                        : Colors.white.withValues(alpha: 0.85),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                    border: Border.all(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.15)
+                          : Colors.black.withValues(alpha: 0.1),
+                      width: 1.0,
                     ),
                   ),
-                  const Divider(color: Colors.white24),
-
-                  // StreamBuilder for real-time notes
-                  Expanded(
-                    child: StreamBuilder<List<Map<String, dynamic>>>(
-                      stream: FirebaseService.getChapterNotes(uid, book.id, _selectedChapter),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD700))));
-                        }
-                        if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white70)));
-                        }
-
-                        final allNotes = snapshot.data ?? [];
-                        final notes = filterVerse != null
-                            ? allNotes.where((n) => n['verseNumber'] == filterVerse).toList()
-                            : allNotes;
-
-                        if (notes.isEmpty) {
-                          return const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      // Header
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(Icons.sticky_note_2, color: Color(0xFFF7BC64), size: 24),
+                            const SizedBox(width: 8),
+                            Expanded(
                               child: Text(
-                                "No notes yet. Tap + to add one.",
-                                style: TextStyle(color: Colors.white54, fontFamily: 'Outfit', fontSize: 15),
+                                filterVerse != null
+                                    ? 'Notes for ${book.nameEn} $_selectedChapter:$filterVerse'
+                                    : 'Notes for ${book.nameEn} $_selectedChapter',
+                                style: TextStyle(
+                                  color: isDark ? Colors.white : const Color(0xFF3E2723),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Outfit',
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          );
-                        }
+                            if (filterVerse != null)
+                              TextButton.icon(
+                                icon: const Icon(Icons.clear, size: 16, color: Color(0xFFF7BC64)),
+                                label: const Text('Show All', style: TextStyle(fontFamily: 'Outfit', color: Color(0xFFF7BC64))),
+                                onPressed: () {
+                                  setSheetState(() {
+                                    filterVerse = null;
+                                  });
+                                },
+                              ),
+                            IconButton(
+                              icon: Icon(Icons.close, color: isDark ? Colors.white70 : const Color(0xFF5D4037)),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(color: Colors.white24),
 
-                        return ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          itemCount: notes.length,
-                          itemBuilder: (context, index) {
-                            final note = notes[index];
-                            final noteId = note['id'] as String;
-                            final text = note['text'] as String? ?? '';
-                            final isExpanded = expandedNoteIds.contains(noteId);
+                      // StreamBuilder for real-time notes
+                      Expanded(
+                        child: StreamBuilder<List<Map<String, dynamic>>>(
+                          stream: FirebaseService.getChapterNotes(uid, book.id, _selectedChapter),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF7BC64))));
+                            }
+                            if (snapshot.hasError) {
+                              return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white70)));
+                            }
 
-                            return GestureDetector(
-                              onTap: () {
-                                setSheetState(() {
-                                  if (isExpanded) {
-                                    expandedNoteIds.remove(noteId);
-                                  } else {
-                                    expandedNoteIds.add(noteId);
-                                  }
-                                });
-                              },
-                              child: Card(
-                                color: const Color(0xFF1E1E30).withValues(alpha: 0.75),
-                                margin: const EdgeInsets.only(bottom: 12),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide(
-                                    color: const Color(0xFFFFD700).withValues(alpha: 0.3),
-                                    width: 1,
+                            final allNotes = snapshot.data ?? [];
+                            final notes = filterVerse != null
+                                ? allNotes.where((n) => n['verseNumber'] == filterVerse).toList()
+                                : allNotes;
+
+                            if (notes.isEmpty) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    "No notes yet. Tap + to add one.",
+                                    style: TextStyle(color: isDark ? Colors.white54 : const Color(0xFF5D4037).withValues(alpha: 0.7), fontFamily: 'Outfit', fontSize: 15),
                                   ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // Gold badge
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFFD700).withValues(alpha: 0.15),
-                                              border: Border.all(
-                                                color: const Color(0xFFFFD700).withValues(alpha: 0.6),
-                                                width: 1,
-                                              ),
-                                              borderRadius: BorderRadius.circular(8),
+                              );
+                            }
+
+                            return ListView.builder(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              itemCount: notes.length,
+                              itemBuilder: (context, index) {
+                                final note = notes[index];
+                                final noteId = note['id'] as String;
+                                final text = note['text'] as String? ?? '';
+                                final isExpanded = expandedNoteIds.contains(noteId);
+
+                                return GestureDetector(
+                                  onTap: () {
+                                    setSheetState(() {
+                                      if (isExpanded) {
+                                        expandedNoteIds.remove(noteId);
+                                      } else {
+                                        expandedNoteIds.add(noteId);
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(bottom: 12),
+                                    decoration: BoxDecoration(
+                                      color: isDark
+                                          ? const Color(0xFF1E1E30).withValues(alpha: 0.75)
+                                          : Colors.white.withValues(alpha: 0.75),
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: isDark
+                                            ? Colors.white.withValues(alpha: 0.08)
+                                            : Colors.black.withValues(alpha: 0.08),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: IntrinsicHeight(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            // Left Gold Accent Border
+                                            Container(
+                                              width: 4.0,
+                                              color: const Color(0xFFF7BC64),
                                             ),
-                                            child: Text(
-                                              note['verseNumber'] == null
-                                                  ? 'Whole Chapter'
-                                                  : 'Verse ${note['verseNumber']}',
-                                              style: const TextStyle(
-                                                color: Color(0xFFFFD700),
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Outfit',
-                                              ),
-                                            ),
-                                          ),
-                                          // Delete button
-                                          IconButton(
-                                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
-                                            onPressed: () async {
-                                              final confirm = await showDialog<bool>(
-                                                context: context,
-                                                builder: (context) => AlertDialog(
-                                                  backgroundColor: const Color(0xFF1E1E30),
-                                                  title: const Text('Delete Note', style: TextStyle(color: Colors.white, fontFamily: 'Outfit', fontWeight: FontWeight.bold)),
-                                                  content: const Text('Are you sure you want to delete this note?', style: TextStyle(color: Colors.white70, fontFamily: 'Outfit')),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () => Navigator.pop(context, false),
-                                                      child: const Text('Cancel', style: TextStyle(fontFamily: 'Outfit')),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(12),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        // Gold badge
+                                                        Container(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                          decoration: BoxDecoration(
+                                                            color: const Color(0xFFF7BC64).withValues(alpha: 0.15),
+                                                            border: Border.all(
+                                                              color: const Color(0xFFF7BC64).withValues(alpha: 0.6),
+                                                              width: 1,
+                                                            ),
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                          child: Text(
+                                                            note['verseNumber'] == null
+                                                                ? 'Whole Chapter'
+                                                                : 'Verse ${note['verseNumber']}',
+                                                            style: const TextStyle(
+                                                              color: Color(0xFFF7BC64),
+                                                              fontSize: 11,
+                                                              fontWeight: FontWeight.bold,
+                                                              fontFamily: 'Outfit',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        // Delete button
+                                                        IconButton(
+                                                          icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                                                          onPressed: () async {
+                                                            final confirm = await showDialog<bool>(
+                                                              context: context,
+                                                              builder: (context) => AlertDialog(
+                                                                backgroundColor: const Color(0xFF1E1E30),
+                                                                title: const Text('Delete Note', style: TextStyle(color: Colors.white, fontFamily: 'Outfit', fontWeight: FontWeight.bold)),
+                                                                content: const Text('Are you sure you want to delete this note?', style: TextStyle(color: Colors.white70, fontFamily: 'Outfit')),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () => Navigator.pop(context, false),
+                                                                    child: const Text('Cancel', style: TextStyle(fontFamily: 'Outfit')),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed: () => Navigator.pop(context, true),
+                                                                    child: const Text('Delete', style: TextStyle(color: Colors.redAccent, fontFamily: 'Outfit')),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                            if (confirm == true) {
+                                                              await FirebaseService.deleteNote(uid, noteId);
+                                                              if (mounted) {
+                                                                setState(() {
+                                                                  _chapterNotes = _chapterNotes.where((n) => n['id'] != noteId).toList();
+                                                                });
+                                                              }
+                                                            }
+                                                          },
+                                                        ),
+                                                      ],
                                                     ),
-                                                    TextButton(
-                                                      onPressed: () => Navigator.pop(context, true),
-                                                      child: const Text('Delete', style: TextStyle(color: Colors.redAccent, fontFamily: 'Outfit')),
+                                                    const SizedBox(height: 8),
+                                                    Text(
+                                                      text,
+                                                      style: TextStyle(
+                                                        color: isDark ? Colors.white : const Color(0xFF3E2723),
+                                                        fontSize: 14,
+                                                        fontFamily: 'Outfit',
+                                                      ),
+                                                      maxLines: isExpanded ? null : 3,
+                                                      overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
                                                     ),
                                                   ],
                                                 ),
-                                              );
-                                              if (confirm == true) {
-                                                await FirebaseService.deleteNote(uid, noteId);
-                                                if (mounted) {
-                                                  setState(() {
-                                                    _chapterNotes = _chapterNotes.where((n) => n['id'] != noteId).toList();
-                                                  });
-                                                }
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        text,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontFamily: 'Outfit',
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        maxLines: isExpanded ? null : 3,
-                                        overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
+                                );
+                              },
                             );
                           },
-                        );
-                      },
-                    ),
-                  ),
-
-                  // "+ Add Note" button
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                      bottom: MediaQuery.of(context).padding.bottom + 16,
-                      top: 8,
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton.icon(
-                        icon: const Icon(Icons.add, color: Colors.black),
-                        label: const Text(
-                          'Add Note',
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFFD700),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        ),
-                        onPressed: () => _showAddNoteDialog(
-                          preselectedVerse: filterVerse,
                         ),
                       ),
-                    ),
+
+                      // "+ Add Note" button
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: MediaQuery.of(context).padding.bottom + 16,
+                          top: 8,
+                        ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: ElevatedButton.icon(
+                            icon: const Icon(Icons.add, color: Colors.black),
+                            label: const Text(
+                              'Add Note',
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFF7BC64),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                            ),
+                            onPressed: () => _showAddNoteDialog(
+                              preselectedVerse: filterVerse,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             );
           },
@@ -1505,14 +1498,16 @@ class _BibleScreenState extends State<BibleScreen> {
                     initialValue: selectedVerse,
                     dropdownColor: const Color(0xFF1E1E30),
                     style: const TextStyle(color: Colors.white, fontFamily: 'Outfit'),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Verse Link',
-                      labelStyle: TextStyle(color: Colors.white70, fontFamily: 'Outfit'),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white24),
+                      labelStyle: const TextStyle(color: Colors.white70, fontFamily: 'Outfit'),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white24),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFFFD700)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFFF7BC64)),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     items: [
@@ -1544,11 +1539,11 @@ class _BibleScreenState extends State<BibleScreen> {
                       hintStyle: const TextStyle(color: Colors.grey),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: isDark ? Colors.white24 : Colors.black26),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Color(0xFFFFD700)),
-                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFFF7BC64)),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
@@ -1561,8 +1556,8 @@ class _BibleScreenState extends State<BibleScreen> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFD700),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    backgroundColor: const Color(0xFFF7BC64),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                   ),
                   onPressed: () async {
                     final text = textController.text.trim();

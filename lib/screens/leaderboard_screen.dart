@@ -7,6 +7,7 @@ import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
 import '../models/profile_title.dart';
 import 'profile_screen.dart';
+import '../widgets/gradient_background.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({super.key});
@@ -111,27 +112,14 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
     final currentLevel = unlocked.isEmpty ? 1 : unlocked.reduce((a, b) => a > b ? a : b);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: isDark
-                    ? const [
-                        Color(0xFF1A1A2E),
-                        Color(0xFF0F3460),
-                      ]
-                    : const [
-                        Color(0xFFFDF6EC),
-                        Color(0xFFF3E7D8),
-                      ],
-              ),
+          const Positioned.fill(
+            child: GradientBackground(
+              child: SizedBox.shrink(),
             ),
           ),
           // Luminous background elements
@@ -173,7 +161,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                       Text(
                         "Leaderboards",
                         style: TextStyle(
-                          color: textColor,
+                          color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Outfit',
@@ -200,7 +188,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                           child: Text(
                             "My Stats",
                             style: TextStyle(
-                              color: isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6),
+                              color: const Color(0xFF38BDF8),
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Outfit',
@@ -334,7 +322,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                 style: TextStyle(
                   color: isSelected
                       ? (category == 'All Topics' || category == 'Old Testament' || category == 'New Testament' ? Colors.white : Colors.black)
-                      : (Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white70 : Color(0xFF3E2723))),
+                      : Colors.white70,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   fontFamily: 'Outfit',
                   fontSize: 13,
@@ -359,7 +347,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                       ? ((category == 'All Topics' || category == 'Old Testament' || category == 'New Testament')
                           ? const Color(0xFF6C4AB6)
                           : const Color(0xFFFFD700))
-                      : (isDark ? Colors.white24 : const Color(0xFF6C4AB6).withValues(alpha: 0.2)),
+                      : Colors.white24,
                   width: 1.5,
                 ),
               ),
@@ -376,7 +364,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
         ? _weeklyRank 
         : (period == 'monthly' ? _monthlyRank : _allTimeRank);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
+    final subTextColor = Colors.white70;
 
     return StreamBuilder<Map<String, dynamic>>(
       stream: FirebaseService.getLeaderboardWithCount(period),
@@ -419,7 +407,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> with SingleTicker
                     Text(
                       "Your rank: #$userRank of $totalCount",
                       style: TextStyle(
-                        color: isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6),
+                        color: const Color(0xFF38BDF8),
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Outfit',

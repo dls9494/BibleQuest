@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_data_provider.dart';
 import '../services/bible_service.dart';
+import '../widgets/gradient_background.dart';
 
 class BookmarkedVersesScreen extends StatelessWidget {
   const BookmarkedVersesScreen({super.key});
@@ -21,32 +22,24 @@ class BookmarkedVersesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Saved Verses • బుక్‌మార్క్‌లు',
           style: TextStyle(
-            color: textColor,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: 'Outfit',
             fontSize: 20,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: textColor),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: isDark
-                    ? [const Color(0xFF1A1A2E), const Color(0xFF0F3460)]
-                    : [const Color(0xFFFFFDF9), const Color(0xFFFBEEDB)],
-              ),
-            ),
+          const Positioned.fill(
+            child: GradientBackground(child: SizedBox.shrink()),
           ),
           SafeArea(
             child: bookmarksList.isEmpty
@@ -54,17 +47,17 @@ class BookmarkedVersesScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.bookmark_border_rounded,
                           size: 64,
-                          color: isDark ? Colors.white30 : Colors.black26,
+                          color: Colors.white30,
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                        const Text(
                           'No bookmarked verses yet.\nఇంకా ఏ వచనాన్ని బుక్‌మార్క్ చేయలేదు.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: isDark ? Colors.white60 : Colors.black54,
+                            color: Colors.white60,
                             fontSize: 16,
                             fontFamily: 'Outfit',
                           ),

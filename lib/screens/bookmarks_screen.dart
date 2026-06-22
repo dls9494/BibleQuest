@@ -89,6 +89,10 @@ class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
+    
+    // Always use white/white70 for elements drawn directly on the navy background
+    const bgTextColor = Colors.white;
+    const bgSubTextColor = Colors.white70;
 
     final questions = _loadBookmarkedQuestions(bookmarkedQuestionIds.toList());
     final bibleBookmarks = ref.watch(bookmarksProvider);
@@ -108,14 +112,14 @@ class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: bgTextColor),
                         onPressed: () => context.go('/home'),
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         "My Bookmarks 📚",
                         style: TextStyle(
-                          color: textColor,
+                          color: bgTextColor,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Outfit',
@@ -155,7 +159,7 @@ class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
                               child: Text(
                                 "Quiz Bookmarks",
                                 style: TextStyle(
-                                  color: _selectedTabIndex == 0 ? const Color(0xFFFFD700) : textColor.withValues(alpha: 0.6),
+                                  color: _selectedTabIndex == 0 ? const Color(0xFFFFD700) : bgTextColor.withValues(alpha: 0.6),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Outfit',
                                   fontSize: 14,
@@ -182,7 +186,7 @@ class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
                               child: Text(
                                 "Bible Bookmarks",
                                 style: TextStyle(
-                                  color: _selectedTabIndex == 1 ? const Color(0xFFFFD700) : textColor.withValues(alpha: 0.6),
+                                  color: _selectedTabIndex == 1 ? const Color(0xFFFFD700) : bgTextColor.withValues(alpha: 0.6),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Outfit',
                                   fontSize: 14,
@@ -203,8 +207,8 @@ class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
                               icon: Icons.bookmark_outline_rounded,
                               title: "No Quiz Bookmarks",
                               description: "Bookmark difficult questions during quizzes to review them later here.",
-                              textColor: textColor,
-                              subTextColor: subTextColor,
+                              textColor: bgTextColor,
+                              subTextColor: bgSubTextColor,
                             )
                           : ListView.builder(
                               padding: const EdgeInsets.all(16.0),
@@ -239,8 +243,8 @@ class _BookmarksScreenState extends rp.ConsumerState<BookmarksScreen> {
                               icon: Icons.menu_book_rounded,
                               title: "No Bible Bookmarks",
                               description: "Tap the bookmark icon next to a verse in the Bible reader to save it here.",
-                              textColor: textColor,
-                              subTextColor: subTextColor,
+                              textColor: bgTextColor,
+                              subTextColor: bgSubTextColor,
                             )
                           : ListView.builder(
                               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

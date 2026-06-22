@@ -9,6 +9,7 @@ import '../services/profile_assets.dart';
 import '../services/bible_service.dart';
 import '../services/firebase_service.dart';
 import '../models/achievement.dart';
+import '../widgets/gradient_background.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -431,18 +432,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: Stack(
         children: [
-          // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A1A2E),
-                  Color(0xFF0F3460),
-                ],
-              ),
-            ),
+          const Positioned.fill(
+            child: GradientBackground(child: SizedBox.shrink()),
           ),
           Positioned.fill(
             child: Align(

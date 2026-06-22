@@ -128,6 +128,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
 
+    // Always use white/white70 for elements drawn directly on the navy background
+    const bgTextColor = Colors.white;
+    const bgSubTextColor = Colors.white70;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -142,21 +146,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: bgTextColor),
                         onPressed: () => context.go('/home'),
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         "Search Bible 🔍",
                         style: TextStyle(
-                          color: textColor,
+                          color: bgTextColor,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Outfit',
                         ),
                       ),
                       const Spacer(),
-                      _buildVersionDropdown(context, textColor),
+                      _buildVersionDropdown(context, bgTextColor, textColor),
                     ],
                   ),
                 ),
@@ -176,14 +180,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     ),
                     child: TextField(
                       controller: _controller,
-                      style: TextStyle(color: textColor, fontFamily: 'Outfit'),
+                      style: const TextStyle(color: bgTextColor, fontFamily: 'Outfit'),
                       decoration: InputDecoration(
                         hintText: "Enter 2+ characters to search...",
-                        hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.5), fontFamily: 'Outfit'),
-                        prefixIcon: Icon(Icons.search, color: subTextColor.withValues(alpha: 0.5)),
+                        hintStyle: TextStyle(color: bgSubTextColor.withValues(alpha: 0.5), fontFamily: 'Outfit'),
+                        prefixIcon: Icon(Icons.search, color: bgSubTextColor.withValues(alpha: 0.5)),
                         suffixIcon: _controller.text.isNotEmpty
                             ? IconButton(
-                                icon: Icon(Icons.clear, color: subTextColor.withValues(alpha: 0.5)),
+                                icon: Icon(Icons.clear, color: bgSubTextColor.withValues(alpha: 0.5)),
                                 onPressed: () {
                                   setState(() {
                                     _controller.clear();
@@ -206,8 +210,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           icon: Icons.search_rounded,
                           title: "Search the Scriptures",
                           description: "Enter a keyword or phrase to search all verses in the selected version.",
-                          textColor: textColor,
-                          subTextColor: subTextColor,
+                          textColor: bgTextColor,
+                          subTextColor: bgSubTextColor,
                         )
                       : searchAsync.when(
                           data: (results) {
@@ -216,8 +220,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                 icon: Icons.find_in_page_outlined,
                                 title: "No Results Found",
                                 description: "We couldn't find any verses matching '${_controller.text}'. Try another word.",
-                                textColor: textColor,
-                                subTextColor: subTextColor,
+                                textColor: bgTextColor,
+                                subTextColor: bgSubTextColor,
                               );
                             }
 
@@ -343,7 +347,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     );
   }
 
-  Widget _buildVersionDropdown(BuildContext context, Color textColor) {
+  Widget _buildVersionDropdown(BuildContext context, Color displayColor, Color popupTextColor) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Theme(
       data: Theme.of(context).copyWith(
@@ -352,9 +356,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: _selectedVersion,
-          icon: Icon(Icons.arrow_drop_down, color: textColor, size: 20),
+          icon: Icon(Icons.arrow_drop_down, color: displayColor, size: 20),
           style: TextStyle(
-            color: textColor,
+            color: displayColor,
             fontWeight: FontWeight.bold,
             fontSize: 13,
             fontFamily: 'Outfit',
@@ -363,35 +367,35 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           items: [
             DropdownMenuItem(
               value: 'all',
-              child: Text('All Versions', style: TextStyle(color: textColor)),
+              child: Text('All Versions', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'telugu_ov',
-              child: Text('Telugu OV', style: TextStyle(color: textColor)),
+              child: Text('Telugu OV', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'telugu_wbtc',
-              child: Text('Telugu WBTC', style: TextStyle(color: textColor)),
+              child: Text('Telugu WBTC', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'telugu_irv',
-              child: Text('Telugu IRV', style: TextStyle(color: textColor)),
+              child: Text('Telugu IRV', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'kjv',
-              child: Text('KJV', style: TextStyle(color: textColor)),
+              child: Text('KJV', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'asv',
-              child: Text('ASV', style: TextStyle(color: textColor)),
+              child: Text('ASV', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'web',
-              child: Text('WEB', style: TextStyle(color: textColor)),
+              child: Text('WEB', style: TextStyle(color: popupTextColor)),
             ),
             DropdownMenuItem(
               value: 'darby',
-              child: Text('Darby', style: TextStyle(color: textColor)),
+              child: Text('Darby', style: TextStyle(color: popupTextColor)),
             ),
           ],
         ),

@@ -207,7 +207,6 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     final dailyQuizLevelVal = context.select<UserDataProvider, int>((p) => p.dailyQuizLevel ?? p.getDailyQuizLevel());
     final localeProvider = context.watch<LocaleProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -278,8 +277,8 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                   child: Text(
                     "Challenges",
-                    style: TextStyle(
-                      color: textColor,
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Outfit',

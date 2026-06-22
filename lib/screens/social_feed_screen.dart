@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../providers/user_data_provider.dart';
 import 'profile_screen.dart';
 import 'leaderboard_screen.dart';
+import '../widgets/gradient_background.dart';
 
 class SocialFeedScreen extends StatefulWidget {
   const SocialFeedScreen({super.key});
@@ -374,19 +375,8 @@ class _SocialFeedScreenState extends State<SocialFeedScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Gradient matching standard glassmorphism UI
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF1E1B4B), // Very dark indigo
-                  Color(0xFF0F172A), // Very dark slate
-                  Color(0xFF111827), // Very dark gray
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+          const Positioned.fill(
+            child: GradientBackground(child: SizedBox.shrink()),
           ),
           SafeArea(
             child: Column(

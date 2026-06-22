@@ -8,6 +8,7 @@ import '../services/firebase_service.dart';
 import '../services/activity_service.dart';
 import '../services/analytics_service.dart';
 import 'group_detail_screen.dart';
+import '../widgets/gradient_background.dart';
 
 class ChurchGroupsScreen extends StatefulWidget {
   const ChurchGroupsScreen({super.key});
@@ -352,8 +353,19 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Church Groups", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-        backgroundColor: const Color(0xFF1A1A2E),
+        title: const Text(
+          "Church Groups",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Outfit',
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         bottom: TabBar(
           controller: _tabController,
@@ -370,16 +382,9 @@ class _ChurchGroupsScreenState extends State<ChurchGroupsScreen>
       body: Stack(
         children: [
           // Dark Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A1A2E),
-                  Color(0xFF0F3460),
-                ],
-              ),
+          const Positioned.fill(
+            child: GradientBackground(
+              child: SizedBox.shrink(),
             ),
           ),
           // Glow effect

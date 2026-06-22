@@ -22,7 +22,7 @@ import 'wisdom_tree_screen.dart';
 import '../widgets/miracle_box_dialog.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/gradient_background.dart';
-import '../features/user_data/providers/user_data_providers.dart';
+
 import '../widgets/daily_verse_card.dart';
 import '../theme/text_styles.dart';
 import '../constants/theme.dart';
@@ -156,8 +156,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
       });
     }
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final textColor = Colors.white;
     final photoURL = provider_pkg.Provider.of<UserDataProvider>(context).photoURL;
 
     return Scaffold(
@@ -227,20 +226,46 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, {double topPadding = 24.0}) {
+    final parts = title.split(' / ');
+    final String teluguPart = parts[0];
+    final String englishPart = parts.length > 1 ? parts[1] : '';
+
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 24, bottom: 12),
+      padding: EdgeInsets.only(left: 20, right: 20, top: topPadding, bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: AppTheme.gold,
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
-              letterSpacing: 2.0,
-              fontFamily: 'Outfit',
+          RichText(
+            text: TextSpan(
+              style: TextStyle(
+                color: AppTheme.gold,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                letterSpacing: 2.0,
+              ),
+              children: [
+                TextSpan(
+                  text: teluguPart,
+                  style: const TextStyle(
+                    fontFamily: 'Mandali',
+                  ),
+                ),
+                if (englishPart.isNotEmpty) ...[
+                  const TextSpan(
+                    text: ' / ',
+                    style: TextStyle(
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
+                  TextSpan(
+                    text: englishPart,
+                    style: const TextStyle(
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
           const SizedBox(height: 6),
@@ -258,150 +283,23 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
   }
 
   Widget _buildMainMenu() {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
 
-    // Icons Setup
-    final otIcon = _buildFlatIcon(IconAssets.oldTestament, Icons.auto_stories, Colors.amber, size: 20);
-    final ntIcon = _buildFlatIcon(IconAssets.newTestament, Icons.auto_stories, Colors.blue, size: 20);
-    final quizIcon = _buildFlatIcon(IconAssets.quiz, Icons.quiz, Colors.green, size: 20);
-    final challengeIcon = _buildFlatIcon(IconAssets.challenges, Icons.emoji_events, Colors.amber, size: 20);
-    final planIcon = _buildFlatIcon(IconAssets.readingPlans, Icons.calendar_month, Colors.green, size: 20);
-    final memoryIcon = _buildFlatIcon(IconAssets.scriptureMemory, Icons.psychology, Colors.orange, size: 20);
-    final creatorIcon = _buildFlatIcon(IconAssets.quizCreator, Icons.create, Colors.purple, size: 20);
-    final leaderboardIcon = _buildFlatIcon(IconAssets.leaderboard, Icons.leaderboard, Colors.blue, size: 16);
-    final prayerWallIcon = _buildFlatIcon(IconAssets.prayerWall, Icons.volunteer_activism, Colors.teal, size: 16);
-    final socialIcon = _buildFlatIcon(IconAssets.socialFeed, Icons.forum, Colors.deepOrange, size: 16);
-    final wisdomIcon = _buildFlatIcon(IconAssets.wisdomTree, Icons.forest, Colors.amber, size: 16);
-    final bookmarkIcon = _buildFlatIcon(IconAssets.bookmarks, Icons.bookmark, Colors.red, size: 16);
-    final favoriteIcon = _buildFlatIcon(IconAssets.favorites, Icons.favorite, Colors.amber, size: 16);
-    final notesIcon = _buildFlatIcon('', Icons.note_alt_rounded, Colors.orange, size: 16);
-    final searchIcon = _buildFlatIcon('', Icons.search_rounded, Colors.cyan, size: 16);
-
-    final readingProgress = ref.watch(readingProgressProvider);
-    final lastRead = readingProgress.isNotEmpty ? readingProgress.first : null;
-    Widget? continueReadingCard;
-
-    if (lastRead != null) {
-      final lastBookName = lastRead['book_name'] as String;
-      final lastChapter = lastRead['chapter'] as int;
-      final lastVersion = lastRead['version'] as String;
-      final lastVerse = lastRead['verse'] as int? ?? 1;
-      
-      final bookMeta = BibleService.findBookByName(lastBookName);
-      final displayBookNameEn = bookMeta?.nameEn ?? lastBookName;
-      final displayName = '$displayBookNameEn $lastChapter:$lastVerse';
-
-      DateTime? readAtDate;
-      try {
-        if (lastRead['read_at'] != null) {
-          readAtDate = DateTime.parse(lastRead['read_at'] as String);
-        }
-      } catch (_) {}
-
-      String relativeTime = '';
-      if (readAtDate != null) {
-        final diff = DateTime.now().difference(readAtDate);
-        if (diff.inSeconds < 60) {
-          relativeTime = 'Just now';
-        } else if (diff.inMinutes < 60) {
-          relativeTime = '${diff.inMinutes} minutes ago';
-        } else if (diff.inHours < 24) {
-          relativeTime = '${diff.inHours} hours ago';
-        } else {
-          relativeTime = '${diff.inDays} days ago';
-        }
-      }
-
-      final cardColor = isDark ? Colors.white.withValues(alpha: 0.06) : Colors.black.withValues(alpha: 0.05);
-      const accentColor = Color(0xFFFFD700);
-
-      continueReadingCard = Padding(
-        padding: const EdgeInsets.only(bottom: 14.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: cardColor,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08), width: 1.0),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(18),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    context.push('/bible/$lastVersion/$lastBookName/$lastChapter?verse=$lastVerse');
-                  },
-                  borderRadius: BorderRadius.circular(18),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Continue Reading',
-                                style: AppTextStyles.bodyText.copyWith(
-                                  color: accentColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 12,
-                                  letterSpacing: 0.4,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                displayName.toUpperCase(),
-                                style: AppTextStyles.screenTitle.copyWith(
-                                  color: textColor,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 22,
-                                  height: 1.1,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                relativeTime.isNotEmpty
-                                    ? 'Last opened $relativeTime'
-                                    : 'Last opened recently',
-                                style: AppTextStyles.bodyText.copyWith(
-                                  color: isDark ? Colors.white54 : Colors.black54,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(999),
-                            border: Border.all(color: accentColor.withValues(alpha: 0.18), width: 1),
-                            color: accentColor.withValues(alpha: 0.08),
-                          ),
-                          child: Text(
-                            'Resume →',
-                            style: AppTextStyles.bodyText.copyWith(
-                              color: accentColor,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
+    // Icons Setup — Section 6: flat assets at correct sizes
+    final otIcon = _buildFlatIcon(IconAssets.oldTestament, Icons.auto_stories, Colors.amber, size: 96);
+    final ntIcon = _buildFlatIcon(IconAssets.newTestament, Icons.auto_stories, Colors.blue, size: 96);
+    final searchIcon = _buildFlatIcon('assets/icons/flat/search.png', Icons.search_rounded, Colors.cyan, size: 68);
+    final planIcon = _buildFlatIcon(IconAssets.readingPlans, Icons.calendar_month, Colors.green, size: 68);
+    final memoryIcon = _buildFlatIcon(IconAssets.scriptureMemory, Icons.psychology, Colors.orange, size: 78);
+    final quizIcon = _buildFlatIcon(IconAssets.quiz, Icons.quiz, Colors.green, size: 78);
+    final challengeIcon = _buildFlatIcon(IconAssets.challenges, Icons.emoji_events, Colors.amber, size: 78);
+    final creatorIcon = _buildFlatIcon(IconAssets.quizCreator, Icons.create, Colors.purple, size: 78);
+    final bookmarkIcon = _buildFlatIcon(IconAssets.bookmarks, Icons.bookmark, Colors.red, size: 68);
+    final favoriteIcon = _buildFlatIcon(IconAssets.favorites, Icons.favorite, Colors.amber, size: 78);
+    final notesIcon = _buildFlatIcon('assets/icons/flat/notes.png', Icons.note_alt_rounded, Colors.orange, size: 68);
+    final wisdomIcon = _buildFlatIcon(IconAssets.wisdomTree, Icons.forest, Colors.amber, size: 78);
+    final leaderboardIcon = _buildFlatIcon(IconAssets.leaderboard, Icons.leaderboard, Colors.blue, size: 78);
+    final prayerWallIcon = _buildFlatIcon(IconAssets.prayerWall, Icons.volunteer_activism, Colors.teal, size: 78);
+    final socialIcon = _buildFlatIcon(IconAssets.socialFeed, Icons.forum, Colors.deepOrange, size: 78);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -409,28 +307,37 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── READ SECTION ────────────────────────────────────────────────────
-          _buildSectionHeader("📖 READ"),
-          if (continueReadingCard != null) continueReadingCard,
+          _buildSectionHeader("📖 వాక్య అధ్యయనం / READ", topPadding: 12.0),
+          const DailyVerseCard(),
+          const SizedBox(height: 12),
+          // OT/NT: allowIconOverflow — icon floats above card, text below
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Old Testament",
+                  title: "పాత నిబంధన",
+                  englishTitle: "Old Testament",
                   subtitle: "39 Books",
                   iconWidget: otIcon,
                   gradientColors: const [Color(0xFFFFC107), Color(0xFFFF8F00)],
                   glowColor: const Color(0xFFFFC107),
+                  allowIconOverflow: false,
+                  iconSize: 96,
                   onTap: () => context.push('/bible'),
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "New Testament",
+                  title: "కొత్త నిబంధన",
+                  englishTitle: "New Testament",
                   subtitle: "27 Books",
                   iconWidget: ntIcon,
                   gradientColors: const [Color(0xFF448AFF), Color(0xFF2962FF)],
                   glowColor: const Color(0xFF448AFF),
+                  allowIconOverflow: false,
+                  iconSize: 96,
                   onTap: () => context.push('/bible'),
                 ),
               ),
@@ -438,75 +345,107 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
           ),
           const SizedBox(height: 10),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Search Scripture",
+                  title: "వాక్య శోధన",
+                  englishTitle: "Search Scripture",
                   subtitle: "Keyword search",
                   iconWidget: searchIcon,
                   gradientColors: const [Color(0xFF00E5FF), Color(0xFF00838F)],
                   glowColor: const Color(0xFF00E5FF),
-                  isRowLayout: true,
+                  allowIconOverflow: false,
+                  iconSize: 68,
+                  titleFontSize: 13,
+                  subtitleFontSize: 9,
+                  cardPadding: 4,
                   onTap: () => context.push('/search'),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const DailyVerseCard(),
-
-          // ── LEARN SECTION ───────────────────────────────────────────────────
-          _buildSectionHeader("📚 LEARN"),
-          Row(
-            children: [
+              const SizedBox(width: 8),
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Reading Plans",
+                  title: "పఠన ప్రణాళికలు",
+                  englishTitle: "Reading Plans",
                   subtitle: "Daily tracks",
                   iconWidget: planIcon,
                   gradientColors: const [Color(0xFF66BB6A), Color(0xFF43A047)],
                   glowColor: const Color(0xFF66BB6A),
-                  isRowLayout: true,
+                  allowIconOverflow: false,
+                  iconSize: 68,
+                  titleFontSize: 13,
+                  subtitleFontSize: 9,
+                  cardPadding: 4,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadingPlanScreen())),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 8),
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Scripture Memory",
-                  subtitle: "Memorization games",
-                  iconWidget: memoryIcon,
-                  gradientColors: const [Color(0xFFFF9800), Color(0xFFF57C00)],
-                  glowColor: const Color(0xFFFF9800),
-                  isRowLayout: true,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryGameScreen())),
+                  title: "భద్రపరచిన వచనాలు",
+                  englishTitle: "Bookmarks",
+                  subtitle: "Saved verses",
+                  iconWidget: bookmarkIcon,
+                  gradientColors: const [Color(0xFFEF5350), Color(0xFFC62828)],
+                  glowColor: const Color(0xFFEF5350),
+                  allowIconOverflow: false,
+                  iconSize: 68,
+                  titleFontSize: 13,
+                  subtitleFontSize: 9,
+                  cardPadding: 4,
+                  onTap: () => context.push('/bookmarks'),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "అధ్యయన గమనికలు",
+                  englishTitle: "Study Notes",
+                  subtitle: "Personal reflections",
+                  iconWidget: notesIcon,
+                  gradientColors: const [Color(0xFFFF8A65), Color(0xFFD84315)],
+                  glowColor: const Color(0xFFFF8A65),
+                  allowIconOverflow: false,
+                  iconSize: 68,
+                  titleFontSize: 13,
+                  subtitleFontSize: 9,
+                  cardPadding: 4,
+                  onTap: () => context.push('/notes'),
                 ),
               ),
             ],
           ),
 
           // ── PLAY SECTION ────────────────────────────────────────────────────
-          _buildSectionHeader("🎮 PLAY"),
+          _buildSectionHeader("🎯 బైబిల్ సవాళ్లు / PLAY", topPadding: 12.0),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Quiz Mode",
+                  title: "బైబిల్ ప్రశ్నోత్తరాలు",
+                  englishTitle: "Quiz Mode",
                   subtitle: "Levels 1–100",
                   iconWidget: quizIcon,
                   gradientColors: const [Color(0xFF00E676), Color(0xFF00C853)],
                   glowColor: const Color(0xFF00E676),
+                  allowIconOverflow: false,
+                  iconSize: 78,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizTab())),
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Challenges",
+                  title: "సవాళ్లు",
+                  englishTitle: "Challenges",
                   subtitle: "Daily & Weekly",
                   iconWidget: challengeIcon,
                   gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
                   glowColor: const Color(0xFFFFD700),
+                  allowIconOverflow: false,
+                  iconSize: 78,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen())),
                 ),
               ),
@@ -514,15 +453,32 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
           ),
           const SizedBox(height: 10),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Quiz Creator",
+                  title: "వాక్య జ్ఞాపకం",
+                  englishTitle: "Scripture Memory",
+                  subtitle: "Memorization games",
+                  iconWidget: memoryIcon,
+                  gradientColors: const [Color(0xFFFF9800), Color(0xFFF57C00)],
+                  glowColor: const Color(0xFFFF9800),
+                  allowIconOverflow: false,
+                  iconSize: 78,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryGameScreen())),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: GamifiedMenuCard(
+                  title: "క్విజ్ సృష్టికర్త",
+                  englishTitle: "Quiz Creator",
                   subtitle: "Make your own quiz",
                   iconWidget: creatorIcon,
                   gradientColors: const [Color(0xFFAB47BC), Color(0xFF7B1FA2)],
                   glowColor: const Color(0xFFAB47BC),
-                  isRowLayout: true,
+                  allowIconOverflow: false,
+                  iconSize: 78,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CustomQuizCreatorScreen())),
                 ),
               ),
@@ -530,57 +486,29 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
           ),
 
           // ── GROW SECTION ────────────────────────────────────────────────────
-          _buildSectionHeader("🌱 GROW"),
+          _buildSectionHeader("🌱 ఆత్మీయ వృద్ధి / GROW", topPadding: 12.0),
           Row(
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Bookmarks",
-                  subtitle: "Saved verses",
-                  iconWidget: bookmarkIcon,
-                  gradientColors: const [Color(0xFFEF5350), Color(0xFFC62828)],
-                  glowColor: const Color(0xFFEF5350),
-                  isRowLayout: true,
-                  onTap: () => context.push('/bookmarks'),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: GamifiedMenuCard(
-                  title: "Highlights",
+                  title: "హైలైట్స్",
+                  englishTitle: "Highlights",
                   subtitle: "Color marked",
                   iconWidget: favoriteIcon,
                   gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
                   glowColor: const Color(0xFFFFD700),
-                  isRowLayout: true,
                   onTap: () => context.push('/highlights'),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
+              const SizedBox(width: 12),
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Study Notes",
-                  subtitle: "Personal reflections",
-                  iconWidget: notesIcon,
-                  gradientColors: const [Color(0xFFFF8A65), Color(0xFFD84315)],
-                  glowColor: const Color(0xFFFF8A65),
-                  isRowLayout: true,
-                  onTap: () => context.push('/notes'),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: GamifiedMenuCard(
-                  title: "Wisdom Tree",
+                  title: "జ్ఞాన వృక్షం",
+                  englishTitle: "Wisdom Tree",
                   subtitle: "Growth & badges",
                   iconWidget: wisdomIcon,
                   gradientColors: const [Color(0xFFFFCA28), Color(0xFFFF8F00)],
                   glowColor: const Color(0xFFFFCA28),
-                  isRowLayout: true,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WisdomTreeScreen())),
                 ),
               ),
@@ -588,29 +516,29 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
           ),
 
           // ── COMMUNITY SECTION ───────────────────────────────────────────────
-          _buildSectionHeader("👥 COMMUNITY"),
+          _buildSectionHeader("🤝 సహవాసం / COMMUNITY", topPadding: 12.0),
           Row(
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Leaderboard",
+                  title: "అగ్రస్థానాలు",
+                  englishTitle: "Leaderboard",
                   subtitle: "See global ranks",
                   iconWidget: leaderboardIcon,
                   gradientColors: const [Color(0xFF42A5F5), Color(0xFF1E88E5)],
                   glowColor: const Color(0xFF42A5F5),
-                  isRowLayout: true,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeaderboardScreen())),
                 ),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Prayer Wall",
+                  title: "కలిసి ప్రార్థిద్దాం",
+                  englishTitle: "Prayer Wall",
                   subtitle: "Intercede together",
                   iconWidget: prayerWallIcon,
                   gradientColors: const [Color(0xFF26A69A), Color(0xFF00897B)],
                   glowColor: const Color(0xFF26A69A),
-                  isRowLayout: true,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerWallScreen())),
                 ),
               ),
@@ -621,12 +549,12 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
             children: [
               Expanded(
                 child: GamifiedMenuCard(
-                  title: "Social Feed",
+                  title: "విశ్వాసుల ఫీడ్",
+                  englishTitle: "Social Feed",
                   subtitle: "Feed & achievements",
                   iconWidget: socialIcon,
                   gradientColors: const [Color(0xFFFF7043), Color(0xFFE64A19)],
                   glowColor: const Color(0xFFFF7043),
-                  isRowLayout: true,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SocialFeedScreen())),
                 ),
               ),
@@ -641,6 +569,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
 
 class GamifiedMenuCard extends StatelessWidget {
   final String title;
+  final String? englishTitle;
   final String subtitle;
   final Widget iconWidget;
   final List<Color> gradientColors;
@@ -648,10 +577,17 @@ class GamifiedMenuCard extends StatelessWidget {
   final VoidCallback onTap;
   final bool isRowLayout;
   final Widget? backgroundDecoration;
+  final bool allowIconOverflow;
+  final bool showChevron;
+  final double iconSize;
+  final double? titleFontSize;
+  final double? subtitleFontSize;
+  final double? cardPadding;
 
   const GamifiedMenuCard({
     super.key,
     required this.title,
+    this.englishTitle,
     required this.subtitle,
     required this.iconWidget,
     required this.gradientColors,
@@ -659,6 +595,12 @@ class GamifiedMenuCard extends StatelessWidget {
     required this.onTap,
     this.isRowLayout = false,
     this.backgroundDecoration,
+    this.allowIconOverflow = false,
+    this.showChevron = true,
+    this.iconSize = 78.0,
+    this.titleFontSize,
+    this.subtitleFontSize,
+    this.cardPadding,
   });
 
   Widget _buildGlassCard(BuildContext context, {required Widget child, Color? borderColor}) {
@@ -696,86 +638,101 @@ class GamifiedMenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
-    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
+    final textColor = Colors.white;
+    final subTextColor = Colors.white70;
 
-    final double iconSize = isRowLayout ? 30.0 : 34.0;
-
-    // Static circular glassmorphism container for flat PNG/fallback icons
-    Widget iconContainer = Container(
-      width: iconSize,
-      height: iconSize,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          colors: [
-            Colors.white.withValues(alpha: 0.16),
-            Colors.white.withValues(alpha: 0.06),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.18),
-          width: 1.0,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            offset: const Offset(0, 1.5),
-            blurRadius: 4,
-          ),
-          BoxShadow(
-            color: glowColor.withValues(alpha: 0.06),
-            blurRadius: 8,
-            spreadRadius: 0.4,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Glint Highlight (top-left)
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withValues(alpha: 0.25),
-                    Colors.white.withValues(alpha: 0.0),
-                  ],
-                  stops: const [0.0, 0.5],
+    // ── Section 7: allowIconOverflow layout ──────────────────────────────────
+    // Half of the icon floats above the glass card top edge.
+    // A Padding(top: halfIcon) reserves that space in the parent Row so the
+    // overflowing icon is never clipped.
+    if (allowIconOverflow && !isRowLayout) {
+      final double halfIcon = iconSize / 2;
+      return GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.only(top: halfIcon),
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.topCenter,
+            children: [
+              _buildGlassCard(
+                context,
+                borderColor: glowColor,
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(cardPadding ?? 10.0, halfIcon + 8, cardPadding ?? 10.0, 12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.cardTitle.copyWith(
+                          color: textColor,
+                          fontSize: titleFontSize ?? 22,
+                          fontFamily: 'Mandali',
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (englishTitle != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          englishTitle!,
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.bodyText.copyWith(
+                            color: subTextColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                      if (subtitle.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          subtitle,
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.bodyText.copyWith(
+                            color: subTextColor,
+                            fontSize: subtitleFontSize ?? 11,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          // Darkening Shadow (bottom-right)
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.black.withValues(alpha: 0.0),
-                    Colors.black.withValues(alpha: 0.1),
-                  ],
-                  stops: const [0.5, 1.0],
-                ),
+              Positioned(
+                top: -halfIcon,
+                left: 0,
+                right: 0,
+                child: Center(child: iconWidget),
               ),
-            ),
+            ],
           ),
-          iconWidget,
-        ],
-      ),
-    );
+        ),
+      );
+    }
 
+    final double verticalPadding;
+    final double spacingHeight;
+    if (cardPadding != null) {
+      double totalReserved = 72.0 - iconSize;
+      if (englishTitle != null) {
+        totalReserved -= 11.0;
+      }
+      spacingHeight = (totalReserved / 3).clamp(2.0, 8.0);
+      verticalPadding = ((totalReserved - spacingHeight) / 2).clamp(0.0, 8.0);
+    } else {
+      verticalPadding = 8.0;
+      spacingHeight = 8.0;
+    }
+
+    // ── Standard card (row or column) ────────────────────────────────────────
     return GestureDetector(
       onTap: onTap,
       child: _buildGlassCard(
@@ -784,13 +741,17 @@ class GamifiedMenuCard extends StatelessWidget {
         child: Padding(
           padding: isRowLayout
               ? const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)
-              : const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              : EdgeInsets.symmetric(
+                  vertical: verticalPadding,
+                  horizontal: cardPadding ?? 10.0,
+                ),
           child: isRowLayout
               ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    iconContainer,
+                    iconWidget,
                     const SizedBox(width: 12),
-                    Expanded(
+                    Flexible(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -799,42 +760,76 @@ class GamifiedMenuCard extends StatelessWidget {
                             title,
                             style: AppTextStyles.cardTitle.copyWith(
                               color: textColor,
-                              fontSize: 14,
+                              fontSize: titleFontSize ?? 20,
+                              fontFamily: 'Mandali',
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            subtitle,
-                            style: AppTextStyles.bodyText.copyWith(
-                              color: subTextColor,
-                              fontSize: 11,
+                          if (englishTitle != null) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              englishTitle!,
+                              style: AppTextStyles.bodyText.copyWith(
+                                color: subTextColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          ],
+                          if (subtitle.isNotEmpty) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              subtitle,
+                              style: AppTextStyles.bodyText.copyWith(
+                                color: subTextColor,
+                                fontSize: subtitleFontSize ?? 13,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ],
                       ),
                     ),
-                    Icon(Icons.chevron_right_rounded, color: subTextColor, size: 20),
+                    if (showChevron) ...[
+                      const SizedBox(width: 8),
+                      Icon(Icons.chevron_right_rounded, color: subTextColor, size: 20),
+                    ],
                   ],
                 )
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    iconContainer,
-                    const SizedBox(height: 8),
+                    iconWidget,
+                    SizedBox(height: spacingHeight),
                     Text(
                       title,
                       textAlign: TextAlign.center,
                       style: AppTextStyles.cardTitle.copyWith(
                         color: textColor,
-                        fontSize: 14,
+                        fontSize: titleFontSize ?? 22,
+                        fontFamily: 'Mandali',
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    if (englishTitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        englishTitle!,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.bodyText.copyWith(
+                          color: subTextColor,
+                          fontSize: titleFontSize ?? 15,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                     if (subtitle.isNotEmpty) ...[
                       const SizedBox(height: 4),
                       Text(
@@ -842,7 +837,7 @@ class GamifiedMenuCard extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: AppTextStyles.bodyText.copyWith(
                           color: subTextColor,
-                          fontSize: 11,
+                          fontSize: subtitleFontSize ?? 11,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -870,7 +865,7 @@ class TestamentBooksScreen extends StatelessWidget {
     final title = testament == 'old' ? 'Old Testament' : 'New Testament';
     final books = BibleService.getBooks().where((b) => b.testament == testamentType).toList();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final textColor = Colors.white;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -966,7 +961,7 @@ class TestamentBooksScreen extends StatelessWidget {
                                       style: const TextStyle(
                                         color: Color(0xFFD4A574),
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 11,
+                                        fontSize: 12,
                                         fontFamily: 'NotoSansTelugu',
                                       ),
                                     ),
@@ -1020,7 +1015,7 @@ class ChapterGridScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final textColor = Colors.white;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -1159,7 +1154,7 @@ class VerseGridScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final book = BibleService.getBookById(bookId);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final textColor = Colors.white;
 
     return Scaffold(
       extendBodyBehindAppBar: true,

@@ -404,7 +404,6 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
   }
 
   Widget _buildFilterTab(String text, bool isActive) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -416,13 +415,13 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: isActive
-                ? (text == "Answered" ? Colors.amber.withValues(alpha: 0.2) : const Color(0xFF6C4AB6).withValues(alpha: 0.2))
+                ? (text == "Answered" ? Colors.amber.withValues(alpha: 0.2) : const Color(0xFF38BDF8).withValues(alpha: 0.2))
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isActive
-                  ? (text == "Answered" ? Colors.amber : const Color(0xFF6C4AB6))
-                  : (isDark ? Colors.white24 : Colors.black12),
+                  ? (text == "Answered" ? Colors.amber : const Color(0xFF38BDF8))
+                  : Colors.white24,
               width: 1.5,
             ),
           ),
@@ -431,8 +430,8 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
               text,
               style: TextStyle(
                 color: isActive
-                    ? (text == "Answered" ? Colors.amber : (isDark ? Colors.white : const Color(0xFF6C4AB6)))
-                    : (isDark ? Colors.white60 : Colors.black54),
+                    ? (text == "Answered" ? Colors.amber : Colors.white)
+                    : Colors.white60,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Outfit',
                 fontSize: 14,
@@ -500,7 +499,7 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
                           Text(
                             "Prayer Wall 🙏",
                             style: TextStyle(
-                              color: textColor,
+                              color: Colors.white,
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Outfit',
@@ -512,7 +511,7 @@ class _PrayerWallScreenState extends State<PrayerWallScreen> {
                       Text(
                         "Share your prayer requests and pray for others",
                         style: TextStyle(
-                          color: subTextColor,
+                          color: Colors.white70,
                           fontSize: 14,
                           fontFamily: 'Outfit',
                         ),

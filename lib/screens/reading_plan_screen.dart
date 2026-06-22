@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as rp;
 import 'bible_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/reading_plan.dart';
@@ -9,15 +11,16 @@ import '../services/bible_service.dart';
 import '../services/reading_quiz_questions.dart';
 import '../services/analytics_service.dart';
 import '../widgets/bilingual_text.dart';
+import '../features/user_data/providers/user_data_providers.dart';
 
-class ReadingPlanScreen extends StatefulWidget {
+class ReadingPlanScreen extends rp.ConsumerStatefulWidget {
   const ReadingPlanScreen({super.key});
 
   @override
-  State<ReadingPlanScreen> createState() => _ReadingPlanScreenState();
+  rp.ConsumerState<ReadingPlanScreen> createState() => _ReadingPlanScreenState();
 }
 
-class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
+class _ReadingPlanScreenState extends rp.ConsumerState<ReadingPlanScreen> {
   @override
   void initState() {
     super.initState();
@@ -35,6 +38,8 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final planProvider = Provider.of<ReadingPlanProvider>(context);
     final userProvider = context.read<UserDataProvider>();
+    final readingProgress = ref.watch(readingProgressProvider);
+    final lastRead = readingProgress.isNotEmpty ? readingProgress.first : null;
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF1A1A2E) : const Color(0xFFFDF6EC),
@@ -63,8 +68,145 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
       body: planProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : planProvider.currentPlan == null
-              ? _buildEnrollmentView(context, planProvider, userProvider)
-              : _buildActivePlanDashboard(context, planProvider, userProvider),
+              ? _buildEnrollmentView(context, planProvider, userProvider, lastRead)
+              : _buildActivePlanDashboard(context, planProvider, userProvider, lastRead),
+    );
+  }
+
+  Widget? _buildContinueReadingSection(BuildContext context, Map<String, dynamic>? lastRead) {
+    if (lastRead == null) return null;
+    
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final lastBookName = lastRead['book_name'] as String;
+    final lastChapter = lastRead['chapter'] as int;
+    final lastVerse = lastRead['verse'] as int? ?? 1;
+    
+    final bookMeta = BibleService.findBookByName(lastBookName);
+    final displayBookNameEn = bookMeta?.nameEn ?? lastBookName;
+    final displayName = '$displayBookNameEn $lastChapter:$lastVerse';
+
+    DateTime? readAtDate;
+    try {
+      if (lastRead['read_at'] != null) {
+        readAtDate = DateTime.parse(lastRead['read_at'] as String);
+      }
+    } catch (_) {}
+
+    String relativeTime = '';
+    if (readAtDate != null) {
+      final diff = DateTime.now().difference(readAtDate);
+      if (diff.inSeconds < 60) {
+        relativeTime = 'Just now';
+      } else if (diff.inMinutes < 60) {
+        relativeTime = '${diff.inMinutes} minutes ago';
+      } else if (diff.inHours < 24) {
+        relativeTime = '${diff.inHours} hours ago';
+      } else {
+        relativeTime = '${diff.inDays} days ago';
+      }
+    }
+
+    final cardColor = isDark ? Colors.white.withValues(alpha: 0.06) : Colors.black.withValues(alpha: 0.05);
+    const accentColor = Color(0xFFFFD700);
+    final textColor = Colors.white;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: cardColor,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08), width: 1.0),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => BibleScreen(
+                        initialBook: lastBookName,
+                        initialChapter: lastChapter,
+                        initialVerse: lastVerse,
+                      ),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(18),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Continue Reading',
+                              style: TextStyle(
+                                color: accentColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                                letterSpacing: 0.4,
+                                fontFamily: 'Outfit',
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              displayName.toUpperCase(),
+                              style: TextStyle(
+                                color: textColor,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 22,
+                                height: 1.1,
+                                fontFamily: 'Outfit',
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              relativeTime.isNotEmpty
+                                  ? 'Last opened $relativeTime'
+                                  : 'Last opened recently',
+                              style: TextStyle(
+                                color: isDark ? Colors.white54 : Colors.black54,
+                                fontSize: 12,
+                                fontFamily: 'Outfit',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Container(
+                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                         decoration: BoxDecoration(
+                           borderRadius: BorderRadius.circular(999),
+                           border: Border.all(color: accentColor.withValues(alpha: 0.18), width: 1),
+                           color: accentColor.withValues(alpha: 0.08),
+                         ),
+                         child: Text(
+                           'Resume →',
+                           style: TextStyle(
+                             color: accentColor,
+                             fontWeight: FontWeight.w700,
+                             fontSize: 12,
+                             fontFamily: 'Outfit',
+                           ),
+                         ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -73,11 +215,14 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
     BuildContext context,
     ReadingPlanProvider planProvider,
     UserDataProvider userProvider,
+    Map<String, dynamic>? lastRead,
   ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final continueCard = _buildContinueReadingSection(context, lastRead);
     return ListView(
       padding: const EdgeInsets.all(20.0),
       children: [
+        if (continueCard != null) continueCard,
         const SizedBox(height: 10),
         Icon(
           Icons.menu_book_rounded,
@@ -307,6 +452,7 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
     BuildContext context,
     ReadingPlanProvider planProvider,
     UserDataProvider userProvider,
+    Map<String, dynamic>? lastRead,
   ) {
     final plan = planProvider.currentPlan!;
     final planDays = ReadingPlanData.getPlanDays(plan.planType);
@@ -328,11 +474,14 @@ class _ReadingPlanScreenState extends State<ReadingPlanScreen> {
       displayPlanName = "365-Day Whole Bible";
     }
 
+    final continueCard = _buildContinueReadingSection(context, lastRead);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (continueCard != null) continueCard,
           // Plan Header Stats Card
           _buildStatsCard(context, plan, completedCount, totalDays, progressPercent, displayPlanName),
           const SizedBox(height: 20),

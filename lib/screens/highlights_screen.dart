@@ -63,6 +63,10 @@ class _HighlightsScreenState extends ConsumerState<HighlightsScreen> {
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
 
+    // Always use white/white70 for elements drawn directly on the navy background
+    const bgTextColor = Colors.white;
+    const bgSubTextColor = Colors.white70;
+
     // Filter highlights
     final filteredHighlights = highlights.where((h) {
       if (_selectedColorFilter == 'All') return true;
@@ -84,14 +88,14 @@ class _HighlightsScreenState extends ConsumerState<HighlightsScreen> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: bgTextColor),
                         onPressed: () => context.go('/home'),
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         "My Highlights 🎨",
                         style: TextStyle(
-                          color: textColor,
+                          color: bgTextColor,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Outfit',
@@ -141,7 +145,7 @@ class _HighlightsScreenState extends ConsumerState<HighlightsScreen> {
                             ],
                           ),
                           labelStyle: TextStyle(
-                            color: isSelected ? Colors.black : textColor,
+                            color: isSelected ? Colors.black : bgTextColor,
                             fontFamily: 'Outfit',
                             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                           ),
@@ -172,27 +176,25 @@ class _HighlightsScreenState extends ConsumerState<HighlightsScreen> {
                                 Icon(
                                   Icons.border_color_outlined,
                                   size: 70,
-                                  color: subTextColor.withValues(alpha: 0.5),
+                                  color: bgSubTextColor.withValues(alpha: 0.5),
                                 ),
                                 const SizedBox(height: 16),
-                                Text(
+                                const Text(
                                   "No Highlights Found",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'Outfit',
-                                    color: textColor,
+                                    color: bgTextColor,
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-                                Text(
-                                  _selectedColorFilter == 'All'
-                                      ? "Press and hold a verse in the Bible reader, then select a highlight color to save it here."
-                                      : "No verses highlighted in $_selectedColorFilter.",
+                                const Text(
+                                  "Press and hold a verse in the Bible reader, then select a highlight color to save it here.",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: subTextColor,
+                                    color: bgSubTextColor,
                                     fontFamily: 'Outfit',
                                     height: 1.4,
                                   ),

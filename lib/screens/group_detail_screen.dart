@@ -9,6 +9,7 @@ import '../models/quiz.dart';
 import '../providers/user_data_provider.dart';
 import '../services/firebase_service.dart';
 import 'self_paced_screen.dart';
+import '../widgets/gradient_background.dart';
 
 class GroupDetailScreen extends StatefulWidget {
   final String groupId;
@@ -392,7 +393,14 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
         if (group == null) {
           return Scaffold(
             backgroundColor: const Color(0xFF1A1A2E),
-            appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+            appBar: AppBar(
+              backgroundColor: Colors.transparent, 
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
             body: const Center(child: Text("Group not found.", style: TextStyle(color: Colors.white, fontFamily: 'Outfit'))),
           );
         }
@@ -403,16 +411,9 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
           body: Stack(
             children: [
               // Background Gradient
-              Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xFF1A1A2E),
-                      Color(0xFF0F3460),
-                    ],
-                  ),
+              const Positioned.fill(
+                child: GradientBackground(
+                  child: SizedBox.shrink(),
                 ),
               ),
               // Content scroll view
@@ -424,7 +425,19 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
                       elevation: 0,
                       floating: true,
                       pinned: false,
-                      title: Text(group.name, style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                      iconTheme: const IconThemeData(color: Colors.white),
+                      leading: IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      title: Text(
+                        group.name, 
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold, 
+                          fontFamily: 'Outfit',
+                        ),
+                      ),
                     ),
                     SliverPadding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),

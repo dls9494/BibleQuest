@@ -98,3 +98,7 @@ flutter:
         - asset: assets/fonts/NotoSerifTelugu-Regular.ttf
         - asset: assets/fonts/NotoSerifTelugu-Bold.ttf
           weight: 700
+    - family: Mandali
+      fonts:
+        - asset: assets/fonts/Mandali-Regular.ttf
+

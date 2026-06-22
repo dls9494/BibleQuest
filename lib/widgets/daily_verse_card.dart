@@ -21,9 +21,7 @@ class DailyVerseCard extends ConsumerWidget {
         final bookMeta = BibleService.findBookByName(dailyVerse.bookName);
         final displayBookNameEn = bookMeta?.nameEn ?? dailyVerse.bookName;
         final displayBookNameTe = bookMeta?.nameTe ?? '';
-        final displayName = displayBookNameTe.isNotEmpty
-            ? '$displayBookNameEn ($displayBookNameTe) ${dailyVerse.chapter}:${dailyVerse.verse}'
-            : '$displayBookNameEn ${dailyVerse.chapter}:${dailyVerse.verse}';
+
 
         return Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
@@ -80,25 +78,64 @@ class DailyVerseCard extends ConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "VERSE OF THE DAY • నేటి వాక్యము",
-                                      style: TextStyle(
-                                        color: AppTheme.gold,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Outfit',
-                                        letterSpacing: 1.5,
+                                    RichText(
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          color: AppTheme.gold,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.5,
+                                        ),
+                                        children: [
+                                          const TextSpan(
+                                            text: "VERSE OF THE DAY • ",
+                                            style: TextStyle(
+                                              fontFamily: 'Outfit',
+                                            ),
+                                          ),
+                                          const TextSpan(
+                                            text: "నేటి వాక్యము",
+                                            style: TextStyle(
+                                              fontFamily: 'Mandali',
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                     const SizedBox(height: 2),
-                                    Text(
-                                      displayName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
+                                     RichText(
+                                       text: TextSpan(
+                                         style: const TextStyle(
+                                           color: Colors.white,
+                                           fontSize: 14,
+                                           fontWeight: FontWeight.w600,
+                                         ),
+                                         children: [
+                                           TextSpan(
+                                             text: displayBookNameEn,
+                                             style: const TextStyle(fontFamily: 'Outfit'),
+                                           ),
+                                           if (displayBookNameTe.isNotEmpty) ...[
+                                             const TextSpan(
+                                               text: ' (',
+                                               style: TextStyle(fontFamily: 'Outfit'),
+                                             ),
+                                             TextSpan(
+                                               text: displayBookNameTe,
+                                               style: const TextStyle(fontFamily: 'Mandali'),
+                                             ),
+                                             const TextSpan(
+                                               text: ')',
+                                               style: TextStyle(fontFamily: 'Outfit'),
+                                             ),
+                                           ],
+                                           TextSpan(
+                                             text: ' ${dailyVerse.chapter}:${dailyVerse.verse}',
+                                             style: const TextStyle(fontFamily: 'Outfit'),
+                                           ),
+                                         ],
+                                       ),
+                                     ),
                                   ],
                                 ),
                               ),
@@ -137,7 +174,7 @@ class DailyVerseCard extends ConsumerWidget {
                               color: Colors.white.withValues(alpha: 0.85), // Verse: White, 85% opacity
                               fontSize: 14,
                               height: 1.6,
-                              fontFamily: 'NotoSansTelugu',
+                              fontFamily: 'Mandali',
                             ),
                           ),
                         ],

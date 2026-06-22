@@ -139,6 +139,10 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
     final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
 
+    // Always use white/white70 for elements drawn directly on the navy background
+    const bgTextColor = Colors.white;
+    const bgSubTextColor = Colors.white70;
+
     final filteredNotes = notes.where((n) {
       final text = (n['text'] as String? ?? '').toLowerCase();
       final bookName = (n['book_name'] as String? ?? '').toLowerCase();
@@ -167,14 +171,14 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: bgTextColor),
                         onPressed: () => context.go('/home'),
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         "My Notes 📝",
                         style: TextStyle(
-                          color: textColor,
+                          color: bgTextColor,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Outfit',
@@ -199,14 +203,14 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                     ),
                     child: TextField(
                       controller: _searchController,
-                      style: TextStyle(color: textColor, fontFamily: 'Outfit'),
+                      style: const TextStyle(color: bgTextColor, fontFamily: 'Outfit'),
                       decoration: InputDecoration(
                         hintText: "Search notes...",
-                        hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.5), fontFamily: 'Outfit'),
-                        prefixIcon: Icon(Icons.search, color: subTextColor.withValues(alpha: 0.5)),
+                        hintStyle: TextStyle(color: bgSubTextColor.withValues(alpha: 0.5), fontFamily: 'Outfit'),
+                        prefixIcon: Icon(Icons.search, color: bgSubTextColor.withValues(alpha: 0.5)),
                         suffixIcon: _searchQuery.isNotEmpty
                             ? IconButton(
-                                icon: Icon(Icons.clear, color: subTextColor.withValues(alpha: 0.5)),
+                                icon: Icon(Icons.clear, color: bgSubTextColor.withValues(alpha: 0.5)),
                                 onPressed: () {
                                   setState(() {
                                     _searchController.clear();
@@ -238,16 +242,16 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                                 Icon(
                                   Icons.edit_note_outlined,
                                   size: 70,
-                                  color: subTextColor.withValues(alpha: 0.5),
+                                  color: bgSubTextColor.withValues(alpha: 0.5),
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
                                   _searchQuery.isEmpty ? "No Notes Yet" : "No notes found",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'Outfit',
-                                    color: textColor,
+                                    color: bgTextColor,
                                   ),
                                 ),
                                 const SizedBox(height: 8),
@@ -256,9 +260,9 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                                       ? "Create notes in the Bible reader by pressing the note icon on a selected verse, or tap + below."
                                       : "Try searching for a different keyword.",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
-                                    color: subTextColor,
+                                    color: bgSubTextColor,
                                     fontFamily: 'Outfit',
                                     height: 1.4,
                                   ),

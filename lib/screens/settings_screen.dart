@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 : ListView(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     children: [
-                      _buildSectionHeader("Appearance", textColor),
+                      _buildSectionHeader("Appearance"),
                       const SizedBox(height: 12),
                       _buildGlassCard(
                         isDark: isDark,
@@ -99,7 +99,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      _buildSectionHeader("Content Language", textColor),
+                      _buildSectionHeader("Content Language"),
                       const SizedBox(height: 12),
                       _buildGlassCard(
                         isDark: isDark,
@@ -145,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      _buildSectionHeader("Bible Versions", textColor),
+                      _buildSectionHeader("Bible Versions"),
                       const SizedBox(height: 12),
                       _buildGlassCard(
                         isDark: isDark,
@@ -216,7 +216,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      _buildSectionHeader("Notifications", textColor),
+                      _buildSectionHeader("Notifications"),
                       const SizedBox(height: 12),
                       _buildGlassCard(
                         isDark: isDark,
@@ -266,7 +266,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                       if (kDebugMode) ...[
                         const SizedBox(height: 24),
-                        _buildSectionHeader("Developer", textColor),
+                        _buildSectionHeader("Developer"),
                         const SizedBox(height: 12),
                         SizedBox(
                           width: double.infinity,
@@ -317,13 +317,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildSectionHeader(String title, Color textColor) {
+  Widget _buildSectionHeader(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Text(
         title,
-        style: TextStyle(
-          color: textColor,
+        style: const TextStyle(
+          color: Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.bold,
           fontFamily: 'Outfit',

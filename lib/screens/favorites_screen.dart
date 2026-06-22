@@ -70,13 +70,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037));
     final uid = FirebaseAuth.instance.currentUser?.uid;
 
+    // Always use white/white70 for elements drawn directly on the navy background
+    const bgTextColor = Colors.white;
+    const bgSubTextColor = Colors.white70;
+
     if (uid == null) {
-      return Scaffold(
+      return const Scaffold(
         body: GradientBackground(
           child: Center(
             child: Text(
               'Please log in to view favorites',
-              style: TextStyle(color: textColor, fontFamily: 'Outfit', fontSize: 16),
+              style: TextStyle(color: bgTextColor, fontFamily: 'Outfit', fontSize: 16),
             ),
           ),
         ),
@@ -95,14 +99,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor),
+                      icon: const Icon(Icons.arrow_back_ios_new_rounded, color: bgTextColor),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     const SizedBox(width: 8),
-                    Text(
+                    const Text(
                       "My Favorites ⭐",
                       style: TextStyle(
-                        color: textColor,
+                        color: bgTextColor,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Outfit',
@@ -142,25 +146,25 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               Icon(
                                 Icons.star_border_rounded,
                                 size: 70,
-                                color: subTextColor.withValues(alpha: 0.5),
+                                color: bgSubTextColor.withValues(alpha: 0.5),
                               ),
                               const SizedBox(height: 16),
-                              Text(
+                              const Text(
                                 "No Favorites Yet",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Outfit',
-                                  color: textColor,
+                                  color: bgTextColor,
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text(
+                              const Text(
                                 "Tap the star icon next to a verse in the Bible reader to save it here.",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: subTextColor,
+                                  color: bgSubTextColor,
                                   fontFamily: 'Outfit',
                                   height: 1.4,
                                 ),
@@ -247,8 +251,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   const SizedBox(width: 8),
                                   Text(
                                     '$bookName $chapter',
-                                    style: TextStyle(
-                                      color: textColor,
+                                    style: const TextStyle(
+                                      color: bgTextColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Outfit',

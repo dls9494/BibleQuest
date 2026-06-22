@@ -35,7 +35,8 @@ class BookListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeProvider = p.Provider.of<LocaleProvider>(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
+    final textColor = isDark ? Colors.white : const Color(0xFF3E2723);
+    const appBarTextColor = Colors.white;
 
     // P5 FIX: Use BibleService static metadata — always 39 OT, 27 NT. No async needed.
     final otBooks = BibleService.getOTBooks();
@@ -48,21 +49,21 @@ class BookListScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Bible Books • గ్రంథములు',
             style: TextStyle(
-              color: textColor,
+              color: appBarTextColor,
               fontWeight: FontWeight.bold,
               fontFamily: 'Outfit',
               fontSize: 18,
             ),
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: textColor),
+            icon: const Icon(Icons.arrow_back, color: appBarTextColor),
             onPressed: () => context.go('/home'),
           ),
           actions: [
-            _buildVersionSelector(context, localeProvider, isDark, textColor),
+            _buildVersionSelector(context, localeProvider, isDark, textColor, appBarTextColor),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(54),
@@ -139,7 +140,7 @@ class BookListScreen extends StatelessWidget {
   }
 
   // ── P1 FIX: Two separate dropdowns, each always has a valid value ─────────
-  Widget _buildVersionSelector(BuildContext context, LocaleProvider lp, bool isDark, Color textColor) {
+  Widget _buildVersionSelector(BuildContext context, LocaleProvider lp, bool isDark, Color textColor, Color appBarTextColor) {
     final canvasColor = isDark ? const Color(0xFF1E1E30) : Colors.white;
 
     final teDropdown = Theme(
@@ -147,8 +148,8 @@ class BookListScreen extends StatelessWidget {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: lp.activeTeluguVersion,
-          icon: Icon(Icons.arrow_drop_down, color: textColor, size: 16),
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit'),
+          icon: Icon(Icons.arrow_drop_down, color: appBarTextColor, size: 16),
+          style: TextStyle(color: appBarTextColor, fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit'),
           onChanged: (v) { if (v != null) lp.setTeluguVersion(v); },
           items: [
             DropdownMenuItem(value: 'telugu_ov',   child: Text('OV',   style: TextStyle(color: textColor))),
@@ -164,8 +165,8 @@ class BookListScreen extends StatelessWidget {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: lp.activeEnglishVersion,
-          icon: Icon(Icons.arrow_drop_down, color: textColor, size: 16),
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit'),
+          icon: Icon(Icons.arrow_drop_down, color: appBarTextColor, size: 16),
+          style: TextStyle(color: appBarTextColor, fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit'),
           onChanged: (v) { if (v != null) lp.setEnglishVersion(v); },
           items: [
             DropdownMenuItem(value: 'kjv',   child: Text('KJV',   style: TextStyle(color: textColor))),
@@ -183,7 +184,7 @@ class BookListScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           teDropdown,
-          Text(' / ', style: TextStyle(color: textColor.withValues(alpha: 0.4), fontSize: 11)),
+          Text(' / ', style: TextStyle(color: appBarTextColor.withValues(alpha: 0.4), fontSize: 11)),
           enDropdown,
         ],
       ),
@@ -284,10 +285,10 @@ class BookListScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: Ink(
         decoration: BoxDecoration(
-          color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.black.withValues(alpha: 0.02),
+          color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.black.withValues(alpha: 0.06),
+            color: isDark ? Colors.white.withValues(alpha: 0.06) : const Color(0xFFD4A574).withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -315,8 +316,8 @@ class BookListScreen extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     book.nameTe,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: textColor.withValues(alpha: 0.7),
                       fontWeight: FontWeight.normal,
                       fontSize: 14,
                       fontFamily: 'NotoSansTelugu',

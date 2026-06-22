@@ -157,7 +157,18 @@ class _BattleScreenState extends State<BattleScreen> with SingleTickerProviderSt
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text("⚔️ 1v1 Battle Mode"),
+        title: const Text(
+          "⚔️ 1v1 Battle Mode",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Outfit',
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         bottom: TabControllerTabBar(
           tabController: _tabController,
           tabs: const [

@@ -1,7 +1,7 @@
 class IconAssets {
   static const String oldTestament = 'assets/icons/flat/old_testament.png';
   static const String newTestament = 'assets/icons/flat/new_testament.png';
-  static const String quiz = 'assets/icons/flat/quiz.png';
+  static const String quiz = 'assets/icons/flat/quiz_mode.png';
   static const String challenges = 'assets/icons/flat/challenges.png';
   static const String readingPlans = 'assets/icons/flat/reading_plans.png';
   static const String scriptureMemory = 'assets/icons/flat/scripture_memory.png';

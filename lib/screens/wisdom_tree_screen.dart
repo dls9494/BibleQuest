@@ -10,6 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import '../providers/user_data_provider.dart';
 import '../providers/locale_provider.dart';
 import '../widgets/wisdom_tree_painter.dart';
+import '../widgets/gradient_background.dart';
 import '../services/bible_service.dart';
 import '../services/custom_quiz_generator.dart';
 import '../models/quiz.dart';
@@ -303,22 +304,22 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: textColor),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          'My Wisdom Tree',
+        title: const Text(
+          'Wisdom Tree • జ్ఞాన వృక్షం',
           style: TextStyle(
-            color: textColor,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: 'Outfit',
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
         actions: [
           if (!_isSharing)
             IconButton(
-              icon: Icon(Icons.share, color: textColor),
+              icon: const Icon(Icons.share, color: Colors.white),
               onPressed: () {
                 _shareTreeImage(growthStageName);
                 userProvider.recordShare();
@@ -329,16 +330,8 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: isDark
-                    ? [const Color(0xFF1A1A2E), const Color(0xFF0F3460)]
-                    : [const Color(0xFFFFFDF9), const Color(0xFFFBEEDB)],
-              ),
-            ),
+          const Positioned.fill(
+            child: GradientBackground(child: SizedBox.shrink()),
           ),
           
           SafeArea(
@@ -523,10 +516,10 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
                   
                   if (growthStageName != 'Seedling')
                     Center(
-                      child: Text(
+                      child: const Text(
                         '💡 Tap branch tips to view details and study more.',
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white60 : Color(0xFF5D4037)).withValues(alpha: 0.8),
+                          color: Colors.white70,
                           fontSize: 12,
                           fontStyle: FontStyle.italic,
                           fontFamily: 'Outfit',
