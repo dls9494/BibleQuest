@@ -112,25 +112,30 @@ class DailyVerseCard extends ConsumerWidget {
                                            fontWeight: FontWeight.w600,
                                          ),
                                          children: [
-                                           TextSpan(
-                                             text: displayBookNameEn,
-                                             style: const TextStyle(fontFamily: 'Outfit'),
-                                           ),
                                            if (displayBookNameTe.isNotEmpty) ...[
+                                             TextSpan(
+                                               text: displayBookNameTe,
+                                               style: const TextStyle(
+                                                 fontFamily: 'NotoSansTelugu',
+                                                 fontWeight: FontWeight.w500,
+                                               ),
+                                             ),
                                              const TextSpan(
                                                text: ' (',
                                                style: TextStyle(fontFamily: 'Outfit'),
                                              ),
                                              TextSpan(
-                                              text: displayBookNameTe,
-                                              style: const TextStyle(
-                                                fontFamily: 'NotoSansTelugu',
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                               text: displayBookNameEn,
+                                               style: const TextStyle(fontFamily: 'Outfit'),
+                                             ),
                                              const TextSpan(
                                                text: ')',
                                                style: TextStyle(fontFamily: 'Outfit'),
+                                             ),
+                                           ] else ...[
+                                             TextSpan(
+                                               text: displayBookNameEn,
+                                               style: const TextStyle(fontFamily: 'Outfit'),
                                              ),
                                            ],
                                            TextSpan(
@@ -160,7 +165,7 @@ class DailyVerseCard extends ConsumerWidget {
                                   final displayBookNameEn = bookMeta?.nameEn ?? dailyVerse.bookName;
                                   final displayBookNameTe = bookMeta?.nameTe ?? '';
                                   final refString = displayBookNameTe.isNotEmpty
-                                      ? '$displayBookNameEn ($displayBookNameTe) ${dailyVerse.chapter}:${dailyVerse.verse}'
+                                      ? '$displayBookNameTe ($displayBookNameEn) ${dailyVerse.chapter}:${dailyVerse.verse}'
                                       : '$displayBookNameEn ${dailyVerse.chapter}:${dailyVerse.verse}';
                                   
                                   final shareText = '$refString\n\n$teluguText\n\n$englishText\n\n— BibleQuest';

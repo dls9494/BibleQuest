@@ -2092,16 +2092,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               initialValue: localeProvider.contentMode,
                               items: [
                                 DropdownMenuItem(
+                                  value: ContentLanguageMode.bilingual,
+                                  child: Text('Bilingual (తెలుగు + English)', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
+                                ),
+                                DropdownMenuItem(
                                   value: ContentLanguageMode.english,
                                   child: Text('English Only', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
-                                ),
-                                DropdownMenuItem(
-                                  value: ContentLanguageMode.telugu,
-                                  child: Text('Telugu Only (తెలుగు)', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
-                                ),
-                                DropdownMenuItem(
-                                  value: ContentLanguageMode.bilingual,
-                                  child: Text('Bilingual', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF3E2723))),
                                 ),
                               ],
                               onChanged: (val) {

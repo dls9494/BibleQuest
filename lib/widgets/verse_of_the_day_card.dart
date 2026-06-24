@@ -133,11 +133,11 @@ class _VerseOfTheDayCardState extends State<VerseOfTheDayCard> {
     final formattedText = '''
 📖 Verse of the Day - Telugu Bible Quiz
 
-"${widget.verse.verseEn}"
-(${widget.verse.referenceEn})
-
 "${widget.verse.verseTe}"
 (${widget.verse.referenceTe})
+
+"${widget.verse.verseEn}"
+(${widget.verse.referenceEn})
 
 Play Telugu Bible Quiz and learn more! 📱
 ''';
@@ -212,6 +212,10 @@ Play Telugu Bible Quiz and learn more! 📱
 
   @override
   Widget build(BuildContext context) {
+    final lp = Provider.of<LocaleProvider>(context);
+    final showTe = lp.contentMode == ContentLanguageMode.telugu || lp.contentMode == ContentLanguageMode.bilingual;
+    final showEn = lp.contentMode == ContentLanguageMode.english || lp.contentMode == ContentLanguageMode.bilingual;
+
     final verse = widget.verse;
     final topicColor = _getTopicColor(verse.topic);
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -368,57 +372,61 @@ Play Telugu Bible Quiz and learn more! 📱
                         const SizedBox(height: 12),
 
                         // Telugu Verse Text
-                        Text(
-                          verse.verseTe,
-                          style: TextStyle(
-                            color: textColor,
-                            fontSize: 16,
-                            height: 1.6,
-                            fontFamily: 'NotoSerifTelugu',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        // Telugu Reference
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            "(${verse.referenceTe})",
+                        if (showTe) ...[
+                          Text(
+                            verse.verseTe,
                             style: TextStyle(
-                              color: referenceColor,
-                              fontSize: 12,
-                              fontStyle: FontStyle.italic,
+                              color: textColor,
+                              fontSize: 16,
+                              height: 1.6,
                               fontFamily: 'NotoSerifTelugu',
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
+                          const SizedBox(height: 4),
+                          // Telugu Reference
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "(${verse.referenceTe})",
+                              style: TextStyle(
+                                color: referenceColor,
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'NotoSerifTelugu',
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (showTe && showEn) const SizedBox(height: 12),
 
                         // English Verse Text
-                        Text(
-                          verse.verseEn,
-                          style: TextStyle(
-                            color: subTextColor,
-                            fontSize: 15,
-                            height: 1.5,
-                            fontFamily: 'NotoSerif',
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        // English Reference
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            "(${verse.referenceEn})",
+                        if (showEn) ...[
+                          Text(
+                            verse.verseEn,
                             style: TextStyle(
-                              color: referenceColor,
-                              fontSize: 12,
-                              fontStyle: FontStyle.italic,
+                              color: subTextColor,
+                              fontSize: 15,
+                              height: 1.5,
                               fontFamily: 'NotoSerif',
+                              fontStyle: FontStyle.italic,
                             ),
                           ),
-                        ),
+                          const SizedBox(height: 4),
+                          // English Reference
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "(${verse.referenceEn})",
+                              style: TextStyle(
+                                color: referenceColor,
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'NotoSerif',
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

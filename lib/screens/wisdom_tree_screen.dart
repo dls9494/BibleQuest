@@ -167,7 +167,7 @@ class _WisdomTreeScreenState extends State<WisdomTreeScreen> {
 
     try {
       final lp = context.read<LocaleProvider>();
-      final version = lp.contentMode == ContentLanguageMode.telugu ? 'te' : 'kjv';
+      final version = lp.contentMode == ContentLanguageMode.english ? 'kjv' : 'te';
 
       final questions = await CustomQuizGenerator.generateQuiz(
         bookId: book.id,

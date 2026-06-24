@@ -30,7 +30,8 @@ class LocaleProvider with ChangeNotifier {
       
       final langModeStr = prefs.getString('bible_language') ?? 'bilingual';
       if (langModeStr == 'telugu') {
-        _contentMode = ContentLanguageMode.telugu;
+        _contentMode = ContentLanguageMode.bilingual;
+        await prefs.setString('bible_language', 'bilingual');
       } else if (langModeStr == 'english') {
         _contentMode = ContentLanguageMode.english;
       } else {
@@ -105,8 +106,8 @@ class LocaleProvider with ChangeNotifier {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('bible_telugu_version', mapped);
         if (_contentMode == ContentLanguageMode.english) {
-          _contentMode = ContentLanguageMode.telugu;
-          await prefs.setString('bible_language', 'telugu');
+          _contentMode = ContentLanguageMode.bilingual;
+          await prefs.setString('bible_language', 'bilingual');
         }
       } catch (_) {}
     } else {
@@ -145,7 +146,7 @@ class LocaleProvider with ChangeNotifier {
       case ContentLanguageMode.telugu:
         return te;
       case ContentLanguageMode.bilingual:
-        if (te.isNotEmpty) return '$en\n($te)';
+        if (te.isNotEmpty) return '$te\n($en)';
         return en;
     }
   }

@@ -1579,11 +1579,12 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
       String correctOptName = "";
       if (q.type == 'multiple_choice' || q.type == 'mixed_format') {
         final correctOpt = q.options.firstWhere((o) => o.isCorrect);
-        correctOptName = lp.contentMode == ContentLanguageMode.telugu ? correctOpt.textTe : correctOpt.textEn;
+        correctOptName = lp.getContentText(correctOpt.textEn, correctOpt.textTe);
       } else {
-        correctOptName = lp.contentMode == ContentLanguageMode.telugu
-            ? (q.correctAnswerTe ?? 'సమాధానం')
-            : (q.correctAnswerEn ?? 'Answer');
+        correctOptName = lp.getContentText(
+          q.correctAnswerEn ?? 'Answer',
+          q.correctAnswerTe ?? 'సమాధానం',
+        );
       }
 
       return Scaffold(

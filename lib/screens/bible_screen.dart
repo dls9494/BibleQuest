@@ -35,7 +35,7 @@ class BibleScreen extends StatefulWidget {
 class _BibleScreenState extends State<BibleScreen> {
   String _selectedBookId = 'genesis';
   int _selectedChapter = 1;
-  String _selectedLanguage = 'telugu';
+  String _selectedLanguage = 'bilingual';
   String _activeEnglishVersion = 'english_kjv';
   String _activeTeluguVersion = 'telugu_ov';
   bool _isBilingual = true;
@@ -154,7 +154,7 @@ class _BibleScreenState extends State<BibleScreen> {
   void _startAudioPlayback({int startVerse = 1}) async {
     if (_verses.isEmpty) return;
 
-    final playTelugu = _isBilingual || _selectedLanguage == 'telugu';
+    final playTelugu = _isBilingual;
     final versesTexts = _verses.map((v) => playTelugu ? v.textTe : v.textKjv).toList();
     final lang = playTelugu ? 'te-IN' : 'en-US';
     final startIndex = _verses.indexWhere((v) => v.verse == startVerse);
@@ -183,7 +183,7 @@ class _BibleScreenState extends State<BibleScreen> {
     if (book == null) return;
 
     final verseNum = verseIndex + 1;
-    final bookName = _selectedLanguage == 'telugu' ? book.nameTe : book.nameEn;
+    final bookName = _isBilingual ? book.nameTe : book.nameEn;
 
     if (!mounted) return;
 
@@ -191,7 +191,7 @@ class _BibleScreenState extends State<BibleScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          _selectedLanguage == 'telugu'
+          _isBilingual
               ? '$bookName $chapter:$verseNum నుండి తిరిగి వినడం ప్రారంభించాలా?'
               : 'Resume listening from $bookName $chapter:$verseNum?',
           style: const TextStyle(fontFamily: 'Outfit', color: Colors.white),
@@ -201,7 +201,7 @@ class _BibleScreenState extends State<BibleScreen> {
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         action: SnackBarAction(
-          label: _selectedLanguage == 'telugu' ? 'ప్రారంభించు' : 'Resume',
+          label: _isBilingual ? 'ప్రారంభించు' : 'Resume',
           textColor: const Color(0xFFF7BC64),
           onPressed: () async {
             if (_selectedBookId != bookId || _selectedChapter != chapter) {
@@ -211,7 +211,7 @@ class _BibleScreenState extends State<BibleScreen> {
               });
               await _loadVerses();
             }
-            final isTelugu = _selectedLanguage == 'telugu';
+            final isTelugu = _isBilingual;
             final versesTexts = _verses.map((v) => isTelugu ? v.textTe : v.textKjv).toList();
             final lang = isTelugu ? 'te-IN' : 'en-US';
 
@@ -233,10 +233,18 @@ class _BibleScreenState extends State<BibleScreen> {
     final prefs = await SharedPreferences.getInstance();
     if (mounted) {
       setState(() {
-        _selectedLanguage = prefs.getString('bible_language') ?? 'telugu';
+        _selectedLanguage = prefs.getString('bible_language') ?? 'bilingual';
+        if (_selectedLanguage == 'telugu') {
+          _selectedLanguage = 'bilingual';
+        }
         _activeEnglishVersion = prefs.getString('bible_english_version') ?? 'english_kjv';
         _activeTeluguVersion = prefs.getString('bible_telugu_version') ?? 'telugu_ov';
         _isBilingual = prefs.getBool('bible_is_bilingual') ?? true;
+        if (_selectedLanguage == 'english') {
+          _isBilingual = false;
+        } else if (_selectedLanguage == 'bilingual') {
+          _isBilingual = true;
+        }
         _showLabels = prefs.getBool('bible_show_labels') ?? false;
 
         final savedFontSize = prefs.get('bible_font_size');
@@ -253,7 +261,7 @@ class _BibleScreenState extends State<BibleScreen> {
 
   Future<void> _saveVersionPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('bible_language', _selectedLanguage);
+    await prefs.setString('bible_language', _isBilingual ? 'bilingual' : 'english');
     await prefs.setString('bible_english_version', _activeEnglishVersion);
     await prefs.setString('bible_telugu_version', _activeTeluguVersion);
     await prefs.setBool('bible_is_bilingual', _isBilingual);
@@ -750,16 +758,19 @@ class _BibleScreenState extends State<BibleScreen> {
                   tooltip: 'Language & Version',
                   onSelected: (value) {
                     if (value == 'bilingual') {
-                      setState(() { _isBilingual = !_isBilingual; });
+                      setState(() {
+                        _isBilingual = !_isBilingual;
+                        _selectedLanguage = _isBilingual ? 'bilingual' : 'english';
+                      });
                       _saveVersionPrefs();
                       _loadVerses();
                     } else {
                       setState(() {
                         if (value == 'telugu_ov') {
-                          _selectedLanguage = 'telugu';
                           _activeTeluguVersion = value;
+                          _isBilingual = true;
+                          _selectedLanguage = 'bilingual';
                         } else {
-                          _selectedLanguage = 'english';
                           _activeEnglishVersion = value;
                         }
                       });
@@ -768,9 +779,13 @@ class _BibleScreenState extends State<BibleScreen> {
                     }
                   },
                   itemBuilder: (context) {
-                    final currentVersion = _selectedLanguage == 'telugu'
-                        ? _activeTeluguVersion
-                        : _activeEnglishVersion;
+                    bool isSelected(String verId) {
+                      if (_isBilingual) {
+                        return verId == _activeTeluguVersion || verId == _activeEnglishVersion;
+                      } else {
+                        return verId == _activeEnglishVersion;
+                      }
+                    }
                     return [
                       PopupMenuItem<String>(
                         value: 'bilingual',
@@ -800,16 +815,16 @@ class _BibleScreenState extends State<BibleScreen> {
                           child: Row(
                             children: [
                               Icon(
-                                currentVersion == entry.$1 ? Icons.radio_button_checked : Icons.radio_button_off,
+                                isSelected(entry.$1) ? Icons.radio_button_checked : Icons.radio_button_off,
                                 size: 18,
-                                color: currentVersion == entry.$1 ? accentColor : Colors.white38,
+                                color: isSelected(entry.$1) ? accentColor : Colors.white38,
                               ),
                               const SizedBox(width: 10),
                               Text(entry.$2,
                                   style: TextStyle(
                                     fontFamily: 'Outfit',
-                                    color: currentVersion == entry.$1 ? accentColor : Colors.white,
-                                    fontWeight: currentVersion == entry.$1 ? FontWeight.bold : FontWeight.normal,
+                                    color: isSelected(entry.$1) ? accentColor : Colors.white,
+                                    fontWeight: isSelected(entry.$1) ? FontWeight.bold : FontWeight.normal,
                                     fontSize: 14,
                                   )),
                             ],
@@ -1719,7 +1734,7 @@ class _BibleScreenState extends State<BibleScreen> {
       itemCount: _searchResults.length,
       itemBuilder: (context, index) {
         final result = _searchResults[index];
-        final isTelugu = _selectedLanguage == 'telugu';
+        final isTelugu = _isBilingual || _selectedLanguage == 'telugu';
         final textSnippet = isTelugu ? result.textTe : result.textKjv;
 
         return Card(
@@ -1842,8 +1857,8 @@ class _BibleScreenState extends State<BibleScreen> {
   }
 
   Widget _buildVerseRow(BuildContext context, BibleVerse v, UserDataProvider userProvider, int? playingVerse) {
-    final showTelugu = _isBilingual || _selectedLanguage == 'telugu';
-    final showEnglish = _isBilingual || _selectedLanguage == 'english';
+    final showTelugu = _isBilingual;
+    final showEnglish = true;
 
     final isCurrentlyPlaying = playingVerse == v.verse;
     final isSelected = _selectedVerse == v.verse || isCurrentlyPlaying;
@@ -2173,7 +2188,7 @@ class _BibleScreenState extends State<BibleScreen> {
                         );
                         return;
                       }
-                      final verseText = _selectedLanguage == 'telugu' ? v.textTe : v.textKjv;
+                      final verseText = _isBilingual ? v.textTe : v.textKjv;
                       await FirebaseService.toggleFavoriteVerse(uid, _selectedBookId, _selectedChapter, v.verse, verseText);
                       if (mounted) {
                         setState(() {
@@ -2199,7 +2214,7 @@ class _BibleScreenState extends State<BibleScreen> {
                     icon: Icons.copy_rounded,
                     label: 'Copy',
                     onTap: () {
-                      final copyText = '$bookNameEn $bookNameTe $_selectedChapter:${v.verse}\n\nTelugu: ${v.textTe}\n\nEnglish: ${v.textKjv}';
+                      final copyText = '$bookNameTe ($bookNameEn) $_selectedChapter:${v.verse}\n\nTelugu: ${v.textTe}\n\nEnglish: ${v.textKjv}';
                       Clipboard.setData(ClipboardData(text: copyText));
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -2224,9 +2239,7 @@ class _BibleScreenState extends State<BibleScreen> {
                         textEn: v.textKjv,
                         mode: _isBilingual
                             ? 'bilingual'
-                            : _selectedLanguage == 'telugu'
-                                ? 'te'
-                                : 'kjv',
+                            : 'kjv',
                       );
                     },
                   ),
