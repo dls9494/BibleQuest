@@ -16,7 +16,6 @@ import '../widgets/progress_path_widget.dart';
 import '../widgets/timer_capsule.dart';
 import '../widgets/this_day_card.dart';
 import '../widgets/quiz_result_share.dart';
-import '../widgets/memory_game_card.dart';
 import '../widgets/sharpen_weakness_card.dart';
 import '../widgets/live_event_card.dart';
 import 'flashcard_quiz_screen.dart';
@@ -595,9 +594,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                         // 2. This Day in the Bible
                         const ThisDayCard(),
                         const SizedBox(height: 12),
-                        // 3. Scripture Memory Game
-                        const MemoryGameCard(),
-                        const SizedBox(height: 12),
+
                         // 4. Sharpen Your Weakness (conditional)
                         const SharpenWeaknessCard(),
                         const SizedBox(height: 12),
