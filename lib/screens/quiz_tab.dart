@@ -9,20 +9,16 @@ import '../l10n/app_localizations.dart';
 import '../models/quiz.dart';
 import '../providers/locale_provider.dart';
 import '../providers/user_data_provider.dart';
-import '../providers/reading_plan_provider.dart';
 import '../services/firebase_service.dart';
 import '../services/challenge_questions.dart';
 import '../widgets/bilingual_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/progress_path_widget.dart';
 import '../widgets/timer_capsule.dart';
-import '../widgets/verse_of_the_day_card.dart';
 import '../widgets/this_day_card.dart';
 import '../widgets/quiz_result_share.dart';
 import '../widgets/memory_game_card.dart';
 import '../widgets/sharpen_weakness_card.dart';
 import '../widgets/live_event_card.dart';
-import '../services/verse_of_the_day.dart';
 import 'flashcard_quiz_screen.dart';
 import '../services/category_mapping.dart';
 import '../services/activity_service.dart';
@@ -130,14 +126,9 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
   late AnimationController _feedbackAnimController;
   late Animation<double> _feedbackBounceAnimation;
 
-  // Verse of the Day state
-  bool _isVerseOfTheDayDismissed = false;
-  DailyVerse? _verseOfTheDay;
-
   @override
   void initState() {
     super.initState();
-    _loadVerseOfTheDay();
     _feedbackAnimController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -146,44 +137,6 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
       parent: _feedbackAnimController,
       curve: Curves.elasticOut,
     );
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final userProvider = context.read<UserDataProvider>();
-      if (userProvider.userId != null) {
-        context.read<ReadingPlanProvider>()
-            .loadCurrentPlan(userProvider.userId!);
-      }
-    });
-  }
-
-  void _loadVerseOfTheDay() async {
-    final verse = VerseOfTheDayService.getVerseOfTheDay();
-    if (mounted) {
-      setState(() {
-        _verseOfTheDay = verse;
-      });
-    }
-
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final lastDismissedDate = prefs.getString('verse_dismissed_date') ?? '';
-      final todayStr = DateTime.now().toIso8601String().substring(0, 10);
-      if (mounted) {
-        setState(() {
-          _isVerseOfTheDayDismissed = (lastDismissedDate == todayStr);
-        });
-      }
-    } catch (_) {}
-  }
-
-  void _dismissVerseOfTheDay() async {
-    setState(() {
-      _isVerseOfTheDayDismissed = true;
-    });
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final todayStr = DateTime.now().toIso8601String().substring(0, 10);
-      await prefs.setString('verse_dismissed_date', todayStr);
-    } catch (_) {}
   }
 
   @override
@@ -638,18 +591,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                           currentLevel: highestUnlocked,
                           onLevelTap: _startQuizForLevel,
                         ),
-                        _buildReadingPlanCard(),
-                        const SizedBox(height: 12),
-
                         // === FEATURE CARDS (above level grid) ===
-                        // 1. Verse of the Day
-                        if (!_isVerseOfTheDayDismissed && _verseOfTheDay != null) ...[
-                          VerseOfTheDayCard(
-                            verse: _verseOfTheDay!,
-                            onDismiss: _dismissVerseOfTheDay,
-                          ),
-                          const SizedBox(height: 12),
-                        ],
                         // 2. This Day in the Bible
                         const ThisDayCard(),
                         const SizedBox(height: 12),
@@ -696,93 +638,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
   }
 
 
-  Widget _buildReadingPlanCard() {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Consumer<ReadingPlanProvider>(
-      builder: (context, planProvider, _) {
-        final plan = planProvider.currentPlan;
-        final hasPlan = plan != null;
 
-        String title = hasPlan ? "Continue Reading Plan" : "Bible Reading Plans";
-        String subtitle = hasPlan
-            ? "Day ${plan.completedDays.length} completed • Streak: ${plan.streak} days"
-            : "Enroll in a 30, 90, or 365 day reading plan";
-        IconData icon = hasPlan ? Icons.menu_book_rounded : Icons.library_books_rounded;
-
-        return Card(
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: BorderSide(
-              color: hasPlan
-                  ? const Color(0xFFFFD700).withValues(alpha: 0.5)
-                  : Colors.white.withValues(alpha: 0.15),
-              width: 1.5,
-            ),
-          ),
-          color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.of(context).pushNamed('/reading-plan');
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: hasPlan
-                          ? const Color(0xFFFFD700).withValues(alpha: 0.15)
-                          : const Color(0xFF6C4AB6).withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      icon,
-                      color: hasPlan ? const Color(0xFFFFD700) : const Color(0xFFBB86FC),
-                      size: 24,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723)),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Outfit',
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          subtitle,
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Colors.white70 : Color(0xFF5D4037)),
-                            fontSize: 13,
-                            fontFamily: 'Outfit',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: isDark ? Colors.white38 : Theme.of(context).textTheme.bodyLarge?.color ?? Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF3E2723),
-                    size: 16,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   Widget _buildStudyBanner() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
