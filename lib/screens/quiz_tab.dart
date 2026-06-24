@@ -18,7 +18,6 @@ import '../widgets/this_day_card.dart';
 import '../widgets/quiz_result_share.dart';
 import '../widgets/sharpen_weakness_card.dart';
 import '../widgets/live_event_card.dart';
-import 'flashcard_quiz_screen.dart';
 import '../services/category_mapping.dart';
 import '../services/activity_service.dart';
 import '../services/analytics_service.dart';
@@ -544,9 +543,6 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 12),
-                        // Study Tools / Flashcards Banner
-                        _buildStudyBanner(),
-                        const SizedBox(height: 24),
 
                         // Section 1: Progress Path
                         GestureDetector(
@@ -635,105 +631,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
 
 
 
-  Widget _buildStudyBanner() {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
-    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
-    final accentColor = isDark ? const Color(0xFF38BDF8) : const Color(0xFF6C4AB6);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: isDark ? 15 : 0, sigmaY: isDark ? 15 : 0),
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: isDark ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFD4A574).withValues(alpha: 0.4),
-            ),
-            boxShadow: isDark
-                ? null
-                : [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    )
-                  ],
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.2),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.menu_book, color: accentColor),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Scripture Study',
-                      style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 16, fontFamily: 'Outfit'),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Study bilingual flashcards & test your memory!',
-                      style: TextStyle(color: subTextColor, fontSize: 12, fontFamily: 'Outfit'),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/study-tools');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: accentColor.withValues(alpha: 0.2),
-                      foregroundColor: accentColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: accentColor, width: 1),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: const Text('STUDY', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit')),
-                  ),
-                  const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const FlashcardQuizScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFFD700),
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      elevation: 4,
-                    ),
-                    child: const Text('QUIZ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit')),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildCategoryFilters() {
     final categories = [

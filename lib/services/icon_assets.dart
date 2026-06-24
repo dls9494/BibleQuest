@@ -12,4 +12,5 @@ class IconAssets {
   static const String wisdomTree = 'assets/icons/flat/wisdom_tree.png';
   static const String bookmarks = 'assets/icons/flat/bookmarks.png';
   static const String favorites = 'assets/icons/flat/favorites.png';
+  static const String scriptureStudy = 'assets/icons/flat/scripture_study.png';
 }
