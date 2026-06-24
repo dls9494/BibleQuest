@@ -227,9 +227,69 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
   }
 
   Widget _buildSectionHeader(String title, {double topPadding = 24.0}) {
-    final parts = title.split(' / ');
-    final String teluguPart = parts[0];
-    final String englishPart = parts.length > 1 ? parts[1] : '';
+    final List<TextSpan> spans = [];
+
+    if (title.contains('GROW') && title.contains('COMMUNITY')) {
+      spans.addAll([
+        const TextSpan(
+          text: '🌱ఆత్మీయ వృద్ధి  ',
+          style: TextStyle(
+            fontFamily: 'NotoSansTelugu',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const TextSpan(
+          text: 'GROW',
+          style: TextStyle(
+            fontFamily: 'Outfit',
+          ),
+        ),
+        const TextSpan(
+          text: ' 🤝 సహవాసం ',
+          style: TextStyle(
+            fontFamily: 'NotoSansTelugu',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const TextSpan(
+          text: 'COMMUNITY',
+          style: TextStyle(
+            fontFamily: 'Outfit',
+          ),
+        ),
+      ]);
+    } else {
+      final parts = title.split(' / ');
+      final String teluguPart = parts[0];
+      final String englishPart = parts.length > 1 ? parts[1] : '';
+
+      spans.add(
+        TextSpan(
+          text: teluguPart,
+          style: const TextStyle(
+            fontFamily: 'NotoSansTelugu',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+
+      if (englishPart.isNotEmpty) {
+        spans.addAll([
+          const TextSpan(
+            text: ' / ',
+            style: TextStyle(
+              fontFamily: 'Outfit',
+            ),
+          ),
+          TextSpan(
+            text: englishPart,
+            style: const TextStyle(
+              fontFamily: 'Outfit',
+            ),
+          ),
+        ]);
+      }
+    }
 
     return Padding(
       padding: EdgeInsets.only(left: 20, right: 20, top: topPadding, bottom: 12),
@@ -244,28 +304,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                 fontSize: 13,
                 letterSpacing: 2.0,
               ),
-              children: [
-                TextSpan(
-                  text: teluguPart,
-                  style: const TextStyle(
-                    fontFamily: 'Mandali',
-                  ),
-                ),
-                if (englishPart.isNotEmpty) ...[
-                  const TextSpan(
-                    text: ' / ',
-                    style: TextStyle(
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  TextSpan(
-                    text: englishPart,
-                    style: const TextStyle(
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                ],
-              ],
+              children: spans,
             ),
           ),
           const SizedBox(height: 6),
@@ -289,17 +328,17 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
     final ntIcon = _buildFlatIcon(IconAssets.newTestament, Icons.auto_stories, Colors.blue, size: 96);
     final searchIcon = _buildFlatIcon('assets/icons/flat/search.png', Icons.search_rounded, Colors.cyan, size: 68);
     final planIcon = _buildFlatIcon(IconAssets.readingPlans, Icons.calendar_month, Colors.green, size: 68);
-    final memoryIcon = _buildFlatIcon(IconAssets.scriptureMemory, Icons.psychology, Colors.orange, size: 78);
-    final quizIcon = _buildFlatIcon(IconAssets.quiz, Icons.quiz, Colors.green, size: 78);
-    final challengeIcon = _buildFlatIcon(IconAssets.challenges, Icons.emoji_events, Colors.amber, size: 78);
-    final creatorIcon = _buildFlatIcon(IconAssets.quizCreator, Icons.create, Colors.purple, size: 78);
+    final memoryIcon = _buildFlatIcon(IconAssets.scriptureMemory, Icons.psychology, Colors.orange, size: 62);
+    final quizIcon = _buildFlatIcon(IconAssets.quiz, Icons.quiz, Colors.green, size: 62);
+    final challengeIcon = _buildFlatIcon(IconAssets.challenges, Icons.emoji_events, Colors.amber, size: 62);
+    final creatorIcon = _buildFlatIcon(IconAssets.quizCreator, Icons.create, Colors.purple, size: 62);
     final bookmarkIcon = _buildFlatIcon(IconAssets.bookmarks, Icons.bookmark, Colors.red, size: 68);
-    final favoriteIcon = _buildFlatIcon(IconAssets.favorites, Icons.favorite, Colors.amber, size: 78);
+    final favoriteIcon = _buildFlatIcon(IconAssets.favorites, Icons.favorite, Colors.amber, size: 62);
     final notesIcon = _buildFlatIcon('assets/icons/flat/notes.png', Icons.note_alt_rounded, Colors.orange, size: 68);
-    final wisdomIcon = _buildFlatIcon(IconAssets.wisdomTree, Icons.forest, Colors.amber, size: 78);
-    final leaderboardIcon = _buildFlatIcon(IconAssets.leaderboard, Icons.leaderboard, Colors.blue, size: 78);
-    final prayerWallIcon = _buildFlatIcon(IconAssets.prayerWall, Icons.volunteer_activism, Colors.teal, size: 78);
-    final socialIcon = _buildFlatIcon(IconAssets.socialFeed, Icons.forum, Colors.deepOrange, size: 78);
+    final wisdomIcon = _buildFlatIcon(IconAssets.wisdomTree, Icons.forest, Colors.amber, size: 62);
+    final leaderboardIcon = _buildFlatIcon(IconAssets.leaderboard, Icons.leaderboard, Colors.blue, size: 62);
+    final prayerWallIcon = _buildFlatIcon(IconAssets.prayerWall, Icons.volunteer_activism, Colors.teal, size: 62);
+    final socialIcon = _buildFlatIcon(IconAssets.socialFeed, Icons.forum, Colors.deepOrange, size: 62);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -309,7 +348,6 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
           // ── READ SECTION ────────────────────────────────────────────────────
           _buildSectionHeader("📖 వాక్య అధ్యయనం / READ", topPadding: 12.0),
           const DailyVerseCard(),
-          const SizedBox(height: 12),
           // OT/NT: allowIconOverflow — icon floats above card, text below
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,6 +362,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   glowColor: const Color(0xFFFFC107),
                   allowIconOverflow: false,
                   iconSize: 96,
+                  verticalPadding: 5,
                   onTap: () => context.push('/bible'),
                 ),
               ),
@@ -338,12 +377,13 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   glowColor: const Color(0xFF448AFF),
                   allowIconOverflow: false,
                   iconSize: 96,
+                  verticalPadding: 5,
                   onTap: () => context.push('/bible'),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -418,7 +458,7 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
           ),
 
           // ── PLAY SECTION ────────────────────────────────────────────────────
-          _buildSectionHeader("🎯 బైబిల్ సవాళ్లు / PLAY", topPadding: 12.0),
+          _buildSectionHeader("🎯 బైబిల్ సవాళ్లు / PLAY"),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -431,7 +471,12 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   gradientColors: const [Color(0xFF00E676), Color(0xFF00C853)],
                   glowColor: const Color(0xFF00E676),
                   allowIconOverflow: false,
-                  iconSize: 78,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizTab())),
                 ),
               ),
@@ -445,13 +490,18 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
                   glowColor: const Color(0xFFFFD700),
                   allowIconOverflow: false,
-                  iconSize: 78,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen())),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -464,7 +514,12 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   gradientColors: const [Color(0xFFFF9800), Color(0xFFF57C00)],
                   glowColor: const Color(0xFFFF9800),
                   allowIconOverflow: false,
-                  iconSize: 78,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryGameScreen())),
                 ),
               ),
@@ -478,15 +533,20 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   gradientColors: const [Color(0xFFAB47BC), Color(0xFF7B1FA2)],
                   glowColor: const Color(0xFFAB47BC),
                   allowIconOverflow: false,
-                  iconSize: 78,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CustomQuizCreatorScreen())),
                 ),
               ),
             ],
           ),
 
-          // ── GROW SECTION ────────────────────────────────────────────────────
-          _buildSectionHeader("🌱 ఆత్మీయ వృద్ధి / GROW", topPadding: 12.0),
+          // ── GROW & COMMUNITY SECTION ────────────────────────────────────────
+          _buildSectionHeader("🌱ఆత్మీయ వృద్ధి  GROW 🤝 సహవాసం COMMUNITY"),
           Row(
             children: [
               Expanded(
@@ -497,6 +557,13 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   iconWidget: favoriteIcon,
                   gradientColors: const [Color(0xFFFFD700), Color(0xFFFFAB00)],
                   glowColor: const Color(0xFFFFD700),
+                  allowIconOverflow: false,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => context.push('/highlights'),
                 ),
               ),
@@ -509,14 +576,19 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   iconWidget: wisdomIcon,
                   gradientColors: const [Color(0xFFFFCA28), Color(0xFFFF8F00)],
                   glowColor: const Color(0xFFFFCA28),
+                  allowIconOverflow: false,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WisdomTreeScreen())),
                 ),
               ),
             ],
           ),
-
-          // ── COMMUNITY SECTION ───────────────────────────────────────────────
-          _buildSectionHeader("🤝 సహవాసం / COMMUNITY", topPadding: 12.0),
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
@@ -527,10 +599,17 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   iconWidget: leaderboardIcon,
                   gradientColors: const [Color(0xFF42A5F5), Color(0xFF1E88E5)],
                   glowColor: const Color(0xFF42A5F5),
+                  allowIconOverflow: false,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeaderboardScreen())),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 12),
               Expanded(
                 child: GamifiedMenuCard(
                   title: "కలిసి ప్రార్థిద్దాం",
@@ -539,12 +618,19 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   iconWidget: prayerWallIcon,
                   gradientColors: const [Color(0xFF26A69A), Color(0xFF00897B)],
                   glowColor: const Color(0xFF26A69A),
+                  allowIconOverflow: false,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerWallScreen())),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
@@ -555,6 +641,13 @@ class _MainScreenState extends rp.ConsumerState<MainScreen> {
                   iconWidget: socialIcon,
                   gradientColors: const [Color(0xFFFF7043), Color(0xFFE64A19)],
                   glowColor: const Color(0xFFFF7043),
+                  allowIconOverflow: false,
+                  iconSize: 62,
+                  titleFontSize: 18,
+                  englishFontSize: 12,
+                  subtitleFontSize: 9,
+                  verticalPadding: 6,
+                  cardPadding: 8,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SocialFeedScreen())),
                 ),
               ),
@@ -581,8 +674,10 @@ class GamifiedMenuCard extends StatelessWidget {
   final bool showChevron;
   final double iconSize;
   final double? titleFontSize;
+  final double? englishFontSize;
   final double? subtitleFontSize;
   final double? cardPadding;
+  final double? verticalPadding;
 
   const GamifiedMenuCard({
     super.key,
@@ -599,8 +694,10 @@ class GamifiedMenuCard extends StatelessWidget {
     this.showChevron = true,
     this.iconSize = 78.0,
     this.titleFontSize,
+    this.englishFontSize,
     this.subtitleFontSize,
     this.cardPadding,
+    this.verticalPadding,
   });
 
   Widget _buildGlassCard(BuildContext context, {required Widget child, Color? borderColor}) {
@@ -670,7 +767,8 @@ class GamifiedMenuCard extends StatelessWidget {
                         style: AppTextStyles.cardTitle.copyWith(
                           color: textColor,
                           fontSize: titleFontSize ?? 22,
-                          fontFamily: 'Mandali',
+                          fontFamily: 'NotoSansTelugu',
+                          fontWeight: FontWeight.w500,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -682,7 +780,7 @@ class GamifiedMenuCard extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: AppTextStyles.bodyText.copyWith(
                             color: subTextColor,
-                            fontSize: 15,
+                            fontSize: englishFontSize ?? 15,
                             fontWeight: FontWeight.w400,
                           ),
                           maxLines: 1,
@@ -718,17 +816,20 @@ class GamifiedMenuCard extends StatelessWidget {
       );
     }
 
-    final double verticalPadding;
+    final double activeVerticalPadding;
     final double spacingHeight;
-    if (cardPadding != null) {
+    if (verticalPadding != null) {
+      activeVerticalPadding = verticalPadding!;
+      spacingHeight = verticalPadding!;
+    } else if (cardPadding != null) {
       double totalReserved = 72.0 - iconSize;
       if (englishTitle != null) {
         totalReserved -= 11.0;
       }
       spacingHeight = (totalReserved / 3).clamp(2.0, 8.0);
-      verticalPadding = ((totalReserved - spacingHeight) / 2).clamp(0.0, 8.0);
+      activeVerticalPadding = ((totalReserved - spacingHeight) / 2).clamp(0.0, 8.0);
     } else {
-      verticalPadding = 8.0;
+      activeVerticalPadding = 8.0;
       spacingHeight = 8.0;
     }
 
@@ -742,7 +843,7 @@ class GamifiedMenuCard extends StatelessWidget {
           padding: isRowLayout
               ? const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)
               : EdgeInsets.symmetric(
-                  vertical: verticalPadding,
+                  vertical: activeVerticalPadding,
                   horizontal: cardPadding ?? 10.0,
                 ),
           child: isRowLayout
@@ -761,7 +862,8 @@ class GamifiedMenuCard extends StatelessWidget {
                             style: AppTextStyles.cardTitle.copyWith(
                               color: textColor,
                               fontSize: titleFontSize ?? 20,
-                              fontFamily: 'Mandali',
+                              fontFamily: 'NotoSansTelugu',
+                              fontWeight: FontWeight.w500,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -772,7 +874,7 @@ class GamifiedMenuCard extends StatelessWidget {
                               englishTitle!,
                               style: AppTextStyles.bodyText.copyWith(
                                 color: subTextColor,
-                                fontSize: 16,
+                                fontSize: englishFontSize ?? 16,
                                 fontWeight: FontWeight.w400,
                               ),
                               maxLines: 1,
@@ -811,7 +913,8 @@ class GamifiedMenuCard extends StatelessWidget {
                       style: AppTextStyles.cardTitle.copyWith(
                         color: textColor,
                         fontSize: titleFontSize ?? 22,
-                        fontFamily: 'Mandali',
+                        fontFamily: 'NotoSansTelugu',
+                        fontWeight: FontWeight.w500,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -823,7 +926,7 @@ class GamifiedMenuCard extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: AppTextStyles.bodyText.copyWith(
                           color: subTextColor,
-                          fontSize: titleFontSize ?? 15,
+                          fontSize: englishFontSize ?? (titleFontSize ?? 15),
                           fontWeight: FontWeight.w400,
                         ),
                         maxLines: 1,

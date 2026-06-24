@@ -9,23 +9,24 @@ import '../theme/text_styles.dart';
 // ── Book group definitions ────────────────────────────────────────────────────
 class _BookGroup {
   final String label;
+  final String? dateText;
   final List<String> bookIds;
-  const _BookGroup(this.label, this.bookIds);
+  const _BookGroup(this.label, this.dateText, this.bookIds);
 }
 
 const _otGroups = [
-  _BookGroup('LAW',             ['genesis','exodus','leviticus','numbers','deuteronomy']),
-  _BookGroup('HISTORY',         ['joshua','judges','ruth','1samuel','2samuel','1kings','2kings','1chronicles','2chronicles','ezra','nehemiah','esther']),
-  _BookGroup('POETRY',          ['job','psalms','proverbs','ecclesiastes','songofsolomon']),
-  _BookGroup('MAJOR PROPHETS',  ['isaiah','jeremiah','lamentations','ezekiel','daniel']),
-  _BookGroup('MINOR PROPHETS',  ['hosea','joel','amos','obadiah','jonah','micah','nahum','habakkuk','zephaniah','haggai','zechariah','malachi']),
+  _BookGroup('LAW', '4000 BC – 1406 BC', ['genesis','exodus','leviticus','numbers','deuteronomy']),
+  _BookGroup('HISTORY', '1406 BC – 430 BC', ['joshua','judges','ruth','1samuel','2samuel','1kings','2kings','1chronicles','2chronicles','ezra','nehemiah','esther']),
+  _BookGroup('POETRY', '2000 BC – 930 BC', ['job','psalms','proverbs','ecclesiastes','songofsolomon']),
+  _BookGroup('MAJOR PROPHETS', '740 BC – 530 BC', ['isaiah','jeremiah','lamentations','ezekiel','daniel']),
+  _BookGroup('MINOR PROPHETS', '850 BC – 430 BC', ['hosea','joel','amos','obadiah','jonah','micah','nahum','habakkuk','zephaniah','haggai','zechariah','malachi']),
 ];
 
 const _ntGroups = [
-  _BookGroup('GOSPELS',     ['matthew','mark','luke','john']),
-  _BookGroup('ACTS',        ['acts']),
-  _BookGroup('EPISTLES',    ['romans','1corinthians','2corinthians','galatians','ephesians','philippians','colossians','1thessalonians','2thessalonians','1timothy','2timothy','titus','philemon','hebrews','james','1peter','2peter','1john','2john','3john','jude']),
-  _BookGroup('REVELATION',  ['revelation']),
+  _BookGroup('GOSPELS', '4 BC – AD 33', ['matthew','mark','luke','john']),
+  _BookGroup('ACTS', 'AD 33 – AD 62', ['acts']),
+  _BookGroup('EPISTLES', 'AD 45 – AD 90', ['romans','1corinthians','2corinthians','galatians','ephesians','philippians','colossians','1thessalonians','2thessalonians','1timothy','2timothy','titus','philemon','hebrews','james','1peter','2peter','1john','2john','3john','jude']),
+  _BookGroup('REVELATION', 'AD 95', ['revelation']),
 ];
 
 class BookListScreen extends StatelessWidget {
@@ -82,13 +83,13 @@ class BookListScreen extends StatelessWidget {
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerColor: Colors.transparent,
                     labelStyle: const TextStyle(
-                      fontFamily: 'Outfit',
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'NotoSansTelugu',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
                     ),
                     unselectedLabelStyle: const TextStyle(
-                      fontFamily: 'Outfit',
-                      fontSize: 13,
+                      fontFamily: 'NotoSansTelugu',
+                      fontSize: 18,
                       fontWeight: FontWeight.w400,
                     ),
                     tabs: const [
@@ -96,11 +97,17 @@ class BookListScreen extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('OLD TESTAMENT'),
+                            Text(
+                              'పాత నిబంధన',
+                              style: TextStyle(fontFamily: 'NotoSansTelugu'),
+                            ),
                             SizedBox(height: 2),
                             Opacity(
                               opacity: 0.7,
-                              child: Text('పాత నిబంధన', style: TextStyle(fontSize: 11)),
+                              child: Text(
+                                'OLD TESTAMENT',
+                                style: TextStyle(fontSize: 11, fontFamily: 'Outfit'),
+                              ),
                             ),
                           ],
                         ),
@@ -109,11 +116,17 @@ class BookListScreen extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('NEW TESTAMENT'),
+                            Text(
+                              'కొత్త నిబంధన',
+                              style: TextStyle(fontFamily: 'NotoSansTelugu'),
+                            ),
                             SizedBox(height: 2),
                             Opacity(
                               opacity: 0.7,
-                              child: Text('కొత్త నిబంధన', style: TextStyle(fontSize: 11)),
+                              child: Text(
+                                'NEW TESTAMENT',
+                                style: TextStyle(fontSize: 11, fontFamily: 'Outfit'),
+                              ),
                             ),
                           ],
                         ),
@@ -204,7 +217,7 @@ class BookListScreen extends StatelessWidget {
 
     bool isFirst = true;
     for (final group in groups) {
-      rows.add(_buildGroupHeader(group.label, isDark, isFirst: isFirst));
+      rows.add(_buildGroupHeader(group.label, group.dateText, isDark, isFirst: isFirst));
       isFirst = false;
 
       // Gather books for this group in display order
@@ -212,10 +225,14 @@ class BookListScreen extends StatelessWidget {
           .map((id) => books.firstWhere((b) => b.id == id, orElse: () => BibleBook(id: id, nameEn: id, nameTe: '', chapters: 1, testament: 'OT')))
           .toList();
 
-      // 2-column pairs
-      for (int i = 0; i < groupBooks.length; i += 2) {
+      final int totalCount = groupBooks.length;
+      final int leftCount = (totalCount + 1) ~/ 2;
+
+      // 2-column grid layout (column-first/sequential ordering)
+      for (int i = 0; i < leftCount; i++) {
         final left = groupBooks[i];
-        final right = i + 1 < groupBooks.length ? groupBooks[i + 1] : null;
+        final rightIndex = i + leftCount;
+        final right = rightIndex < totalCount ? groupBooks[rightIndex] : null;
         rows.add(
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
@@ -240,7 +257,7 @@ class BookListScreen extends StatelessWidget {
     return ListView(physics: const BouncingScrollPhysics(), padding: const EdgeInsets.symmetric(vertical: 8), children: rows);
   }
 
-  Widget _buildGroupHeader(String label, bool isDark, {bool isFirst = false}) {
+  Widget _buildGroupHeader(String label, String? dateText, bool isDark, {bool isFirst = false}) {
     return Padding(
       padding: EdgeInsets.fromLTRB(14, isFirst ? 4 : 8, 14, 6),
       child: Row(
@@ -267,6 +284,18 @@ class BookListScreen extends StatelessWidget {
               letterSpacing: 1.5,
             ),
           ),
+          if (dateText != null) ...[
+            const SizedBox(width: 8),
+            Text(
+              '•  $dateText',
+              style: TextStyle(
+                color: isDark ? Colors.white.withValues(alpha: 0.5) : Colors.black.withValues(alpha: 0.5),
+                fontSize: 11.55,
+                fontFamily: 'Outfit',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
           const SizedBox(width: 14),
           Expanded(
             child: Divider(
@@ -298,29 +327,31 @@ class BookListScreen extends StatelessWidget {
           highlightColor: const Color(0xFFFFD700).withValues(alpha: 0.05),
           onTap: () => context.push('/bible/${lp.activeTeluguVersion}/${book.nameEn}'),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+            padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  book.nameEn,
+                  book.nameTe.isNotEmpty ? book.nameTe : book.nameEn,
                   style: TextStyle(
                     color: textColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    fontFamily: 'Outfit',
-                    letterSpacing: 0.3,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                    fontFamily: 'NotoSansTelugu',
+                    height: 1.25,
                   ),
                 ),
                 if (book.nameTe.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(
-                    book.nameTe,
+                    book.nameEn,
                     style: TextStyle(
                       color: textColor.withValues(alpha: 0.7),
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      fontFamily: 'NotoSansTelugu',
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14.4,
+                      fontFamily: 'Outfit',
+                      letterSpacing: 0.3,
+                      height: 1.2,
                     ),
                   ),
                 ],

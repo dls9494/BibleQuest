@@ -53,7 +53,7 @@ class _BibleScreenState extends State<BibleScreen> {
   bool _showLabels = false;
 
   // Font size (persisted)
-  double _fontSize = 18.0;
+  double _fontSize = 20.0;
   static const double _fontSizeMin = 14.0;
   static const double _fontSizeMax = 28.0;
 
@@ -245,7 +245,7 @@ class _BibleScreenState extends State<BibleScreen> {
         } else if (savedFontSize is double) {
           _fontSize = savedFontSize.clamp(_fontSizeMin, _fontSizeMax);
         } else {
-          _fontSize = 18.0; // Default font size = 18pt
+          _fontSize = 20.0; // Default font size = 20pt
         }
       });
     }
@@ -689,22 +689,21 @@ class _BibleScreenState extends State<BibleScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              bookNameEn,
+                              bookNameTe,
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                fontFamily: 'Outfit',
+                                fontSize: 22,
+                                fontFamily: 'NotoSansTelugu',
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
-                              bookNameTe,
+                              bookNameEn,
                               style: TextStyle(
                                 color: Colors.white.withValues(alpha: 0.6),
-                                fontSize: 12,
-                                fontFamily: 'NotoSansTelugu',
+                                fontSize: 18,
+                                fontFamily: 'Outfit',
                                 fontWeight: FontWeight.normal,
                               ),
                               maxLines: 1,
@@ -1872,14 +1871,17 @@ class _BibleScreenState extends State<BibleScreen> {
 
     return GestureDetector(
       onTap: () {
-        if (_selectedVerse != null) {
+        if (_selectedVerse == v.verse) {
+          // Deselect if already selected
           setState(() {
             _selectedVerse = null;
             _showVerseActions = false;
           });
         } else {
+          // Select/highlight this verse only (no action panel)
           setState(() {
-            _barsVisible = !_barsVisible;
+            _selectedVerse = v.verse;
+            _showVerseActions = false;
           });
         }
       },
@@ -1891,8 +1893,8 @@ class _BibleScreenState extends State<BibleScreen> {
         });
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.only(left: 16, right: 16),
+        margin: EdgeInsets.zero,
+        padding: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
           color: isSelected
               ? const Color(0xFFFFD700).withValues(alpha: 0.15)
@@ -1901,147 +1903,144 @@ class _BibleScreenState extends State<BibleScreen> {
                   : Colors.transparent),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Telugu text (always shown in Telugu or Bilingual)
-            if (showTelugu)
-              Text.rich(
-                TextSpan(
-                  children: [
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.top,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 6.0),
-                        child: Text(
-                          '${v.verse}',
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: Color(0xFFFFD700), // Gold/yellow color matching reference
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Outfit',
-                          ),
-                        ),
-                      ),
-                    ),
-                    if (label != null) ...[
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 6),
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: VerseLabels.getLabelColor(label),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            label,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Outfit',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                    TextSpan(
-                      text: v.textTe,
-                      style: TextStyle(
-                        color: const Color(0xFFF5F5F0), // Cream/off-white
-                        fontSize: _fontSize, // Base size
-                        height: 1.8,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'NotoSerifTelugu',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            if (showTelugu && showEnglish) const SizedBox(height: 8.0),
-            // English text (bilingual sub-version)
-            if (showEnglish)
-              Text.rich(
-                TextSpan(
-                  children: [
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.top,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 6.0),
-                        child: Text(
-                          '${v.verse}',
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            color: Color(0xFFFFD700), // Gold/yellow color matching reference
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Outfit',
-                          ),
-                        ),
-                      ),
-                    ),
-                    if (label != null && !showTelugu) ...[
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 6),
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: VerseLabels.getLabelColor(label),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            label,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Outfit',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                    TextSpan(
-                      text: v.textKjv,
-                      style: TextStyle(
-                        color: const Color(0xFF90A4AE), // Muted grey-blue text color for English as shown in reference
-                        fontSize: _fontSize * 0.8,
-                        height: 1.6,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.italic,
-                        fontFamily: 'NotoSerif',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            if (hasNotes) ...[
-              const SizedBox(height: 8),
-              Row(
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.sticky_note_2,
-                    color: Color(0xFFFFD700),
-                    size: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    'Note added',
-                    style: TextStyle(
-                      color: const Color(0xFFFFD700).withValues(alpha: 0.8),
-                      fontSize: 11,
-                      fontStyle: FontStyle.italic,
-                      fontFamily: 'Outfit',
+                  // Telugu text (always shown in Telugu or Bilingual)
+                  if (showTelugu)
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${v.verse}.  ',
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              color: Color(0xFFD4A574), // Warm gold color matching reference
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Outfit',
+                            ),
+                          ),
+                          if (label != null) ...[
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 6),
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: VerseLabels.getLabelColor(label),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  label,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Outfit',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                          TextSpan(
+                            text: v.textTe,
+                            style: TextStyle(
+                              color: const Color(0xFFF5F5F0), // Cream/off-white
+                              fontSize: _fontSize, // Base size
+                              height: 1.7,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'NotoSansTelugu',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  if (showTelugu && showEnglish) const SizedBox(height: 8.0),
+                  // English text (bilingual sub-version)
+                  if (showEnglish)
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          if (!showTelugu)
+                            TextSpan(
+                              text: '${v.verse}.  ',
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFD4A574), // Warm gold color matching reference
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Outfit',
+                              ),
+                            ),
+                          if (label != null && !showTelugu) ...[
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 6),
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: VerseLabels.getLabelColor(label),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  label,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Outfit',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                          TextSpan(
+                            text: v.textKjv,
+                            style: TextStyle(
+                              color: const Color(0xFF90A4AE), // Muted grey-blue text color for English as shown in reference
+                              fontSize: _fontSize * 0.8,
+                              height: 1.6,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'NotoSerif',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (hasNotes) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.sticky_note_2,
+                          color: Color(0xFFFFD700),
+                          size: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Note added',
+                          style: TextStyle(
+                            color: const Color(0xFFFFD700).withValues(alpha: 0.8),
+                            fontSize: 11,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'Outfit',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
-            ],
-            // NEW SEPARATOR
+            ),
+            // Hairline verse separator centered in the gap (bottom of highlight box)
             Container(
-              height: 1,
-              margin: const EdgeInsets.only(top: 12),
-              color: Colors.white.withValues(alpha: 0.05),
+              height: 0.5,
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              color: Colors.white.withValues(alpha: 0.06),
             ),
           ],
         ),

@@ -24,18 +24,18 @@ class DailyVerseCard extends ConsumerWidget {
 
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
+          padding: const EdgeInsets.only(bottom: 11.0),
           child: Container(
             decoration: BoxDecoration(
               color: AppTheme.gold.withValues(alpha: 0.05), // Background: Gold 5%
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: AppTheme.gold.withValues(alpha: 0.4), // Border: Gold 40%
                 width: 1.0,
               ),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(14),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Material(
@@ -46,9 +46,9 @@ class DailyVerseCard extends ConsumerWidget {
                         '/bible/${dailyVerse.version}/${dailyVerse.bookName}/${dailyVerse.chapter}?verse=${dailyVerse.verse}',
                       );
                     },
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(14),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 11.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -56,8 +56,8 @@ class DailyVerseCard extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                  width: 32,
-                                  height: 32,
+                                  width: 29,
+                                  height: 29,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: AppTheme.gold.withValues(alpha: 0.15),
@@ -70,7 +70,7 @@ class DailyVerseCard extends ConsumerWidget {
                                 child: const Icon(
                                   Icons.star_rounded,
                                   color: AppTheme.gold,
-                                  size: 17,
+                                  size: 15,
                                 ),
                               ),
                               const SizedBox(width: 12),
@@ -82,7 +82,7 @@ class DailyVerseCard extends ConsumerWidget {
                                       text: TextSpan(
                                         style: TextStyle(
                                           color: AppTheme.gold,
-                                          fontSize: 10,
+                                          fontSize: 9,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.5,
                                         ),
@@ -96,7 +96,8 @@ class DailyVerseCard extends ConsumerWidget {
                                           const TextSpan(
                                             text: "నేటి వాక్యము",
                                             style: TextStyle(
-                                              fontFamily: 'Mandali',
+                                              fontFamily: 'NotoSansTelugu',
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -107,7 +108,7 @@ class DailyVerseCard extends ConsumerWidget {
                                        text: TextSpan(
                                          style: const TextStyle(
                                            color: Colors.white,
-                                           fontSize: 14,
+                                           fontSize: 13,
                                            fontWeight: FontWeight.w600,
                                          ),
                                          children: [
@@ -121,9 +122,12 @@ class DailyVerseCard extends ConsumerWidget {
                                                style: TextStyle(fontFamily: 'Outfit'),
                                              ),
                                              TextSpan(
-                                               text: displayBookNameTe,
-                                               style: const TextStyle(fontFamily: 'Mandali'),
-                                             ),
+                                              text: displayBookNameTe,
+                                              style: const TextStyle(
+                                                fontFamily: 'NotoSansTelugu',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                              const TextSpan(
                                                text: ')',
                                                style: TextStyle(fontFamily: 'Outfit'),
@@ -140,7 +144,7 @@ class DailyVerseCard extends ConsumerWidget {
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.share, color: AppTheme.gold, size: 20),
+                                icon: const Icon(Icons.share, color: AppTheme.gold, size: 18),
                                 padding: EdgeInsets.zero,
                                 constraints: const BoxConstraints(),
                                 onPressed: () async {
@@ -172,9 +176,10 @@ class DailyVerseCard extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: Colors.white.withValues(alpha: 0.85), // Verse: White, 85% opacity
-                              fontSize: 14,
+                              fontSize: 13,
                               height: 1.6,
-                              fontFamily: 'Mandali',
+                              fontFamily: 'NotoSansTelugu',
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ],
