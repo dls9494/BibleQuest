@@ -598,9 +598,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
                         // 4. Sharpen Your Weakness (conditional)
                         const SharpenWeaknessCard(),
                         const SizedBox(height: 12),
-                        // 5. Custom Chapter Quiz
-                        _buildCustomQuizCard(),
-                        const SizedBox(height: 20),
+
 
                         _buildCategoryFilters(),
                         const SizedBox(height: 16),
@@ -2205,86 +2203,7 @@ class _QuizTabState extends State<QuizTab> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildCustomQuizCard() {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? (isDark ? Colors.white : Color(0xFF3E2723));
-    final subTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? (isDark ? Color(0xFFCBC3D4) : Color(0xFF5D4037));
-    final accentColor = const Color(0xFF10B981); // Emerald green
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: isDark ? 15 : 0, sigmaY: isDark ? 15 : 0),
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: isDark ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFD4A574).withValues(alpha: 0.4),
-              ),
-              boxShadow: isDark
-                  ? null
-                  : [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      )
-                    ],
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: accentColor.withValues(alpha: 0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.tune_rounded, color: accentColor),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Custom Chapter Quiz',
-                        style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 16, fontFamily: 'Outfit'),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Generate a quiz from a custom chapter range!',
-                        style: TextStyle(color: subTextColor, fontSize: 12, fontFamily: 'Outfit'),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/custom-quiz-creator');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: accentColor,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 2,
-                  ),
-                  child: const Text('CREATE', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'Outfit')),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildGlassCard({required Widget child, bool isGold = false}) {
     return ClipRRect(
